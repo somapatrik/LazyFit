@@ -1,4 +1,6 @@
-﻿namespace LazyFit;
+﻿using LazyFit.Services;
+
+namespace LazyFit;
 
 public partial class App : Application
 {
@@ -7,5 +9,12 @@ public partial class App : Application
 		InitializeComponent();
 
 		MainPage = new AppShell();
+
+		InitDb();
+	}
+
+	public async void InitDb()
+	{
+		await DB.InitDB();
 	}
 }

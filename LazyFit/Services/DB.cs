@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using LazyFit.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +33,8 @@ namespace LazyFit.Services
                 return;
 
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
-        
-            //await Database.CreateTableAsync<PlcGroup>();
-            //await Database.CreateTableAsync<S7Plc>();
-            //await Database.CreateTableAsync<S7Address>();
+
+            await Database.CreateTableAsync<Fast>();
         }
 
 
