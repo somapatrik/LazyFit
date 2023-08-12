@@ -24,6 +24,12 @@ namespace LazyFit.Models
             Id = id;
         }
 
+        public void End()
+        {
+            EndTime = DateTime.Now;
+            Completed = EndTime >= StartTime.AddMinutes(PlanMinutes);
+        }
+
         public void SetHours(int hours)
         {
             PlanMinutes = hours * 60;
@@ -35,11 +41,27 @@ namespace LazyFit.Models
             minutes = PlanMinutes % 60;
         }
 
-        public void End()
+        public double GetElapsedTimePercentage()
         {
-            EndTime = DateTime.Now;
-            
+            DateTime currentTime = DateTime.Now;
+            TimeSpan elapsedTime = currentTime - StartTime;
+
+            if (elapsedTime.TotalMinutes >= PlanMinutes)
+            {
+                return 100.0;
+            }
+            else if (elapsedTime.TotalMinutes <= 0)
+            {
+                return 0.0;
+            }
+            else
+            {
+                double percentage = (elapsedTime.TotalMinutes / PlanMinutes) * 100.0;
+                return Math.Round(percentage, 2);
+            }
         }
+
+
     }
 
 }
