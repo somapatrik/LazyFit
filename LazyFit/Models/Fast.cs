@@ -17,6 +17,13 @@ namespace LazyFit.Models
         public bool Completed { get; set; }
 
 
+        public Fast() { }
+
+        public Fast(Guid id)
+        {
+            Id = id;
+        }
+
         public void SetHours(int hours)
         {
             PlanMinutes = hours * 60;
@@ -27,5 +34,12 @@ namespace LazyFit.Models
             hours = PlanMinutes / 60;
             minutes = PlanMinutes % 60;
         }
+
+        public void End()
+        {
+            EndTime = DateTime.Now;
+            
+        }
     }
+
 }

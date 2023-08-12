@@ -40,5 +40,10 @@ namespace LazyFit.Services
 
         #endregion
 
+        public static async Task InsertFast(Fast fast)
+        {
+            await Database.InsertAsync(fast);
+        }
+
     }
 }
