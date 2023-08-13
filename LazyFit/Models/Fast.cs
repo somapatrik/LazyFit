@@ -1,9 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LazyFit.Models
 {
@@ -12,7 +7,7 @@ namespace LazyFit.Models
         [PrimaryKey]
         public Guid Id { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set;}
+        public DateTime? EndTime { get; set;}
         public int PlanMinutes { get; set; }
         public bool Completed { get; set; }
 
@@ -22,6 +17,7 @@ namespace LazyFit.Models
         public Fast(Guid id)
         {
             Id = id;
+            StartTime = DateTime.Now;
         }
 
         public void End()

@@ -9,5 +9,12 @@ public partial class FastingView : ContentView
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = new FastingViewModel();
+		//RefreshData();
 	}
+
+	//public async void RefreshData()
+	//{
+ //       await _viewModel.RefreshFastData();
+
+ //   }
 }

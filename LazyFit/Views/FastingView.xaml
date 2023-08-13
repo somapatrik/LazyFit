@@ -6,18 +6,27 @@
     <Border >
 
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="10,10,10,10" />
+            <RoundRectangle CornerRadius="3" />
         </Border.StrokeShape>
 
-        <VerticalStackLayout Spacing="10">
+        <VerticalStackLayout>
 
         <Label 
             Text="Fasting"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            VerticalTextAlignment="Center" />
 
+            <Label 
+            Text="{Binding isFastActive}"
+            VerticalTextAlignment="Center" />
+
+            <Label 
+            Text="{Binding ActiveFast.Id}"
+            VerticalTextAlignment="Center" />
 
             <Button Text="Start fast" Command="{Binding OpenFasting}"/>
+
+
+            <Button Text="Stop" IsVisible="{Binding isFastActive}"/>
 
 
 

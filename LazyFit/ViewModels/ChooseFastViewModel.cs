@@ -1,43 +1,48 @@
-﻿
+﻿using LazyFit.Models;
+using LazyFit.Services;
+using Mopups.Services;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace LazyFit.ViewModels
 {
-    public class FastingOption
-    {
-        public int Hours { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ShouldEnd { get; set; }
-
-        public FastingOption(int hours, string name, string description)
-        {
-            Hours = hours;
-            Name = name;
-            Description = description;
-            DateTime shouldEnd = DateTime.Now.AddHours(hours);
-            ShouldEnd = shouldEnd.ToShortDateString();
-        }
-    }
 
     class ChooseFastViewModel : PrimeViewModel
     {
         private ObservableCollection<FastingOption> _FastingOptions;
         public ObservableCollection<FastingOption> FastingOptions { get => _FastingOptions; set => SetProperty(ref _FastingOptions,value); }
 
+        public ICommand StartFast { get; private set; }
+
+        public bool OptionSelected { get; private set; }
+
         public ChooseFastViewModel() 
         {
             FastingOptions = new ObservableCollection<FastingOption>()
             {
-                new FastingOption(4, "4 hours", "You pussy, that is not really a fast"),
+                new FastingOption(4, "4 hours", "Also known as pussyfast..."),
                 new FastingOption(6, "6 hours", "Good for you"),
-                new FastingOption(8, "8 hours", "Nice"),
-                new FastingOption(10, "10 hours", "Jesus! Why?"),
-                new FastingOption(12, "12 hours", "Oh no..."),
-                new FastingOption(16, "16 hours", ""),
-                new FastingOption(24, "1 day", "Oh no...")
+                new FastingOption(8, "8 hours", "Real deal"),
+                new FastingOption(10, "10 hours", "You love to suffer...good"),
+                new FastingOption(12, "12 hours", "Do you really want to do it?"),
+                new FastingOption(16, "16 hours", "Wouldn´t recommend it")
             };
 
+            StartFast = new Command(StartFastHandler);
+
+        }
+
+        private async void StartFastHandler(object selectedFast)
+        {
+            FastingOption option = (FastingOption)selectedFast;
+
+            Fast fast = new Fast(Guid.NewGuid());
+            fast.SetHours(option.Hours);
+
+            await DB.InsertFast(fast);
+
+            OptionSelected = true;
+            await MopupService.Instance.PopAsync();
         }
     }
 }

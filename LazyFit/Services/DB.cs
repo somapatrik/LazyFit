@@ -1,4 +1,5 @@
-﻿using LazyFit.Models;
+﻿
+using LazyFit.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -40,9 +41,19 @@ namespace LazyFit.Services
 
         #endregion
 
+        public static async Task<Fast> GetRunningFast()
+        {
+            return await Database.Table<Fast>().Where(f => f.EndTime == null).FirstOrDefaultAsync();
+        }
+
         public static async Task InsertFast(Fast fast)
         {
             await Database.InsertAsync(fast);
+        }
+
+        public static async Task UpdateFast(Fast fast)
+        {
+            await Database.UpdateAsync(fast);
         }
 
     }
