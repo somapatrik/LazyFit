@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.FastingView">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <Border >
 
@@ -11,22 +18,18 @@
 
         <VerticalStackLayout>
 
-        <Label 
+            <Label 
             Text="Fasting"
             VerticalTextAlignment="Center" />
 
             <Label 
-            Text="{Binding isFastActive}"
+            Text="{Binding ActiveFast.StartTime}"
             VerticalTextAlignment="Center" />
 
-            <Label 
-            Text="{Binding ActiveFast.Id}"
-            VerticalTextAlignment="Center" />
-
-            <Button Text="Start fast" Command="{Binding OpenFasting}"/>
+            <Button Text="Start fast" Command="{Binding OpenFasting}" IsVisible="{Binding isFastActive,Converter={StaticResource InverseBoolConverter}}"/>
 
 
-            <Button Text="Stop" IsVisible="{Binding isFastActive}"/>
+            <Button Text="Stop fast" Command="{Binding StopFasting}" IsVisible="{Binding isFastActive}"/>
 
 
 

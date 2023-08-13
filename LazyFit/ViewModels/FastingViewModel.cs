@@ -17,6 +17,7 @@ namespace LazyFit.ViewModels
         public Fast ActiveFast { get => _ActiveFast; set => SetProperty(ref _ActiveFast,value); }
 
         public ICommand OpenFasting { get; private set; }
+        public ICommand StopFasting { get; private set; }
 
         public FastingViewModel() 
         {
@@ -27,6 +28,15 @@ namespace LazyFit.ViewModels
         private void RelayCommands()
         {
             OpenFasting = new Command(OpenFastingStart);
+            StopFasting = new Command(StopFastingHandler);
+        }
+
+        private async void StopFastingHandler()
+        {
+            ActiveFast.End();
+            await DB.UpdateFast(ActiveFast);
+            ActiveFast = null;
+            isFastActive = false;
         }
 
         private async void OpenFastingStart()
