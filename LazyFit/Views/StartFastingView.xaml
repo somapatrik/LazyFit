@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="LazyFit.Views.StartFastingView">
-    
-    <VerticalStackLayout Padding="10">
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="LazyFit.Views.StartFastingView"
+                  Background="#80000000">
 
-        <Label 
-            Text="Choose your fast"/>
-        
-        <CollectionView ItemsSource="{Binding FastingOptions}">
+    <Border VerticalOptions="Center" HorizontalOptions="Center" Background="white" Padding="10" Margin="10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="3"/>
+        </Border.StrokeShape>
+        <VerticalStackLayout >
+
+            <Label Text="Choose your fast"/>
+
+            <CollectionView ItemsSource="{Binding FastingOptions}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="5">
+                        <Border Margin="10,3" Padding="10">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="5"/>
                             </Border.StrokeShape>
 
-                            <Grid HorizontalOptions="CenterAndExpand">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                                <Label Text="{Binding Name}"/>
-                                <Label Grid.Column="2" Text="{Binding Description}"  />
+                                <Label Grid.RowSpan="2" Text="{Binding Name}" VerticalTextAlignment="Center"/>
+
+                                <Label Grid.Column="2" Text="{Binding ShouldEnd}" HorizontalTextAlignment="End" />
+                                <Label Grid.Row="1" Grid.Column="2" Text="{Binding Description}" HorizontalTextAlignment="End" />
 
                             </Grid>
                         </Border>
@@ -36,5 +46,5 @@
 
 
         </VerticalStackLayout>
-    
-</toolkit:Popup>
+    </Border>
+</mopups:PopupPage>

@@ -33,7 +33,9 @@ namespace LazyFit.ViewModels
                 new FastingOption(6, "6 hours", "Good for you"),
                 new FastingOption(8, "8 hours", "Nice"),
                 new FastingOption(10, "10 hours", "Jesus! Why?"),
-                new FastingOption(12, "12 hours", "Oh no...")
+                new FastingOption(12, "12 hours", "Oh no..."),
+                new FastingOption(16, "16 hours", ""),
+                new FastingOption(24, "1 day", "Oh no...")
             };
 
         }

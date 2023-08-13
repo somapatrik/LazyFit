@@ -24,9 +24,15 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
                             <Label Text="{Binding Name}"/>
-                            <Label Grid.Column="2" Text="{Binding Description}" HorizontalTextAlignment="End" />
+
+                            <Label Grid.Column="2" Text="{Binding ShouldEnd}" HorizontalTextAlignment="End" />
+                            <Label Grid.Row="1" Grid.Column="2" Text="{Binding Description}" HorizontalTextAlignment="End" />
 
                         </Grid>
                     </Border>
