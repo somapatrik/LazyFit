@@ -1,12 +1,11 @@
-using CommunityToolkit.Maui.Views;
 using LazyFit.ViewModels;
 
-namespace LazyFit.Views;
+namespace LazyFit.Pages;
 
-public partial class StartFastingView : Popup
+public partial class FastOptionsPage : ContentPage
 {
 	ChooseFastViewModel _viewModel;
-	public StartFastingView()
+	public FastOptionsPage()
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = new ChooseFastViewModel();

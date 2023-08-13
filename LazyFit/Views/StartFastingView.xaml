@@ -4,79 +4,37 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.Views.StartFastingView">
     
-    <VerticalStackLayout Spacing="5" Margin="10">
+    <VerticalStackLayout Padding="10">
 
         <Label 
             Text="Choose your fast"/>
+        
+        <CollectionView ItemsSource="{Binding FastingOptions}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5"/>
+                            </Border.StrokeShape>
 
-        <Border>
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5"/>
-            </Border.StrokeShape>
+                            <Grid HorizontalOptions="CenterAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}"/>
+                                <Label Grid.Column="2" Text="{Binding Description}"  />
 
-                <Label Text="4 hours" Margin="10"/>
-                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            </Grid>
-        </Border>
 
-        <Border>
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5"/>
-            </Border.StrokeShape>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
 
-                <Label Text="4 hours" Margin="10"/>
-                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
-
-            </Grid>
-        </Border>
-
-        <Border>
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5"/>
-            </Border.StrokeShape>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Label Text="4 hours" Margin="10"/>
-                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
-
-            </Grid>
-        </Border>
-
-        <Border>
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5"/>
-            </Border.StrokeShape>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Label Text="4 hours" Margin="10"/>
-                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
-
-            </Grid>
-        </Border>
-
-    </VerticalStackLayout>
+        </VerticalStackLayout>
     
 </toolkit:Popup>
