@@ -2,12 +2,29 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LazyFit.Views.FastingView">
-    <VerticalStackLayout>
+
+    <Border >
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10,10,10,10" />
+        </Border.StrokeShape>
+
+        <VerticalStackLayout Spacing="10">
+
         <Label 
-            Text="Fasting view"
+            Text="Fasting"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
-        
-    </VerticalStackLayout>
+
+
+            <Button Text="Start fast" Command="{Binding OpenFasting}"/>
+
+
+
+
+        </VerticalStackLayout>
+
+    </Border>
+    
+    
 </ContentView>

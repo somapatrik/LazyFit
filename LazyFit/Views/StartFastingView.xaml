@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LazyFit.Views.StartFastingView">
+    
+    <VerticalStackLayout Spacing="5" Margin="10">
+
+        <Label 
+            Text="Choose your fast"/>
+
+        <Border>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5"/>
+            </Border.StrokeShape>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="4 hours" Margin="10"/>
+                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
+
+            </Grid>
+        </Border>
+
+        <Border>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5"/>
+            </Border.StrokeShape>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="4 hours" Margin="10"/>
+                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
+
+            </Grid>
+        </Border>
+
+        <Border>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5"/>
+            </Border.StrokeShape>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="4 hours" Margin="10"/>
+                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
+
+            </Grid>
+        </Border>
+
+        <Border>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5"/>
+            </Border.StrokeShape>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="4 hours" Margin="10"/>
+                <Label Grid.Column="2" Text="for pussies" Margin="10"/>
+
+            </Grid>
+        </Border>
+
+    </VerticalStackLayout>
+    
+</toolkit:Popup>

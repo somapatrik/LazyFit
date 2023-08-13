@@ -6,7 +6,7 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
             
             <views:FastingView />
 
