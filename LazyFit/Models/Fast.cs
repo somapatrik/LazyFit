@@ -37,6 +37,22 @@ namespace LazyFit.Models
             minutes = PlanMinutes % 60;
         }
 
+        public DateTime GetPlannedEnd()
+        {
+            return StartTime.AddMinutes(PlanMinutes);
+        }
+
+        public TimeSpan GetTimeSpanUntilEnd()
+        {
+            DateTime now = DateTime.Now;
+            DateTime planEnd = GetPlannedEnd();
+
+            if (now > planEnd)
+                return TimeSpan.Zero;
+
+            return planEnd - now;
+        }
+
         public double GetElapsedTimePercentage()
         {
             DateTime currentTime = DateTime.Now;

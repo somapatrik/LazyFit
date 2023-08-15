@@ -3,6 +3,7 @@ using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
 using Mopups.Services;
+using System;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels
@@ -18,25 +19,60 @@ namespace LazyFit.ViewModels
 
         public ICommand OpenFasting { get; private set; }
         public ICommand StopFasting { get; private set; }
+        public ICommand ShowStopDialog { get; private set; }
+
+        private string _timerMessage;
+        public string TimerMessage { get => _timerMessage;set => SetProperty(ref _timerMessage,value); }
+
+        private double _percentDone;
+        public double PercentDone { get => _percentDone; set => SetProperty(ref _percentDone, value); }
+
+        private Timer refreshTimer;
 
         public FastingViewModel() 
         {
             RelayCommands();
+            refreshTimer = new Timer(TimerHandler,null,Timeout.Infinite, 1000);
+
             RefreshFastData();
+        }
+
+        private void TimerHandler(object state)
+        {
+            PercentDone = ActiveFast.GetElapsedTimePercentage() / 100;
+            TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
+            TimerMessage = untilEnd.ToString(@"hh\:mm\:ss");
         }
 
         private void RelayCommands()
         {
             OpenFasting = new Command(OpenFastingStart);
             StopFasting = new Command(StopFastingHandler);
+            ShowStopDialog = new Command(StopDialogHandler);
+        }
+
+        private async void StopDialogHandler()
+        {
+            if (DateTime.Now < ActiveFast.GetPlannedEnd() && 
+                await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY FAT", "no...sorry") == false)
+            {
+                return;
+            }
+
+            StopFastingHandler();
         }
 
         private async void StopFastingHandler()
         {
+            refreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
             ActiveFast.End();
             await DB.UpdateFast(ActiveFast);
+            
             ActiveFast = null;
             isFastActive = false;
+            TimerMessage = "";
+            PercentDone = 0;
         }
 
         private async void OpenFastingStart()
@@ -56,6 +92,11 @@ namespace LazyFit.ViewModels
         {
             ActiveFast = await DB.GetRunningFast();
             isFastActive = ActiveFast != null;
+            if(ActiveFast != null)
+            {
+                isFastActive = true;
+                refreshTimer.Change(0, 1000);
+            }
         }
     }
 }

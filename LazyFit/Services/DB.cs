@@ -41,6 +41,11 @@ namespace LazyFit.Services
 
         #endregion
 
+        public static async Task<List<Fast>> GetFastHistory()
+        {
+            return await Database.Table<Fast>().Where(f=> f.EndTime != null).OrderByDescending(x=>x.StartTime).ToListAsync();
+        }
+
         public static async Task<Fast> GetRunningFast()
         {
             return await Database.Table<Fast>().Where(f => f.EndTime == null).FirstOrDefaultAsync();
@@ -55,6 +60,8 @@ namespace LazyFit.Services
         {
             await Database.UpdateAsync(fast);
         }
+
+
 
     }
 }

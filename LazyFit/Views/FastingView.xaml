@@ -10,26 +10,50 @@
         </ResourceDictionary>
     </ContentView.Resources>
 
-    <Border >
+
+
+    <Border>
 
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="3" />
+            <RoundRectangle CornerRadius="15" />
         </Border.StrokeShape>
 
         <VerticalStackLayout>
 
             <Label 
-            Text="Fasting"
-            VerticalTextAlignment="Center" />
+                Text="Fasting"
+                VerticalTextAlignment="Start" 
+                FontAttributes="None"
+                FontSize="Medium"
+                TextColor="White"
+                BackgroundColor="{StaticResource Primary}"
+                Padding="10"/>
 
             <Label 
-            Text="{Binding ActiveFast.StartTime}"
-            VerticalTextAlignment="Center" />
+                Text="{Binding TimerMessage}"
+                HorizontalTextAlignment="Center" 
+                Padding="8"
+                FontSize="Large"
+                IsVisible="{Binding isFastActive}"/>
 
-            <Button Text="Start fast" Command="{Binding OpenFasting}" IsVisible="{Binding isFastActive,Converter={StaticResource InverseBoolConverter}}"/>
+            <ProgressBar 
+                Progress="{Binding PercentDone}" 
+                ScaleY="2" 
+                IsVisible="{Binding isFastActive}"/>
 
+            
+            <Button Text="Let´s get hungry" 
+                    Command="{Binding OpenFasting}" 
+                    IsVisible="{Binding isFastActive,Converter={StaticResource InverseBoolConverter}}"
+                    CornerRadius="0"
+                    FontSize="Medium"/>
+            
 
-            <Button Text="Stop fast" Command="{Binding StopFasting}" IsVisible="{Binding isFastActive}"/>
+            <Button Text="End the suffering" 
+                    Command="{Binding ShowStopDialog}" 
+                    IsVisible="{Binding isFastActive}" 
+                    CornerRadius="0"
+                    FontSize="Medium"/>
 
 
 
