@@ -67,4 +67,4 @@ jobs:
         run: dotnet restore LazyFit/LazyFit.csproj
 
       - name: Build MAUI Windows
-        run: dotnet publish LazyFit/LazyFit.csproj -c Release -f net6.0-windows10.0.19041.0 --no-restore
+        run: dotnet publish LazyFit/LazyFit.csproj -c Release -f net7.0-windows10.0.19041.0 --no-restore
