@@ -36,10 +36,16 @@ namespace LazyFit.Services
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
             await Database.CreateTableAsync<Fast>();
+            await Database.CreateTableAsync<Cafe>();
         }
 
 
         #endregion
+
+        public static async Task InsertCafe(Cafe cafe)
+        {
+            await Database.InsertAsync(cafe);
+        }
 
         public static async Task<List<Fast>> GetFastHistory()
         {
