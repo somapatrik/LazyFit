@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LazyFit.ViewModels
 {
-    internal class PrimeViewModel : INotifyPropertyChanged
+    public class PrimeViewModel : INotifyPropertyChanged
     {
        protected bool SetProperty<T>(ref T backingStore, T value,
        [CallerMemberName] string propertyName = "",

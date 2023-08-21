@@ -11,5 +11,4 @@ public partial class FastList : ContentView
 		BindingContext = FastHistoryViewModel = new FastHistoryViewModel();
 	}
 
-	
 }

@@ -6,7 +6,14 @@
 
 
     <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding FastHistory}">
+
+        <Border Padding="10">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15" />
+            </Border.StrokeShape>
+
+            <CollectionView ItemsSource="{Binding FastHistory}">
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -24,5 +31,8 @@
             </CollectionView.ItemTemplate>
             
         </CollectionView>
+
+        </Border>
+
     </VerticalStackLayout>
 </ContentView>

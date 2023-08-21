@@ -10,8 +10,8 @@ namespace LazyFit.Models
     public class Cafe
     {
         [PrimaryKey]
-        private Guid Id { get;  }    
-        private DateTime CafeTime { get; }
+        public Guid Id { get; set; }    
+        public DateTime CafeTime { get; set; }
 
         public Cafe() { }
 

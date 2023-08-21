@@ -7,8 +7,12 @@
 
     <ScrollView>
         <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
-            
+
+            <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
+
             <views:FastingView />
+
+            <Button Text="Results" Command="{Binding OpenResults}"/>
 
 
         </StackLayout>

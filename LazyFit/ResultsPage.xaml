@@ -4,7 +4,13 @@
              xmlns:views="clr-namespace:LazyFit.Views"
              x:Class="LazyFit.ResultsPage"
              Title="ResultsPage">
-    <VerticalStackLayout>
-        <views:FastList/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="10">
+
+            <Label Text="Results" Style="{StaticResource PageHeader}"/>
+
+            <views:FastList/>
+        
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

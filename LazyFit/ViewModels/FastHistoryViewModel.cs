@@ -18,8 +18,8 @@ namespace LazyFit.ViewModels
         public ICommand RefreshHistory { private set; get; }
         public FastHistoryViewModel() 
         {
-            //RefreshHistory = new Command(LoadHistory);
-            //LoadHistory();
+            RefreshHistory = new Command(LoadHistory);
+            LoadHistory();
         }
 
         private async void LoadHistory()
