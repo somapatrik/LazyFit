@@ -2,6 +2,8 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:LazyFit.Models"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.FastList">
 
 
@@ -16,15 +18,24 @@
             <CollectionView ItemsSource="{Binding FastHistory}">
             
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
+                <DataTemplate x:DataType="models:Fast">
+                    <Grid Margin="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Text="{Binding StartTime}"/>
-                        <Label Grid.Column="1" Text="{Binding EndTime}"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" 
+                                   Grid.Column="1" 
+                                   HorizontalOptions="End"
+                                   Text="{Binding Completed, Converter={converters:CompletedToLabelConverter}}"/>
+                            
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding EndTime, Converter={converters:DatetimeToDateConverter}}"/>
 
                     </Grid>
                 </DataTemplate>

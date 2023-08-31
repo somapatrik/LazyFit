@@ -13,8 +13,8 @@ public partial class App : Application
 		InitDb();
 	}
 
-	public async void InitDb()
+	public void InitDb()
 	{
-		await DB.InitDB();
+		DB.InitDB();
 	}
 }

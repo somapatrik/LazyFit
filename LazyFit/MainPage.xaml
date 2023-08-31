@@ -6,7 +6,7 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
+        <StackLayout Orientation="Vertical" Spacing="5" Padding="5">
 
             <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
 

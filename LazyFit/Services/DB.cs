@@ -36,16 +36,45 @@ namespace LazyFit.Services
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
             await Database.CreateTableAsync<Fast>();
-            await Database.CreateTableAsync<Cafe>();
+            await Database.CreateTableAsync<Mood>();
         }
 
 
         #endregion
 
-        public static async Task InsertCafe(Cafe cafe)
+
+
+
+        #region Mood
+
+        public static async Task InsertMood(Mood mood)
         {
-            await Database.InsertAsync(cafe);
+            await Database.InsertAsync(mood);
         }
+
+        public static async Task UpdateMood(Mood mood)
+        {
+            await Database.UpdateAsync(mood);
+        }
+
+        public static async Task DeleteMood(Mood mood)
+        {
+            await Database.DeleteAsync(mood);
+        }
+
+        public static async Task<List<Mood>> GetAllMoods()
+        {
+           return await Database.Table<Mood>().ToListAsync();
+        }
+
+        public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime)
+        {
+            return await Database.Table<Mood>().Where(m=> (fromTime <= m.Time) && (m.Time >= toTime)).ToListAsync();
+        }
+
+        #endregion
+
+        #region Fast
 
         public static async Task<List<Fast>> GetFastHistory()
         {
@@ -67,7 +96,7 @@ namespace LazyFit.Services
             await Database.UpdateAsync(fast);
         }
 
-
+        #endregion
 
     }
 }

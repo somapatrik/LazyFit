@@ -4,18 +4,10 @@
              xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.FastingView">
 
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
-        </ResourceDictionary>
-    </ContentView.Resources>
-
-
-
-    <Border>
+    <Border Style="{StaticResource FastingBorder}">
 
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="15" />
+            <RoundRectangle CornerRadius="5" />
         </Border.StrokeShape>
 
         <VerticalStackLayout>
@@ -24,9 +16,8 @@
                 Text="Fasting"
                 VerticalTextAlignment="Start" 
                 FontAttributes="None"
-                FontSize="Medium"
-                BackgroundColor="{StaticResource White}"
-                Padding="10"/>
+                TextColor="White"
+                FontSize="Medium"/>
 
             <Label 
                 Text="{Binding TimerMessage}"
@@ -43,9 +34,9 @@
                 IsVisible="{Binding isFastActive}"/>
 
             
-            <Button Text="Let´s get hungry" 
+            <!--<Button Text="Let´s get hungry" 
                     Command="{Binding OpenFasting}" 
-                    IsVisible="{Binding isFastActive,Converter={StaticResource InverseBoolConverter}}"
+                    IsVisible="{Binding isFastActive,Converter={converters:InverseBoolConverter}}"
                     CornerRadius="0"
                     FontSize="Medium"/>
             
@@ -54,7 +45,7 @@
                     Command="{Binding ShowStopDialog}" 
                     IsVisible="{Binding isFastActive}" 
                     CornerRadius="0"
-                    FontSize="Medium"/>
+                    FontSize="Medium"/>-->
 
 
 

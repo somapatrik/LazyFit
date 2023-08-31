@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <LinearGradientBrush x:Key="FastingBorderGradient" EndPoint="1,0">
+        <GradientStop Color="#642B73"
+                          Offset="1.1" />
+        <GradientStop Color="#C6426E"
+                          Offset="0.0" />
+    </LinearGradientBrush>
+
+    <Style x:Key="FastingBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource FastingBorderGradient}"/>
+    </Style>
+
+</ResourceDictionary>
