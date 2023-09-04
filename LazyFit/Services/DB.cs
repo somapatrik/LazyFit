@@ -37,11 +37,17 @@ namespace LazyFit.Services
 
             await Database.CreateTableAsync<Fast>();
             await Database.CreateTableAsync<Mood>();
+            await Database.CreateTableAsync<Drink>();
         }
 
 
         #endregion
 
+
+        public static async Task InsertDrink(Drink drink)
+        {
+            await Database.InsertAsync(drink);
+        }
 
 
 

@@ -69,6 +69,9 @@
 	  <MauiXaml Update="Views\FastList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\LogButtonsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\StartFastingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

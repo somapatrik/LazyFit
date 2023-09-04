@@ -11,7 +11,16 @@
     </LinearGradientBrush>
 
     <Style x:Key="FastingBorder" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource FastingBorderGradient}"/>
+        <Setter Property="Background" Value="{StaticResource White}"/>
+    </Style>
+
+
+    <Style x:Key="ButtonOk" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Primary}"/>
+    </Style>
+
+    <Style x:Key="ButtonNOk" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource GithubRed}"/>
     </Style>
 
 </ResourceDictionary>

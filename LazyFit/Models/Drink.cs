@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LazyFit.Models
 {
-    class Drink
+    public class Drink
     {
         public Guid Id { get; set; }
         public DateTime Time { get; set; }

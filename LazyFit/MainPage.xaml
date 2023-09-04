@@ -3,16 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:LazyFit.Views"
              x:Class="LazyFit.MainPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Background="{StaticResource GithubLight}">
 
     <ScrollView>
-        <StackLayout Orientation="Vertical" Spacing="5" Padding="5">
+        <StackLayout Orientation="Vertical" Spacing="20" Padding="0">
 
             <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
 
             <views:FastingView />
 
-            <Button Text="Results" Command="{Binding OpenResults}"/>
+            <views:LogButtonsView />
+
+            <!--<Button Text="Results" Command="{Binding OpenResults}"/>-->
 
 
         </StackLayout>

@@ -8,6 +8,7 @@
         <Setter Property="FontSize" Value="Large"/>
         <Setter Property="FontAttributes" Value="Bold"/>
         <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="Margin" Value="5,10"/>
     </Style>
 
     <Style TargetType="ActivityIndicator">
