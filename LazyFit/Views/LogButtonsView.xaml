@@ -27,7 +27,7 @@
             <Button Grid.Row="1" Grid.Column="1" Text="Mood" Command="{Binding ShowLogMood}" Background="darkblue"/>
             <Button Grid.Row="1" Grid.Column="0" Text="Weight" Background="orangered"/>
             <Button Grid.Column="1" Text="Drink" Command="{Binding ShowDrink}" Background="{StaticResource BootstrapWarningBg}"/>
-            <Button Grid.Column="0" Text="Food" Background="{StaticResource NexenColor}"/>
+            <Button Grid.Column="0" Text="Food" Command="{Binding ShowFood}" Background="{StaticResource NexenColor}"/>
 
 
         </Grid>

@@ -1,12 +1,5 @@
-﻿
-using LazyFit.Models;
+﻿using LazyFit.Models;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LazyFit.Services
 {
@@ -38,18 +31,48 @@ namespace LazyFit.Services
             await Database.CreateTableAsync<Fast>();
             await Database.CreateTableAsync<Mood>();
             await Database.CreateTableAsync<Drink>();
+            await Database.CreateTableAsync<Food>();
+            await Database.CreateTableAsync<Weight>();
         }
 
 
         #endregion
 
+        #region Weight
+        public static async Task InsertWeight(Weight weight)
+        {
+            await Database.InsertAsync(weight);
+        }
 
+        public static async Task UpdateWeight(Weight weight)
+        {
+            await Database.UpdateAsync(weight);
+        }
+
+        public static async Task DeleteWeight(Weight weight)
+        {
+            await Database.DeleteAsync(weight);
+        }
+
+        public static async Task<Weight> GetWeight(Guid id)
+        {
+            return await Database.Table<Weight>().FirstOrDefaultAsync(w => w.Id == id);
+        }
+        #endregion
+
+        #region Food
+        public static async Task InsertFood(Food food)
+        {
+            await Database.InsertAsync(food);
+        }
+        #endregion
+
+        #region Drink
         public static async Task InsertDrink(Drink drink)
         {
             await Database.InsertAsync(drink);
         }
-
-
+        #endregion
 
         #region Mood
 
@@ -89,7 +112,7 @@ namespace LazyFit.Services
 
         public static async Task<Fast> GetRunningFast()
         {
-            return await Database.Table<Fast>().Where(f => f.EndTime == null).FirstOrDefaultAsync();
+            return await Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);
         }
 
         public static async Task InsertFast(Fast fast)

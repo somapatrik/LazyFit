@@ -16,11 +16,25 @@ namespace LazyFit.ViewModels
 
         public ICommand ShowDrink { get; private set; }
 
+        public ICommand ShowFood { get; private set; }
+
         public LogMoodViewModel() 
         {
             LogMood = new Command(LogMoodHandler);
             ShowLogMood = new Command(ShowLogMoodHandler);
             ShowDrink = new Command(ShowDrinkHandler);
+            ShowFood = new Command(ShowFoodHandler);
+        }
+
+        private async void ShowFoodHandler(object obj)
+        {
+            var selectedFood = await Shell.Current.DisplayActionSheet("What kind of food?", "Nothing...my mistake", null, Enum.GetNames(typeof(FoodType.TypeOfFood)));
+            FoodType.TypeOfFood foodType;
+
+            if (Enum.TryParse(selectedFood, out foodType))
+            {
+                await DB.InsertFood(new Food(Guid.NewGuid(), foodType));
+            }
         }
 
         private async void ShowDrinkHandler(object obj)
