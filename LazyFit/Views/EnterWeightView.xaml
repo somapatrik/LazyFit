@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="LazyFit.Views.EnterWeightView"
+                 Background="#80000000">
+    
+    <Border
+        Background="white"
+        Padding="20"
+        VerticalOptions="Center">
+        
+        <VerticalStackLayout>
+            <Label Text="Enter weight" FontSize="Medium"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <Entry 
+                    Keyboard="Numeric"
+                    HorizontalTextAlignment="Center"
+                    FontSize="Medium"/>
+                
+            </Grid>
+            
+            <Button Text="Save"/>
+        </VerticalStackLayout>
+    
+        </Border>
+
+</mopup:PopupPage>

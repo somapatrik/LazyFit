@@ -1,5 +1,7 @@
 ﻿using LazyFit.Models;
 using LazyFit.Services;
+using LazyFit.Views;
+using Mopups.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +20,20 @@ namespace LazyFit.ViewModels
 
         public ICommand ShowFood { get; private set; }
 
+        public ICommand ShowWeight { get; private set; }
+
         public LogMoodViewModel() 
         {
             LogMood = new Command(LogMoodHandler);
             ShowLogMood = new Command(ShowLogMoodHandler);
             ShowDrink = new Command(ShowDrinkHandler);
             ShowFood = new Command(ShowFoodHandler);
+            ShowWeight = new Command(ShowWeightHandler);
+        }
+
+        private async void ShowWeightHandler(object obj)
+        {
+            await MopupService.Instance.PushAsync(new EnterWeightView());
         }
 
         private async void ShowFoodHandler(object obj)
