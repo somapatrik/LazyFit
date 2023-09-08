@@ -11,6 +11,7 @@ public partial class App : Application
 		MainPage = new AppShell();
 
 		InitDb();
+
 	}
 
 	public async void InitDb()

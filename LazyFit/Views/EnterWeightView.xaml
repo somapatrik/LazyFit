@@ -21,11 +21,21 @@
                 <Entry 
                     Keyboard="Numeric"
                     HorizontalTextAlignment="Center"
-                    FontSize="Medium"/>
-                
+                    FontSize="Medium"
+                    Text="{Binding entryWeight}"/>
+
+                <Picker Grid.Column="1" 
+                        ItemsSource="{Binding unitOptions}"
+                        SelectedItem="{Binding selectedUnit}"
+                        HorizontalTextAlignment="Center"/>
+
             </Grid>
             
-            <Button Text="Save"/>
+            <Button 
+                Text="Save" 
+                Margin="0,20,0,0"
+                Command="{Binding SaveWeight}"/>
+            
         </VerticalStackLayout>
     
         </Border>
