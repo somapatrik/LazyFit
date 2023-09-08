@@ -1,4 +1,6 @@
 ﻿using LazyFit.Models;
+using LazyFit.Services;
+using Mopups.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,9 +43,12 @@ namespace LazyFit.ViewModels
             SaveWeight = new Command(SaveHandler, canSave);
         }
 
-        private void SaveHandler()
+        private async void SaveHandler()
         {
-            throw new NotImplementedException();
+            WeightUnit.UnitWeight unittype = (WeightUnit.UnitWeight)Enum.Parse(typeof(WeightUnit.UnitWeight), selectedUnit);
+
+            await DB.InsertWeight(new Weight(Guid.NewGuid(), realWeight, unittype));
+            await MopupService.Instance.PopAsync();
         }
 
         private bool canSave()

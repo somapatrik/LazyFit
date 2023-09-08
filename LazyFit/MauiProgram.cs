@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Mopups.Hosting;
+using Microcharts.Maui;
 
 namespace LazyFit;
 
@@ -12,7 +13,8 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-             .ConfigureMopups()
+            .ConfigureMopups()
+			.UseMicrocharts()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

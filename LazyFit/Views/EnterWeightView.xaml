@@ -18,6 +18,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
+                
+                
                 <Entry 
                     Keyboard="Numeric"
                     HorizontalTextAlignment="Center"
