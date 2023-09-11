@@ -8,7 +8,7 @@
         <VerticalStackLayout Spacing="10" Padding="10">
 
             <Label Text="Results" Style="{StaticResource PageHeader}"/>
-
+            <views:WeightChartView/>
             <views:FastList/>
         
         </VerticalStackLayout>

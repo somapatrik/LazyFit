@@ -58,6 +58,11 @@ namespace LazyFit.Services
         {
             return await Database.Table<Weight>().FirstOrDefaultAsync(w => w.Id == id);
         }
+        public static async Task<List<Weight>> GetWeightFromTime(DateTime from, DateTime to)
+        {
+            return await Database.Table<Weight>().Where(w => w.Time >= from && w.Time <= to).ToListAsync();
+        }
+
         #endregion
 
         #region Food
