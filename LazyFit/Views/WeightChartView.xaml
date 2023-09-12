@@ -2,8 +2,28 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LazyFit.Views.WeightChartView"
-             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui">
-    <VerticalStackLayout>
-        <micro:ChartView Chart="{Binding ChartWeight}" HeightRequest="300"/>
-    </VerticalStackLayout>
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             Background="white">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="Weight" Style="{StaticResource PageSubHeader}"/>
+
+        <micro:ChartView Grid.Row="1" Chart="{Binding ChartWeight}" MinimumHeightRequest="250"/>
+
+        <Label Grid.Row="1" 
+               Text="- No weight data -" 
+               IsVisible="{Binding NoData}"
+               HorizontalTextAlignment="Center" 
+               VerticalTextAlignment="Center" 
+               FontSize="Large" 
+               BackgroundColor="#BFFFFFFF"/>
+
+
+
+    </Grid>
 </ContentView>

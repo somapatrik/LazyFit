@@ -63,6 +63,13 @@ namespace LazyFit.Services
             return await Database.Table<Weight>().Where(w => w.Time >= from && w.Time <= to).ToListAsync();
         }
 
+        public static async Task<List<Weight>> GetLastWeights(int numberOfWeights)
+        {
+            var weights = await Database.Table<Weight>().OrderByDescending(w => w.Time).Take(numberOfWeights).ToListAsync();
+
+            return weights.OrderBy(x => x.Time).ToList();
+        }
+
         #endregion
 
         #region Food

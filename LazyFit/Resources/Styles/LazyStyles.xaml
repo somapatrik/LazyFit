@@ -23,4 +23,20 @@
         <Setter Property="Background" Value="{StaticResource GithubRed}"/>
     </Style>
 
+    <Style x:Key="PageHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="Large"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="Margin" Value="5,10"/>
+    </Style>
+
+
+    <Style x:Key="PageSubHeader" TargetType="Label">
+        <Setter Property="VerticalTextAlignment" Value="Start" />
+        <Setter Property="FontAttributes" Value="None"/>
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="FontSize" Value="Medium"/>
+        <Setter Property="Margin" Value="10,5"/>
+    </Style>
+    
 </ResourceDictionary>
