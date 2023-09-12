@@ -1,5 +1,6 @@
 ﻿using LazyFit.Models;
 using SQLite;
+using System.Text;
 
 namespace LazyFit.Services
 {
@@ -68,6 +69,18 @@ namespace LazyFit.Services
             var weights = await Database.Table<Weight>().OrderByDescending(w => w.Time).Take(numberOfWeights).ToListAsync();
 
             return weights.OrderBy(x => x.Time).ToList();
+        }
+
+        public static async Task<List<Weight>> GetWeightPage(int pageNumber, int numberOfWeight)
+        {
+            int offset = pageNumber * numberOfWeight;
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("SELECT * FROM Weight ORDER BY Time DESC");
+            query.AppendLine($"LIMIT {numberOfWeight} OFFSET {offset}");
+            var weights = await Database.QueryAsync<Weight>(query.ToString());
+
+            return weights;
         }
 
         #endregion

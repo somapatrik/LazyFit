@@ -4,45 +4,91 @@ using Microcharts;
 using Microcharts.Maui;
 using SkiaSharp;
 using System.Linq;
+using System.Windows.Input;
 
 namespace LazyFit.ViewModels
 {
     internal class WeightChartViewModel : PrimeViewModel
     {
-        private Chart _chartWeight;
-        public Chart ChartWeight { get => _chartWeight; set => SetProperty(ref _chartWeight, value); }
-        
-        private bool _noData;
-        public bool NoData { get => _noData; set => SetProperty(ref _noData, value); }
+        public ICommand ShowPrevious { get; private set; }
+        public ICommand ShowNext { get; private set; }
+
         public DateTime DateFrom { get; }
         public DateTime DateTo { get; }
 
+
+        private Chart _chartWeight;
+        public Chart ChartWeight { get => _chartWeight; set => SetProperty(ref _chartWeight, value); }
+
+
+        private int _showResultsCount = 10;
+
+        private int _currentPage;
+        public int CurrentPage { get => _currentPage; set { SetProperty(ref _currentPage, value); RefreshCans(); } }
+
+
+        private bool _noData;
+        public bool NoData { get => _noData; set { SetProperty(ref _noData, value); RefreshCans(); } }
+
+
+
         public WeightChartViewModel(DateTime dateFrom, DateTime dateTo) 
         {
-            LoadChartData();
+            LoadChartData(CurrentPage, _showResultsCount);
             DateFrom = dateFrom;
             DateTo = dateTo;
+
+            ShowPrevious = new Command(ShowPreviousHandler, CanShowPrevious);
+            ShowNext = new Command(ShowNextHandler, CanShowNext);
+
         }
 
-        public async void LoadChartData()
+        private void ShowPreviousHandler(object obj)
         {
+            CurrentPage++;
+            LoadChartData(CurrentPage, _showResultsCount);
+        }
 
-            List<Weight> weights = await DB.GetLastWeights(10);
+        private void ShowNextHandler(object obj)
+        {
+            CurrentPage--;
+            LoadChartData(CurrentPage, _showResultsCount);
+        }
+
+        private bool CanShowNext(object obj)
+        {
+            return CurrentPage > 0;
+        }
+
+        private bool CanShowPrevious(object obj)
+        {
+            return !NoData;
+        }
+
+        public async void LoadChartData(int pageNumber, int numberOfWeight)
+        {
+            List<Weight> weights = await DB.GetWeightPage(pageNumber, numberOfWeight);
 
             var entries = weights
+                .OrderBy(w => w.Time)
                 .Select(weight => new ChartEntry((float)weight.WeightValue)
                 {
                     ValueLabel = weight.WeightValue.ToString(),
                     ValueLabelColor = SKColors.OrangeRed,
-                    Label = weight.Time.ToString("F"),
+                    Label = weight.Time.ToString("d"),
                     OtherColor = SKColors.OrangeRed
-                }).ToList();
+                })
+                .ToList();
 
 
             if (!entries.Any())
             {    
                entries.Add(new ChartEntry(0));
                NoData = true;
+            }
+            else
+            {
+                NoData = false;
             }
                 
 
@@ -59,7 +105,7 @@ namespace LazyFit.ViewModels
             ChartWeight = new LineChart()
             {
                 Series = series,
-                IsAnimated = false,
+                IsAnimated = true,
                 EnableYFadeOutGradient = false,
                 LineSize = 7,
                 PointSize = 20,
@@ -73,6 +119,12 @@ namespace LazyFit.ViewModels
                 
             };
 
+        }
+
+        private void RefreshCans()
+        {
+            ((Command)ShowNext).ChangeCanExecute();
+            ((Command)ShowPrevious).ChangeCanExecute();
         }
     }
 }

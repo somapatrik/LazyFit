@@ -9,6 +9,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Label Text="Weight" Style="{StaticResource PageSubHeader}"/>
@@ -23,6 +24,17 @@
                FontSize="Large" 
                BackgroundColor="#BFFFFFFF"/>
 
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Text="Older" Command="{Binding ShowPrevious}" Style="{StaticResource SimpleButton}"/>
+            <Button Grid.Column="1" Text="Newer" Command="{Binding ShowNext}" Style="{StaticResource SimpleButton}"/>
+
+        </Grid>
 
 
     </Grid>
