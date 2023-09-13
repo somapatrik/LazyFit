@@ -13,7 +13,7 @@
                 Text="Fasting"
                 Style="{StaticResource PageSubHeader}"/>
 
-        <micro:ChartView Chart="{Binding ProgressChart}" IsVisible="{Binding isFastActive}" HeightRequest="250"/>
+        <micro:ChartView Chart="{Binding ProgressChart}" IsVisible="{Binding isFastActive}" HeightRequest="150"/>
 
         <Label 
                 Text="{Binding TimerMessage}"
