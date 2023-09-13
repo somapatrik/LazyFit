@@ -1,5 +1,4 @@
-﻿
-using LazyFit.Models;
+﻿using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
 using Microcharts;
@@ -70,7 +69,8 @@ namespace LazyFit.ViewModels
                 IsAnimated = false,
                 MaxValue = 100f,
                 MinValue = 0f,
-                HoleRadius = 0.7f
+                Margin=0,
+                HoleRadius = 0.6f
             };
 
         }
@@ -83,7 +83,8 @@ namespace LazyFit.ViewModels
                 IsAnimated = true,
                 MaxValue = 100f,
                 MinValue = 0f,
-                HoleRadius = 0.7f
+                Margin = 0,
+                HoleRadius = 0.6f
             };
         }
 

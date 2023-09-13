@@ -15,13 +15,9 @@
                 <views:FastingView />
 
                 <views:LogButtonsView />
-
-                <micro:ChartView  Chart="{Binding mychart}" HeightRequest="250"/>
-
-
+                
                 <Button Text="Results" Command="{Binding OpenResults}"/>
-
-
+                
             </StackLayout>
         </ScrollView>
 
