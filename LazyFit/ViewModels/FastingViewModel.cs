@@ -2,7 +2,9 @@
 using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
+using Microcharts;
 using Mopups.Services;
+using SkiaSharp;
 using System;
 using System.Windows.Input;
 
@@ -27,21 +29,62 @@ namespace LazyFit.ViewModels
         private double _percentDone;
         public double PercentDone { get => _percentDone; set => SetProperty(ref _percentDone, value); }
 
-        private Timer refreshTimer;
+        private System.Threading.Timer refreshTimer;
+
+        private Chart _progressChart;
+        public Chart ProgressChart { get => _progressChart; set => SetProperty(ref _progressChart, value); }
 
         public FastingViewModel() 
         {
             RelayCommands();
-            refreshTimer = new Timer(TimerHandler,null,Timeout.Infinite, 1000);
+
+            refreshTimer = new System.Threading.Timer(TimerHandler,null,Timeout.Infinite, 1000);
 
             RefreshFastData();
+
+            if (!isFastActive)
+                CreateEmptyChart();
         }
 
         private void TimerHandler(object state)
         {
-            PercentDone = ActiveFast.GetElapsedTimePercentage() / 100;
+            PercentDone = ActiveFast.GetElapsedTimePercentage();
             TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
             TimerMessage = untilEnd.ToString(@"hh\:mm\:ss");
+            RefreshChart();
+        }
+
+        private void RefreshChart()
+        {
+            float done = (float)PercentDone;
+            var entries = new List<ChartEntry>()
+            {
+                new ChartEntry(done) {  Color = SKColors.LimeGreen },
+                new ChartEntry(100f - done) {  Color = SKColor.Parse("#f6f8fa") }
+                
+            };
+
+            ProgressChart = new DonutChart() 
+            { 
+                Entries = entries, 
+                IsAnimated = false,
+                MaxValue = 100f,
+                MinValue = 0f,
+                HoleRadius = 0.7f
+            };
+
+        }
+
+        private void CreateEmptyChart()
+        {
+            ProgressChart = new DonutChart()
+            {
+                Entries = new List<ChartEntry>() { new ChartEntry(100) { Color = SKColor.Parse("#f6f8fa") } },
+                IsAnimated = true,
+                MaxValue = 100f,
+                MinValue = 0f,
+                HoleRadius = 0.7f
+            };
         }
 
         private void RelayCommands()
@@ -65,6 +108,7 @@ namespace LazyFit.ViewModels
         private async void StopFastingHandler()
         {
             refreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            CreateEmptyChart();
 
             ActiveFast.End();
             await DB.UpdateFast(ActiveFast);

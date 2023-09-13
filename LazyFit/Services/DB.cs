@@ -29,12 +29,19 @@ namespace LazyFit.Services
 
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
-            await Database.CreateTableAsync<Fast>();
-            await Database.CreateTableAsync<Mood>();
-            await Database.CreateTableAsync<Drink>();
-            await Database.CreateTableAsync<Food>();
-            await Database.CreateTableAsync<Weight>();
+            List<Task> tables = new List<Task>()
+            {
+                Database.CreateTableAsync<Fast>(),
+                Database.CreateTableAsync<Mood>(),
+                Database.CreateTableAsync<Drink>(),
+                Database.CreateTableAsync<Food>(),
+                Database.CreateTableAsync<Weight>()
+            };
+
+            Task CreateTables = Task.WhenAll(tables);
+            await CreateTables;
         }
+        
 
 
         #endregion

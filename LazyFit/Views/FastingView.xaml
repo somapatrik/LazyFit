@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:LazyFit.Converters"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.FastingView"
              Background="white">
     
@@ -10,11 +11,9 @@
 
             <Label 
                 Text="Fasting"
-                VerticalTextAlignment="Start" 
-                FontAttributes="None"
-                TextColor="Black"
-                FontSize="Medium"
-                Margin="10,5"/>
+                Style="{StaticResource PageSubHeader}"/>
+
+        <micro:ChartView Chart="{Binding ProgressChart}" IsVisible="{Binding isFastActive}" HeightRequest="250"/>
 
         <Label 
                 Text="{Binding TimerMessage}"
@@ -22,12 +21,6 @@
                 Padding="8"
                 FontSize="Large"
                 IsVisible="{Binding isFastActive}"/>
-
-        <ProgressBar 
-                Progress="{Binding PercentDone}" 
-                ScaleY="2" 
-                IsVisible="{Binding isFastActive}"/>
-
 
             <Button Text="STOP EATING!" 
                     Command="{Binding OpenFasting}" 
