@@ -1,12 +1,6 @@
 ﻿using LazyFit.Models;
 using LazyFit.Services;
 using Mopups.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels
@@ -18,8 +12,8 @@ namespace LazyFit.ViewModels
         public List<string> unitOptions { get; set; }
         public string selectedUnit { get; set; }
 
-        private string _entryWeight;
-        public string entryWeight 
+        private decimal _entryWeight;
+        public decimal entryWeight 
         {
             get
             {
@@ -32,7 +26,8 @@ namespace LazyFit.ViewModels
             }
         }
 
-        public decimal realWeight { get; set; }
+        private bool _WeightValid;
+        public bool WeightValid { get => _WeightValid; set => SetProperty(ref _WeightValid, value); }
 
         public ICommand SaveWeight { get; set; }
 
@@ -45,37 +40,34 @@ namespace LazyFit.ViewModels
 
         private async void SaveHandler()
         {
-            WeightUnit.UnitWeight unittype = (WeightUnit.UnitWeight)Enum.Parse(typeof(WeightUnit.UnitWeight), selectedUnit);
+            UnitWeight unittype = (UnitWeight)Enum.Parse(typeof(UnitWeight), selectedUnit);
 
-            await DB.InsertWeight(new Weight(Guid.NewGuid(), realWeight, unittype));
+            // Save kg, calulate others later
+            if (unittype == UnitWeight.lb)
+                await DB.InsertWeight(new Weight(Guid.NewGuid(), LazyUnitConvertes.LbsToKg(entryWeight), UnitWeight.kg));
+            else
+                await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
+
+
+
             await MopupService.Instance.PopAsync();
         }
 
         private bool canSave()
         {
-            decimal val; 
-            if (decimal.TryParse(entryWeight,out val) && val > 0)
-            {
-                realWeight = val;
-                return true;
-            }
-            return false;
-
+            return entryWeight > 0 && entryWeight < 500;
         }
 
         private void RefreshCans()
         {
-           // MainThread.BeginInvokeOnMainThread(() =>
-           // {
-                ((Command)SaveWeight).ChangeCanExecute();
-           // });
+            ((Command)SaveWeight).ChangeCanExecute();
         }
 
         private void LoadUnits()
         {
             unitOptions = new List<string>();
 
-            var vals = Enum.GetNames(typeof(WeightUnit.UnitWeight));
+            var vals = Enum.GetNames(typeof(UnitWeight));
             foreach(string unit in vals)
             {
                 unitOptions.Add(unit);

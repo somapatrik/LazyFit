@@ -11,15 +11,15 @@ using System.Windows.Input;
 
 namespace LazyFit.ViewModels
 {
-    public class LogMoodViewModel
+    public class LogMoodViewModel : PrimeViewModel
     {
+        private string _latestWeight;
+        public string LatestWeight { get => _latestWeight; set => SetProperty(ref _latestWeight, value); }
+
         public ICommand LogMood { get;private set; }
         public ICommand ShowLogMood { get; private set; }
-
         public ICommand ShowDrink { get; private set; }
-
         public ICommand ShowFood { get; private set; }
-
         public ICommand ShowWeight { get; private set; }
 
         public LogMoodViewModel() 
@@ -29,11 +29,26 @@ namespace LazyFit.ViewModels
             ShowDrink = new Command(ShowDrinkHandler);
             ShowFood = new Command(ShowFoodHandler);
             ShowWeight = new Command(ShowWeightHandler);
+
+            LoadLatestWeight();
+        }
+
+        private async void LoadLatestWeight()
+        {
+            var latest = await DB.GetLastWeight();
+            if (latest != null)
+                LatestWeight = latest.WeightValue.ToString();
+            else
+                LatestWeight = "";
         }
 
         private async void ShowWeightHandler(object obj)
         {
-            await MopupService.Instance.PushAsync(new EnterWeightView());
+            var weightView = new EnterWeightView();
+            weightView.EnterWeightClosed += (sender, e) => LoadLatestWeight();
+
+            await MopupService.Instance.PushAsync(weightView);
+            
         }
 
         private async void ShowFoodHandler(object obj)

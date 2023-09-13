@@ -13,9 +13,6 @@ namespace LazyFit.ViewModels
         public ICommand ShowPrevious { get; private set; }
         public ICommand ShowNext { get; private set; }
 
-        public DateTime DateFrom { get; }
-        public DateTime DateTo { get; }
-
 
         private Chart _chartWeight;
         public Chart ChartWeight { get => _chartWeight; set => SetProperty(ref _chartWeight, value); }
@@ -32,11 +29,9 @@ namespace LazyFit.ViewModels
 
 
 
-        public WeightChartViewModel(DateTime dateFrom, DateTime dateTo) 
+        public WeightChartViewModel() 
         {
             LoadChartData(CurrentPage, _showResultsCount);
-            DateFrom = dateFrom;
-            DateTo = dateTo;
 
             ShowPrevious = new Command(ShowPreviousHandler, CanShowPrevious);
             ShowNext = new Command(ShowNextHandler, CanShowNext);

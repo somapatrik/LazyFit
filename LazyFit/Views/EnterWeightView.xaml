@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopup:PopupPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:views="clr-namespace:LazyFit.Views"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.Views.EnterWeightView"
-                 Background="#80000000">
+             Background="#80000000">
     
     <Border
         Background="white"
@@ -11,21 +14,22 @@
         VerticalOptions="Center">
         
         <VerticalStackLayout>
+
+            <views:WeightChartView/>
+
             <Label Text="Enter weight" FontSize="Medium"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                
-                
-                
+
                 <Entry 
                     Keyboard="Numeric"
                     HorizontalTextAlignment="Center"
                     FontSize="Medium"
                     Text="{Binding entryWeight}"/>
-
+                
                 <Picker Grid.Column="1" 
                         ItemsSource="{Binding unitOptions}"
                         SelectedItem="{Binding selectedUnit}"

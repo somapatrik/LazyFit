@@ -7,18 +7,14 @@ namespace LazyFit.ViewModels
     {
         private Chart _mychart;
         public Chart mychart { get => _mychart; set => SetProperty(ref _mychart, value); }
-
-
         public ICommand OpenResults => new Command(async () => await Shell.Current.Navigation.PushModalAsync(new ResultsPage()));
-        public MainViewModel() 
-        {
-            LazyAsync();
-        }
 
-        private async void LazyAsync()
+
+        public MainViewModel() 
         {
             
         }
+
 
 
     }

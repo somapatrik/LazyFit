@@ -7,22 +7,22 @@
              Shell.NavBarIsVisible="False"
              Background="{StaticResource GithubLight}">
 
-    <ScrollView>
-        <StackLayout Orientation="Vertical" Spacing="20" Padding="0">
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Spacing="20" Padding="0">
 
-            <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
+                <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
 
-            <views:FastingView />
+                <views:FastingView />
 
-            <views:LogButtonsView />
+                <views:LogButtonsView />
 
-            <micro:ChartView  Chart="{Binding mychart}" HeightRequest="250"/>
-
-
-            <Button Text="Results" Command="{Binding OpenResults}"/>
+                <micro:ChartView  Chart="{Binding mychart}" HeightRequest="250"/>
 
 
-        </StackLayout>
-    </ScrollView>
+                <Button Text="Results" Command="{Binding OpenResults}"/>
+
+
+            </StackLayout>
+        </ScrollView>
 
 </ContentPage>
