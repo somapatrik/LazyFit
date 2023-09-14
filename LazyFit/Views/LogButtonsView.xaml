@@ -36,6 +36,11 @@
             </Frame>
 
             <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowLogMood}" />
+                </Frame.GestureRecognizers>
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -48,6 +53,10 @@
             </Frame>
 
             <Frame FlexLayout.Basis="50%" Background="{StaticResource BootstrapWarningBg}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowDrink}" />
+                </Frame.GestureRecognizers>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -60,6 +69,11 @@
             </Frame>
 
             <Frame FlexLayout.Basis="50%" Background="{StaticResource NexenColor}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowFood}" />
+                </Frame.GestureRecognizers>
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
