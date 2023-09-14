@@ -11,7 +11,7 @@
     <Border
         Background="white"
         Padding="20"
-        VerticalOptions="Center">
+        VerticalOptions="End">
         
         <VerticalStackLayout>
 

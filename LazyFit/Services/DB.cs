@@ -147,6 +147,21 @@ namespace LazyFit.Services
             return await Database.Table<Fast>().Where(f=> f.EndTime != null).OrderByDescending(x=>x.StartTime).ToListAsync();
         }
 
+        public static async Task<List<Fast>> GetFastsByPage(int pageNumber = 0)
+        {
+            DateTime displayTime = DateTime.Now.AddMonths(pageNumber);
+
+            var f = await Database.Table<Fast>()
+                .Where(f => f.EndTime != null && 
+                            f.StartTime.Month == displayTime.Month && 
+                            f.StartTime.Year == displayTime.Year)
+                .ToListAsync();
+
+
+            return f;
+
+        }
+
         public static async Task<Fast> GetRunningFast()
         {
             return await Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);

@@ -6,9 +6,7 @@
              xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.FastList">
 
-
-    <VerticalStackLayout>
-
+    <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshList}">
         <Border Padding="10">
 
             <Border.StrokeShape>
@@ -16,14 +14,14 @@
             </Border.StrokeShape>
 
             <CollectionView ItemsSource="{Binding FastHistory}">
-            
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Fast">
-                    <Grid Margin="0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Fast">
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -34,16 +32,16 @@
                                    Grid.Column="1" 
                                    HorizontalOptions="End"
                                    Text="{Binding Completed, Converter={converters:CompletedToLabelConverter}}"/>
-                            
+
                             <Label Grid.Row="0" Grid.Column="0" Text="{Binding EndTime, Converter={converters:DatetimeToDateConverter}}"/>
 
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            
-        </CollectionView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
 
         </Border>
-
-    </VerticalStackLayout>
+            
+    </RefreshView>
 </ContentView>
