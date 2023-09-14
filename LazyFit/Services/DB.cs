@@ -152,9 +152,9 @@ namespace LazyFit.Services
             DateTime displayTime = DateTime.Now.AddMonths(pageNumber);
 
             var f = await Database.Table<Fast>()
-                .Where(f => f.EndTime != null && 
-                            f.StartTime.Month == displayTime.Month && 
-                            f.StartTime.Year == displayTime.Year)
+                .Where(f => f.StartTime.Month == displayTime.Month 
+                            )
+                //.Where(f => f.EndTime != null)
                 .ToListAsync();
 
 

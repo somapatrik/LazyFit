@@ -1,4 +1,4 @@
-﻿using AndroidX.Arch.Core.Internal;
+﻿
 using LazyFit.Models;
 using LazyFit.Services;
 using System;
@@ -51,7 +51,7 @@ namespace LazyFit.ViewModels
             IsRefreshing = true;
             FastHistory = new ObservableCollection<Fast>();
             List<Fast> fasts = (await DB.GetFastsByPage(_pageNumber)).OrderByDescending(f=>f.EndTime).ToList();
-            fasts.ForEach(FastHistory.Add);
+           // fasts.ForEach(FastHistory.Add);
             IsRefreshing = false;
         }
     }
