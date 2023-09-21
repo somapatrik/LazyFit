@@ -1,12 +1,6 @@
-﻿using AndroidX.Arch.Core.Internal;
-using LazyFit.Models;
+﻿using LazyFit.Models;
 using LazyFit.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels
@@ -20,39 +14,54 @@ namespace LazyFit.ViewModels
         public ICommand ShowOlder { private set; get; }
         public ICommand ShowNewer { private set; get; }
 
-        private bool _isRefreshing;
-        public bool IsRefreshing { get => _isRefreshing; set => SetProperty(ref _isRefreshing, value); }
+        private string _Header;
+
+        public string Header { get => _Header; set => SetProperty(ref _Header, value); }
 
         private int _pageNumber;
+
+        public int PageNumber 
+        { 
+            get => _pageNumber; 
+            set 
+            { 
+                SetProperty(ref _pageNumber, value);
+                SetHeader();
+            } 
+        }
 
         public FastHistoryViewModel() 
         {
             RefreshList = new Command(LoadFastList);
             ShowOlder = new Command(ShowOlderHandler);
             ShowNewer = new Command(ShowNewerHandler);
-
+            SetHeader();
             LoadFastList();
+        }
+
+        private void SetHeader()
+        {
+            DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
+            Header = headerDate.ToString("Y");
         }
 
         private void ShowOlderHandler(object obj)
         {
-            _pageNumber--;
+            PageNumber--;
             LoadFastList();
         }
 
         private void ShowNewerHandler(object obj)
         {
-            _pageNumber++;
+            PageNumber++;
             LoadFastList();
         }
 
         private async void LoadFastList()
         {
-            IsRefreshing = true;
             FastHistory = new ObservableCollection<Fast>();
             List<Fast> fasts = (await DB.GetFastsByPage(_pageNumber)).OrderByDescending(f=>f.EndTime).ToList();
             fasts.ForEach(FastHistory.Add);
-            IsRefreshing = false;
         }
     }
 }

@@ -150,14 +150,10 @@ namespace LazyFit.Services
         public static async Task<List<Fast>> GetFastsByPage(int pageNumber = 0)
         {
             DateTime displayTime = DateTime.Now.AddMonths(pageNumber);
+            DateTime from = new DateTime(displayTime.Year, displayTime.Month, 1);
+            DateTime to = from.AddMonths(1).AddDays(-1);
 
-            var f = await Database.Table<Fast>()
-                .Where(f => f.EndTime != null && 
-                            f.StartTime.Month == displayTime.Month && 
-                            f.StartTime.Year == displayTime.Year)
-                .ToListAsync();
-
-
+            var f = await Database.Table<Fast>().Where(f=>f.EndTime != null && f.StartTime >= from && f.StartTime<=to).ToListAsync();
             return f;
 
         }

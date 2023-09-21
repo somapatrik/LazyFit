@@ -4,44 +4,52 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:LazyFit.Models"
              xmlns:converters="clr-namespace:LazyFit.Converters"
-             x:Class="LazyFit.Views.FastList">
+             x:Class="LazyFit.Views.FastList"
+             BackgroundColor="White">
 
-    <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshList}">
-        <Border Padding="10">
+    <VerticalStackLayout>
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="15" />
-            </Border.StrokeShape>
+        <Label Text="{Binding Header}" Style="{StaticResource PageSubHeader}"/>
 
-            <CollectionView ItemsSource="{Binding FastHistory}">
+        <CollectionView ItemsSource="{Binding FastHistory}">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Fast">
-                        <Grid Margin="0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Fast">
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" 
+                        <Label Grid.Row="0" 
                                    Grid.Column="1" 
                                    HorizontalOptions="End"
                                    Text="{Binding Completed, Converter={converters:CompletedToLabelConverter}}"/>
 
-                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding EndTime, Converter={converters:DatetimeToDateConverter}}"/>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding EndTime, Converter={converters:DatetimeToDateConverter}}"/>
 
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
 
-            </CollectionView>
+        </CollectionView>
 
-        </Border>
-            
-    </RefreshView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Text="Older" Command="{Binding ShowOlder}" Style="{StaticResource SimpleButton}"/>
+            <Button Grid.Column="1" Text="Newer" Command="{Binding ShowNewer}" Style="{StaticResource SimpleButton}"/>
+
+        </Grid>
+
+    </VerticalStackLayout>
+    
 </ContentView>
