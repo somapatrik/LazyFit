@@ -85,11 +85,6 @@
                 </Grid>
             </Frame>
 
-            <!--<Button FlexLayout.Basis="50%" Text="Weight" Command="{Binding ShowWeight}" Background="orangered"/>
-            <Button FlexLayout.Basis="50%" Text="Mood" Command="{Binding ShowLogMood}" Background="darkblue"/>
-            <Button FlexLayout.Basis="50%" Text="Drink" Command="{Binding ShowDrink}" Background="{StaticResource BootstrapWarningBg}"/>
-            <Button FlexLayout.Basis="50%" Text="Food" Command="{Binding ShowFood}" Background="{StaticResource NexenColor}"/>-->
-
         </FlexLayout>
     </VerticalStackLayout>
 </ContentView>

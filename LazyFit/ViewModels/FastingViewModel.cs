@@ -49,7 +49,7 @@ namespace LazyFit.ViewModels
         {
             PercentDone = ActiveFast.GetElapsedTimePercentage();
             TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
-            TimerMessage = untilEnd.ToString(@"hh\:mm\:ss");
+            TimerMessage = PercentDone >= 100 ? "Completed" + Environment.NewLine + ActiveFast.GetPlannedEnd().ToString("g") : untilEnd.ToString(@"hh\:mm\:ss");
             RefreshChart();
         }
 
