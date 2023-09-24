@@ -1,4 +1,6 @@
-﻿using LazyFit.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
+using LazyFit.Models;
 using LazyFit.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -36,6 +38,14 @@ namespace LazyFit.ViewModels
             ShowOlder = new Command(ShowOlderHandler);
             ShowNewer = new Command(ShowNewerHandler);
             SetHeader();
+            LoadFastList();
+
+            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (a,b) => {ShowPage(b.Value);});
+        }
+
+        private void ShowPage(int value)
+        {
+            PageNumber = value;
             LoadFastList();
         }
 

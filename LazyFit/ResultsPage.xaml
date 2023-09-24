@@ -5,13 +5,51 @@
              x:Class="LazyFit.ResultsPage"
              Title="ResultsPage"
              Background="{StaticResource GithubLight}">
-    <ScrollView>
-        <VerticalStackLayout Spacing="10">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
             <Label Text="Results" Style="{StaticResource PageHeader}"/>
-            <views:WeightChartView/>
-            <views:FastList/>
-        
-        </VerticalStackLayout>
-    </ScrollView>
+
+            <ScrollView Grid.Row="1">
+
+                <VerticalStackLayout  Spacing="10">
+                    <views:FastList/>
+                    <!--<views:WeightChartView/>-->
+                    
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        <!-- Controls -->
+            <Grid Grid.Row="2" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+
+            <Label Grid.ColumnSpan="2" 
+                           Text="{Binding PeriodText}" 
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource PageSubHeader}"/>
+
+            <Button Grid.Row="1" 
+                            Grid.Column="0" Text="&#x2190;" FontSize="32" Command="{Binding ShowOlder}" Style="{StaticResource SimpleButton}" Background="White" />
+            <Button Grid.Row="1" Grid.Column="1" Text="&#x2192;" FontSize="32" Command="{Binding ShowNewer}" Style="{StaticResource SimpleButton}" Background="White" />
+
+
+        </Grid>
+
+    </Grid>
+
 </ContentPage>

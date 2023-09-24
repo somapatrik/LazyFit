@@ -1,10 +1,15 @@
+using LazyFit.ViewModels;
+
 namespace LazyFit;
 
 public partial class ResultsPage : ContentPage
 {
-	public ResultsPage()
+    private ResultsViewModel _viewModel;
+
+    public ResultsPage()
 	{
 		InitializeComponent();
+        BindingContext = _viewModel = new ResultsViewModel();
 	}
 
     protected override void OnAppearing()

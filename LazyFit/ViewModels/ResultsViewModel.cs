@@ -1,0 +1,63 @@
+﻿using CommunityToolkit.Mvvm.Messaging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace LazyFit.ViewModels
+{
+    class ResultsViewModel : PrimeViewModel
+    {
+        public ICommand ShowOlder { private set; get; }
+        public ICommand ShowNewer { private set; get; }
+
+        private string _PeriodText;
+
+        public string PeriodText 
+        { 
+            get => _PeriodText;
+            set
+            {
+                SetProperty(ref _PeriodText, value);
+            }
+        }
+
+        private int _pageNumber;
+
+        public int PageNumber
+        {
+            get => _pageNumber;
+            set
+            {
+                SetProperty(ref _pageNumber, value);
+                SetHeader();
+                WeakReferenceMessenger.Default.Send(new Messages.ShowPageMessage(value));
+            }
+        }
+
+        public ResultsViewModel() 
+        {
+            ShowOlder = new Command(ShowOlderHandler);
+            ShowNewer = new Command(ShowNewerHandler);
+            SetHeader();
+        }
+
+        private void SetHeader()
+        {
+            DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
+            PeriodText = headerDate.ToString("Y");
+        }
+
+        private void ShowOlderHandler(object obj)
+        {
+            PageNumber--;
+        }
+
+        private void ShowNewerHandler(object obj)
+        {
+            PageNumber++;
+        }
+    }
+}
