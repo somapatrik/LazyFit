@@ -4,7 +4,6 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.FastChart">
     <VerticalStackLayout>
-        <Label Text="hovno"/>
-        <micro:ChartView Chart="{Binding FastChart}"  MinimumHeightRequest="250"/>
+        <micro:ChartView Chart="{Binding FastChart}"  MinimumHeightRequest="200"/>
     </VerticalStackLayout>
 </ContentView>

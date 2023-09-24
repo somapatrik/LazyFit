@@ -149,13 +149,25 @@ namespace LazyFit.Services
 
         public static async Task<List<Fast>> GetFastsByPage(int pageNumber = 0)
         {
-            DateTime displayTime = DateTime.Now.AddMonths(pageNumber);
+            DateTime displayTime = DateTime.Today.AddMonths(pageNumber);
             DateTime from = new DateTime(displayTime.Year, displayTime.Month, 1);
             DateTime to = from.AddMonths(1).AddDays(-1);
 
             var f = await Database.Table<Fast>().Where(f=>f.EndTime != null && f.StartTime >= from && f.StartTime<=to).ToListAsync();
             return f;
 
+        }
+
+        public static async Task<List<Fast>> GetFastsByPagePerWeek(int pageNumber = 0)
+        {
+            DateTime today = DateTime.Today.AddDays(6 * pageNumber);
+            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek ;
+
+            DateTime monday = today.AddDays(-(dayofWeek - 1));
+            DateTime sunday = monday.AddDays(6);
+
+            var f = await Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= monday && f.StartTime <= sunday).ToListAsync();
+            return f;
         }
 
         public static async Task<Fast> GetRunningFast()
