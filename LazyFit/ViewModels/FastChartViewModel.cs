@@ -46,7 +46,7 @@ namespace LazyFit.ViewModels
 
         private List<ChartEntry> CreateEntriesPerWeek(int pageNum, List<DateInt> dateInts)
         {
-            DateTime today = DateTime.Today.AddDays(6 * pageNum);
+            DateTime today = DateTime.Today.AddDays(7 * pageNum);
             int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
 
             DateTime monday = today.AddDays(-(dayofWeek - 1));
@@ -57,17 +57,18 @@ namespace LazyFit.ViewModels
 
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            for (int i = monday.Day; i <= sunday.Day; i++)
+            while (actDate <= sunday)
+            //for (int i = monday.Day; i <= sunday.Day; i++)
             {
                 DateInt found = dateInts.FirstOrDefault(x => x.Date.Date == actDate.Date);
-
+                int i = actDate.Day;
                 if (found != null)
                     entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString(), Color = SKColors.LimeGreen });
                 else
                     entries.Add(new ChartEntry(0) { Label = i.ToString(), TextColor = SKColors.LightGray });
 
                 actDate = actDate.AddDays(1);
-            }
+            };
 
             return entries;
         }

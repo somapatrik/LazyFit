@@ -160,11 +160,11 @@ namespace LazyFit.Services
 
         public static async Task<List<Fast>> GetFastsByPagePerWeek(int pageNumber = 0)
         {
-            DateTime today = DateTime.Today.AddDays(6 * pageNumber);
+            DateTime today = DateTime.Today.AddDays(7 * pageNumber);
             int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek ;
 
             DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(6);
+            DateTime sunday = monday.AddDays(7).AddMinutes(-1);
 
             var f = await Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= monday && f.StartTime <= sunday).ToListAsync();
             return f;
