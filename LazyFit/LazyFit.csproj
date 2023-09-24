@@ -78,6 +78,9 @@
 	  <MauiXaml Update="Views\EnterWeightView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\FastChart.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\FastingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
