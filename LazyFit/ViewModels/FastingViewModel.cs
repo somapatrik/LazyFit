@@ -69,7 +69,7 @@ namespace LazyFit.ViewModels
                 IsAnimated = false,
                 MaxValue = 100f,
                 MinValue = 0f,
-                Margin=0,
+                Margin = 0,
                 HoleRadius = 0.6f
             };
 
