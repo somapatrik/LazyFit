@@ -41,12 +41,28 @@ namespace LazyFit.Services
             Task CreateTables = Task.WhenAll(tables);
             await CreateTables;
         }
-        
+
 
 
         #endregion
 
         #region Weight
+
+        public static async Task<Weight> GetLastWeightOlderThan(DateTime beforeDate)
+        {
+            return await Database.Table<Weight>().Where(x => x.Time < beforeDate).OrderByDescending(d => d.Time).FirstOrDefaultAsync();
+        }
+
+        public static async Task<List<Weight>> GetWeightByPagePerWeek(int pageNumber = 0)
+        {
+            DateTime today = DateTime.Today.AddDays(7 * pageNumber);
+            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
+
+            DateTime monday = today.AddDays(-(dayofWeek - 1));
+            DateTime sunday = monday.AddDays(7).AddMinutes(-1);
+
+            return await Database.Table<Weight>().Where(w => w.Time >= monday && w.Time <= sunday).ToListAsync();
+        }
         public static async Task InsertWeight(Weight weight)
         {
             await Database.InsertAsync(weight);

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.FastChart">
-    <VerticalStackLayout>
-        <micro:ChartView Chart="{Binding FastChart}"  MinimumHeightRequest="200"/>
-    </VerticalStackLayout>
+
+        <micro:ChartView Chart="{Binding FastChart}"/>
 </ContentView>
