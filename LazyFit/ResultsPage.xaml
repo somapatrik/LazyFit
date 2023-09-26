@@ -18,8 +18,8 @@
             <ScrollView Grid.Row="1">
 
                 <VerticalStackLayout  Spacing="10">
-                    <views:WeightResultChart HeightRequest="150"/>
-                    <views:FastChart HeightRequest="150"/>
+                    <views:WeightResultChart HeightRequest="200"/>
+                    <views:FastChart HeightRequest="200"/>
 
                 </VerticalStackLayout>
             

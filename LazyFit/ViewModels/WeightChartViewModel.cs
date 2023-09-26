@@ -1,9 +1,7 @@
 ﻿using LazyFit.Models;
 using LazyFit.Services;
 using Microcharts;
-using Microcharts.Maui;
 using SkiaSharp;
-using System.Linq;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels

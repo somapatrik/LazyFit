@@ -37,9 +37,8 @@ namespace LazyFit.ViewModels
 
             List<ChartEntry> entries = await CreateEntriesPerWeek(PageNumber, dateFloats);
 
-
-            WeightChart = new LineChart() 
-            { 
+            WeightChart = new LineChart()
+            {
                 Entries = entries,
                 LabelTextSize = 32,
                 LabelOrientation = Orientation.Horizontal,
