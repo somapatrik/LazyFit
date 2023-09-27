@@ -13,11 +13,11 @@ namespace LazyFit.Models
         [PrimaryKey]
         public Guid Id { get; set; }
         public DateTime Time { get; set; }
-        public FoodType.TypeOfFood TypeOfFood { get; set; }
+        public TypeOfFood TypeOfFood { get; set; }
 
         public Food() { }
 
-        public Food(Guid id, FoodType.TypeOfFood typeOfFood)
+        public Food(Guid id, TypeOfFood typeOfFood)
         {
             Id = id;
             Time = DateTime.Now;

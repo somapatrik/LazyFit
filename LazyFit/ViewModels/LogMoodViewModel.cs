@@ -53,8 +53,8 @@ namespace LazyFit.ViewModels
 
         private async void ShowFoodHandler(object obj)
         {
-            var selectedFood = await Shell.Current.DisplayActionSheet("What kind of food?", "Nothing...my mistake", null, Enum.GetNames(typeof(FoodType.TypeOfFood)));
-            FoodType.TypeOfFood foodType;
+            var selectedFood = await Shell.Current.DisplayActionSheet("What kind of food?", "Nothing...my mistake", null, Enum.GetNames(typeof(TypeOfFood)));
+            TypeOfFood foodType;
 
             if (Enum.TryParse(selectedFood, out foodType))
             {
