@@ -10,11 +10,11 @@ namespace LazyFit.Models
     {
         public Guid Id { get; set; }
         public DateTime Time { get; set; }
-        public DrinkType.TypeOfDrink TypeOfDrink { get; set; }
+        public TypeOfDrink TypeOfDrink { get; set; }
 
         public Drink() { }
 
-        public Drink(Guid id, DrinkType.TypeOfDrink typeOfDrink)
+        public Drink(Guid id, TypeOfDrink typeOfDrink)
         {
             Id = id;
             Time = DateTime.Now;

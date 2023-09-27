@@ -1,7 +1,5 @@
 ﻿namespace LazyFit.Models
 {
-    public class DrinkType
-    {
         public enum TypeOfDrink
         {
             Coffee = 0,
@@ -11,5 +9,4 @@
             Tea = 4,
             Alcoholic = 5
         }
-    }
 }
