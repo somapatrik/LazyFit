@@ -1,9 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels
@@ -46,8 +41,17 @@ namespace LazyFit.ViewModels
 
         private void SetHeader()
         {
-            DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
-            PeriodText = headerDate.ToString("Y");
+
+            DateTime today = DateTime.Today.AddDays(7 * PageNumber);
+            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
+
+            DateTime monday = today.AddDays(-(dayofWeek - 1));
+            DateTime sunday = monday.AddDays(6);
+
+            //DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
+            //PeriodText = headerDate.ToString("Y");
+
+            PeriodText = $"{monday.ToString("d")} - {sunday.ToString("d")}";
         }
 
         private void ShowOlderHandler(object obj)

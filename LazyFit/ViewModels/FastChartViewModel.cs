@@ -37,9 +37,9 @@ namespace LazyFit.ViewModels
             FastChart = new BarChart() 
             { 
                 Entries = CreateEntriesPerWeek(PageNumber, dateInts), 
-                LabelTextSize = 32, 
+                LabelTextSize = 36,
                 LabelOrientation = Orientation.Horizontal, 
-                ValueLabelOrientation=Orientation.Horizontal                
+                ValueLabelOrientation=Orientation.Horizontal               
             };
 
         }
@@ -58,14 +58,13 @@ namespace LazyFit.ViewModels
             List<ChartEntry> entries = new List<ChartEntry>();
 
             while (actDate <= sunday)
-            //for (int i = monday.Day; i <= sunday.Day; i++)
             {
                 DateInt found = dateInts.FirstOrDefault(x => x.Date.Date == actDate.Date);
                 int i = actDate.Day;
                 if (found != null)
-                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString(), Color = SKColors.LimeGreen });
+                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString(), Color = SKColor.Parse("#0b5ed7") });
                 else
-                    entries.Add(new ChartEntry(0) { Label = i.ToString(), TextColor = SKColors.LightGray });
+                    entries.Add(new ChartEntry(0) { Label = i.ToString(), TextColor = SKColors.LightGray, Color = SKColors.Transparent });
 
                 actDate = actDate.AddDays(1);
             };

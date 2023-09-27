@@ -4,14 +4,20 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.WeightResultChart">
 
-    <Grid Background="White">
+
+
+
+
+    <Grid BackgroundColor="White">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        <Label Text="Weight history" HorizontalTextAlignment="Start" Style="{StaticResource PageSubHeader}"/>
+
+
+
+        <Label Text="Daily weight" HorizontalTextAlignment="Start" Style="{StaticResource PageSubHeader}"/>
 
         <micro:ChartView Grid.Row="1" Chart="{Binding WeightChart}" />
 

@@ -23,7 +23,6 @@
                                 <RoundRectangle CornerRadius="5"/>
                             </Border.StrokeShape>
                                          
-
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>

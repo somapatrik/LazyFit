@@ -17,11 +17,24 @@
 
             <ScrollView Grid.Row="1">
 
-                <VerticalStackLayout  Spacing="10">
+                <VerticalStackLayout Spacing="10" Padding="10,0">
+                    
+                <Border StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="7" />
+                    </Border.StrokeShape>
+                    
                     <views:WeightResultChart HeightRequest="200"/>
-                    <views:FastChart HeightRequest="200"/>
+                </Border>
 
-                </VerticalStackLayout>
+                <Border StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="7" />
+                    </Border.StrokeShape>
+                    <views:FastChart HeightRequest="200"/>
+                </Border>
+                    
+            </VerticalStackLayout>
             
             </ScrollView>
 

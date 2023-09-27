@@ -40,9 +40,9 @@ namespace LazyFit.ViewModels
             WeightChart = new LineChart()
             {
                 Entries = entries,
-                LabelTextSize = 32,
+                LabelTextSize = 36,
                 LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal
+                ValueLabelOrientation = Orientation.Horizontal,
             };
         }
 
@@ -69,15 +69,15 @@ namespace LazyFit.ViewModels
 
                 if (found != null)
                 {
-                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString(), Color = SKColors.OrangeRed });
+                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString(), Color = SKColors.OrangeRed});
                     lastWeight = found.Value;
                 }
                 else
                 {
                     // Future will show 0
                     // Past should show last know weight
-                    float displayValue = today < actDate ? 0 : lastWeight;
-                    entries.Add(new ChartEntry(displayValue) { Label = i.ToString(), TextColor = SKColors.Transparent, Color = SKColors.Orange });
+                    float displayValue = DateTime.Today < actDate ? 0 : lastWeight;
+                    entries.Add(new ChartEntry(displayValue) { Label = i.ToString(), TextColor = SKColors.Transparent, Color = SKColors.OrangeRed });
                 }
 
                 actDate = actDate.AddDays(1);
