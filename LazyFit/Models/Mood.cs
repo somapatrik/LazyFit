@@ -12,11 +12,11 @@ namespace LazyFit.Models
         [PrimaryKey]
         public Guid Id { get; set; }
         public DateTime Time { get; set; }
-        public MoodType.MoodName TypeOfMood { get; set; }
+        public MoodName TypeOfMood { get; set; }
 
         public Mood() { }
 
-        public Mood(Guid id, MoodType.MoodName typeofmood)
+        public Mood(Guid id, MoodName typeofmood)
         {
             Id = id;
             Time = DateTime.Now;

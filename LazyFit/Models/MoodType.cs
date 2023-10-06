@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace LazyFit.Models
 {
-    public class MoodType
-    {
         public enum MoodName
         {
             Good = 0,
@@ -18,5 +11,4 @@ namespace LazyFit.Models
             Constipated = 5,
             Craving = 6
         }
-    }
 }

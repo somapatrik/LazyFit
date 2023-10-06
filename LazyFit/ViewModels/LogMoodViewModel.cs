@@ -76,8 +76,8 @@ namespace LazyFit.ViewModels
         private async void ShowLogMoodHandler()
         {
 
-            var selectedMood = await Shell.Current.DisplayActionSheet("What is your mood?", "None of your business", null, Enum.GetNames(typeof(MoodType.MoodName)));
-            MoodType.MoodName selectedType;
+            var selectedMood = await Shell.Current.DisplayActionSheet("What is your mood?", "None of your business", null, Enum.GetNames(typeof(MoodName)));
+            MoodName selectedType;
             
             if (Enum.TryParse(selectedMood,out selectedType))
             {
