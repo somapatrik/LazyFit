@@ -64,21 +64,10 @@ namespace LazyFit.ViewModels
                 int i = actDate.Day;
 
                 if (found != null)
-                {
                     enterValue = remainHours + found.Value;
-                    remainHours = 0;
-
-                    if (enterValue > 24)
-                    {
-                        remainHours = enterValue - 24;
-                        enterValue = 24;
-                        
-                    }
-                    entries.Add(new ChartEntry(enterValue) { Label = i.ToString(), ValueLabel = enterValue.ToString(), Color = SKColor.Parse("#0b5ed7") });
-                }
-                else
-                {
+                else 
                     enterValue = remainHours;
+
                     remainHours = 0;
 
                     if (enterValue > 24)
@@ -88,10 +77,8 @@ namespace LazyFit.ViewModels
                     }
 
                     entries.Add(new ChartEntry(enterValue) { Label = i.ToString(), ValueLabel = enterValue.ToString(), Color = SKColor.Parse("#0b5ed7") });
-                }
 
-
-                actDate = actDate.AddDays(1);
+                    actDate = actDate.AddDays(1);
             };
 
             return entries;
