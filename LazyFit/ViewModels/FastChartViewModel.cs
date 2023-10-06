@@ -84,27 +84,5 @@ namespace LazyFit.ViewModels
             return entries;
         }
 
-        private List<ChartEntry> CreateEntries(int pageNum, List<DateInt> dateInts)
-        {
-            DateTime now = DateTime.Today.AddMonths(pageNum);
-            DateTime firstDate = new DateTime(now.Year, now.Month, 1);
-            DateTime lastDate = firstDate.AddMonths(1).AddDays(-1);
-            DateTime actDate = firstDate;
-
-            List<ChartEntry> entries = new List<ChartEntry>();
-
-            for (int i = firstDate.Day; i <= lastDate.Day; i++)
-            {
-                DateInt found = dateInts.FirstOrDefault(x => x.Date.Date == actDate.Date);
-                
-                if (found != null)
-                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(),  ValueLabel = found.Value.ToString(),Color = SKColors.LimeGreen });
-                else
-                    entries.Add(new ChartEntry(0) { Label = i.ToString(), TextColor = SKColors.SlateGray });
-    
-                actDate = actDate.AddDays(1);
-            }
-            return entries;
-        }
     }
 }
