@@ -15,7 +15,7 @@
 		<ApplicationTitle>LazyFit</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.lazyfit</ApplicationId>
+		<ApplicationId>com.somapatrik.lazyfit</ApplicationId>
 		<ApplicationIdGuid>dd6e0bfc-a7d2-43e1-b5b6-dfcdf5f08040</ApplicationIdGuid>
 
 		<!-- Versions -->
