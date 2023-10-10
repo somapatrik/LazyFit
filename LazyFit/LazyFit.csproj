@@ -99,6 +99,9 @@
 	  <MauiXaml Update="Views\LogButtonsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\MixResultListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\StartFastingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

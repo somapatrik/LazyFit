@@ -33,7 +33,14 @@
                     </Border.StrokeShape>
                     <views:FastChart HeightRequest="200"/>
                 </Border>
-                    
+
+                <Border StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="7" />
+                    </Border.StrokeShape>
+                    <views:MixResultListView HeightRequest="200"/>
+                </Border>
+
             </VerticalStackLayout>
             
             </ScrollView>

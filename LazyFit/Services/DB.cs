@@ -124,6 +124,12 @@ namespace LazyFit.Services
         public static async Task InsertDrink(Drink drink)
         {
             await Database.InsertAsync(drink);
+
+        }
+
+        public static async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime)
+        {
+            return await Database.Table<Drink>().Where(d=>d.Time >= fromTime && d.Time <= toTime).ToListAsync();
         }
         #endregion
 

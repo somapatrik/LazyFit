@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LazyFit.Views.MixResultListView">
+
+    <Grid BackgroundColor="{StaticResource White}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Text="Logged events" 
+                   HorizontalTextAlignment="Start" 
+                   Style="{StaticResource PageSubHeader}"/>
+
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding MixedResults}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding EventTitle}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentView>
