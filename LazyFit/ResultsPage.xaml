@@ -38,7 +38,7 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="7" />
                     </Border.StrokeShape>
-                    <views:MixResultListView HeightRequest="200"/>
+                    <views:MixResultListView/>
                 </Border>
 
             </VerticalStackLayout>

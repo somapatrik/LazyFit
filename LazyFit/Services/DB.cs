@@ -118,6 +118,12 @@ namespace LazyFit.Services
         {
             await Database.InsertAsync(food);
         }
+
+        public static async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime)
+        {
+            return await Database.Table<Food>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
+        }
+
         #endregion  
 
         #region Drink
@@ -157,7 +163,7 @@ namespace LazyFit.Services
 
         public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime)
         {
-            return await Database.Table<Mood>().Where(m=> (fromTime <= m.Time) && (m.Time >= toTime)).ToListAsync();
+            return await Database.Table<Mood>().Where(m=> m.Time >= fromTime && m.Time <= toTime).ToListAsync();
         }
 
         #endregion

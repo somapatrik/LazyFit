@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.MixResultListView">
 
     <Grid BackgroundColor="{StaticResource White}">
@@ -14,14 +15,51 @@
                    HorizontalTextAlignment="Start" 
                    Style="{StaticResource PageSubHeader}"/>
 
-
-        <CollectionView Grid.Row="1" ItemsSource="{Binding MixedResults}">
+        <ScrollView Grid.Row="1" >
+        
+            <CollectionView ItemsSource="{Binding MixedResults}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Label Text="{Binding EventTitle}"/>
+                    <StackLayout>
+                        
+                    <Border Padding="10" StrokeThickness=".3">
+                        <Border.StrokeShape >
+                            <Rectangle />
+                        </Border.StrokeShape>
+
+                            <Label Text="{Binding Date, Converter={converters:DatetimeToDateConverter}}" FontAttributes="Bold"/>
+
+                    </Border>
+                    
+                    <CollectionView ItemsSource="{Binding Results}">
+                            <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,10" Padding="20,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Text="{Binding EventTime,Converter={converters:DatetimeToTimeConverter}}"/>
+                                            <Label Grid.Column="1" Text="{Binding EventTitle}" HorizontalTextAlignment="End"/>
+                                            <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest=".3" BackgroundColor="Black" VerticalOptions="End" HorizontalOptions="FillAndExpand" />
+                                        </Grid>
+
+                                    </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </StackLayout>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
+        
+        </ScrollView>
+    
     </Grid>
 </ContentView>

@@ -2,19 +2,14 @@
 using LazyFit.Classes;
 using LazyFit.Models;
 using LazyFit.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LazyFit.ViewModels
 {
     internal class MixResultsViewModel : ResultComponent
     {
-        private ObservableCollection<MixResult> _MixedResults;
-        public ObservableCollection<MixResult> MixedResults { get => _MixedResults; set => SetProperty(ref _MixedResults, value); }
+        private ObservableCollection<DateResult> _MixedResults;
+        public ObservableCollection<DateResult> MixedResults { get => _MixedResults; set => SetProperty(ref _MixedResults, value); }
 
         public MixResultsViewModel() 
         {
@@ -30,22 +25,33 @@ namespace LazyFit.ViewModels
             DateTime monday = today.AddDays(-(dayofWeek - 1));
             DateTime sunday = monday.AddDays(6);
 
-            MixedResults = new ObservableCollection<MixResult>();
+            MixedResults = new ObservableCollection<DateResult>();
             List<Drink> drinks = await DB.GetDrinks(monday, sunday);
-            try { 
-            drinks.ForEach(d =>
-                MixedResults.Add(new MixResult()
-                {
-                    EventTime = d.Time,
-                    EventTitle = d.TypeOfDrink.ToString()
-                })
-            ) ;
-            }
-            catch (Exception ex)
+            List<Mood> moods = await DB.GetMoods(monday, sunday);
+            List<Food> foods = await DB.GetFoods(monday, sunday);
+
+            var mixed = new List<MixResult>();
+
+            mixed.AddRange(drinks.Select(drink => new MixResult() { EventTime = drink.Time, EventTitle = drink.TypeOfDrink.ToString() }));
+            mixed.AddRange(moods.Select(mood => new MixResult() { EventTime = mood.Time, EventTitle = mood.TypeOfMood.ToString() }));
+            mixed.AddRange(foods.Select(foods => new MixResult() { EventTime = foods.Time, EventTitle = foods.TypeOfFood.ToString() }));
+
+
+            DateTime actDate = monday;
+            while (actDate.Date <= sunday.Date)
             {
-                string msg = ex.Message;
+                var found = mixed.Find(mix=>mix.EventTime.Date == actDate.Date);
+                if (found != null)
+                {
+                    MixedResults.Add(new DateResult()
+                    { 
+                        Date=actDate.Date,
+                        Results= mixed.Where(m=> m.EventTime.Date == actDate.Date).OrderByDescending(d => d.EventTime).ToList() 
+                    });
+                }
+                actDate = actDate.AddDays(1);
             }
-            //results.ForEach(MixedResults.Add);
+
 
 
         }
