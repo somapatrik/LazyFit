@@ -27,34 +27,54 @@ namespace LazyFit.Classes
             set
             {
                 SetProperty(ref _pageNumber, value);
-                SetHeader();
+                //SetHeader();
+                SetDates();
             }
         }
 
+        public DateTime StartDate { get; set; }
+        public DateTime FirstDateTime { get; set; }
+        public DateTime LastDateTime { get; set; }
+
         public ResultComponent()
         {
-            ShowOlder = new Command(ShowOlderHandler);
-            ShowNewer = new Command(ShowNewerHandler);
-            SetHeader();
+           // PageNumber = 0;
+
+            //ShowOlder = new Command(ShowOlderHandler);
+            //ShowNewer = new Command(ShowNewerHandler);
+           // SetHeader();
+            SetDates();
+
         }
 
-        protected virtual void SetHeader()
+        protected virtual void SetDates()
         {
-            DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
-            PeriodText = headerDate.ToString("Y");
+            // Start point inside week
+            StartDate = DateTime.Today.AddDays(7 * PageNumber);
+            int dayofWeek = StartDate.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)StartDate.DayOfWeek;
+
+            // Get first / last datetime of that week 
+            FirstDateTime = StartDate.AddDays(-(dayofWeek - 1));
+            LastDateTime = FirstDateTime.AddDays(7).AddMinutes(-1);
         }
 
-        protected virtual void ShowOlderHandler(object obj)
-        {
-            PageNumber--;
-            LoadResults();
-        }
+        //protected virtual void SetHeader()
+        //{
+        //    DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
+        //    PeriodText = headerDate.ToString("Y");
+        //}
 
-        protected virtual void ShowNewerHandler(object obj)
-        {
-            PageNumber++;
-            LoadResults();
-        }
+        //protected virtual void ShowOlderHandler(object obj)
+        //{
+        //    PageNumber--;
+        //    LoadResults();
+        //}
+
+        //protected virtual void ShowNewerHandler(object obj)
+        //{
+        //    PageNumber++;
+        //    LoadResults();
+        //}
 
         protected virtual void ShowPage(int pageNum)
         {

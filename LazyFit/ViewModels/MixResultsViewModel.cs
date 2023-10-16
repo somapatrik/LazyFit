@@ -19,16 +19,10 @@ namespace LazyFit.ViewModels
 
         protected override async void LoadResults()
         {
-            DateTime today = DateTime.Today.AddDays(7 * PageNumber);
-            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
-
-            DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(6);
-
             MixedResults = new ObservableCollection<DateResult>();
-            List<Drink> drinks = await DB.GetDrinks(monday, sunday);
-            List<Mood> moods = await DB.GetMoods(monday, sunday);
-            List<Food> foods = await DB.GetFoods(monday, sunday);
+            List<Drink> drinks = await DB.GetDrinks(FirstDateTime, LastDateTime);
+            List<Mood> moods = await DB.GetMoods(FirstDateTime, LastDateTime);
+            List<Food> foods = await DB.GetFoods(FirstDateTime, LastDateTime);
 
             var mixed = new List<MixResult>();
 
@@ -37,8 +31,8 @@ namespace LazyFit.ViewModels
             mixed.AddRange(foods.Select(foods => new MixResult() { EventTime = foods.Time, EventTitle = foods.TypeOfFood.ToString() }));
 
 
-            DateTime actDate = monday;
-            while (actDate.Date <= sunday.Date)
+            DateTime actDate = FirstDateTime;
+            while (actDate.Date <= LastDateTime.Date)
             {
                 var found = mixed.Find(mix=>mix.EventTime.Date == actDate.Date);
                 if (found != null)
