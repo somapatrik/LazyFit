@@ -13,9 +13,19 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Label Text="Results" Style="{StaticResource PageHeader}"/>
+        <StackLayout Orientation="Vertical">
+            
+            <Label Text="Weekly results"
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource PageHeader}"/>
 
-            <ScrollView Grid.Row="1">
+            <Label Text="{Binding PeriodText}" 
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource PageSubHeader}"/>
+            
+        </StackLayout>
+
+        <ScrollView Grid.Row="1">
 
                 <VerticalStackLayout Spacing="10" Padding="10,0">
                     
@@ -24,14 +34,14 @@
                         <RoundRectangle CornerRadius="7" />
                     </Border.StrokeShape>
                     
-                    <views:WeightResultChart HeightRequest="200"/>
+                    <views:WeightResultChart HeightRequest="230"/>
                 </Border>
 
                 <Border StrokeThickness="1">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="7" />
                     </Border.StrokeShape>
-                    <views:FastChart HeightRequest="200"/>
+                    <views:FastChart HeightRequest="230"/>
                 </Border>
 
                 <Border StrokeThickness="1">
@@ -56,16 +66,14 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-
-
-            <Label Grid.ColumnSpan="2" 
+                
+            <!--<Label Grid.ColumnSpan="2" 
                            Text="{Binding PeriodText}" 
                            HorizontalTextAlignment="Center"
-                           Style="{StaticResource PageSubHeader}"/>
+                           Style="{StaticResource PageSubHeader}"/>-->
 
-            <Button Grid.Row="1" 
-                            Grid.Column="0" Text="&#x2190;" FontSize="32" Command="{Binding ShowOlder}" Style="{StaticResource SimpleButton}" Background="White" />
-            <Button Grid.Row="1" Grid.Column="1" Text="&#x2192;" FontSize="32" Command="{Binding ShowNewer}" Style="{StaticResource SimpleButton}" Background="White" />
+            <Button Grid.Row="1" Grid.Column="0" Text="&#x2190;" FontSize="36" Command="{Binding ShowOlder}" Style="{StaticResource SimpleButton}" Background="White" />
+            <Button Grid.Row="1" Grid.Column="1" Text="&#x2192;" FontSize="36" Command="{Binding ShowNewer}" Style="{StaticResource SimpleButton}" Background="White" />
 
 
         </Grid>

@@ -27,7 +27,6 @@ namespace LazyFit.Classes
             set
             {
                 SetProperty(ref _pageNumber, value);
-                //SetHeader();
                 SetDates();
             }
         }
@@ -38,13 +37,7 @@ namespace LazyFit.Classes
 
         public ResultComponent()
         {
-           // PageNumber = 0;
-
-            //ShowOlder = new Command(ShowOlderHandler);
-            //ShowNewer = new Command(ShowNewerHandler);
-           // SetHeader();
             SetDates();
-
         }
 
         protected virtual void SetDates()
@@ -57,24 +50,6 @@ namespace LazyFit.Classes
             FirstDateTime = StartDate.AddDays(-(dayofWeek - 1));
             LastDateTime = FirstDateTime.AddDays(7).AddMinutes(-1);
         }
-
-        //protected virtual void SetHeader()
-        //{
-        //    DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
-        //    PeriodText = headerDate.ToString("Y");
-        //}
-
-        //protected virtual void ShowOlderHandler(object obj)
-        //{
-        //    PageNumber--;
-        //    LoadResults();
-        //}
-
-        //protected virtual void ShowNewerHandler(object obj)
-        //{
-        //    PageNumber++;
-        //    LoadResults();
-        //}
 
         protected virtual void ShowPage(int pageNum)
         {

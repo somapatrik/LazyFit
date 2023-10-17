@@ -12,6 +12,6 @@
         </Grid.RowDefinitions>
 
         <Label Text="Fasting hours" HorizontalTextAlignment="Start" Style="{StaticResource PageSubHeader}"/>
-        <micro:ChartView Grid.Row="1" Chart="{Binding FastChart}"/>
+        <micro:ChartView Grid.Row="1" Chart="{Binding FastChart}" Margin="10"/>
     </Grid>
 </ContentView>

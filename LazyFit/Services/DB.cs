@@ -63,6 +63,12 @@ namespace LazyFit.Services
 
             return await Database.Table<Weight>().Where(w => w.Time >= monday && w.Time <= sunday).ToListAsync();
         }
+
+        public static async Task<List<Weight>> GetWeights(DateTime fromDate, DateTime toDate)
+        {
+            return await Database.Table<Weight>().Where(w => w.Time >= fromDate && w.Time <= toDate).ToListAsync();
+        }
+
         public static async Task InsertWeight(Weight weight)
         {
             await Database.InsertAsync(weight);
@@ -196,6 +202,11 @@ namespace LazyFit.Services
 
             var f = await Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= monday && f.StartTime <= sunday).ToListAsync();
             return f;
+        }
+
+        public static async Task<List<Fast>> GetFasts(DateTime fromDate, DateTime toDate)
+        {
+            return await Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= fromDate && f.StartTime <= toDate).ToListAsync();
         }
 
         public static async Task<Fast> GetRunningFast()

@@ -21,7 +21,7 @@ namespace LazyFit.ViewModels
 
         protected override async void LoadResults()
         {
-            List<Weight> weights = (await DB.GetWeightByPagePerWeek(PageNumber)).OrderBy(w=>w.Time).ToList();
+            List<Weight> weights = (await DB.GetWeights(FirstDateTime,LastDateTime)).OrderBy(w=>w.Time).ToList();
 
 
             List<DateFloat> dateFloats = weights.GroupBy(obj => obj.Time.Date)
@@ -48,21 +48,14 @@ namespace LazyFit.ViewModels
 
         private async Task<List<ChartEntry>> CreateEntriesPerWeek(int pageNum, List<DateFloat> dateFloats)
         {
-            // Find week
-            DateTime today = DateTime.Today.AddDays(7 * pageNum);
-            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
-
-            DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(6);
-            DateTime actDate = monday;
-
             // Get last weight before this
-            Weight latestWeight = await DB.GetLastWeightOlderThan(monday);
+            Weight latestWeight = await DB.GetLastWeightOlderThan(FirstDateTime);
             float lastWeight = latestWeight == null ? 0 : (float)latestWeight.WeightValue;
 
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            while (actDate <= sunday)
+            DateTime actDate = FirstDateTime;
+            while (actDate <= LastDateTime)
             {
                 DateFloat found = dateFloats.FirstOrDefault(x => x.Date.Date == actDate.Date);
                 int i = actDate.Day;
@@ -74,10 +67,14 @@ namespace LazyFit.ViewModels
                 }
                 else
                 {
-                    // Future will show 0
-                    // Past should show last know weight
-                    float displayValue = DateTime.Today < actDate ? 0 : lastWeight;
-                    entries.Add(new ChartEntry(displayValue) { Label = i.ToString(), TextColor = SKColors.Transparent, Color = SKColors.OrangeRed });
+                    float displayValue = lastWeight;
+
+                    entries.Add(new ChartEntry(displayValue) { 
+                        Label = i.ToString(), 
+                        ValueLabel = displayValue.ToString(), 
+                        ValueLabelColor = SKColor.Parse("#02444444"), 
+                        Color = SKColors.OrangeRed 
+                    });
                 }
 
                 actDate = actDate.AddDays(1);

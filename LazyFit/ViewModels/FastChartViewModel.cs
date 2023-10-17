@@ -22,7 +22,7 @@ namespace LazyFit.ViewModels
 
         protected override async void LoadResults()
         {
-            List<Fast> fasts = await DB.GetFastsByPagePerWeek(PageNumber);
+            List<Fast> fasts = await DB.GetFasts(FirstDateTime, LastDateTime);
 
             List<DateInt> dateInts = fasts.GroupBy(obj => obj.StartTime.Date)
                                             .Select(group => 
@@ -46,19 +46,14 @@ namespace LazyFit.ViewModels
 
         private List<ChartEntry> CreateEntriesPerWeek(int pageNum, List<DateInt> dateInts)
         {
-            DateTime today = DateTime.Today.AddDays(7 * pageNum);
-            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
-
-            DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(6);
-            DateTime actDate = monday;
+            DateTime actDate = FirstDateTime;
 
             int remainHours = 0;
             int enterValue = 0;
 
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            while (actDate <= sunday)
+            while (actDate <= LastDateTime)
             {
                 DateInt found = dateInts.FirstOrDefault(x => x.Date.Date == actDate.Date);
                 int i = actDate.Day;

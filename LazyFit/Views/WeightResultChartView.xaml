@@ -17,9 +17,12 @@
 
 
 
-        <Label Text="Daily weight" HorizontalTextAlignment="Start" Style="{StaticResource PageSubHeader}"/>
+        <Label Text="Daily weight" 
+               HorizontalTextAlignment="Start" 
+               Style="{StaticResource PageSubHeader}"
+               />
 
-        <micro:ChartView Grid.Row="1" Chart="{Binding WeightChart}" />
+        <micro:ChartView Grid.Row="1" Chart="{Binding WeightChart}" Margin="0,10,0,0"/>
 
     </Grid>
 
