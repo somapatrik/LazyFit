@@ -12,13 +12,19 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-            .UseMauiCommunityToolkit()
-            .ConfigureMopups()
+			.UseMauiCommunityToolkit()
+			.ConfigureMopups()
 			.UseMicrocharts()
-            .ConfigureFonts(fonts =>
+			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+			})
+			.ConfigureMauiHandlers(handlers =>
+			{
+#if ANDROID
+				handlers.AddHandler(typeof(Microsoft.Maui.Controls.Shell), typeof(LazyFit.Platforms.Android.MyShellRenderer));
+#endif
 			});
 
 #if DEBUG

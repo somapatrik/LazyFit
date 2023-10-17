@@ -34,7 +34,7 @@
                         <RoundRectangle CornerRadius="7" />
                     </Border.StrokeShape>
                     
-                    <views:WeightResultChart HeightRequest="230"/>
+                    <views:WeightResultChart HeightRequest="170"/>
                 </Border>
 
                 <Border StrokeThickness="1">
