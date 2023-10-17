@@ -6,7 +6,7 @@
              x:Class="LazyFit.Views.StartFastingView"
              Background="#80000000">
 
-    <Border VerticalOptions="Center" HorizontalOptions="Center" Background="white" Padding="10" Margin="10">
+    <Border VerticalOptions="End" HorizontalOptions="Center" Background="white" Padding="10" Margin="0">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="3"/>
         </Border.StrokeShape>

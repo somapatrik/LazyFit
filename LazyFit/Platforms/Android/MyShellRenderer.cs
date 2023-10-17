@@ -19,7 +19,7 @@ namespace LazyFit.Platforms.Android
         }
     }
 
-    internal class MyToolbarAppearanceTracker : IShellToolbarAppearanceTracker
+    public class MyToolbarAppearanceTracker : IShellToolbarAppearanceTracker
     {
         public void Dispose()
         {

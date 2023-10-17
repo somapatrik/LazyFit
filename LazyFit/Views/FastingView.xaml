@@ -16,7 +16,7 @@
             <micro:ChartView 
                 Chart="{Binding ProgressChart}" 
                 IsVisible="{Binding isFastActive}" 
-                HeightRequest="150"/>
+                HeightRequest="200"/>
 
         <Label 
                 Text="{Binding TimerMessage}"
@@ -24,24 +24,13 @@
                 Padding="8"
                 FontSize="Medium"
                 IsVisible="{Binding isFastActive}"/>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            
-            
-        </Grid>
-
         
             <Button Text="Enjoy a fast" 
                     Command="{Binding OpenFasting}" 
                     IsVisible="{Binding isFastActive,Converter={converters:InverseBoolConverter}}"
                     Margin="5,0"
                     FontSize="Default"
-                    Background="Black"
+                    BackgroundColor="{StaticResource LazyColor}"
                     Style="{StaticResource ButtonOk}"/>
 
 
