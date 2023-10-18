@@ -25,7 +25,8 @@ namespace LazyFit.ViewModels
                 new FastingOption(8, "8 hours", "Real deal"),
                 new FastingOption(10, "10 hours", "You love to suffer...good"),
                 new FastingOption(12, "12 hours", "Do you really want to do it?"),
-                new FastingOption(16, "16 hours", "Wouldn´t recommend it")
+                new FastingOption(16, "16 hours", "Wouldn´t recommend it"),
+                new FastingOption(24, "Full day", "Now you´re just showing off")
             };
 
             StartFast = new Command(StartFastHandler);

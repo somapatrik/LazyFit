@@ -4,14 +4,21 @@
              xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:vm="clr-namespace:LazyFit.ViewModels"
              x:Class="LazyFit.Views.StartFastingView"
-             Background="#80000000">
+             Background="#80000000"
+                  CloseWhenBackgroundIsClicked="True">
     
-    <ScrollView HorizontalScrollBarVisibility="Never">
+    <ScrollView HorizontalScrollBarVisibility="Never" VerticalOptions="End">
 
-    <Border VerticalOptions="End" HorizontalOptions="Center" Background="white" Padding="10" Margin="0">
+    <Border  HorizontalOptions="Center" Background="white">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,0,0"></RoundRectangle>
+            </Border.StrokeShape>
+        
         <VerticalStackLayout>
 
-            <Label Text="Choose wisely" FontAttributes="Bold"/>
+            <Label Text="Choose wisely" FontAttributes="Bold" Margin="10"/>
+            
             <CollectionView ItemsSource="{Binding FastingOptions}" VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
