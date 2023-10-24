@@ -64,13 +64,15 @@ namespace LazyFit.ViewModels
 
         private async void ShowDrinkHandler(object obj)
         {
-            var selectedDrink = await Shell.Current.DisplayActionSheet("What kind of drink?", "Nothing...my mistake", null, Enum.GetNames(typeof(TypeOfDrink)));
-            TypeOfDrink drinkType;
+            //var selectedDrink = await Shell.Current.DisplayActionSheet("What kind of drink?", "Nothing...my mistake", null, Enum.GetNames(typeof(TypeOfDrink)));
+            //TypeOfDrink drinkType;
 
-            if (Enum.TryParse(selectedDrink, out drinkType))
-            {
-                await DB.InsertDrink(new Drink(Guid.NewGuid(), drinkType));
-            }
+            //if (Enum.TryParse(selectedDrink, out drinkType))
+            //{
+            //    await DB.InsertDrink(new Drink(Guid.NewGuid(), drinkType));
+            //}
+
+            await MopupService.Instance.PushAsync(new LogDrinkView());
         }
 
         private async void ShowLogMoodHandler()
