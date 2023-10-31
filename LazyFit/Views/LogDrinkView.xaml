@@ -2,28 +2,40 @@
 <mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LazyFit.Views.LogDrinkView"
-             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups">
+             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             Background="#80000000">
+
     
-    <VerticalStackLayout Padding="10">
-        <Label Text="Log drink" Style="{StaticResource PageSubHeader}"/>
-        <TimePicker HorizontalOptions="Center" FontSize="Large"/>
+    <Border Background="white" VerticalOptions="End" Padding="20">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10,10,0,0"/>
+        </Border.StrokeShape>
+    <VerticalStackLayout >
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <Label Text="Log drink" 
+               HorizontalTextAlignment="Center"
+               Style="{StaticResource PageHeader}"/>
 
-            <Border Grid.ColumnSpan="3" BackgroundColor="White">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10"/>
-                </Border.StrokeShape>
-            </Border>
+        <TimePicker Style="{StaticResource EntryTimePicker}"/>
 
-            <Label Grid.Column="1" Text="Drink" HorizontalTextAlignment="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-        </Grid>
+                <Border Grid.ColumnSpan="3" BackgroundColor="White">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                </Border>
+
+                <Label Grid.Column="1" Text="Drink" HorizontalTextAlignment="Center"/>
+
+            </Grid>
+
+        </VerticalStackLayout>
+    </Border>
         
-    </VerticalStackLayout>
 </mopup:PopupPage>
