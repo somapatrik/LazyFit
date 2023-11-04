@@ -20,5 +20,12 @@ namespace LazyFit.Models.Drinks
             Time = DateTime.Now;
             TypeOfDrink = typeOfDrink;
         }
+
+        public Drink(Guid id, DateTime time, TypeOfDrink typeOfDrink) 
+        {
+            Id = id;
+            Time = time;
+            TypeOfDrink = typeOfDrink;
+        }
     }
 }

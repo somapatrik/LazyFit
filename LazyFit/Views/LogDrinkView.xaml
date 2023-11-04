@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LazyFit.Views.LogDrinkView"
-             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Background="#80000000">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="LazyFit.Views.LogDrinkView"
+                xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                 xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
+                Background="#80000000">
 
     <Border Padding="10" 
-            VerticalOptions="Center">
+            VerticalOptions="End">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10,10,0,0"/>
+        </Border.StrokeShape>
         
         <VerticalStackLayout>
             <Label Text="Log drink" Style="{StaticResource PageSubHeader}"/>
-            <TimePicker HorizontalOptions="Center" FontSize="Large"/>
+            
+            <TimePicker HorizontalOptions="Center" FontSize="Large" Margin="20"  Time="{Binding SelectedTime}" />
 
-            <CollectionView ItemsSource="{Binding Drinks}">
+            <Label Text="Now" TextColor="{StaticResource Blue100Accent}" Margin="0,0,0,20" HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetTimeNow}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <CollectionView ItemsSource="{Binding Drinks}" SelectionMode="Single" SelectedItem="{Binding SelectedDrink}">
 
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" />
@@ -21,29 +33,66 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                    <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+                        
+                    <Frame FlexLayout.Basis="50%" 
+                           BackgroundColor="White" 
+                           CornerRadius="7" 
+                           Margin="3" 
+                           Padding="10" 
+                           MinimumHeightRequest="70">
 
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ShowLogMood}" />
-                        </Frame.GestureRecognizers>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SetDrink, Source={RelativeSource AncestorType={x:Type viewModels:LogDrinkViewModel}}}"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
 
-                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="Frame.BackgroundColor" Value="{StaticResource BootstrapWarningBg}"/>
+                                                <Setter TargetName="drinkLabel"  Property="Label.TextColor" Value="White" />
+                                                <Setter TargetName="drinkDesc"  Property="Label.TextColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Normal" >
+                                            <VisualState.Setters>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="1" Text="{Binding DisplayName}" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                                <Label x:Name="drinkLabel" Grid.Row="0" Text="{Binding DisplayName}" TextColor="Black" 
+                                       FontSize="Medium" 
+                                       HorizontalTextAlignment="End"/>
+                                
+                                <Label x:Name="drinkDesc" Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
+                                       FontSize="Caption" 
+                                       HorizontalTextAlignment="End" 
+                                       VerticalOptions="End"/>
 
-                        </Grid>
+                            </Grid>
                     </Frame>
+                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 
             </CollectionView>
+            
 
-
-
+            <Button Text="Save" Margin="0,40,0,20" Command="{Binding SaveDrink}"/>
 
 
         </VerticalStackLayout>

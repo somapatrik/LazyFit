@@ -49,12 +49,28 @@ namespace LazyFit.Services
             // Default data
             foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
             {
-                DrinkProperty drinkProperty = new DrinkProperty()
-                {
-                    DrinkID = drink,
-                    DisplayName = drink.ToString(),
-                    ImageName = drink.ToString() + ".png",
-                };
+                string description = "";
+
+                if (drink == TypeOfDrink.Coffee)
+                    description = "Dark perfection";
+                else if (drink == TypeOfDrink.Beer)
+                    description = "The beverage of Kings";
+                else if (drink == TypeOfDrink.Water)
+                    description = "Basic stuff";
+                else if (drink == TypeOfDrink.Sweet)
+                    description = "Anything with sugar";
+                else if (drink == TypeOfDrink.Tea)
+                    description = "No sugar!";
+                else if (drink == TypeOfDrink.Alcoholic)
+                    description = "Beer excluded";
+
+                    DrinkProperty drinkProperty = new DrinkProperty()
+                    {
+                        DrinkID = drink,
+                        DisplayName = drink.ToString(),
+                        Description = description,
+                        ImageName = drink.ToString() + ".png",
+                    };
                 await UpdateDrinkProperty(drinkProperty);
             }
             
