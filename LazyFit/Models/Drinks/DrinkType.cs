@@ -1,4 +1,4 @@
-﻿namespace LazyFit.Models
+﻿namespace LazyFit.Models.Drinks
 {
         public enum TypeOfDrink
         {

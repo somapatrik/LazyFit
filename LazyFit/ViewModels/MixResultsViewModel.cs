@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Classes;
 using LazyFit.Models;
+using LazyFit.Models.Drinks;
 using LazyFit.Services;
 using System.Collections.ObjectModel;
 

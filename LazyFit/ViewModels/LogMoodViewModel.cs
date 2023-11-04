@@ -64,6 +64,7 @@ namespace LazyFit.ViewModels
 
         private async void ShowDrinkHandler(object obj)
         {
+
             //var selectedDrink = await Shell.Current.DisplayActionSheet("What kind of drink?", "Nothing...my mistake", null, Enum.GetNames(typeof(TypeOfDrink)));
             //TypeOfDrink drinkType;
 

@@ -1,4 +1,5 @@
 ﻿using LazyFit.Models;
+using LazyFit.Models.Drinks;
 using SQLite;
 using System.Text;
 
@@ -33,13 +34,30 @@ namespace LazyFit.Services
             {
                 Database.CreateTableAsync<Fast>(),
                 Database.CreateTableAsync<Mood>(),
-                Database.CreateTableAsync<Drink>(),
+                
                 Database.CreateTableAsync<Food>(),
-                Database.CreateTableAsync<Weight>()
+                Database.CreateTableAsync<Weight>(),
+
+                Database.CreateTableAsync<Drink>(),
+                Database.CreateTableAsync<DrinkProperty>()
             };
 
             Task CreateTables = Task.WhenAll(tables);
             await CreateTables;
+
+
+            // Default data
+            foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
+            {
+                DrinkProperty drinkProperty = new DrinkProperty()
+                {
+                    DrinkID = drink,
+                    DisplayName = drink.ToString(),
+                    ImageName = drink.ToString() + ".png",
+                };
+                await UpdateDrinkProperty(drinkProperty);
+            }
+            
         }
 
 
@@ -133,6 +151,17 @@ namespace LazyFit.Services
         #endregion  
 
         #region Drink
+
+        public static async Task UpdateDrinkProperty(DrinkProperty drinkProperty)
+        {
+            await Database.InsertOrReplaceAsync(drinkProperty);
+        }
+
+        public static async Task<List<DrinkProperty>> GetDrinkProperties()
+        {
+            return await Database.Table<DrinkProperty>().ToListAsync();
+        }
+
         public static async Task InsertDrink(Drink drink)
         {
             await Database.InsertAsync(drink);

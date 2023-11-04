@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LazyFit.Models
+namespace LazyFit.Models.Drinks
 {
     public class Drink
     {
