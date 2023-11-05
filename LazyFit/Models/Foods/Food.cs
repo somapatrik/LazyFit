@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LazyFit.Models
+namespace LazyFit.Models.Foods
 {
 
     public class Food

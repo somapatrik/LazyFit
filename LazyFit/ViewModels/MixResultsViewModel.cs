@@ -2,6 +2,7 @@
 using LazyFit.Classes;
 using LazyFit.Models;
 using LazyFit.Models.Drinks;
+using LazyFit.Models.Foods;
 using LazyFit.Services;
 using System.Collections.ObjectModel;
 

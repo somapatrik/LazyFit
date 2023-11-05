@@ -1,4 +1,5 @@
 ﻿using LazyFit.Models;
+using LazyFit.Models.Foods;
 using LazyFit.Services;
 using LazyFit.Views;
 using Mopups.Services;
