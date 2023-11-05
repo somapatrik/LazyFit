@@ -54,7 +54,7 @@
 
                                         <VisualState x:Name="Selected">
                                             <VisualState.Setters>
-                                                <Setter Property="Frame.BackgroundColor" Value="{StaticResource BootstrapWarningBg}"/>
+                                                <Setter Property="Frame.BackgroundColor" Value="{StaticResource NexenColor}"/>
                                                 <Setter TargetName="foodLabel"  Property="Label.TextColor" Value="White" />
                                                 <Setter TargetName="foodDesc"  Property="Label.TextColor" Value="White" />
                                             </VisualState.Setters>
