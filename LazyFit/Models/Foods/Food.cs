@@ -23,5 +23,12 @@ namespace LazyFit.Models.Foods
             Time = DateTime.Now;
             TypeOfFood = typeOfFood;
         }
+
+        public Food(Guid id, DateTime time, TypeOfFood typeOfFood)
+        {
+            Id = id;
+            Time = time;
+            TypeOfFood = typeOfFood;
+        }
     }
 }

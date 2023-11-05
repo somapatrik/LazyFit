@@ -35,12 +35,13 @@ namespace LazyFit.Services
             {
                 Database.CreateTableAsync<Fast>(),
                 Database.CreateTableAsync<Mood>(),
-                
-                Database.CreateTableAsync<Food>(),
                 Database.CreateTableAsync<Weight>(),
 
                 Database.CreateTableAsync<Drink>(),
-                Database.CreateTableAsync<DrinkProperty>()
+                Database.CreateTableAsync<DrinkProperty>(),
+
+                Database.CreateTableAsync<Food>(),
+                Database.CreateTableAsync<FoodProperty>(),
             };
 
             Task CreateTables = Task.WhenAll(tables);
@@ -74,7 +75,30 @@ namespace LazyFit.Services
                     };
                 await UpdateDrinkProperty(drinkProperty);
             }
-            
+
+            foreach (TypeOfFood food in Enum.GetValues(typeof(TypeOfFood)))
+            {
+                string description = "";
+
+                if (food == TypeOfFood.Normal)
+                    description = "Casual food";
+                else if (food == TypeOfFood.Healthy)
+                    description = "Like really healthy";
+                else if (food == TypeOfFood.Unhealthy)
+                    description = "The tasty stuff";
+                else if (food == TypeOfFood.Snack)
+                    description = "Usually the bad kind";
+
+                FoodProperty foodProperty = new FoodProperty()
+                {
+                    FoodId = food,
+                    DisplayName = food.ToString(),
+                    Description = description,
+                    ImageName = food.ToString() + ".png",
+                };
+                await UpdateDrinkProperty(foodProperty);
+            }
+
         }
 
 
@@ -155,6 +179,17 @@ namespace LazyFit.Services
         #endregion
 
         #region Food
+
+        public static async Task<List<FoodProperty>> GetFoodProperties()
+        {
+            return await Database.Table<FoodProperty>().ToListAsync();
+        }
+
+        public static async Task UpdateDrinkProperty(FoodProperty foodProperty)
+        {
+            await Database.InsertOrReplaceAsync(foodProperty);
+        }
+
         public static async Task InsertFood(Food food)
         {
             await Database.InsertAsync(food);

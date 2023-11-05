@@ -2,7 +2,9 @@
 {
     public enum TypeOfFood
     {
-        Healthy = 0,
-        Unhealthy = 1
+        Normal = 0,
+        Healthy = 1,
+        Unhealthy = 2,
+        Snack = 3
     }
 }
