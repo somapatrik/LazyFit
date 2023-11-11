@@ -1,4 +1,6 @@
-﻿using LazyFit.Models;
+﻿
+using Java.Lang;
+using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using SQLite;
@@ -104,6 +106,12 @@ namespace LazyFit.Services
 
 
         #endregion
+
+
+        public static async Task DeleteItem<T>(Guid id) where T: class
+        {
+            await Database.DeleteAsync<T>(id);
+        }
 
         #region Weight
 
