@@ -105,6 +105,12 @@ namespace LazyFit.Services
 
         #endregion
 
+
+        public static async Task DeleteItem<T>(Guid id) where T: class
+        {
+            await Database.DeleteAsync<T>(id);
+        }
+
         #region Weight
 
         public static async Task<Weight> GetLastWeightOlderThan(DateTime beforeDate)
