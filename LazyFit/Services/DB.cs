@@ -106,9 +106,9 @@ namespace LazyFit.Services
         #endregion
 
 
-        public static async Task DeleteItem<T>(Guid id) where T: class
+        public static async Task DeleteItem(object item)
         {
-            await Database.DeleteAsync<T>(id);
+            await Database.DeleteAsync(item); 
         }
 
 
@@ -134,7 +134,8 @@ namespace LazyFit.Services
                     Date = food.Time,
                     SubjectText = property.DisplayName,
                     AdditionalText = "",
-                    Type = food.GetType().Name
+                    Type = food.GetType().Name,
+                    ClassObject = food,
                 };
                 actions.Add(action);
 
@@ -150,7 +151,8 @@ namespace LazyFit.Services
                     Date = drink.Time,
                     SubjectText = property.DisplayName,
                     AdditionalText = "",
-                    Type = drink.GetType().Name
+                    Type = drink.GetType().Name,
+                    ClassObject = drink,
                 };
                 actions.Add(action);
 
@@ -164,7 +166,8 @@ namespace LazyFit.Services
                     Date = mood.Time,
                     SubjectText = Enum.GetName(mood.TypeOfMood),
                     AdditionalText = "",
-                    Type = mood.GetType().Name
+                    Type = mood.GetType().Name,
+                    ClassObject = mood,
                 };
                 actions.Add(action);
             });

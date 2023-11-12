@@ -13,5 +13,6 @@ namespace LazyFit.Models
         public string SubjectText { get; set; }
         public string AdditionalText { get; set; }
         public string Type { get; set; }
+        public Object ClassObject { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Convertes="clr-namespace:LazyFit.Converters"
+             xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
              x:Class="LazyFit.Views.LatestActionsView">
 
     <VerticalStackLayout>
@@ -62,10 +63,20 @@
                                    TextColor="Gray" 
                                    FontSize="Micro"/>
 
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Date, Converter={Convertes:DatetimeToTimeConverter}}" TextColor="Gray"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Date, Converter={Convertes:DateTimeToShortConverter}}" TextColor="Gray"/>
                             <Label Grid.Row="1" Grid.Column="1" Text="{Binding SubjectText}" FontSize="Medium"/>
-
-                    </Grid>
+                            <Button  Grid.Column="2" 
+                                     Grid.RowSpan="2"  
+                                     Text="⋮" 
+                                     FontSize="Large"
+                                     TextColor="Gray"
+                                     BackgroundColor="Transparent"
+                                     BorderWidth="0"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Command="{Binding DeleteAction, Source={RelativeSource AncestorType={x:Type viewModels:LatestActionsViewModel}}}"
+                                     CommandParameter="{Binding .}"/>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
