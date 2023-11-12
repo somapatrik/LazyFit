@@ -120,6 +120,7 @@ namespace LazyFit.Services
             var foods = await GetFoods(fromTime, toTime);
             var drinks = await GetDrinks(fromTime, toTime);
             var moods = await GetMoods(fromTime, toTime);
+            var weights = await GetWeights(fromTime, toTime);
 
             List<FoodProperty> foodProperties = await GetFoodProperties();
             List<DrinkProperty> drinkProperties = await GetDrinkProperties();
@@ -168,6 +169,20 @@ namespace LazyFit.Services
                     AdditionalText = "",
                     Type = mood.GetType().Name,
                     ClassObject = mood,
+                };
+                actions.Add(action);
+            });
+
+            weights.ForEach(weight =>
+            {
+                TakenAction action = new TakenAction()
+                {
+                    Id = weight.Id,
+                    Date = weight.Time,
+                    SubjectText = weight.WeightValue.ToString(),
+                    AdditionalText = "",
+                    Type = weight.GetType().Name,
+                    ClassObject = weight,
                 };
                 actions.Add(action);
             });

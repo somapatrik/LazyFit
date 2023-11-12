@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace LazyFit.Models.Drinks
 {
     public class Drink
     {
+        [PrimaryKey]
         public Guid Id { get; set; }
         public DateTime Time { get; set; }
         public TypeOfDrink TypeOfDrink { get; set; }

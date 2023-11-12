@@ -30,7 +30,7 @@ namespace LazyFit.ViewModels
         private async void DeleteActionHandler(object action)
         {
             TakenAction takenAction = (TakenAction) action;
-            if (await Shell.Current.DisplayAlert("Lie...I mean delete", $"Erase '{takenAction.SubjectText}' from {takenAction.Date}?", "Delete", "No"))
+            if (await Shell.Current.DisplayAlert("Lie...I mean delete", $"Erase '{takenAction.SubjectText}' ?", "Delete", "No"))
             {
                 await DB.DeleteItem(takenAction.ClassObject);
                 LoadActions();

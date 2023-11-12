@@ -1,4 +1,5 @@
-﻿using LazyFit.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Models;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Windows.Input;
@@ -49,7 +50,7 @@ namespace LazyFit.ViewModels
                 await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
 
 
-
+            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
             await MopupService.Instance.PopAsync();
         }
 
