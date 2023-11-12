@@ -1,4 +1,5 @@
-﻿using LazyFit.Models.Drinks;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Models.Drinks;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Collections.ObjectModel;
@@ -67,6 +68,9 @@ namespace LazyFit.ViewModels
         {
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
             await DB.InsertDrink(new Drink(Guid.NewGuid(), time, SelectedDrink.DrinkID));
+
+            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+
             await MopupService.Instance.PopAsync();
         }
 

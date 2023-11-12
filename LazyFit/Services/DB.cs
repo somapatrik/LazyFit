@@ -94,7 +94,7 @@ namespace LazyFit.Services
                     FoodId = food,
                     DisplayName = food.ToString(),
                     Description = description,
-                    ImageName = food.ToString() + ".png",
+                    ImageName = food.ToString() + ".png"
                 };
                 await UpdateDrinkProperty(foodProperty);
             }
@@ -109,6 +109,68 @@ namespace LazyFit.Services
         public static async Task DeleteItem<T>(Guid id) where T: class
         {
             await Database.DeleteAsync<T>(id);
+        }
+
+
+        public static async Task<List<TakenAction>> GetLatestActions(DateTime fromTime, DateTime toTime)
+        {
+            List<TakenAction> actions = new List<TakenAction>();
+
+
+            var foods = await GetFoods(fromTime, toTime);
+            var drinks = await GetDrinks(fromTime, toTime);
+            var moods = await GetMoods(fromTime, toTime);
+
+            List<FoodProperty> foodProperties = await GetFoodProperties();
+            List<DrinkProperty> drinkProperties = await GetDrinkProperties();
+
+            foods.ForEach(food =>
+            {
+                FoodProperty property = foodProperties.FirstOrDefault(f => f.FoodId == food.TypeOfFood);
+
+                TakenAction action = new TakenAction()
+                {
+                    Id = food.Id,
+                    Date = food.Time,
+                    SubjectText = property.DisplayName,
+                    AdditionalText = "",
+                    Type = food.GetType().Name
+                };
+                actions.Add(action);
+
+            });
+
+            drinks.ForEach(drink =>
+            {
+                DrinkProperty property = drinkProperties.FirstOrDefault(d => d.DrinkID == drink.TypeOfDrink);
+
+                TakenAction action = new TakenAction()
+                {
+                    Id = drink.Id,
+                    Date = drink.Time,
+                    SubjectText = property.DisplayName,
+                    AdditionalText = "",
+                    Type = drink.GetType().Name
+                };
+                actions.Add(action);
+
+            });
+
+            moods.ForEach(mood =>
+            {
+                TakenAction action = new TakenAction()
+                {
+                    Id = mood.Id,
+                    Date = mood.Time,
+                    SubjectText = Enum.GetName(mood.TypeOfMood),
+                    AdditionalText = "",
+                    Type = mood.GetType().Name
+                };
+                actions.Add(action);
+            });
+
+            return actions.OrderByDescending(a=>a.Date).ToList();
+
         }
 
         #region Weight

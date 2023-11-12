@@ -15,7 +15,5 @@ namespace LazyFit.Models.Foods
         public string Description { get; set; }
         public string ImageName { get; set;}
 
-
-
     }
 }

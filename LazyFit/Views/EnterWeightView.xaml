@@ -25,7 +25,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Entry 
@@ -34,10 +34,10 @@
                     FontSize="Medium"
                     Text="{Binding entryWeight}"/>
                 
-                <Picker Grid.Column="1" 
+                <!--<Picker Grid.Column="1" 
                         ItemsSource="{Binding unitOptions}"
                         SelectedItem="{Binding selectedUnit}"
-                        HorizontalTextAlignment="Center"/>
+                        HorizontalTextAlignment="Center"/>-->
 
             </Grid>
             

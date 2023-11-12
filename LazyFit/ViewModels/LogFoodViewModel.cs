@@ -1,4 +1,5 @@
-﻿using LazyFit.Models.Foods;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Models.Foods;
 using LazyFit.Services;
 using Mopups.Services;
 using System;
@@ -73,6 +74,9 @@ namespace LazyFit.ViewModels
         {
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
             await DB.InsertFood(new Food(Guid.NewGuid(), time, SelectedFood.FoodId));
+
+            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+
             await MopupService.Instance.PopAsync();
         }
 
