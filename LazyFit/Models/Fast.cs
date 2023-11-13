@@ -53,6 +53,15 @@ namespace LazyFit.Models
             return planEnd - now;
         }
 
+        public TimeSpan GetTimeSpanSinceEnd()
+        {
+            if (EndTime == null)
+                return TimeSpan.Zero;
+
+            DateTime now = DateTime.Now;
+            return now - (DateTime)EndTime;
+        }
+
         public double GetElapsedTimePercentage()
         {
             DateTime currentTime = DateTime.Now;
