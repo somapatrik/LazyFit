@@ -1,4 +1,5 @@
-﻿using LazyFit.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
 using Microcharts;
@@ -118,6 +119,8 @@ namespace LazyFit.ViewModels
             isFastActive = false;
             TimerMessage = "";
             PercentDone = 0;
+
+            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
         }
 
         private async void OpenFastingStart()

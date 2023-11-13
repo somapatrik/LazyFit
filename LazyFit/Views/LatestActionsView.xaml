@@ -54,6 +54,10 @@
                                     <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Weight">
                                         <Setter Property="Color" Value="DarkOrange"/>
                                     </DataTrigger>
+                                    <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Fast">
+                                        <Setter Property="Color" Value="{StaticResource Primary}"/>
+                                    </DataTrigger>
+                                    
                                 </BoxView.Triggers>
 
                             </BoxView>
