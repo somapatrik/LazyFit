@@ -10,8 +10,8 @@ namespace LazyFit.ViewModels
     {
         
 
-        public List<string> unitOptions { get; set; }
-        public string selectedUnit { get; set; }
+        //public List<string> unitOptions { get; set; }
+        //public string selectedUnit { get; set; }
 
         private decimal _entryWeight;
         public decimal entryWeight 
@@ -34,22 +34,22 @@ namespace LazyFit.ViewModels
 
         public EnterWeightViewModel() 
         {
-            LoadUnits(); 
+           // LoadUnits(); 
 
             SaveWeight = new Command(SaveHandler, canSave);
         }
 
         private async void SaveHandler()
         {
-            UnitWeight unittype = (UnitWeight)Enum.Parse(typeof(UnitWeight), selectedUnit);
+            // UnitWeight unittype = (UnitWeight)Enum.Parse(typeof(UnitWeight), selectedUnit);
 
             // Save kg, calulate others later
-            if (unittype == UnitWeight.lb)
-                await DB.InsertWeight(new Weight(Guid.NewGuid(), LazyUnitConvertes.LbsToKg(entryWeight), UnitWeight.kg));
-            else
-                await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
+            //if (unittype == UnitWeight.lb)
+            //    await DB.InsertWeight(new Weight(Guid.NewGuid(), LazyUnitConvertes.LbsToKg(entryWeight), UnitWeight.kg));
+            //else
+            //    await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
 
-
+            await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
             WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
             await MopupService.Instance.PopAsync();
         }
@@ -64,16 +64,16 @@ namespace LazyFit.ViewModels
             ((Command)SaveWeight).ChangeCanExecute();
         }
 
-        private void LoadUnits()
-        {
-            unitOptions = new List<string>();
+        //private void LoadUnits()
+        //{
+        //    unitOptions = new List<string>();
 
-            var vals = Enum.GetNames(typeof(UnitWeight));
-            foreach(string unit in vals)
-            {
-                unitOptions.Add(unit);
-            }
-            selectedUnit = vals[0];
-        }
+        //    var vals = Enum.GetNames(typeof(UnitWeight));
+        //    foreach(string unit in vals)
+        //    {
+        //        unitOptions.Add(unit);
+        //    }
+        //    selectedUnit = vals[0];
+        //}
     }
 }
