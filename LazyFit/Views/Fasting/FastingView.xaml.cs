@@ -1,6 +1,6 @@
 using LazyFit.ViewModels;
 
-namespace LazyFit.Views;
+namespace LazyFit.Views.Fasting;
 
 public partial class FastingView : ContentView
 {
@@ -9,12 +9,6 @@ public partial class FastingView : ContentView
 	{
 		InitializeComponent();
 		BindingContext = _viewModel = new FastingViewModel();
-		//RefreshData();
 	}
 
-	//public async void RefreshData()
-	//{
- //       await _viewModel.RefreshFastData();
-
- //   }
 }

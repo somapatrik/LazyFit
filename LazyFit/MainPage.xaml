@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:LazyFit.Views"
+             xmlns:fastViews="clr-namespace:LazyFit.Views.Fasting"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.MainPage"
              Shell.NavBarIsVisible="False"
@@ -23,7 +24,7 @@
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="20" Padding="0">
                 <!-- Váš stávající obsah zde -->
-                <views:FastingView />
+                <fastViews:FastingView />
                 <views:LogButtonsView />
                 <views:LatestActionsView/>
             </StackLayout>

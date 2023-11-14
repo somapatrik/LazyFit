@@ -23,16 +23,15 @@
 
             <Label Text="Enter weight" FontSize="Medium"/>
 
-            <Entry 
-                    Keyboard="Numeric"
-                    HorizontalTextAlignment="Center"
-                    FontSize="Medium"
-                    Text="{Binding entryWeight}"/>
+            <Entry Keyboard="Numeric"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Medium"
+                   Text="{Binding entryWeight}"/>
 
             <Button 
-            Text="Save" 
-            Margin="0,20,0,0"
-            Command="{Binding SaveWeight}"/>
+                    Text="Save" 
+                    Margin="0,20,0,0"
+                    Command="{Binding SaveWeight}"/>
 
         </VerticalStackLayout>
     
