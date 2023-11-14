@@ -82,6 +82,11 @@ namespace LazyFit.Models
             }
         }
 
+        public TimeSpan GetTimeSpanSinceStart()
+        {
+            return DateTime.Now - StartTime;
+        }
+
 
     }
 

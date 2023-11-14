@@ -12,27 +12,35 @@ namespace LazyFit.ViewModels
 {
     internal class FastingViewModel : PrimeViewModel
     {
+        #region Properties
 
         private bool _isFastActive;
-        public bool isFastActive { get => _isFastActive;set => SetProperty(ref _isFastActive,value); }
-
         private Fast _ActiveFast;
-        public Fast ActiveFast { get => _ActiveFast; set => SetProperty(ref _ActiveFast,value); }
+        private string _TimerMessage;
+        private TimeSpan _TimeSinceStart;
+        private double _PercentDone;
+        private Chart _ProgressChart;
+        private System.Threading.Timer refreshTimer;
+        private string _StopLabel;
 
+        public bool isFastActive { get => _isFastActive;set => SetProperty(ref _isFastActive,value); }
+        public Fast ActiveFast { get => _ActiveFast; set => SetProperty(ref _ActiveFast,value); }       
+        public string TimerMessage { get => _TimerMessage;set => SetProperty(ref _TimerMessage,value); }
+        public string StopLabel { get => _StopLabel; set => SetProperty(ref _StopLabel, value); }
+        public TimeSpan TimeSinceStart { get => _TimeSinceStart; set => SetProperty(ref _TimeSinceStart, value); }
+        public double PercentDone { get => _PercentDone; set => SetProperty(ref _PercentDone, value); }
+        public Chart ProgressChart { get => _ProgressChart; set => SetProperty(ref _ProgressChart, value); }
+
+        #endregion
+
+        #region Commands
+        
         public ICommand OpenFasting { get; private set; }
         public ICommand StopFasting { get; private set; }
         public ICommand ShowStopDialog { get; private set; }
+        
+        #endregion
 
-        private string _timerMessage;
-        public string TimerMessage { get => _timerMessage;set => SetProperty(ref _timerMessage,value); }
-
-        private double _percentDone;
-        public double PercentDone { get => _percentDone; set => SetProperty(ref _percentDone, value); }
-
-        private System.Threading.Timer refreshTimer;
-
-        private Chart _progressChart;
-        public Chart ProgressChart { get => _progressChart; set => SetProperty(ref _progressChart, value); }
 
         public FastingViewModel() 
         {
@@ -44,13 +52,40 @@ namespace LazyFit.ViewModels
 
             if (!isFastActive)
                 CreateEmptyChart();
+
+            SelectStopLabel();
+        }
+
+        private void SelectStopLabel()
+        {
+            string[] endLabels = { 
+                     "Stop fast"
+                    ,"End the suffering"
+                    ,"Screw it, let´s eat!"
+                    ,"Still?"
+                    ,"Just breathe"
+                    , "The end is near"
+                    , "Game over"
+                    , "The final countdown"
+                    , "Last call"
+                    , "That's all, folks!"
+                    , "The grand finale"
+                    , "The curtain falls"
+                    , "Farewell"
+                    , "The journey ends" 
+            };
+
+            Random random = new Random();
+            int index = random.Next(endLabels.Length);
+            StopLabel = endLabels[index];
         }
 
         private void TimerHandler(object state)
         {
             PercentDone = ActiveFast.GetElapsedTimePercentage();
-            TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
-            TimerMessage = PercentDone >= 100 ? "Completed" + Environment.NewLine + ActiveFast.GetPlannedEnd().ToString("g") : untilEnd.ToString(@"hh\:mm\:ss");
+            //TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
+            TimeSinceStart =  ActiveFast.GetTimeSpanSinceStart();
+            TimerMessage = PercentDone >= 100 ? "Done!" + Environment.NewLine + "+" + TimeSinceStart.ToString(@"hh\:mm\:ss") : TimeSinceStart.ToString(@"hh\:mm\:ss");
             RefreshChart();
         }
 

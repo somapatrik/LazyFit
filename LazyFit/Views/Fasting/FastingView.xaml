@@ -9,42 +9,107 @@
     
     <VerticalStackLayout Spacing="10" Padding="0">
 
-            <Label 
-                Text="Fasting"
-                Style="{StaticResource PageSubHeader}"/>
+        <Label 
+            Text="Fasting"
+            Style="{StaticResource PageSubHeader}"/>
 
-            <micro:ChartView 
-                Chart="{Binding ProgressChart}" 
-                IsVisible="{Binding isFastActive}" 
-                HeightRequest="200"/>
+        <Border Padding="20,5" Margin="0,0,0,4" HorizontalOptions="Center" IsVisible="{Binding isFastActive}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Anabolic stage">
+                    <Setter Property="BackgroundColor" Value="White"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Catabolic stage">
+                    <Setter Property="BackgroundColor" Value="{StaticResource Yellow100Accent}"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Fat-burning stage">
+                    <Setter Property="BackgroundColor" Value="DarkOrange"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Ketosis  stage">
+                    <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Deep ketosis">
+                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Dead">
+                    <Setter Property="BackgroundColor" Value="{StaticResource GithubRed}"/>
+                </DataTrigger>
+            </Border.Triggers>
+
+            <Label  x:Name="stageLabel" 
+                    Text="{Binding TimeSinceStart, Converter={converters:TimeSpanToStageConverter}}"
+                    HorizontalTextAlignment="Center"
+                    FontSize="Small"
+                    TextColor="Black">
+
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Anabolic stage">
+                        
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Catabolic stage">
+                        
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Fat-burning stage">
+                        <Setter Property="TextColor" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Ketosis  stage">
+                        <Setter Property="TextColor" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Deep ketosis">
+                        <Setter Property="TextColor" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Dead">
+                        <Setter Property="TextColor" Value="White"/>
+                    </DataTrigger>
+                </Label.Triggers>
+
+            </Label>
+
+
+
+        </Border>
+
+        <micro:ChartView 
+            Chart="{Binding ProgressChart}" 
+            IsVisible="{Binding isFastActive}" 
+            HeightRequest="200"/>
 
         <Label 
                 Text="{Binding TimerMessage}"
                 HorizontalTextAlignment="Center" 
-                Padding="8"
+                Padding="0,4,0,0"
                 FontSize="Medium"
                 IsVisible="{Binding isFastActive}"/>
-        
-            <Button Text="Enjoy a fast" 
+
+       
+
+        <Button Text="Enjoy a fast" 
                     Command="{Binding OpenFasting}" 
                     IsVisible="{Binding isFastActive,Converter={converters:InverseBoolConverter}}"
-                    Margin="5,0"
+                    Margin="5"
                     FontSize="Default"
+                    HorizontalOptions="Center"
                     BackgroundColor="{StaticResource LazyColor}"
                     Style="{StaticResource ButtonOk}"/>
 
 
-            <Button Text="End the suffering" 
-                    Command="{Binding ShowStopDialog}" 
-                    IsVisible="{Binding isFastActive}" 
-                    Margin="5,0"
-                    FontSize="Default"
-                    Background="Black"
-                    Style="{StaticResource ButtonOk}"/>
+        <Button Text="{Binding StopLabel}" 
+                Command="{Binding ShowStopDialog}" 
+                IsVisible="{Binding isFastActive}" 
+                Margin="5"
+                FontSize="Default"
+                Background="Black"
+                HorizontalOptions="Center"
+                Style="{StaticResource ButtonOk}">
+
+        </Button>
 
 
 
 
-        </VerticalStackLayout>
+    </VerticalStackLayout>
 
 </ContentView>
