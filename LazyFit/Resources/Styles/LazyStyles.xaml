@@ -29,10 +29,10 @@
         <Setter Property="Background" Value="{StaticResource GithubRed}"/>
     </Style>
 
-    <Style x:Key="SimpleButton" TargetType="Button">
+    <Style x:Key="TextButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="TextColor" Value="Black"/>
-        <Setter Property="BorderWidth" Value=".7"/>
+        <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -45,6 +45,10 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+
+    <Style x:Key="SimpleButton" TargetType="Button" BasedOn="{StaticResource TextButton}">
+        <Setter Property="BorderWidth" Value=".7"/>
     </Style>
 
     <Style x:Key="PageHeader" TargetType="Label">

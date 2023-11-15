@@ -31,8 +31,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Text="Older" Command="{Binding ShowPrevious}" Style="{StaticResource SimpleButton}"/>
-            <Button Grid.Column="1" Text="Newer" Command="{Binding ShowNext}" Style="{StaticResource SimpleButton}"/>
+            <Button Text="Older" Command="{Binding ShowPrevious}" Style="{StaticResource TextButton}"/>
+            <Button Grid.Column="1" Text="Newer" Command="{Binding ShowNext}" Style="{StaticResource TextButton}"/>
 
         </Grid>
 
