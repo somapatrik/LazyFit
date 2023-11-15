@@ -17,15 +17,15 @@ namespace LazyFit.Converters
             {
                 TimeSpan sinceStart = (TimeSpan)value;
 
-                if (sinceStart.TotalHours <= 3)
+                if (sinceStart.TotalHours < 4)
                     outMsg = "Anabolic stage";
-                else if (sinceStart.TotalHours > 3 && sinceStart.TotalHours <= 16)
+                else if (sinceStart.TotalHours >= 4 && sinceStart.TotalHours < 17)
                     outMsg = "Catabolic stage";
-                else if (sinceStart.TotalHours > 16 && sinceStart.TotalHours <= 24)
+                else if (sinceStart.TotalHours >= 17 && sinceStart.TotalHours < 25)
                     outMsg = "Fat-burning stage";
-                else if (sinceStart.TotalHours > 24 && sinceStart.TotalHours <= 72)
+                else if (sinceStart.TotalHours >= 25 && sinceStart.TotalHours < 73)
                     outMsg = "Ketosis  stage";
-                else if (sinceStart.TotalHours > 72 && sinceStart.TotalDays <= 30)
+                else if (sinceStart.TotalHours >= 73 && sinceStart.TotalDays <= 30)
                     outMsg = "Deep ketosis";
                 else if (sinceStart.TotalDays > 30)
                     outMsg = "Dead";

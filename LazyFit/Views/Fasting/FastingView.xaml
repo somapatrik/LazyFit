@@ -7,7 +7,9 @@
              Background="white">
     
     
-    <VerticalStackLayout Spacing="10" Padding="0">
+    <VerticalStackLayout 
+        Spacing="10" 
+        Padding="0,10">
 
         <Label 
             Text="Fasting"
@@ -39,11 +41,11 @@
                 </DataTrigger>
             </Border.Triggers>
 
-            <Label  x:Name="stageLabel" 
-                    Text="{Binding TimeSinceStart, Converter={converters:TimeSpanToStageConverter}}"
-                    HorizontalTextAlignment="Center"
-                    FontSize="Small"
-                    TextColor="Black">
+            <Label x:Name="stageLabel" 
+                   Text="{Binding TimeSinceStart, Converter={converters:TimeSpanToStageConverter}}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Small"
+                   TextColor="Black">
 
                 <Label.Triggers>
                     <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Anabolic stage">
@@ -100,10 +102,10 @@
                 Command="{Binding ShowStopDialog}" 
                 IsVisible="{Binding isFastActive}" 
                 Margin="5"
+                MinimumWidthRequest="100"
                 FontSize="Default"
-                Background="Black"
                 HorizontalOptions="Center"
-                Style="{StaticResource ButtonOk}">
+                Style="{StaticResource SimpleButton}">
 
         </Button>
 

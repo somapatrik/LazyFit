@@ -32,7 +32,7 @@
     <Style x:Key="SimpleButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="TextColor" Value="Black"/>
-        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="BorderWidth" Value=".7"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
