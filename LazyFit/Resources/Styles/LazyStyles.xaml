@@ -3,7 +3,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-
     <Style x:Key="EntryTimePicker" TargetType="TimePicker">
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="FontSize" Value="Large"/>
@@ -19,7 +18,6 @@
     <Style x:Key="FastingBorder" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource White}"/>
     </Style>
-
 
     <Style x:Key="ButtonOk" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource Primary}"/>
@@ -57,7 +55,6 @@
         <Setter Property="FontFamily" Value="Roboto"/>
         <Setter Property="Margin" Value="5,10"/>
     </Style>
-
 
     <Style x:Key="PageSubHeader" TargetType="Label">
         <Setter Property="VerticalTextAlignment" Value="Start" />

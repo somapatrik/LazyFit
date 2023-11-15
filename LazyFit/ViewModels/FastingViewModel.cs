@@ -62,12 +62,8 @@ namespace LazyFit.ViewModels
                      "Stop fast"
                     ,"End the suffering"
                     ,"Screw it, let´s eat!"
-                    ,"Fail it"
-                    ,"I don´t want to do this"
-                    ,"Can´t do it"
                     ,"Game over"
                     ,"I´m done"
-                    ,"That's all, folks!"
                     ,"The grand finale"
                     ,"End the journey" 
             };
