@@ -1,4 +1,5 @@
-﻿using Microcharts;
+﻿using LazyFit.Views.Fasting;
+using Microcharts;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels
@@ -12,7 +13,6 @@ namespace LazyFit.ViewModels
 
         public MainViewModel() 
         {
-            
         }
 
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LazyFit.Views.Fasting.FastingReportPage"
+             Title="FastingReportPage">
+    
+    <Grid >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <Border Margin="0">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0"/>
+            </Border.StrokeShape>
+            
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding FinishedFast.Completed}" Value="true">
+                    <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding FinishedFast.Completed}" Value="false">
+                    <Setter Property="BackgroundColor" Value="{StaticResource GithubRed}"/>
+                </DataTrigger>
+            </Border.Triggers>
+
+            <Label 
+                Text=""
+                TextColor="White"
+                FontSize="Title"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding FinishedFast.Completed}" Value="true">
+                        <Setter Property="Text" Value="{Binding GoodTitle}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding FinishedFast.Completed}" Value="false">
+                        <Setter Property="Text" Value="{Binding BadTitle}"/>
+                    </DataTrigger>
+                </Label.Triggers>
+                
+            </Label>
+        </Border>
+
+    </Grid>
+    
+</ContentPage>

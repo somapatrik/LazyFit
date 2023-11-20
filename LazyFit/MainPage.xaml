@@ -32,41 +32,4 @@
 
     </Grid>
 
-    <!--<ScrollView>
-            
-            <StackLayout Orientation="Vertical" Spacing="20" Padding="0">
-
-            <Grid>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
-
-                <ImageButton Grid.Column="1" 
-                             Source="chart_50.png" 
-                             WidthRequest="30"
-                             Margin="0,0,10,0"
-                             HorizontalOptions="EndAndExpand"
-                             Command="{Binding OpenResults}"/>
-
-
-            </Grid>
-
-            <views:FastingView />
-
-            <views:LogButtonsView />
-
-            <views:LatestActionsView/>
-
-        </StackLayout>
-            
-        </ScrollView>-->
-
 </ContentPage>

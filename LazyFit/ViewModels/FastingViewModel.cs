@@ -2,6 +2,7 @@
 using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
+using LazyFit.Views.Fasting;
 using Microcharts;
 using Mopups.Services;
 using SkiaSharp;
@@ -142,12 +143,13 @@ namespace LazyFit.ViewModels
 
             ActiveFast.End();
             await DB.UpdateFast(ActiveFast);
-            
+            await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
+
             ActiveFast = null;
             isFastActive = false;
             TimerMessage = "";
             PercentDone = 0;
-
+           
             WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
         }
 

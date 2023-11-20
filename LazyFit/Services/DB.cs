@@ -31,22 +31,25 @@ namespace LazyFit.Services
 
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
-            List<Task> tables = new List<Task>()
+
+            // List<Task> tables = new List<Task>()
+            List<CreateTableResult> results = new List<CreateTableResult>
             {
-                Database.CreateTableAsync<Fast>(),
-                Database.CreateTableAsync<Mood>(),
-                Database.CreateTableAsync<Weight>(),
+                await Database.CreateTableAsync<Fast>(),
+                await Database.CreateTableAsync<Mood>(),
+                await Database.CreateTableAsync<Weight>(),
 
-                Database.CreateTableAsync<Drink>(),
-                Database.CreateTableAsync<DrinkProperty>(),
+                await Database.CreateTableAsync<Drink>(),
+                await Database.CreateTableAsync<DrinkProperty>(),
 
-                Database.CreateTableAsync<Food>(),
-                Database.CreateTableAsync<FoodProperty>(),
+                await Database.CreateTableAsync<Food>(),
+                await Database.CreateTableAsync<FoodProperty>()
             };
 
-            Task CreateTables = Task.WhenAll(tables);
-            await CreateTables;
+            // Task CreateTables = Task.WhenAll(tables);
+            // await CreateTables;
 
+            bool created = results.Any(r => r == CreateTableResult.Created);
 
             // Default data
             foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
@@ -104,6 +107,7 @@ namespace LazyFit.Services
 
 
         #endregion
+
 
 
         public static async Task DeleteItem(object item)
@@ -357,6 +361,11 @@ namespace LazyFit.Services
         #endregion
 
         #region Fast
+
+        public static async Task<Fast> GetFast(Guid fastId)
+        {
+            return await Database.Table<Fast>().FirstOrDefaultAsync(f=>f.Id == fastId);
+        }
 
         public static async Task<List<Fast>> GetFastHistory()
         {

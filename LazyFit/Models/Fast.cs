@@ -23,7 +23,7 @@ namespace LazyFit.Models
         public void End()
         {
             EndTime = DateTime.Now;
-            Completed = EndTime >= StartTime.AddMinutes(PlanMinutes);
+            Completed = EndTime >= GetPlannedEnd();
         }
 
         public void SetHours(int hours)
