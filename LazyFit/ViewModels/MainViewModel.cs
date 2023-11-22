@@ -6,13 +6,14 @@ namespace LazyFit.ViewModels
 {
     public class MainViewModel : PrimeViewModel
     {
-        private Chart _mychart;
-        public Chart mychart { get => _mychart; set => SetProperty(ref _mychart, value); }
+        
         public ICommand OpenResults => new Command(async () => await Shell.Current.Navigation.PushModalAsync(new ResultsPage()));
 
+        public string AppVersion  => AppInfo.VersionString;
 
         public MainViewModel() 
         {
+
         }
 
 

@@ -16,23 +16,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Horní lišta -->
         <StackLayout Grid.Row="0" Orientation="Horizontal">
             <Label Text="LazyFit" Style="{StaticResource PageHeader}"/>
             <ImageButton Source="chart_50.png" WidthRequest="30" Margin="0,0,10,0" HorizontalOptions="EndAndExpand" Command="{Binding OpenResults}"/>
         </StackLayout>
 
-        <!-- Obsah stránky (scrollable) -->
+
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="20" Padding="0">
-                <!-- Váš stávající obsah zde -->
                 <fastViews:FastingView />
                 <views:LogButtonsView />
                 <views:LatestActionsView/>
             </StackLayout>
         </ScrollView>
+
+        <Label Grid.Row="2" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
 
     </Grid>
 
