@@ -22,9 +22,9 @@ public static class MauiProgram
 			})
 			.ConfigureMauiHandlers(handlers =>
 			{
-#if ANDROID
-				handlers.AddHandler(typeof(Microsoft.Maui.Controls.Shell), typeof(LazyFit.Platforms.Android.MyShellRenderer));
-#endif
+//#if ANDROID
+//				handlers.AddHandler(typeof(Microsoft.Maui.Controls.Shell), typeof(LazyFit.Platforms.Android.MyShellRenderer));
+//#endif
 			});
 
 #if DEBUG

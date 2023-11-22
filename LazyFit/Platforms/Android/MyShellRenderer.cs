@@ -33,7 +33,7 @@ namespace LazyFit.Platforms.Android
 
         public void SetAppearance(AndroidX.AppCompat.Widget.Toolbar toolbar, IShellToolbarTracker toolbarTracker, ShellAppearance appearance)
         {
-            toolbar.OverflowIcon.SetTint(ContextCompat.GetColor(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity, Resource.Color.m3_ref_palette_black));
+            toolbar.OverflowIcon.SetTint(ContextCompat.GetColor(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity, Resource.Color.m3_ref_palette_white));
         }
     }
 }

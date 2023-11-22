@@ -12,6 +12,6 @@ public class MainActivity : MauiAppCompatActivity
     {
         base.OnCreate(savedInstanceState);
 
-        this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+        // this.Window.AddFlags(WindowManagerFlags.Fullscreen);
     }
 }
