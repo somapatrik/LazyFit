@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:LazyFit.Views"
              x:Class="LazyFit.ResultsPage"
              Title="ResultsPage"
-             Background="{StaticResource GithubLight}">
+             Background="{StaticResource GrayBackground}">
 
         <Grid>
             <Grid.RowDefinitions>

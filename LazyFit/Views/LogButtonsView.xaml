@@ -6,9 +6,10 @@
     <VerticalStackLayout>
         
         <Label Text="Log"
-               Style="{StaticResource PageSubHeader}"/>
+               Style="{StaticResource PageSubHeader}"
+               HorizontalTextAlignment="Center"/>
 
-        <FlexLayout Wrap="Wrap" JustifyContent="Start" >
+        <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,0,5,20">
 
             <Frame FlexLayout.Basis="50%" Background="OrangeRed" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
@@ -33,6 +34,7 @@
                     <Label Grid.Row="1" Text="Weight" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
                     
                 </Grid>
+
             </Frame>
 
             <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
@@ -86,5 +88,6 @@
             </Frame>
 
         </FlexLayout>
+        
     </VerticalStackLayout>
 </ContentView>

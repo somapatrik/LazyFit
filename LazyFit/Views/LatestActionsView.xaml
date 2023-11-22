@@ -7,8 +7,8 @@
 
     <VerticalStackLayout>
 
-        <Label Text="Last 48 hours"
-               Style="{StaticResource PageSubHeader}"/>
+        <!--<Label Text="Last 48 hours"
+               Style="{StaticResource PageSubHeader}"/>-->
 
         <CollectionView ItemsSource="{Binding LatestActions}">
             <CollectionView.ItemsLayout>
@@ -19,7 +19,10 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border StrokeThickness="0" Padding="0,5">
+                    <Border StrokeThickness=".7" Padding="0,10">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
