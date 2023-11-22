@@ -4,7 +4,7 @@
              xmlns:converters="clr-namespace:LazyFit.Converters"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.Fasting.FastingView"
-             Background="white">
+             BackgroundColor="White">
     
     
     <VerticalStackLayout 
@@ -13,7 +13,8 @@
 
         <Label 
             Text="Fasting"
-            Style="{StaticResource PageSubHeader}"/>
+            Style="{StaticResource PageSubHeader}"
+           />
 
         <Border Padding="20,5" Margin="0,0,0,4" HorizontalOptions="Center" IsVisible="{Binding isFastActive}">
             <Border.StrokeShape>
@@ -70,8 +71,6 @@
 
             </Label>
 
-
-
         </Border>
 
         <micro:ChartView 
@@ -80,13 +79,11 @@
             HeightRequest="200"/>
 
         <Label 
-                Text="{Binding TimerMessage}"
-                HorizontalTextAlignment="Center" 
-                Padding="0,4,0,0"
-                FontSize="Medium"
-                IsVisible="{Binding isFastActive}"/>
-
-       
+            Text="{Binding TimerMessage}"
+            HorizontalTextAlignment="Center" 
+            Padding="0,4,0,0"
+            FontSize="Medium"
+            IsVisible="{Binding isFastActive}"/>
 
         <Button Text="Enjoy a fast" 
                     Command="{Binding OpenFasting}" 
@@ -96,7 +93,6 @@
                     HorizontalOptions="Center"
                     BackgroundColor="{StaticResource LazyColor}"
                     Style="{StaticResource ButtonOk}"/>
-
 
         <Button Text="{Binding StopLabel}" 
                 Command="{Binding ShowStopDialog}" 
@@ -108,9 +104,6 @@
                 Style="{StaticResource SimpleButton}">
 
         </Button>
-
-
-
 
     </VerticalStackLayout>
 

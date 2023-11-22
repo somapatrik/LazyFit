@@ -54,5 +54,7 @@
     <Color x:Key="BootstrapWarningBg">#ffc107</Color>
 
     <Color x:Key="LazyColor">#187ccf</Color>
+    <Color x:Key="GrayBackground">#f2f2f2</Color>
+    <Color x:Key="BlueGray">#e0e6f0</Color>
 
 </ResourceDictionary>
