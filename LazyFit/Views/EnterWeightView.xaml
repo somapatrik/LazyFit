@@ -26,7 +26,8 @@
             <Entry Keyboard="Numeric"
                    HorizontalTextAlignment="Center"
                    FontSize="Medium"
-                   Text="{Binding entryWeight}"/>
+                   Text="{Binding entryWeight}"
+                   />
 
             <Button 
                     Text="Save" 

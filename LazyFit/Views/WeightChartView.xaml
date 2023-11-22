@@ -12,7 +12,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Label Text="Weight" Style="{StaticResource PageSubHeader}"/>
+        <Label Text="Weight history" Style="{StaticResource PageSubHeader}"/>
 
         <micro:ChartView Grid.Row="1" Chart="{Binding ChartWeight}" MinimumHeightRequest="250"/>
 
@@ -31,8 +31,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Text="Older" Command="{Binding ShowPrevious}" Style="{StaticResource TextButton}"/>
-            <Button Grid.Column="1" Text="Newer" Command="{Binding ShowNext}" Style="{StaticResource TextButton}"/>
+            <Button Text="&#x2190;" FontSize="36" Command="{Binding ShowPrevious}" Style="{StaticResource TextButton}"/>
+            <Button Grid.Column="1" Text="&#x2192;" FontSize="36" Command="{Binding ShowNext}" Style="{StaticResource TextButton}"/>
 
         </Grid>
 
