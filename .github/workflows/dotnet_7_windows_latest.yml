@@ -20,6 +20,11 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: Setup JDK
+      uses: actions/setup-java@v3.13.0
+      with:
+        distribution: jdk
+        java-version: 17
     - name: Install MAUI workload
       run: dotnet workload install maui-android --ignore-failed-sources
     - name: Restore dependencies
