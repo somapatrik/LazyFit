@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.somapatrik.lazyfit" android:versionCode="4" android:versionName="0.1.2">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.somapatrik.lazyfit" android:versionCode="5" android:versionName="0.1.3">
 	<application android:allowBackup="true" android:supportsRtl="true" android:label="LazyFit" android:icon="@mipmap/appicon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -7,13 +7,11 @@
 	<queries>
 		<intent>
 			<action android:name="android.intent.action.VIEW" />
-			<data android:scheme="http"/>
+			<data android:scheme="http" />
 		</intent>
 		<intent>
 			<action android:name="android.intent.action.VIEW" />
-			<data android:scheme="https"/>
+			<data android:scheme="https" />
 		</intent>
 	</queries>
-	
-
 </manifest>

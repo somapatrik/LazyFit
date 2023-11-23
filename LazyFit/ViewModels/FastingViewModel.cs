@@ -42,7 +42,6 @@ namespace LazyFit.ViewModels
         
         #endregion
 
-
         public FastingViewModel() 
         {
             RelayCommands();
@@ -143,7 +142,7 @@ namespace LazyFit.ViewModels
 
             ActiveFast.End();
             await DB.UpdateFast(ActiveFast);
-            await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
+           // await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
 
             ActiveFast = null;
             isFastActive = false;
