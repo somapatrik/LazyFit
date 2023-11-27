@@ -1,6 +1,7 @@
 ﻿using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
+using LazyFit.Models.Pressure;
 using SQLite;
 using System.Text;
 
@@ -32,7 +33,7 @@ namespace LazyFit.Services
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
 
-             List<Task> tables = new List<Task>()
+            List<Task> tables = new List<Task>()
             //List<CreateTableResult> results = new List<CreateTableResult>
             {
                 Database.CreateTableAsync<Fast>(),
@@ -43,7 +44,9 @@ namespace LazyFit.Services
                 Database.CreateTableAsync<DrinkProperty>(),
 
                 Database.CreateTableAsync<Food>(),
-                Database.CreateTableAsync<FoodProperty>()
+                Database.CreateTableAsync<FoodProperty>(),
+
+                Database.CreateTableAsync<BloodPressure>()
             };
 
              Task CreateTables = Task.WhenAll(tables);
@@ -413,6 +416,20 @@ namespace LazyFit.Services
         public static async Task UpdateFast(Fast fast)
         {
             await Database.UpdateAsync(fast);
+        }
+
+        #endregion
+
+        #region Blood pressure
+
+        public static async Task InsertPressure(BloodPressure pressure)
+        {
+            await Database.InsertAsync(pressure);
+        }
+
+        public static async Task<List<BloodPressure>> GetPressures(DateTime fromDate, DateTime toDate)
+        {
+            return await Database.Table<BloodPressure>().Where(f => f.Time >= fromDate && f.Time <= toDate).ToListAsync();
         }
 
         #endregion

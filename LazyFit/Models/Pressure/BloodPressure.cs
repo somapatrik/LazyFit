@@ -10,6 +10,8 @@ namespace LazyFit.Models.Pressure
         public int Low { get; set; }
         public int Pulse { get; set; }
 
+        public DateTime Time { get; set; }
+
         public PressureType Type { get; set; }
         
         public BloodPressure() { }
@@ -19,6 +21,9 @@ namespace LazyFit.Models.Pressure
             Id = id;
             High = high;
             Low = low;
+            Time = DateTime.Now;
+
+            Diagnose();
         }
 
         private void Diagnose()
@@ -34,7 +39,6 @@ namespace LazyFit.Models.Pressure
                 Type = PressureType.Hypertensive;
                 return;
             }
-
 
 
             if ((High > 90 && High < 120) && (Low > 60 && Low <= 80))

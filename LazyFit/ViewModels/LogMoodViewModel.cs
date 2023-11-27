@@ -3,6 +3,7 @@ using LazyFit.Models;
 using LazyFit.Models.Foods;
 using LazyFit.Services;
 using LazyFit.Views;
+using LazyFit.Views.Pressure;
 using Mopups.Services;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace LazyFit.ViewModels
         public ICommand ShowDrink { get; private set; }
         public ICommand ShowFood { get; private set; }
         public ICommand ShowWeight { get; private set; }
+        public ICommand ShowPressure { get; private set; }
 
         public LogMoodViewModel() 
         {
@@ -31,6 +33,7 @@ namespace LazyFit.ViewModels
             ShowDrink = new Command(ShowDrinkHandler);
             ShowFood = new Command(ShowFoodHandler);
             ShowWeight = new Command(ShowWeightHandler);
+            ShowPressure = new Command(ShowLogPressureHandler);
 
             LoadLatestWeight();
         }
@@ -55,29 +58,17 @@ namespace LazyFit.ViewModels
 
         private async void ShowFoodHandler(object obj)
         {
-            //var selectedFood = await Shell.Current.DisplayActionSheet("What kind of food?", "Nothing...my mistake", null, Enum.GetNames(typeof(TypeOfFood)));
-            //TypeOfFood foodType;
-
-            //if (Enum.TryParse(selectedFood, out foodType))
-            //{
-            //    await DB.InsertFood(new Food(Guid.NewGuid(), foodType));
-            //}
-
             await MopupService.Instance.PushAsync(new LogFoodView());
         }
 
         private async void ShowDrinkHandler(object obj)
         {
-
-            //var selectedDrink = await Shell.Current.DisplayActionSheet("What kind of drink?", "Nothing...my mistake", null, Enum.GetNames(typeof(TypeOfDrink)));
-            //TypeOfDrink drinkType;
-
-            //if (Enum.TryParse(selectedDrink, out drinkType))
-            //{
-            //    await DB.InsertDrink(new Drink(Guid.NewGuid(), drinkType));
-            //}
-
             await MopupService.Instance.PushAsync(new LogDrinkView());
+        }
+
+        private async void ShowLogPressureHandler()
+        {
+            await MopupService.Instance.PushAsync(new EnterPressureView());
         }
 
         private async void ShowLogMoodHandler()

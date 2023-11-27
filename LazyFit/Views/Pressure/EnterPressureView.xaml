@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+                 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                 x:Class="LazyFit.Views.Pressure.EnterPressureView"
+                 Background="#80000000">
+
+    <Border Padding="10" 
+        VerticalOptions="End">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10,10,0,0"/>
+        </Border.StrokeShape>
+
+        <VerticalStackLayout>
+            <Label Text="Log blood pressure" Style="{StaticResource PageSubHeader}"/>
+
+            <TimePicker HorizontalOptions="Center" FontSize="Large" Margin="20"  Time="{Binding SelectedTime}" />
+
+            <Label Text="Now" TextColor="{StaticResource Blue100Accent}" Margin="0,0,0,20" HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetTimeNow}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Grid RowSpacing="50">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Systolic" FontSize="Medium" VerticalTextAlignment="End"/>
+                <Label Grid.Row="1" Text="Diastolic" FontSize="Medium" VerticalTextAlignment="End"/>
+
+                <Entry Grid.Column="1" Text="{Binding High}" Keyboard="Numeric" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Low}" Keyboard="Numeric" FontSize="Medium" HorizontalTextAlignment="Center"/>
+
+            </Grid>
+
+            <Button Text="Save" Margin="0,70,0,20" Command="{Binding SavePressure}"/>
+
+
+        </VerticalStackLayout>
+    </Border>
+
+</mopup:PopupPage>
