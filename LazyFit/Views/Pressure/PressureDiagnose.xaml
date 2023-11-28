@@ -9,11 +9,10 @@
              BackgroundClickedCommand="{Binding CloseAll}">
 
 
-    <Border 
-        Padding="10" 
+    <Border Padding="0,0,0,10"
         VerticalOptions="Center">
         
-        <Grid>
+        <Grid RowSpacing="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -28,12 +27,45 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackLayout Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center">
-                <Label Text="{Binding Pressure.High}" FontSize="56" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                <Label Text="/" FontSize="56" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                <Label Text="{Binding Pressure.High}" FontSize="56" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-            </StackLayout>
-            
+            <Border Grid.ColumnSpan="2">
+
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="0">
+                        <Setter Property="BackgroundColor" Value="LightBlue"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="1">
+                        <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="2">
+                        <Setter Property="BackgroundColor" Value="Yellow"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="3">
+                        <Setter Property="BackgroundColor" Value="Orange"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="4">
+                        <Setter Property="BackgroundColor" Value="OrangeRed"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="5">
+                        <Setter Property="BackgroundColor" Value="Red"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                
+                <Label Text="{Binding PressureResult}" 
+                       TextColor="White"
+                       FontSize="56" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center">
+
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="2">
+                            <Setter Property="TextColor" Value="Black"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    
+                    </Label>
+
+            </Border>
+                
             <Border Grid.Column="0" Grid.Row="1" BackgroundColor="Red" Style="{StaticResource PressurePoint}"/>
             <Label Grid.Column="1" Grid.Row="1" Text="Hypertensive crisis" FontSize="Medium">
 
