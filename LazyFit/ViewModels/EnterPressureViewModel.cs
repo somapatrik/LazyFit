@@ -1,5 +1,7 @@
-﻿using LazyFit.Models.Pressure;
+﻿using Java.Util.Concurrent;
+using LazyFit.Models.Pressure;
 using LazyFit.Services;
+using LazyFit.Views.Pressure;
 using Mopups.Services;
 using System;
 using System.Collections.Generic;
@@ -68,8 +70,11 @@ namespace LazyFit.ViewModels
 
         private async void SavePressureHandler()
         {
-            await DB.InsertPressure(new BloodPressure(Guid.NewGuid(), High, Low ));
-            await MopupService.Instance.PopAsync();
+            var bloodPressure = new BloodPressure(Guid.NewGuid(), High, Low);
+
+            await DB.InsertPressure(bloodPressure);
+
+            await MopupService.Instance.PushAsync(new PressureDiagnose(bloodPressure));
         }
     }
 }

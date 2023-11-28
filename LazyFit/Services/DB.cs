@@ -118,7 +118,6 @@ namespace LazyFit.Services
             await Database.DeleteAsync(item); 
         }
 
-
         public static async Task<List<TakenAction>> GetLatestActions(DateTime fromTime, DateTime toTime)
         {
             List<TakenAction> actions = new List<TakenAction>();
@@ -429,7 +428,12 @@ namespace LazyFit.Services
 
         public static async Task<List<BloodPressure>> GetPressures(DateTime fromDate, DateTime toDate)
         {
-            return await Database.Table<BloodPressure>().Where(f => f.Time >= fromDate && f.Time <= toDate).ToListAsync();
+            return await Database.Table<BloodPressure>().Where(p => p.Time >= fromDate && p.Time <= toDate).ToListAsync();
+        }
+
+        public static async Task<BloodPressure> GetPressure(Guid id)
+        {
+            return await Database.Table<BloodPressure>().FirstOrDefaultAsync(p => p.Id == id);
         }
 
         #endregion

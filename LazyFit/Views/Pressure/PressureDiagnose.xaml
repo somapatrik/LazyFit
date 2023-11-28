@@ -1,19 +1,105 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopup:PopupPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LazyFit.Views.Pressure.PressureDiagnose"
-             Background="#80000000"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
-                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    
-    
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-    
-    
-</ContentView>
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Background="#80000000"
+             BackgroundClickedCommand="{Binding CloseAll}">
+
+
+    <Border 
+        Padding="10" 
+        VerticalOptions="Center">
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="{Binding Pressure.High}" FontSize="56" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Text="/" FontSize="56" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Text="{Binding Pressure.High}" FontSize="56" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </StackLayout>
+            
+            <Border Grid.Column="0" Grid.Row="1" BackgroundColor="Red" Style="{StaticResource PressurePoint}"/>
+            <Label Grid.Column="1" Grid.Row="1" Text="Hypertensive crisis" FontSize="Medium">
+
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="5">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+                
+            </Label>
+
+
+            <Border Grid.Column="0" Grid.Row="2" BackgroundColor="OrangeRed" Style="{StaticResource PressurePoint}"/>
+                <Label Grid.Column="1" Grid.Row="2" Text="High stage II" FontSize="Medium">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="4">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+
+            </Label>
+
+            <Border Grid.Column="0" Grid.Row="3" BackgroundColor="Orange" Style="{StaticResource PressurePoint}"/>
+                <Label Grid.Column="1" Grid.Row="3" Text="High stage I" FontSize="Medium">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="3">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+
+            </Label>
+
+            <Border Grid.Column="0" Grid.Row="4" BackgroundColor="Yellow" Style="{StaticResource PressurePoint}"/>
+            <Label Grid.Column="1" Grid.Row="4" Text="Elevated" FontSize="Medium">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="2">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+
+            </Label>
+
+
+            <Border Grid.Column="0" Grid.Row="5" BackgroundColor="{StaticResource GithubGreen}" Style="{StaticResource PressurePoint}"/>
+            <Label Grid.Column="1" Grid.Row="5" Text="Normal" FontSize="Medium">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="1">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+
+            </Label>
+
+            <Border Grid.Column="0" Grid.Row="6" BackgroundColor="LightBlue" Style="{StaticResource PressurePoint}"/>
+            <Label Grid.Column="1" Grid.Row="6" Text="Low" FontSize="Medium">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="0">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+
+            </Label>
+
+        </Grid>
+                
+
+    </Border>
+
+</mopup:PopupPage>
