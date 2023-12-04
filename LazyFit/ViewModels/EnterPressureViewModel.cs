@@ -25,9 +25,9 @@ namespace LazyFit.ViewModels
             }
         }
 
-        private int _Low;
+        private string _Low;
 
-        public int Low
+        public string Low
         {
             get => _Low; set
             {
@@ -36,9 +36,9 @@ namespace LazyFit.ViewModels
             }
         }
 
-        private int _High;
+        private string _High;
 
-        public int High
+        public string High
         {
             get => _High; set
             {
@@ -52,13 +52,13 @@ namespace LazyFit.ViewModels
 
         private void RefreshCans()
         {
-           // ((Command)SavePressure).ChangeCanExecute();
+           ((Command)SavePressure).ChangeCanExecute();
         }
 
 
         public EnterPressureViewModel() 
         {
-            SavePressure = new Command(SavePressureHandler);
+            SavePressure = new Command(SavePressureHandler, CanSave);
             SetTimeNow = new Command(SetNow);
             SetNow();
         }
@@ -70,11 +70,19 @@ namespace LazyFit.ViewModels
 
         private async void SavePressureHandler()
         {
-            var bloodPressure = new BloodPressure(Guid.NewGuid(), High, Low);
+            var bloodPressure = new BloodPressure(Guid.NewGuid(), int.Parse(High), int.Parse(Low));
 
             await DB.InsertPressure(bloodPressure);
 
             await MopupService.Instance.PushAsync(new PressureDiagnose(bloodPressure));
+        }
+
+        private bool CanSave()
+        {
+            int h;
+            int l;
+
+            return (int.TryParse(High,out h) && h >=0 && h<= 300) && (int.TryParse(Low,out l) && l >=0 && l <=300);
         }
     }
 }

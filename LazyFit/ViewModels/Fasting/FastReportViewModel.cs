@@ -15,6 +15,12 @@ namespace LazyFit.ViewModels.Fasting
 
         public Fast FinishedFast { get => _FinishedFast; set => SetProperty(ref _FinishedFast, value); }
 
+        private TimeSpan _fastSpan;
+        private TimeSpan _planSpan;
+        public TimeSpan fastSpan { get => _fastSpan; set => SetProperty(ref _fastSpan,value); }
+
+        public TimeSpan planSpan { get => _planSpan; set => SetProperty(ref _planSpan, value); }
+
         public string GoodTitle
         {
             get
@@ -62,13 +68,20 @@ namespace LazyFit.ViewModels.Fasting
 
         public FastReportViewModel(Guid fastId) 
         {
-            
             LoadFast(fastId);
+            LoadData();
         }
 
         private async void LoadFast(Guid fastId)
         {
             FinishedFast = await DB.GetFast(fastId);
+            fastSpan = FinishedFast.GetTimeSpanSinceStart();
+            planSpan = FinishedFast.GetPlannedEnd() - FinishedFast.StartTime;
+        }
+
+        private void LoadData()
+        {
+            
         }
     }
 }

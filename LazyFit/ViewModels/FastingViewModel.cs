@@ -127,7 +127,7 @@ namespace LazyFit.ViewModels
         private async void StopDialogHandler()
         {
             if (DateTime.Now < ActiveFast.GetPlannedEnd() && 
-                await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY FAT", "no...sorry") == false)
+                await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY UNFIT", "no...sorry") == false)
             {
                 return;
             }
@@ -142,7 +142,7 @@ namespace LazyFit.ViewModels
 
             ActiveFast.End();
             await DB.UpdateFast(ActiveFast);
-           // await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
+            await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
 
             ActiveFast = null;
             isFastActive = false;

@@ -9,8 +9,12 @@
              BackgroundClickedCommand="{Binding CloseAll}">
 
 
-    <Border Padding="0,0,0,10"
+    <Border Padding="0,20"
         VerticalOptions="Center">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10"/>
+        </Border.StrokeShape>
         
         <Grid RowSpacing="5">
             <Grid.RowDefinitions>
@@ -27,9 +31,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.ColumnSpan="2">
+            <Border Grid.ColumnSpan="2" StrokeThickness="0">
 
-                <Border.Triggers>
+                <!--<Border.Triggers>
                     <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="0">
                         <Setter Property="BackgroundColor" Value="LightBlue"/>
                     </DataTrigger>
@@ -48,19 +52,34 @@
                     <DataTrigger TargetType="Border" Binding="{Binding Pressure.Type}" Value="5">
                         <Setter Property="BackgroundColor" Value="Red"/>
                     </DataTrigger>
-                </Border.Triggers>
+                </Border.Triggers>-->
                 
                 <Label Text="{Binding PressureResult}" 
-                       TextColor="White"
+                       TextColor="Black"
                        FontSize="56" 
                        HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center">
 
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="2">
-                            <Setter Property="TextColor" Value="Black"/>
+                    <!--<Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="0">
+                            <Setter Property="TextColor" Value="LightBlue"/>
                         </DataTrigger>
-                    </Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="1">
+                            <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="2">
+                            <Setter Property="TextColor" Value="Yellow"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="3">
+                            <Setter Property="TextColor" Value="Orange"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="4">
+                            <Setter Property="TextColor" Value="OrangeRed"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Pressure.Type}" Value="5">
+                            <Setter Property="TextColor" Value="Red"/>
+                        </DataTrigger>
+                    </Label.Triggers>-->
                     
                     </Label>
 
