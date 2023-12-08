@@ -22,10 +22,13 @@ public static class MauiProgram
 			})
 			.ConfigureMauiHandlers(handlers =>
 			{
-//#if ANDROID
-//				handlers.AddHandler(typeof(Microsoft.Maui.Controls.Shell), typeof(LazyFit.Platforms.Android.MyShellRenderer));
-//#endif
-			});
+				Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+				{
+#if ANDROID
+					handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+				});
+            });
 
 #if DEBUG
 		builder.Logging.AddDebug();

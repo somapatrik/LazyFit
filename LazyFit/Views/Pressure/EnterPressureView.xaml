@@ -29,17 +29,34 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Systolic" FontSize="Medium" VerticalTextAlignment="End"/>
-                <Label Grid.Row="1" Text="Diastolic" FontSize="Medium" VerticalTextAlignment="End"/>
 
-                <Entry Grid.Column="1" Text="{Binding High}" Keyboard="Numeric" FontSize="Medium" HorizontalTextAlignment="Center"/>
-                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Low}" Keyboard="Numeric" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                <Entry Grid.Column="0" 
+                       Text="{Binding High}" 
+                       Keyboard="Numeric" 
+                       FontSize="50"
+                       Placeholder="Systolic"
+                       
+                       HorizontalTextAlignment="Center"/>
+
+                <Border StrokeThickness=".3">
+                    <Border.StrokeShape>
+                        <Line/>
+                    </Border.StrokeShape>
+                </Border>
+                
+                <Entry Grid.Row="2" 
+                       Grid.Column="0" 
+                       Text="{Binding Low}" 
+                       Keyboard="Numeric" 
+                       FontSize="50"
+                       Placeholder="Diastolic"
+                       HorizontalTextAlignment="Center"/>
 
             </Grid>
 
