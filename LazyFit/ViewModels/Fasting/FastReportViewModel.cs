@@ -14,15 +14,12 @@ namespace LazyFit.ViewModels.Fasting
 {
     internal class FastReportViewModel : PrimeViewModel
     {
-
         private Fast _FinishedFast;
-
         public Fast FinishedFast { get => _FinishedFast; set => SetProperty(ref _FinishedFast, value); }
 
         private TimeSpan _fastSpan;
         private TimeSpan _planSpan;
         public TimeSpan fastSpan { get => _fastSpan; set => SetProperty(ref _fastSpan,value); }
-
         public TimeSpan planSpan { get => _planSpan; set => SetProperty(ref _planSpan, value); }
 
         public string GoodTitle
@@ -46,7 +43,6 @@ namespace LazyFit.ViewModels.Fasting
                 return list[rnd.Next(list.Count - 1)];
             }
         }
-
         public string BadTitle
         {
             get
@@ -70,13 +66,22 @@ namespace LazyFit.ViewModels.Fasting
             }
         }
 
-        public ICommand ChangeStart;
+        public ICommand DeleteFast { private set; get; }
+        public ICommand SaveEdits { private set; get; }
 
         public FastReportViewModel(Guid fastId) 
         {
             LoadFast(fastId);
-            LoadData();
 
+            DeleteFast = new Command(async () => {
+                if (await Shell.Current.DisplayAlert("Delete", "Erase this fast?", "Delete", "Cancel"))
+                {
+                    await DB.DeleteItem(FinishedFast);
+                    await Shell.Current.Navigation.PopAsync();
+                }
+            });
+
+            SaveEdits = new Command(SaveEditsHandler);
         }
 
         private async void LoadFast(Guid fastId)
@@ -84,13 +89,13 @@ namespace LazyFit.ViewModels.Fasting
             FinishedFast = await DB.GetFast(fastId);
             fastSpan = FinishedFast.GetTimeSpanSinceStart();
             planSpan = FinishedFast.GetPlannedEnd() - FinishedFast.StartTime;
-
-
         }
 
-        private void LoadData()
+        private async void SaveEditsHandler()
         {
-            
+            var fast = FinishedFast;
+            await DB.UpdateFast(fast);
+            LoadFast(fast.Id);
         }
     }
 }

@@ -15,7 +15,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
-        <Border Margin="0" StrokeThickness="0">
+        <Border Margin="0" StrokeThickness="0" >
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,0,0"/>
@@ -156,7 +156,7 @@
                     HorizontalOptions="Center"
                     Style="{StaticResource TextButton}"
                     TextColor="{StaticResource GithubRed}"
-                    Command="{Binding DeleteText}"/>
+                    Command="{Binding DeleteFast}"/>
 
                 <Button 
                     Grid.Column="1"
@@ -165,7 +165,7 @@
                     HorizontalOptions="Center"
                     Style="{StaticResource TextButton}"
                     TextColor="{StaticResource GithubRed}"
-                    Command="{Binding DeleteText}"/>
+                    Command="{Binding SaveEdits}"/>
 
             </Grid>
 
