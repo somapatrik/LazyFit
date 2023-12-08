@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using LazyFit.Models;
 using LazyFit.Services;
+using Mopups.Droid.Implementation;
+using Mopups.PreBaked.Services;
+using Mopups.Services;
 
 namespace LazyFit.ViewModels.Fasting
 {
@@ -66,10 +70,13 @@ namespace LazyFit.ViewModels.Fasting
             }
         }
 
+        public ICommand ChangeStart;
+
         public FastReportViewModel(Guid fastId) 
         {
             LoadFast(fastId);
             LoadData();
+
         }
 
         private async void LoadFast(Guid fastId)
@@ -77,6 +84,8 @@ namespace LazyFit.ViewModels.Fasting
             FinishedFast = await DB.GetFast(fastId);
             fastSpan = FinishedFast.GetTimeSpanSinceStart();
             planSpan = FinishedFast.GetPlannedEnd() - FinishedFast.StartTime;
+
+
         }
 
         private void LoadData()

@@ -5,19 +5,20 @@
              x:Class="LazyFit.Views.Fasting.FastingReportPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="FastingReportPage">
+    
 
 
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
         <Border Margin="0" StrokeThickness="0">
 
             <Border.StrokeShape>
-                <RoundRectangle CornerRadius="0"/>
+                <RoundRectangle CornerRadius="20,20,0,0"/>
             </Border.StrokeShape>
             
             <Border.Triggers>
@@ -30,7 +31,6 @@
             </Border.Triggers>
 
             <Label 
-                Text=""
                 TextColor="White"
                 FontSize="Title"
                 VerticalOptions="Center"
@@ -46,14 +46,18 @@
                 </Label.Triggers>
                 
             </Label>
+        
         </Border>
 
 
-        <Grid Grid.Row="1" Padding="10">
+        <Grid Grid.Row="1" Padding="20" RowSpacing="20">
 
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -61,16 +65,111 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-
-            <VerticalStackLayout HorizontalOptions="Center">
+            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal">
                 <Label Text="{Binding fastSpan,Converter={converters:TimeSpanToHours}}" Style="{StaticResource ReportValue}"/>
+                <Label Text=" h" VerticalTextAlignment="Center" Style="{StaticResource ReportValue}"/>
+                </StackLayout>
                 <Label Text="Reality" Style="{StaticResource ReportKey}"/>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                <Label Text="{Binding planSpan,Converter={converters:TimeSpanToHours}}" Style="{StaticResource ReportValue}"/>
+            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding planSpan,Converter={converters:TimeSpanToHours}}" Style="{StaticResource ReportValue}"/>
+                    <Label Text=" h" VerticalTextAlignment="Center" Style="{StaticResource ReportValue}"/>
+                </StackLayout>
                 <Label Text="Plan" Style="{StaticResource ReportKey}"/>
             </VerticalStackLayout>
+
+            <StackLayout Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="Center">
+                <Label Text="{Binding fastSpan, Converter={converters:TimeSpanToStageConverter}}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                <Label Text="reached" FontSize="Medium" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            
+            <Grid Grid.Row="3" Grid.ColumnSpan="2" RowSpacing="20">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" 
+                       Text="Started" 
+                       FontSize="Default"
+                       Style="{StaticResource ReportKey}" 
+                       VerticalTextAlignment="Center" 
+                       HorizontalTextAlignment="Start"/>
+
+                <Label Grid.Row="2" 
+                       Text="Ended" 
+                       FontSize="Default"
+                       Style="{StaticResource ReportKey}" 
+                       VerticalTextAlignment="Center" 
+                       HorizontalTextAlignment="Start"/>
+
+                <Grid Grid.Row="1" HorizontalOptions="CenterAndExpand">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <DatePicker Grid.Column="0" Date="{Binding FinishedFast.StartTime}"  FontSize="Medium" FontAttributes="Bold"/>
+                    <TimePicker Grid.Column="1" Time="{Binding FinishedFast.StartTime.TimeOfDay}" FontSize="Medium" FontAttributes="Bold"/>
+
+                </Grid>
+
+                <Grid Grid.Row="3" 
+                      HorizontalOptions="CenterAndExpand">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <DatePicker Grid.Column="0" Date="{Binding FinishedFast.EndTime}"  FontSize="Medium" FontAttributes="Bold"/>
+                    <TimePicker Grid.Column="1" Time="{Binding FinishedFast.EndTime.TimeOfDay}"  FontSize="Medium" FontAttributes="Bold"/>
+
+                </Grid>
+
+
+            </Grid>
+
+            <Grid
+                Grid.Row="4" 
+                Grid.ColumnSpan="2">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Text="Delete fast" 
+                    VerticalOptions="End" 
+                    HorizontalOptions="Center"
+                    Style="{StaticResource TextButton}"
+                    TextColor="{StaticResource GithubRed}"
+                    Command="{Binding DeleteText}"/>
+
+                <Button 
+                    Grid.Column="1"
+                    Text="Save edits" 
+                    VerticalOptions="End" 
+                    HorizontalOptions="Center"
+                    Style="{StaticResource TextButton}"
+                    TextColor="{StaticResource GithubRed}"
+                    Command="{Binding DeleteText}"/>
+
+            </Grid>
+
+            
 
         </Grid>
         

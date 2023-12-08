@@ -41,7 +41,6 @@
                        Keyboard="Numeric" 
                        FontSize="50"
                        Placeholder="Systolic"
-                       
                        HorizontalTextAlignment="Center"/>
 
                 <Border StrokeThickness=".3">
