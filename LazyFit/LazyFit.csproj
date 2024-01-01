@@ -162,6 +162,9 @@
 	  <MauiXaml Update="Views\Pressure\EnterPressureView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Pressure\PressureCardView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Pressure\PressureDiagnose.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

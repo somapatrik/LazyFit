@@ -1,4 +1,5 @@
-﻿using Java.Util.Concurrent;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Java.Util.Concurrent;
 using LazyFit.Models.Pressure;
 using LazyFit.Services;
 using LazyFit.Views.Pressure;
@@ -73,8 +74,9 @@ namespace LazyFit.ViewModels
             var bloodPressure = new BloodPressure(Guid.NewGuid(), int.Parse(High), int.Parse(Low));
 
             await DB.InsertPressure(bloodPressure);
-
             await MopupService.Instance.PushAsync(new PressureDiagnose(bloodPressure));
+
+            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
         }
 
         private bool CanSave()

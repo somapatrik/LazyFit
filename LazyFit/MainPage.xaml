@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:LazyFit.Views"
+             xmlns:psViews="clr-namespace:LazyFit.Views.Pressure"
              xmlns:fastViews="clr-namespace:LazyFit.Views.Fasting"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.MainPage"
@@ -42,9 +43,25 @@
                     </Border.StrokeShape>
                     <views:LogButtonsView />
                 </Border>
+
+                <CollectionView ItemsSource="{Binding BloodPressures}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <psViews:PressureCardView/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
                 <views:LatestActionsView/>
             </StackLayout>
+            
+            
         </ScrollView>
+
+       
 
         <Label Grid.Row="2" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
 
