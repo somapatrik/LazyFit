@@ -11,24 +11,6 @@
 
         <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,0,5,20">
 
-            <Frame FlexLayout.Basis="50%" Background="{StaticResource GithubGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
-
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowPressure}" />
-                </Frame.GestureRecognizers>
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0" Text="Blood" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
-                    <Label Grid.Row="1" Text="Pressure" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
-
-                </Grid>
-            </Frame>
-
             <Frame FlexLayout.Basis="50%" Background="OrangeRed" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                 <Frame.GestureRecognizers>
@@ -105,7 +87,23 @@
                 </Grid>
             </Frame>
 
-        
+            <Frame FlexLayout.Basis="50%" Background="{StaticResource GithubGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowPressure}" />
+                </Frame.GestureRecognizers>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Text="Blood" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                    <Label Grid.Row="1" Text="Pressure" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+
+                </Grid>
+            </Frame>
 
         </FlexLayout>
         

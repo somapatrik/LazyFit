@@ -31,12 +31,14 @@
 
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
+                
                 <Border>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>
                     </Border.StrokeShape>
                     <fastViews:FastingView/>
                 </Border>
+                
                 <Border>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>

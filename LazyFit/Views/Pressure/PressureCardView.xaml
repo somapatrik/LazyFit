@@ -1,42 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Pressure.PressureCardView">
 
-    <Border Padding="10" MinimumWidthRequest="100">
+    <Border MinimumWidthRequest="100">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="10"/>
         </Border.StrokeShape>
 
         <StackLayout Orientation="Vertical" Spacing="5">
 
-            <Label Text="{Binding High}" FontSize="Large" HorizontalOptions="StartAndExpand"/>
+            <Label Text="{Binding Time, Converter={converters:DatetimeToDateConverter}}" 
+                   HorizontalTextAlignment="Center"
+                   Padding="0,3"/>
 
-            <Label Text="{Binding Low}" FontSize="Large" HorizontalOptions="EndAndExpand"/>
-            <Label HorizontalOptions="CenterAndExpand">
+            <Label Text="{Binding High}"
+                   Padding="5,0,0,0"
+                   FontSize="Large" 
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Start"/>
+
+            <Label Text="{Binding Low}" 
+                   Padding="0,0,5,0"
+                   FontSize="Large" 
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="End"/>
+            
+            <Label Padding="0,3"
+                   HorizontalOptions="FillAndExpand" 
+                   HorizontalTextAlignment="Center">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Low">
                         <Setter Property="Text" Value="Low"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="BackgroundColor" Value="LightBlue"/>
                     </DataTrigger>
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Normal">
                         <Setter Property="Text" Value="Normal"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
                     </DataTrigger>
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Elevated">
                         <Setter Property="Text" Value="Elevated"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="BackgroundColor" Value="Yellow"/>
                     </DataTrigger>
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="High1">
                         <Setter Property="Text" Value="High I"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="BackgroundColor" Value="Orange"/>
                     </DataTrigger>
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="High2">
                         <Setter Property="Text" Value="High II"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="BackgroundColor" Value="OrangeRed"/>
                     </DataTrigger>
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Hypertensive">
                         <Setter Property="Text" Value="Hypertensive"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="BackgroundColor" Value="Red"/>
                     </DataTrigger>
                 </Label.Triggers>
             </Label>

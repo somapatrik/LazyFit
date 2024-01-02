@@ -1,4 +1,5 @@
-﻿using LazyFit.Models.Pressure;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Models.Pressure;
 using LazyFit.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -23,6 +24,7 @@ namespace LazyFit.ViewModels
         public MainViewModel() 
         {
             LoadPressure();
+            WeakReferenceMessenger.Default.Register<Messages.ReloadActionsMessage>(this, (r, m) => { LoadPressure(); });
         }
 
         private async void LoadPressure()
