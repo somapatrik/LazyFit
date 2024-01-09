@@ -26,8 +26,10 @@ public static class MauiProgram
 				{
 #if ANDROID
 					handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-#endif
+
 				});
+#endif
+
             });
 
 #if DEBUG
@@ -36,4 +38,5 @@ public static class MauiProgram
 
 		return builder.Build();
 	}
+
 }

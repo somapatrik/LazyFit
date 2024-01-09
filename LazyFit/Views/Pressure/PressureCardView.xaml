@@ -2,21 +2,24 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:LazyFit.Converters"
+             xmlns:toolkit="toolkit"
              x:Class="LazyFit.Views.Pressure.PressureCardView">
 
-    <Border MinimumWidthRequest="100">
+    <Border x:Name="longBorder" MinimumWidthRequest="100">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="10"/>
         </Border.StrokeShape>
 
         <StackLayout Orientation="Vertical" Spacing="5">
 
-            <Label Text="{Binding Time, Converter={converters:DatetimeToDateConverter}}" 
-                   TextColor="Gray"
-                   HorizontalTextAlignment="Center"
-                   Padding="0,3"/>
+                <Label Text="{Binding Time, Converter={converters:DatetimeToDateConverter}}" 
+                       TextColor="Gray"
+                       HorizontalTextAlignment="Center"
+                       Padding="0,3,0,0"/>
 
-            <Label Text="{Binding High}"
+
+
+                <Label Text="{Binding High}"
                    Padding="5,0,0,0"
                    FontSize="Large" 
                    HorizontalOptions="FillAndExpand"
@@ -35,7 +38,7 @@
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Low">
                         <Setter Property="Text" Value="Low"/>
                         <Setter Property="TextColor" Value="White"/>
-                        <Setter Property="BackgroundColor" Value="LightBlue"/>
+                        <Setter Property="BackgroundColor" Value="DeepSkyBlue"/>
                     </DataTrigger>
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Normal">
@@ -52,7 +55,7 @@
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="High1">
                         <Setter Property="Text" Value="High I"/>
-                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="TextColor" Value="white"/>
                         <Setter Property="BackgroundColor" Value="Orange"/>
                     </DataTrigger>
 
