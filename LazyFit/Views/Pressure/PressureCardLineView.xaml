@@ -14,7 +14,7 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <psView:PressureCardView/>
+                    <psView:PressureCardView BloodPressure="{Binding .}"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             
