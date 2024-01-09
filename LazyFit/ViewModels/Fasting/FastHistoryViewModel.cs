@@ -5,7 +5,7 @@ using LazyFit.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Fasting
 {
     class FastHistoryViewModel : PrimeViewModel
     {
@@ -22,17 +22,17 @@ namespace LazyFit.ViewModels
 
         private int _pageNumber;
 
-        public int PageNumber 
-        { 
-            get => _pageNumber; 
-            set 
-            { 
+        public int PageNumber
+        {
+            get => _pageNumber;
+            set
+            {
                 SetProperty(ref _pageNumber, value);
                 SetHeader();
-            } 
+            }
         }
 
-        public FastHistoryViewModel() 
+        public FastHistoryViewModel()
         {
             RefreshList = new Command(LoadFastList);
             ShowOlder = new Command(ShowOlderHandler);
@@ -40,7 +40,7 @@ namespace LazyFit.ViewModels
             SetHeader();
             LoadFastList();
 
-            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (a,b) => {ShowPage(b.Value);});
+            WeakReferenceMessenger.Default.Register<ShowPageMessage>(this, (a, b) => { ShowPage(b.Value); });
         }
 
         private void ShowPage(int value)
@@ -70,7 +70,7 @@ namespace LazyFit.ViewModels
         private async void LoadFastList()
         {
             FastHistory = new ObservableCollection<Fast>();
-            List<Fast> fasts = (await DB.GetFastsByPage(_pageNumber)).OrderByDescending(f=>f.EndTime).ToList();
+            List<Fast> fasts = (await DB.GetFastsByPage(_pageNumber)).OrderByDescending(f => f.EndTime).ToList();
             fasts.ForEach(FastHistory.Add);
         }
     }

@@ -9,7 +9,7 @@ using SkiaSharp;
 using System;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Fasting
 {
     internal class FastingViewModel : PrimeViewModel
     {
@@ -24,9 +24,9 @@ namespace LazyFit.ViewModels
         private System.Threading.Timer refreshTimer;
         private string _StopLabel;
 
-        public bool isFastActive { get => _isFastActive;set => SetProperty(ref _isFastActive,value); }
-        public Fast ActiveFast { get => _ActiveFast; set => SetProperty(ref _ActiveFast,value); }       
-        public string TimerMessage { get => _TimerMessage;set => SetProperty(ref _TimerMessage,value); }
+        public bool isFastActive { get => _isFastActive; set => SetProperty(ref _isFastActive, value); }
+        public Fast ActiveFast { get => _ActiveFast; set => SetProperty(ref _ActiveFast, value); }
+        public string TimerMessage { get => _TimerMessage; set => SetProperty(ref _TimerMessage, value); }
         public string StopLabel { get => _StopLabel; set => SetProperty(ref _StopLabel, value); }
         public TimeSpan TimeSinceStart { get => _TimeSinceStart; set => SetProperty(ref _TimeSinceStart, value); }
         public double PercentDone { get => _PercentDone; set => SetProperty(ref _PercentDone, value); }
@@ -35,18 +35,18 @@ namespace LazyFit.ViewModels
         #endregion
 
         #region Commands
-        
+
         public ICommand OpenFasting { get; private set; }
         public ICommand StopFasting { get; private set; }
         public ICommand ShowStopDialog { get; private set; }
-        
+
         #endregion
 
-        public FastingViewModel() 
+        public FastingViewModel()
         {
             RelayCommands();
 
-            refreshTimer = new System.Threading.Timer(TimerHandler,null,Timeout.Infinite, 1000);
+            refreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
 
             RefreshFastData();
 
@@ -58,14 +58,14 @@ namespace LazyFit.ViewModels
 
         private void SelectStopLabel()
         {
-            string[] endLabels = { 
+            string[] endLabels = {
                      "Stop fast"
                     ,"End the suffering"
                     ,"Screw it, let´s eat!"
                     ,"Game over"
                     ,"I´m done"
                     ,"The grand finale"
-                    ,"End the journey" 
+                    ,"End the journey"
             };
 
             Random random = new Random();
@@ -77,7 +77,7 @@ namespace LazyFit.ViewModels
         {
             PercentDone = ActiveFast.GetElapsedTimePercentage();
             //TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
-            TimeSinceStart =  ActiveFast.GetTimeSpanSinceStart();
+            TimeSinceStart = ActiveFast.GetTimeSpanSinceStart();
             TimerMessage = PercentDone >= 100 ? "Done!" + Environment.NewLine + "+" + TimeSinceStart.ToString(@"hh\:mm\:ss") : TimeSinceStart.ToString(@"hh\:mm\:ss");
             RefreshChart();
         }
@@ -89,12 +89,12 @@ namespace LazyFit.ViewModels
             {
                 new ChartEntry(done) {  Color = SKColors.LimeGreen },
                 new ChartEntry(100f - done) {  Color = SKColor.Parse("#f6f8fa") }
-                
+
             };
 
-            ProgressChart = new DonutChart() 
-            { 
-                Entries = entries, 
+            ProgressChart = new DonutChart()
+            {
+                Entries = entries,
                 IsAnimated = false,
                 MaxValue = 100f,
                 MinValue = 0f,
@@ -126,7 +126,7 @@ namespace LazyFit.ViewModels
 
         private async void StopDialogHandler()
         {
-            if (DateTime.Now < ActiveFast.GetPlannedEnd() && 
+            if (DateTime.Now < ActiveFast.GetPlannedEnd() &&
                 await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY UNFIT", "no...sorry") == false)
             {
                 return;
@@ -148,7 +148,7 @@ namespace LazyFit.ViewModels
             isFastActive = false;
             TimerMessage = "";
             PercentDone = 0;
-           
+
             WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
         }
 
@@ -169,7 +169,7 @@ namespace LazyFit.ViewModels
         {
             ActiveFast = await DB.GetRunningFast();
             isFastActive = ActiveFast != null;
-            if(ActiveFast != null)
+            if (ActiveFast != null)
             {
                 isFastActive = true;
                 refreshTimer.Change(0, 1000);

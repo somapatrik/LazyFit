@@ -4,19 +4,19 @@ using Mopups.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Fasting
 {
 
     class ChooseFastViewModel : PrimeViewModel
     {
         private ObservableCollection<FastingOption> _FastingOptions;
-        public ObservableCollection<FastingOption> FastingOptions { get => _FastingOptions; set => SetProperty(ref _FastingOptions,value); }
+        public ObservableCollection<FastingOption> FastingOptions { get => _FastingOptions; set => SetProperty(ref _FastingOptions, value); }
 
         public ICommand StartFast { get; private set; }
 
         public bool OptionSelected { get; private set; }
 
-        public ChooseFastViewModel() 
+        public ChooseFastViewModel()
         {
             FastingOptions = new ObservableCollection<FastingOption>()
             {

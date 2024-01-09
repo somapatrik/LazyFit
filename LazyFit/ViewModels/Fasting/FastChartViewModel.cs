@@ -6,18 +6,18 @@ using LazyFit.ViewModels.Classes;
 using Microcharts;
 using SkiaSharp;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Fasting
 {
 
     class FastChartViewModel : ResultComponent
     {
         private Chart _FastChart;
-        public Chart FastChart { get => _FastChart; set => SetProperty(ref _FastChart,value); }
+        public Chart FastChart { get => _FastChart; set => SetProperty(ref _FastChart, value); }
 
-        public FastChartViewModel() 
+        public FastChartViewModel()
         {
             LoadResults();
-            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (r, m) =>{ ShowPage(m.Value);  });
+            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (r, m) => { ShowPage(m.Value); });
         }
 
         protected override async void LoadResults()
@@ -27,17 +27,17 @@ namespace LazyFit.ViewModels
 
             List<DateInt> hoursFasted = fasts.GroupBy(obj => obj.StartTime.Date)
                                              .Select(group => new DateInt()
-                                                          {
-                                                            Date = group.Key,
-                                                            Value = (int)group.Sum(obj => ((TimeSpan)(obj.EndTime-obj.StartTime)).TotalHours)
-                                                            }).ToList();
+                                             {
+                                                 Date = group.Key,
+                                                 Value = (int)group.Sum(obj => ((TimeSpan)(obj.EndTime - obj.StartTime)).TotalHours)
+                                             }).ToList();
 
 
             List<DateInt> shouldFasted = fasts.GroupBy(obj => obj.StartTime.Date)
                                           .Select(group => new DateInt()
                                           {
                                               Date = group.Key,
-                                              Value = (int)group.Sum(obj => ((TimeSpan)(obj.GetPlannedEnd() - obj.StartTime)).TotalHours)
+                                              Value = (int)group.Sum(obj => (obj.GetPlannedEnd() - obj.StartTime).TotalHours)
                                           }).ToList();
 
 
@@ -46,26 +46,26 @@ namespace LazyFit.ViewModels
                 Entries = CreateEntriesPerWeek(shouldFasted),
                 Color = SKColor.Parse("#6c757d"),
                 Name = "Fasting plan"
-            }; 
-            
+            };
+
             ChartSerie hoursFastedSerie = new ChartSerie()
             {
                 Entries = CreateEntriesPerWeek(hoursFasted),
                 Color = SKColor.Parse("#0b5ed7"),
-                 Name = "Hours starved"
+                Name = "Hours starved"
             };
 
 
-            FastChart = new BarChart() 
-            { 
-                Series = new List<ChartSerie> { hoursFastedSerie, shoudlFastSerie }, 
-                LabelOrientation = Orientation.Horizontal, 
-                ValueLabelOrientation=Orientation.Horizontal,
+            FastChart = new BarChart()
+            {
+                Series = new List<ChartSerie> { hoursFastedSerie, shoudlFastSerie },
+                LabelOrientation = Orientation.Horizontal,
+                ValueLabelOrientation = Orientation.Horizontal,
                 LabelTextSize = 36,
                 ValueLabelTextSize = 36,
                 SerieLabelTextSize = 36,
                 LegendOption = SeriesLegendOption.Bottom,
-                
+
             };
 
         }
@@ -111,18 +111,18 @@ namespace LazyFit.ViewModels
 
 
                 //entries.Add(new ChartEntry(enterValue) { Label = i.ToString(), ValueLabel = enterValue.ToString(), Color = barColor, ValueLabelColor = labelColor });
-                
+
 
                 if (found == null)
                 {
                     entries.Add(new ChartEntry(0) { Label = i.ToString() });
                 }
-                else 
+                else
                 {
                     entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString() });
                 }
 
-                
+
 
                 actDate = actDate.AddDays(1);
             };
