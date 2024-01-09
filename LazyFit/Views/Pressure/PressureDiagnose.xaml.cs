@@ -1,5 +1,5 @@
 using LazyFit.Models.Pressure;
-using LazyFit.ViewModels;
+using LazyFit.ViewModels.Pressure;
 using Mopups.Pages;
 
 namespace LazyFit.Views.Pressure;

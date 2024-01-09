@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Pressure
 {
     public class EnterPressureViewModel : PrimeViewModel
     {
@@ -53,11 +53,11 @@ namespace LazyFit.ViewModels
 
         private void RefreshCans()
         {
-           ((Command)SavePressure).ChangeCanExecute();
+            ((Command)SavePressure).ChangeCanExecute();
         }
 
 
-        public EnterPressureViewModel() 
+        public EnterPressureViewModel()
         {
             SavePressure = new Command(SavePressureHandler, CanSave);
             SetTimeNow = new Command(SetNow);
@@ -84,7 +84,7 @@ namespace LazyFit.ViewModels
             int h;
             int l;
 
-            return (int.TryParse(High,out h) && h >=0 && h<= 300) && (int.TryParse(Low,out l) && l >=0 && l <=300);
+            return int.TryParse(High, out h) && h >= 0 && h <= 300 && int.TryParse(Low, out l) && l >= 0 && l <= 300;
         }
     }
 }
