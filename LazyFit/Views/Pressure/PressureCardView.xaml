@@ -5,7 +5,7 @@
              xmlns:toolkit="toolkit"
              x:Class="LazyFit.Views.Pressure.PressureCardView">
 
-    <Border x:Name="longBorder" MinimumWidthRequest="100">
+    <Border x:Name="kjikiu" MinimumWidthRequest="100">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="10"/>
         </Border.StrokeShape>
