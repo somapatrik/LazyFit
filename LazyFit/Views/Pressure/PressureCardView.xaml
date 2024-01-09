@@ -12,6 +12,7 @@
         <StackLayout Orientation="Vertical" Spacing="5">
 
             <Label Text="{Binding Time, Converter={converters:DatetimeToDateConverter}}" 
+                   TextColor="Gray"
                    HorizontalTextAlignment="Center"
                    Padding="0,3"/>
 
@@ -45,7 +46,7 @@
 
                     <DataTrigger TargetType="Label" Binding="{Binding Type}" Value="Elevated">
                         <Setter Property="Text" Value="Elevated"/>
-                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="TextColor" Value="Black"/>
                         <Setter Property="BackgroundColor" Value="Yellow"/>
                     </DataTrigger>
 

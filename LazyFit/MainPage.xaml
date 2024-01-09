@@ -46,17 +46,8 @@
                     <views:LogButtonsView />
                 </Border>
 
-                <CollectionView ItemsSource="{Binding BloodPressures}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <psViews:PressureCardView/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
 
+                <psViews:PressureCardLineView/>
                 <views:LatestActionsView/>
             </StackLayout>
             

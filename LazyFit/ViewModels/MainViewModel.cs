@@ -23,15 +23,10 @@ namespace LazyFit.ViewModels
 
         public MainViewModel() 
         {
-            LoadPressure();
-            WeakReferenceMessenger.Default.Register<Messages.ReloadActionsMessage>(this, (r, m) => { LoadPressure(); });
+
         }
 
-        private async void LoadPressure()
-        {
-            BloodPressures = new ObservableCollection<BloodPressure>();
-            (await DB.GetPressures(DateTime.Now.Date.AddYears(-1), DateTime.Now)).ForEach(BloodPressures.Add);
-        }
+        
 
 
 
