@@ -34,7 +34,6 @@ namespace LazyFit.Services
 
 
             List<Task> tables = new List<Task>()
-            //List<CreateTableResult> results = new List<CreateTableResult>
             {
                 Database.CreateTableAsync<Fast>(),
                 Database.CreateTableAsync<Mood>(),
@@ -52,7 +51,6 @@ namespace LazyFit.Services
              Task CreateTables = Task.WhenAll(tables);
              await CreateTables;
 
-            //bool created = results.Any(r => r == CreateTableResult.Created);
 
             // Default data
             foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
@@ -106,8 +104,6 @@ namespace LazyFit.Services
             }
 
         }
-
-
 
         #endregion
 

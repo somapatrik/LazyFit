@@ -24,7 +24,13 @@
 
     </ContentPage.Triggers>
 
-    <VerticalStackLayout VerticalOptions="Center" Spacing="10">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout VerticalOptions="Center" Spacing="10">
 
         <Image 
                HorizontalOptions="Center"
@@ -41,11 +47,11 @@
         </Image>
 
         <Label 
-        TextColor="White"
-        FontSize="Title"
-        VerticalOptions="Center"
-        HorizontalOptions="Center"
-        Margin="30">
+            TextColor="White"
+            FontSize="Title"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Margin="30">
 
             <Label.Triggers>
                 <DataTrigger TargetType="Label" Binding="{Binding FinishedFast.Completed}" Value="true">
@@ -116,6 +122,7 @@
 
         </Grid>
 
+        <!-- Dates -->
         <Grid>
 
             <Grid.ColumnDefinitions>
@@ -167,5 +174,31 @@
         </Grid>
 
     </VerticalStackLayout>
+
+
+        <Grid Grid.Row="1" ColumnSpacing=".5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Text="Delete fast"
+                    Padding="20"
+                    Background="White"
+                    CornerRadius="0"
+                    Command="{Binding DeleteFast}"
+                    Style="{StaticResource TextButton}"/>
+
+            <Button Grid.Column="2"
+                    Text="Save changes"
+                    Padding="20"
+                    Background="White"
+                    CornerRadius="0"
+                    Command="{Binding SaveEdits}"
+                    Style="{StaticResource TextButton}"/>
+
+        </Grid>
+    
+    </Grid>
 
 </ContentPage>

@@ -7,12 +7,26 @@ namespace LazyFit.ViewModels.Fasting
     internal class FastReportViewModel : PrimeViewModel
     {
         private Fast _FinishedFast;
-        public Fast FinishedFast { get => _FinishedFast; set => SetProperty(ref _FinishedFast, value); }
-
         private TimeSpan _fastSpan;
         private TimeSpan _planSpan;
-        public TimeSpan fastSpan { get => _fastSpan; set => SetProperty(ref _fastSpan,value); }
-        public TimeSpan planSpan { get => _planSpan; set => SetProperty(ref _planSpan, value); }
+
+        private bool _CanSave = false;
+
+        public Fast FinishedFast 
+        { 
+            get => _FinishedFast; 
+            set => SetProperty(ref _FinishedFast, value); 
+        }
+        public TimeSpan fastSpan 
+        { 
+            get => _fastSpan; 
+            set => SetProperty(ref _fastSpan,value); 
+        }
+        public TimeSpan planSpan 
+        { 
+            get => _planSpan; 
+            set => SetProperty(ref _planSpan, value); 
+        }
 
         public string GoodTitle
         {
@@ -66,14 +80,15 @@ namespace LazyFit.ViewModels.Fasting
             LoadFast(fastId);
 
             DeleteFast = new Command(async () => {
-                if (await Shell.Current.DisplayAlert("Delete", "Erase this fast?", "Delete", "Cancel"))
+                if (await Shell.Current.DisplayAlert("Delete this fast", "Are you sure?", "Delete", "Cancel"))
                 {
                     await DB.DeleteItem(FinishedFast);
                     await Shell.Current.Navigation.PopAsync();
                 }
+            
             });
 
-            SaveEdits = new Command(SaveEditsHandler);
+            SaveEdits = new Command(SaveEditsHandler, CanSaveEdit);
         }
 
         private async void LoadFast(Guid fastId)
@@ -88,6 +103,11 @@ namespace LazyFit.ViewModels.Fasting
             var fast = FinishedFast;
             await DB.UpdateFast(fast);
             LoadFast(fast.Id);
+        }
+
+        private bool CanSaveEdit()
+        {
+            return true;
         }
     }
 }
