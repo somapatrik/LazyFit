@@ -8,10 +8,12 @@
         <Setter Property="HorizontalTextAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="Large"/>
         <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="White"/>
     </Style>
 
     <Style x:Key="ReportKey" TargetType="Label">
         <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        <Setter Property="TextColor" Value="White"/>
     </Style>
 
     <Style x:Key="PressurePoint" TargetType="Border">

@@ -11,7 +11,6 @@ namespace LazyFit.Models
         public int PlanMinutes { get; set; }
         public bool Completed { get; set; }
 
-
         public Fast() { }
 
         public Fast(Guid id)
@@ -86,8 +85,6 @@ namespace LazyFit.Models
         {
             return DateTime.Now - StartTime;
         }
-
-
     }
 
 }
