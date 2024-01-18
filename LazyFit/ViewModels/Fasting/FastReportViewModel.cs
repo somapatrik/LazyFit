@@ -9,6 +9,10 @@ namespace LazyFit.ViewModels.Fasting
         private Fast _FinishedFast;
         private TimeSpan _fastSpan;
         private TimeSpan _planSpan;
+        private DateTime _StartDate;
+        private DateTime _EndDate;
+        private TimeSpan _StartTime;
+        private TimeSpan _EndTime;
 
         private bool _CanSave = false;
 
@@ -27,6 +31,47 @@ namespace LazyFit.ViewModels.Fasting
             get => _planSpan; 
             set => SetProperty(ref _planSpan, value); 
         }
+
+        public DateTime StartDate 
+        { 
+            get => _StartDate;
+            set
+            {
+                SetProperty(ref _StartDate, value);
+                RefreshCan();
+            }
+        }
+        public DateTime EndDate 
+        { 
+            get => _EndDate; 
+            set 
+            {
+                SetProperty(ref _EndDate, value);
+                RefreshCan();
+            }
+}
+
+        public TimeSpan StartTime
+        {
+            get => _StartTime;
+            set
+            {
+                SetProperty(ref _StartTime, value);
+                RefreshCan();
+            }
+        }
+
+        public TimeSpan EndTime
+        {
+            get => _EndTime;
+            set
+            {
+                SetProperty(ref _EndTime, value);
+                RefreshCan();
+            }
+        }
+
+        private bool _EnableEdit;
 
         public string GoodTitle
         {
@@ -94,20 +139,41 @@ namespace LazyFit.ViewModels.Fasting
         private async void LoadFast(Guid fastId)
         {
             FinishedFast = await DB.GetFast(fastId);
-            fastSpan = FinishedFast.GetTimeSpanSinceStart();
+
+            fastSpan = (DateTime)FinishedFast.EndTime - FinishedFast.StartTime;
             planSpan = FinishedFast.GetPlannedEnd() - FinishedFast.StartTime;
+
+            StartDate = FinishedFast.StartTime;
+            StartTime = FinishedFast.StartTime.TimeOfDay;
+
+            var et = (DateTime)FinishedFast.EndTime;
+            EndDate = et;
+            EndTime = et.TimeOfDay;
+
+            _EnableEdit = true;
         }
 
         private async void SaveEditsHandler()
         {
             var fast = FinishedFast;
+
+            var st = StartDate.AddTicks(StartTime.Ticks);
+            var end = EndDate.AddTicks(EndTime.Ticks);
+            fast.SetStart(st);
+            fast.SetEnd(end);
+
             await DB.UpdateFast(fast);
             LoadFast(fast.Id);
         }
 
         private bool CanSaveEdit()
         {
-            return true;
+            return _EnableEdit;
+        }
+
+        private void RefreshCan()
+        {
+            ((Command)SaveEdits).ChangeCanExecute();
         }
     }
 }

@@ -22,6 +22,22 @@ namespace LazyFit.Models
         public void End()
         {
             EndTime = DateTime.Now;
+            RefreshCompleted();
+        }
+
+        public void SetStart(DateTime start)
+        {
+            StartTime = start;
+        }
+
+        public void SetEnd(DateTime end)
+        {
+            EndTime = end;
+            RefreshCompleted();
+        }
+
+        public void RefreshCompleted()
+        {
             Completed = EndTime >= GetPlannedEnd();
         }
 

@@ -134,13 +134,13 @@
 
             <VerticalStackLayout Grid.Column="0">
 
-                <DatePicker Date="{Binding FinishedFast.StartTime}"  
+                <DatePicker Date="{Binding StartDate}"  
                             FontSize="Medium" 
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             TextColor="White"/>
 
-                <TimePicker Time="{Binding FinishedFast.StartTime.TimeOfDay}" 
+                    <TimePicker Time="{Binding StartTime}" 
                             FontSize="Medium" 
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
@@ -156,13 +156,13 @@
 
             <VerticalStackLayout Grid.Column="2">
 
-                <DatePicker Date="{Binding FinishedFast.EndTime}"  
+                <DatePicker Date="{Binding EndDate}"  
                 FontSize="Medium" 
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
                 TextColor="White"/>
 
-                <TimePicker Time="{Binding FinishedFast.EndTime.TimeOfDay}" 
+                <TimePicker Time="{Binding EndTime}" 
                 FontSize="Medium" 
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
