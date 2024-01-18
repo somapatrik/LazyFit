@@ -170,7 +170,7 @@ namespace LazyFit.ViewModels.Fasting
             var fast = FinishedFast;
 
             var st = StartDate.Date.AddTicks(StartTime.Ticks);
-            var end = EndDate.AddTicks(EndTime.Ticks);
+            var end = EndDate.Date.AddTicks(EndTime.Ticks);
             fast.ChangeDates(st,end);
 
             await DB.UpdateFast(fast);
@@ -179,7 +179,11 @@ namespace LazyFit.ViewModels.Fasting
 
         private bool CanSaveEdit()
         {
-            return _EnableEdit;
+            var st = StartDate.Date.AddTicks(StartTime.Ticks);
+            var end = EndDate.Date.AddTicks(EndTime.Ticks);
+
+            bool checkDates = end >= st;
+            return _EnableEdit && checkDates;
         }
 
         private void RefreshCan()
