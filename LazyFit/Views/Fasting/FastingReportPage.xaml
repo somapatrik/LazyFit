@@ -47,20 +47,12 @@
         </Image>
 
         <Label 
+            Text="{Binding ResultTitle}"
             TextColor="White"
             FontSize="Title"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             Margin="30">
-
-            <Label.Triggers>
-                <DataTrigger TargetType="Label" Binding="{Binding FinishedFast.Completed}" Value="true">
-                    <Setter Property="Text" Value="{Binding GoodTitle}"/>
-                </DataTrigger>
-                <DataTrigger TargetType="Label" Binding="{Binding FinishedFast.Completed}" Value="false">
-                    <Setter Property="Text" Value="{Binding BadTitle}"/>
-                </DataTrigger>
-            </Label.Triggers>
 
         </Label>
 

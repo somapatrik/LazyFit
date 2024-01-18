@@ -25,18 +25,14 @@ namespace LazyFit.Models
             RefreshCompleted();
         }
 
-        public void SetStart(DateTime start)
+        public void ChangeDates(DateTime start, DateTime end)
         {
-            StartTime = start;
-        }
-
-        public void SetEnd(DateTime end)
-        {
-            EndTime = end;
+            StartTime = new DateTime(start.Year, start.Month, start.Day, start.Hour, start.Minute,0);
+            EndTime = new DateTime(end.Year, end.Month, end.Day, end.Hour, end.Minute,0);
             RefreshCompleted();
         }
 
-        public void RefreshCompleted()
+        private void RefreshCompleted()
         {
             Completed = EndTime >= GetPlannedEnd();
         }

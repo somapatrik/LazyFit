@@ -71,9 +71,12 @@ namespace LazyFit.ViewModels.Fasting
             }
         }
 
-        private bool _EnableEdit;
+        public string ResultTitle { get => _ResultTitle; set => SetProperty(ref _ResultTitle, value); }
 
-        public string GoodTitle
+        private bool _EnableEdit;
+        private string _ResultTitle;
+
+        private string _GoodTitle
         {
             get
             {
@@ -94,7 +97,7 @@ namespace LazyFit.ViewModels.Fasting
                 return list[rnd.Next(list.Count - 1)];
             }
         }
-        public string BadTitle
+        private string _BadTitle
         {
             get
             {
@@ -150,17 +153,27 @@ namespace LazyFit.ViewModels.Fasting
             EndDate = et;
             EndTime = et.TimeOfDay;
 
+            SetTitle();
+
             _EnableEdit = true;
+            
+        }
+
+        private void SetTitle()
+        {
+            if (FinishedFast.Completed)
+                ResultTitle = _GoodTitle;
+            else
+                ResultTitle = _BadTitle;
         }
 
         private async void SaveEditsHandler()
         {
             var fast = FinishedFast;
 
-            var st = StartDate.AddTicks(StartTime.Ticks);
+            var st = StartDate.Date.AddTicks(StartTime.Ticks);
             var end = EndDate.AddTicks(EndTime.Ticks);
-            fast.SetStart(st);
-            fast.SetEnd(end);
+            fast.ChangeDates(st,end);
 
             await DB.UpdateFast(fast);
             LoadFast(fast.Id);
