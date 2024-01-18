@@ -14,8 +14,6 @@ namespace LazyFit.ViewModels.Fasting
         private TimeSpan _StartTime;
         private TimeSpan _EndTime;
 
-        private bool _CanSave = false;
-
         public Fast FinishedFast 
         { 
             get => _FinishedFast; 

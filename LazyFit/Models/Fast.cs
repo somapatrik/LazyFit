@@ -64,18 +64,16 @@ namespace LazyFit.Models
             return planEnd - now;
         }
 
-        public TimeSpan GetTimeSpanSinceEnd()
+        public TimeSpan GetTimeSpanSinceEnd(DateTime untilDate)
         {
             if (EndTime == null)
                 return TimeSpan.Zero;
 
-            DateTime now = DateTime.Now;
-            return now - (DateTime)EndTime;
+            return untilDate - (DateTime)EndTime;
         }
 
-        public double GetElapsedTimePercentage()
+        public double GetElapsedTimePercentage(DateTime currentTime)
         {
-            DateTime currentTime = DateTime.Now;
             TimeSpan elapsedTime = currentTime - StartTime;
 
             if (elapsedTime.TotalMinutes >= PlanMinutes)

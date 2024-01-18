@@ -52,37 +52,38 @@
             FontSize="Title"
             VerticalOptions="Center"
             HorizontalOptions="Center"
-            Margin="30">
+            Margin="0,20,0,0">
 
         </Label>
 
         <!-- Stage -->
-        <Grid>
+        <Grid Margin="0,0,0,20">
 
-            <StackLayout Orientation="Vertical" 
-                         HorizontalOptions="Center">
+            <StackLayout Orientation="Horizontal" 
+                HorizontalOptions="Center">
 
                 <Label Text="{Binding fastSpan, Converter={converters:TimeSpanToStageConverter}}" 
-                       FontSize="Medium"
-                       Style="{StaticResource ReportValue}"/>
+            FontSize="Medium"
+            Style="{StaticResource ReportValue}"/>
 
-                <Label Text="reached" 
-                       FontSize="Medium"
-                       HorizontalTextAlignment="Center" 
-                       Style="{StaticResource ReportValue}"/>
+                <Label Text=" reached" 
+            FontSize="Medium"
+            HorizontalTextAlignment="Center" 
+            Style="{StaticResource ReportKey}"/>
 
             </StackLayout>
 
         </Grid>
 
         <!-- Time span -->
-        <Grid>
+        <Grid Margin="0,0,0,40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+            <VerticalStackLayout Grid.Column="0" 
+                                 HorizontalOptions="Center">
 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding planSpan,Converter={converters:TimeSpanToHours}}" 
@@ -97,7 +98,8 @@
 
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+            <VerticalStackLayout Grid.Column="1" 
+                                 HorizontalOptions="Center">
 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding fastSpan,Converter={converters:TimeSpanToHours}}" 
@@ -126,46 +128,52 @@
 
             <VerticalStackLayout Grid.Column="0">
 
-                <DatePicker Date="{Binding StartDate}"  
+                    <TimePicker Time="{Binding StartTime}" 
+        FontSize="Medium" 
+        FontAttributes="Bold"
+        HorizontalOptions="Center"
+        TextColor="White"/>
+
+                    <DatePicker Date="{Binding StartDate}"  
                             FontSize="Medium" 
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             TextColor="White"/>
 
-                    <TimePicker Time="{Binding StartTime}" 
-                            FontSize="Medium" 
-                            FontAttributes="Bold"
-                            HorizontalOptions="Center"
-                            TextColor="White"/>
+                    
 
             </VerticalStackLayout>
 
             <Label Grid.Column="1" 
-                   Text=">"
+                   Text="->"
                    FontSize="Large"
                    TextColor="White"
                    VerticalOptions="CenterAndExpand"/>
 
             <VerticalStackLayout Grid.Column="2">
 
-                <DatePicker Date="{Binding EndDate}"  
+                    <TimePicker Time="{Binding EndTime}" 
+                    FontSize="Medium" 
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    TextColor="White"/> 
+
+                    <DatePicker Date="{Binding EndDate}"  
                 FontSize="Medium" 
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
                 TextColor="White"/>
 
-                <TimePicker Time="{Binding EndTime}" 
-                FontSize="Medium" 
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                TextColor="White"/>
+                
 
             </VerticalStackLayout>
 
 
         </Grid>
 
-    </VerticalStackLayout>
+           
+
+        </VerticalStackLayout>
 
 
         <Grid Grid.Row="1" ColumnSpacing=".5">

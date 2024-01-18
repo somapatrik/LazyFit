@@ -75,7 +75,7 @@ namespace LazyFit.ViewModels.Fasting
 
         private void TimerHandler(object state)
         {
-            PercentDone = ActiveFast.GetElapsedTimePercentage();
+            PercentDone = ActiveFast.GetElapsedTimePercentage(DateTime.Now);
             //TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
             TimeSinceStart = ActiveFast.GetTimeSpanSinceStart();
             TimerMessage = PercentDone >= 100 ? "Done!" + Environment.NewLine + "+" + TimeSinceStart.ToString(@"hh\:mm\:ss") : TimeSinceStart.ToString(@"hh\:mm\:ss");
