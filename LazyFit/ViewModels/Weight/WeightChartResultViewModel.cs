@@ -78,42 +78,5 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         }
 
-        private async Task<List<ChartEntry>> CreateEntriesPerWeek(List<DateFloat> dateFloats)
-        {
-            // Get last weight before this
-            Weight latestWeight = await DB.GetLastWeightOlderThan(FirstDateTime);
-            float lastWeight = latestWeight == null ? 0 : (float)latestWeight.WeightValue;
-
-            List<ChartEntry> entries = new List<ChartEntry>();
-
-            DateTime actDate = FirstDateTime;
-            while (actDate <= LastDateTime)
-            {
-                DateFloat found = dateFloats.FirstOrDefault(x => x.Date.Date == actDate.Date);
-                int i = actDate.Day;
-
-                if (found != null)
-                {
-                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString(), Color = SKColors.OrangeRed });
-                    lastWeight = found.Value;
-                }
-                else
-                {
-                    float displayValue = lastWeight;
-
-                    entries.Add(new ChartEntry(displayValue)
-                    {
-                        Label = i.ToString(),
-                        ValueLabel = displayValue.ToString(),
-                        ValueLabelColor = SKColor.Parse("#02444444"),
-                        Color = SKColors.OrangeRed
-                    });
-                }
-
-                actDate = actDate.AddDays(1);
-            };
-
-            return entries;
-        }
     }
 }
