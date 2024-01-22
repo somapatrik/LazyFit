@@ -10,7 +10,7 @@
              Background="{StaticResource GrayBackground}">
 
     <Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GrayBackground}" StatusBarStyle="DarkContent"/>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
     </Page.Behaviors>
 
     <Grid>

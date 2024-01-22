@@ -14,7 +14,7 @@ namespace LazyFit.ViewModels.WeightViewModels
         private decimal _AvgWeight;
         private decimal _MaxWeight;
         private int _Improved;
-        private int _ImprovedValue;
+        private decimal _ImprovedValue;
         private bool _PreviousDataExists;
 
         public bool DataExists { get => _DataExists; set => SetProperty(ref _DataExists, value); }
@@ -26,7 +26,7 @@ namespace LazyFit.ViewModels.WeightViewModels
         public decimal MaxWeight { get => _MaxWeight; set => SetProperty(ref _MaxWeight, Math.Round(value, 1)); }
 
         public int Improved { get => _Improved; set=> SetProperty(ref _Improved, value); }
-        public int ImprovedValue { get => _ImprovedValue; set => SetProperty(ref _ImprovedValue, value); }
+        public decimal ImprovedValue { get => _ImprovedValue; set => SetProperty(ref _ImprovedValue, Math.Round(value,1)); }
         public bool PreviousDataExists { get => _PreviousDataExists; set => SetProperty(ref _PreviousDataExists, value); }
 
         public WeightChartResultViewModel()
@@ -45,6 +45,9 @@ namespace LazyFit.ViewModels.WeightViewModels
 
             List<ChartEntry> entries = new List<ChartEntry>();
 
+            MinWeight = AvgWeight = MaxWeight = 0;
+            Improved = 0;
+
             if (DataExists)
             {
                 MinWeight = weights.Min(w => w.WeightValue);
@@ -55,11 +58,12 @@ namespace LazyFit.ViewModels.WeightViewModels
                 if (PreviousDataExists)
                 {
                     var prevAvg = previousWeights.Average(w=>w.WeightValue);
-                    ImprovedValue = (int)Math.Round(prevAvg - AvgWeight);
+                    var improvedVal = prevAvg - AvgWeight;
+                    ImprovedValue = improvedVal * (-1);
 
-                    if (ImprovedValue > 0)
+                    if (improvedVal > 0)
                         Improved = 1;
-                    else if (ImprovedValue < 0)
+                    else if (improvedVal < 0)
                         Improved = -1;
                     else
                         Improved = 0;
@@ -69,7 +73,7 @@ namespace LazyFit.ViewModels.WeightViewModels
             }
             else
             {
-                
+                PreviousDataExists = false;
             }
 
         }
