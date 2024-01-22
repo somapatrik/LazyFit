@@ -4,13 +4,13 @@ using LazyFit.Services;
 using Mopups.Services;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Weight
 {
     public class EnterWeightViewModel : PrimeViewModel
     {
 
         private decimal _entryWeight;
-        public decimal entryWeight 
+        public decimal entryWeight
         {
             get
             {
@@ -28,13 +28,13 @@ namespace LazyFit.ViewModels
 
         public ICommand SaveWeight { get; set; }
 
-        public EnterWeightViewModel() 
+        public EnterWeightViewModel()
         {
             SaveWeight = new Command(SaveHandler, canSave);
         }
 
         private async void SaveHandler()
-        { 
+        {
             await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
             WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
             await MopupService.Instance.PopAsync();

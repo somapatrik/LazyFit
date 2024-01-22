@@ -4,7 +4,7 @@ using Microcharts;
 using SkiaSharp;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Weight
 {
     internal class WeightChartViewModel : PrimeViewModel
     {
@@ -27,7 +27,7 @@ namespace LazyFit.ViewModels
 
 
 
-        public WeightChartViewModel() 
+        public WeightChartViewModel()
         {
             LoadChartData(CurrentPage, _showResultsCount);
 
@@ -75,21 +75,21 @@ namespace LazyFit.ViewModels
 
 
             if (!entries.Any())
-            {    
-               entries.Add(new ChartEntry(0));
-               NoData = true;
+            {
+                entries.Add(new ChartEntry(0));
+                NoData = true;
             }
             else
             {
                 NoData = false;
             }
-                
+
 
             List<ChartSerie> series = new List<ChartSerie>()
             {
-                new ChartSerie() 
-                { 
-                    Entries = entries, 
+                new ChartSerie()
+                {
+                    Entries = entries,
                     Color = SKColors.OrangeRed,
                     Name="Weight"
                 }
@@ -109,7 +109,7 @@ namespace LazyFit.ViewModels
                 ValueLabelOrientation = Orientation.Horizontal,
                 ValueLabelOption = ValueLabelOption.TopOfElement,
                 LabelOrientation = Orientation.Vertical,
-                
+
             };
 
         }
