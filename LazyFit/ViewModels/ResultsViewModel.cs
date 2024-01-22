@@ -9,7 +9,6 @@ namespace LazyFit.ViewModels
         public ICommand ShowNewer { private set; get; }
 
         private string _PeriodText;
-
         public string PeriodText 
         { 
             get => _PeriodText;

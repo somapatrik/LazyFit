@@ -16,9 +16,7 @@
         <Label Text="Weight" 
                TextColor="Gray"
                HorizontalTextAlignment="Start" 
-               Style="{StaticResource PageSubHeader}"
-               />
-
+               Style="{StaticResource PageSubHeader}"/>
 
         <Grid Grid.Row="1" Margin="0,0,20,0">
             <Grid.ColumnDefinitions>
@@ -73,14 +71,46 @@
                    HorizontalTextAlignment="Center" 
                    VerticalTextAlignment="Center"
                    TextColor="Black"
-                   FontSize="50"/>
+                   FontSize="50">
+
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="1">
+                        <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="-1">
+                        <Setter Property="TextColor" Value="{StaticResource GithubRed}"/>
+                    </DataTrigger>
+                </Label.Triggers>
+                
+            </Label>
 
         </Grid>
+
+        <Border Grid.Row="2" 
+                StrokeThickness="0" 
+                Padding="5">
         
-        <micro:ChartView 
-            Grid.Row="2" 
-            Chart="{Binding WeightChart}" 
-            Margin="0,0,0,0"/>
+            <HorizontalStackLayout>
+                
+                <Label Text="Difference over the last period: "
+                       FontSize="Small"
+                       TextColor="Gray"/>
+
+                <Label Text="{Binding ImprovedValue}" FontSize="Small">
+
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="1">
+                            <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="-1">
+                            <Setter Property="TextColor" Value="{StaticResource GithubRed}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+
+                </Label>
+            </HorizontalStackLayout>
+
+        </Border>
 
     </Grid>
 

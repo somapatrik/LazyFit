@@ -9,14 +9,13 @@ namespace LazyFit.ViewModels.WeightViewModels
 {
     internal class WeightChartResultViewModel : ResultComponent
     {
-
-        private Chart _WeightChart;
         private bool _DataExists;
         private decimal _MinWeight;
         private decimal _AvgWeight;
         private decimal _MaxWeight;
-
-        public Chart WeightChart { get => _WeightChart; set => SetProperty(ref _WeightChart, value); }
+        private int _Improved;
+        private int _ImprovedValue;
+        private bool _PreviousDataExists;
 
         public bool DataExists { get => _DataExists; set => SetProperty(ref _DataExists, value); }
 
@@ -26,6 +25,10 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         public decimal MaxWeight { get => _MaxWeight; set => SetProperty(ref _MaxWeight, Math.Round(value, 1)); }
 
+        public int Improved { get => _Improved; set=> SetProperty(ref _Improved, value); }
+        public int ImprovedValue { get => _ImprovedValue; set => SetProperty(ref _ImprovedValue, value); }
+        public bool PreviousDataExists { get => _PreviousDataExists; set => SetProperty(ref _PreviousDataExists, value); }
+
         public WeightChartResultViewModel()
         {
             LoadResults();
@@ -34,9 +37,12 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         protected override async void LoadResults()
         {
-            List<Weight> weights = (await DB.GetWeights(FirstDateTime, LastDateTime));//.OrderBy(w => w.Time).ToList();
-
+            List<Weight> weights = await DB.GetWeights(FirstDateTime, LastDateTime);
             DataExists = weights.Any();
+
+            List<Weight> previousWeights = await DB.GetWeights(PreviousFirstDate, PreviousLastDate);
+            PreviousDataExists = previousWeights.Any();
+
             List<ChartEntry> entries = new List<ChartEntry>();
 
             if (DataExists)
@@ -45,41 +51,30 @@ namespace LazyFit.ViewModels.WeightViewModels
                 AvgWeight = weights.Average(w => w.WeightValue);
                 MaxWeight = weights.Max(w => w.WeightValue);
 
-                entries.Add(new ChartEntry((float)MinWeight) { Label = "Min", ValueLabel = MinWeight.ToString(), Color = SKColors.OrangeRed });
-                entries.Add(new ChartEntry((float)MinWeight) { Label = "Avg", ValueLabel = AvgWeight.ToString(), Color = SKColors.OrangeRed });
-                entries.Add(new ChartEntry((float)MinWeight) { Label = "Max", ValueLabel = MaxWeight.ToString(), Color = SKColors.OrangeRed });
+                
+                if (PreviousDataExists)
+                {
+                    var prevAvg = previousWeights.Average(w=>w.WeightValue);
+                    ImprovedValue = (int)Math.Round(prevAvg - AvgWeight);
+
+                    if (ImprovedValue > 0)
+                        Improved = 1;
+                    else if (ImprovedValue < 0)
+                        Improved = -1;
+                    else
+                        Improved = 0;
+
+                }
+
             }
             else
             {
-                entries.Add(new ChartEntry(0) { Label = "Min", ValueLabel = "0", Color = SKColors.OrangeRed });
-                entries.Add(new ChartEntry(0) { Label = "Avg", ValueLabel = "0", Color = SKColors.OrangeRed });
-                entries.Add(new ChartEntry(0) { Label = "Max", ValueLabel = "0", Color = SKColors.OrangeRed });
+                
             }
 
-            //List<DateFloat> dateFloats = weights.GroupBy(obj => obj.Time.Date)
-            //                               .Select(group =>
-            //                               new DateFloat()
-            //                               {
-            //                                   Date = group.Key,
-            //                                   Value = (float)group.Max(obj => obj.WeightValue)
-            //                               })
-            //                               .ToList();
-
-
-
-            // List<ChartEntry> entries = await CreateEntriesPerWeek(PageNumber, dateFloats);
-
-            WeightChart = new LineChart()
-            {
-                Entries = entries,
-                LabelTextSize = 36,
-                LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal,
-                PointMode = PointMode.None,
-            };
         }
 
-        private async Task<List<ChartEntry>> CreateEntriesPerWeek(int pageNum, List<DateFloat> dateFloats)
+        private async Task<List<ChartEntry>> CreateEntriesPerWeek(List<DateFloat> dateFloats)
         {
             // Get last weight before this
             Weight latestWeight = await DB.GetLastWeightOlderThan(FirstDateTime);

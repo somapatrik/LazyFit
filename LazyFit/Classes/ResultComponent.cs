@@ -34,6 +34,8 @@ namespace LazyFit.Classes
         public DateTime StartDate { get; set; }
         public DateTime FirstDateTime { get; set; }
         public DateTime LastDateTime { get; set; }
+        public DateTime PreviousFirstDate { get; private set; }
+        public DateTime PreviousLastDate { get; private set; }
 
         public ResultComponent()
         {
@@ -49,6 +51,10 @@ namespace LazyFit.Classes
             // Get first / last datetime of that week 
             FirstDateTime = StartDate.AddDays(-(dayofWeek - 1));
             LastDateTime = FirstDateTime.AddDays(7).AddMinutes(-1);
+
+            // Previous period
+            PreviousFirstDate = FirstDateTime.AddDays(-7);
+            PreviousLastDate = LastDateTime.AddDays(-7);
         }
 
         protected virtual void ShowPage(int pageNum)
