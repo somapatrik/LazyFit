@@ -33,7 +33,7 @@
         <ScrollView Grid.Row="1">
 
                 <VerticalStackLayout Spacing="10" 
-                                     Padding="10,0">
+                                     Padding="15,0">
 
                     <views:WeightResultChart />
 
@@ -56,8 +56,8 @@
             </Grid.ColumnDefinitions>
 
 
-            <Button Grid.Row="0" Grid.Column="0" Text="&#x2190;" FontSize="36" Command="{Binding ShowOlder}" Style="{StaticResource TextButton}" Background="White" />
-            <Button Grid.Row="0" Grid.Column="1" Text="&#x2192;" FontSize="36" Command="{Binding ShowNewer}" Style="{StaticResource TextButton}" Background="White" />
+            <Button Grid.Row="0" Grid.Column="0" Text="&#x2190;" FontSize="Large" Command="{Binding ShowOlder}" Style="{StaticResource TextButton}" Background="White" />
+            <Button Grid.Row="0" Grid.Column="1" Text="&#x2192;" FontSize="Large" Command="{Binding ShowNewer}" Style="{StaticResource TextButton}" Background="White" />
 
 
         </Grid>

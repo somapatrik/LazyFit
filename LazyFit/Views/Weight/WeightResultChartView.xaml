@@ -4,112 +4,127 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.WeightResultChart">
 
-    <Border StrokeThickness="1">
+    <Border StrokeThickness=".7">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="7"/>
         </Border.StrokeShape>
-
-        <Border.Triggers>
-            <DataTrigger TargetType="Border" Binding="{Binding Improved}" Value="0">
-                <Setter Property="Background" Value="White"/>
-            </DataTrigger>
-            <DataTrigger TargetType="Border" Binding="{Binding Improved}" Value="1">
-                <Setter Property="Background" Value="{StaticResource GithubGreen}"/>
-                <Setter Property="Stroke" Value="{StaticResource GithubGreen}"/>
-            </DataTrigger>
-            <DataTrigger TargetType="Border" Binding="{Binding Improved}" Value="-1">
-                <Setter Property="Background" Value="{StaticResource GithubRed}"/>
-                <Setter Property="Stroke" Value="{StaticResource GithubRed}"/>
-            </DataTrigger>
-        </Border.Triggers>
 
         <Grid>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
             <Label Text="Weight" 
-               TextColor="White"
+               TextColor="Gray"
                HorizontalTextAlignment="Start" 
                Style="{StaticResource PageSubHeader}">
-
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="0">
-                        <Setter Property="TextColor" Value="Gray"/>
-                    </DataTrigger>
-                </Label.Triggers>
 
             </Label>
 
 
-            <Label Grid.Row="1" 
+            <HorizontalStackLayout Grid.Row="1" 
+                                   Grid.Column="0" 
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                
+                <Label 
                    Text="{Binding AvgWeight}" 
                    HorizontalTextAlignment="Center" 
                    VerticalTextAlignment="Center"
                    TextColor="Black"
                    FontSize="50"
-                       Margin="0,0,0,20">
+                   Margin="0,0,0,0">
 
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="1">
-                        <Setter Property="TextColor" Value="White"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="-1">
-                        <Setter Property="TextColor" Value="White"/>
-                    </DataTrigger>
-                </Label.Triggers>
+                    <!--<Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding DataExists}" Value="false">
+                            <Setter Property="Text" Value=""/>
+                        </DataTrigger>
+                    </Label.Triggers>-->
 
-            </Label>
+                </Label>
 
-            <Border Grid.Row="2" 
-                StrokeThickness="0" 
-                Padding="5"
-                IsVisible="{Binding PreviousDataExists}">
+                <Label FontSize="Medium" VerticalTextAlignment="Start">
 
-                <VerticalStackLayout>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="0">
+                            <Setter Property="IsVisible" Value="false"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="1">
+                            <Setter Property="Text" Value="&#9660;"/>
+                            <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="-1">
+                            <Setter Property="Text" Value="&#9650;"/>
+                            <Setter Property="TextColor" Value="{StaticResource GithubRed}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
 
-                    <HorizontalStackLayout IsVisible="{Binding PreviousDataExists}" Padding="5">
+                </Label>
 
-                        <Label Text="Range: "
+
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" 
+                                 Grid.Column="1"
+                                 Margin="0,20">
+
+
+                <Label Text="Range"
                            FontSize="Small"
-                           TextColor="Gray"/>
+                           TextColor="Gray"
+                           HorizontalTextAlignment="Center"
+                       IsVisible="{Binding DataExists}"/>
 
-                        <Label Text="{Binding MinWeight}" 
+                <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding DataExists}">
+                    <Label Text="{Binding MinWeight}" 
                            FontSize="Small"/>
 
-                        <Label Text=" - " 
+                    <Label Text=" - " 
                            FontSize="Small" 
                            TextColor="Gray"/>
 
-                        <Label Text="{Binding MaxWeight}" 
+                    <Label Text="{Binding MaxWeight}" 
                            FontSize="Small"/>
 
-                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+            
 
-                    <HorizontalStackLayout IsVisible="{Binding PreviousDataExists}" Padding="5">
+            <Label Text="Period difference"
+                               FontSize="Small"
+                               TextColor="Gray"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,10,0,0"
+                               IsVisible="{Binding PreviousDataExists}"/>
 
-                        <Label Text="Difference from the last period: "
-                           FontSize="Small"
-                           TextColor="Gray"/>
+                <Label Text="{Binding ImprovedValue}" 
+                       FontSize="Small"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       IsVisible="{Binding PreviousDataExists}">
 
-                        <Label Text="{Binding ImprovedValue}" FontSize="Small">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="1">
+                            <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                        </DataTrigger>
 
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="1">
-                                    <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
-                                </DataTrigger>
-                                <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="-1">
-                                    <Setter Property="TextColor" Value="{StaticResource GithubRed}"/>
-                                </DataTrigger>
-                            </Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Improved}" Value="-1">
+                            <Setter Property="TextColor" Value="{StaticResource GithubRed}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    
+                </Label>
 
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-            </Border>
+
+
+            </VerticalStackLayout>
+ 
 
         </Grid>
 
