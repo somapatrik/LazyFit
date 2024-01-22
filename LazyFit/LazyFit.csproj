@@ -111,13 +111,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\LogDrinkView.xaml.cs">
+	  <Compile Update="Views\Drink\LogDrinkView.xaml.cs">
 	    <DependentUpon>LogDrinkView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\FastResultChartView.xaml.cs">
+	  <Compile Update="Views\Fasting\FastResultChartView.xaml.cs">
 	    <DependentUpon>FastResultChartView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\WeightResultChartView.xaml.cs">
+	  <Compile Update="Views\Weight\WeightResultChartView.xaml.cs">
 	    <DependentUpon>WeightResultChartView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
@@ -135,25 +135,25 @@
 	  <MauiXaml Update="Views\LatestActionsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\LogDrinkView.xaml">
+	  <MauiXaml Update="Views\Drink\LogDrinkView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\EnterWeightView.xaml">
+	  <MauiXaml Update="Views\Weight\EnterWeightView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\FastResultChartView.xaml">
+	  <MauiXaml Update="Views\Fasting\FastResultChartView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Fasting\FastingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\FastList.xaml">
+	  <MauiXaml Update="Views\Fasting\FastList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LogButtonsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\LogFoodView.xaml">
+	  <MauiXaml Update="Views\Food\LogFoodView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Pressure\EnterPressureView.xaml">
@@ -168,16 +168,16 @@
 	  <MauiXaml Update="Views\Pressure\PressureDiagnose.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\StartFastingView.xaml">
+	  <MauiXaml Update="Views\Fasting\StartFastingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TimePickerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\WeightChartView.xaml">
+	  <MauiXaml Update="Views\Weight\WeightChartView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\WeightResultChartView.xaml">
+	  <MauiXaml Update="Views\Weight\WeightResultChartView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
