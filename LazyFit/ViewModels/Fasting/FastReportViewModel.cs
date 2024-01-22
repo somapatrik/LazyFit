@@ -169,8 +169,10 @@ namespace LazyFit.ViewModels.Fasting
         {
             var fast = FinishedFast;
 
-            var st = StartDate.Date.AddTicks(StartTime.Ticks);
-            var end = EndDate.Date.AddTicks(EndTime.Ticks);
+            DateTime st;
+            DateTime end;
+            GetFullDates(out st, out end);
+
             fast.ChangeDates(st,end);
 
             await DB.UpdateFast(fast);
@@ -179,16 +181,26 @@ namespace LazyFit.ViewModels.Fasting
 
         private bool CanSaveEdit()
         {
-            var st = StartDate.Date.AddTicks(StartTime.Ticks);
-            var end = EndDate.Date.AddTicks(EndTime.Ticks);
-
+            DateTime st;
+            DateTime end;
+            GetFullDates(out st, out end);
             bool checkDates = end >= st;
-            return _EnableEdit && checkDates;
+
+            DateTime now = DateTime.Now;
+            bool checkFuture = end <= now && st <= now;
+
+            return _EnableEdit && checkDates && checkFuture;
         }
 
         private void RefreshCan()
         {
             ((Command)SaveEdits).ChangeCanExecute();
+        }
+
+        private void GetFullDates(out DateTime FullStartDate, out DateTime FullEndDate)
+        {
+            FullStartDate = StartDate.Date.AddTicks(StartTime.Ticks);
+            FullEndDate = EndDate.Date.AddTicks(EndTime.Ticks);
         }
     }
 }
