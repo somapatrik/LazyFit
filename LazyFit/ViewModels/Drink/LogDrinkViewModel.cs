@@ -5,7 +5,7 @@ using Mopups.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Drink
 {
     class LogDrinkViewModel : PrimeViewModel
     {
@@ -16,8 +16,8 @@ namespace LazyFit.ViewModels
 
         private TimeSpan _SelectedTime;
 
-        public TimeSpan SelectedTime 
-        { 
+        public TimeSpan SelectedTime
+        {
             get => _SelectedTime; set
             {
                 SetProperty(ref _SelectedTime, value);
@@ -40,7 +40,7 @@ namespace LazyFit.ViewModels
         public ICommand SetDrink { private set; get; }
         public ICommand SetTimeNow { private set; get; }
 
-        public LogDrinkViewModel() 
+        public LogDrinkViewModel()
         {
             SaveDrink = new Command(SaveDrinkHandler, CanSave);
             SetDrink = new Command(SetDrinkHandler);

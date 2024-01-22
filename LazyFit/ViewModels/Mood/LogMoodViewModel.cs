@@ -12,21 +12,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels
+namespace LazyFit.ViewModels.Mood
 {
     public class LogMoodViewModel : PrimeViewModel
     {
         private string _latestWeight;
         public string LatestWeight { get => _latestWeight; set => SetProperty(ref _latestWeight, value); }
 
-        public ICommand LogMood { get;private set; }
+        public ICommand LogMood { get; private set; }
         public ICommand ShowLogMood { get; private set; }
         public ICommand ShowDrink { get; private set; }
         public ICommand ShowFood { get; private set; }
         public ICommand ShowWeight { get; private set; }
         public ICommand ShowPressure { get; private set; }
 
-        public LogMoodViewModel() 
+        public LogMoodViewModel()
         {
             LogMood = new Command(LogMoodHandler);
             ShowLogMood = new Command(ShowLogMoodHandler);
@@ -53,7 +53,7 @@ namespace LazyFit.ViewModels
             weightView.EnterWeightClosed += (sender, e) => LoadLatestWeight();
 
             await MopupService.Instance.PushAsync(weightView);
-            
+
         }
 
         private async void ShowFoodHandler(object obj)
@@ -76,8 +76,8 @@ namespace LazyFit.ViewModels
 
             var selectedMood = await Shell.Current.DisplayActionSheet("What is your mood?", "None of your business", null, Enum.GetNames(typeof(MoodName)));
             MoodName selectedType;
-            
-            if (Enum.TryParse(selectedMood,out selectedType))
+
+            if (Enum.TryParse(selectedMood, out selectedType))
             {
                 await DB.InsertMood(new Mood(Guid.NewGuid(), selectedType));
                 WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
@@ -86,7 +86,7 @@ namespace LazyFit.ViewModels
 
         private void LogMoodHandler()
         {
-            
+
         }
     }
 }

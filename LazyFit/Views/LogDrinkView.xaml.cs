@@ -1,4 +1,4 @@
-using LazyFit.ViewModels;
+using LazyFit.ViewModels.Drink;
 using Mopups.Pages;
 
 namespace LazyFit.Views;

@@ -156,9 +156,6 @@
 	  <MauiXaml Update="Views\LogFoodView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\MixResultListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Pressure\EnterPressureView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
