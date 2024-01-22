@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace LazyFit.Models
+namespace LazyFit.Models.WeightModels
 {
     public class Weight
     {
@@ -12,7 +12,7 @@ namespace LazyFit.Models
 
 
         public Weight() { }
-        
+
         public Weight(Guid id, decimal weightValue, UnitWeight unit)
         {
             Id = id;
@@ -20,5 +20,5 @@ namespace LazyFit.Models
             Time = DateTime.Now;
             WeightUnit = unit;
         }
-    }   
+    }
 }

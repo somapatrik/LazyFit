@@ -2,6 +2,7 @@
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Pressure;
+using LazyFit.Models.WeightModels;
 using SQLite;
 using System.Text;
 

@@ -1,4 +1,4 @@
-using LazyFit.ViewModels.Mood;
+using LazyFit.ViewModels.MoodViewModels;
 
 namespace LazyFit.Views;
 

@@ -44,13 +44,6 @@
                     <views:FastChart HeightRequest="230"/>
                 </Border>
 
-                <Border StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="7" />
-                    </Border.StrokeShape>
-                    <views:MixResultListView/>
-                </Border>
-
             </VerticalStackLayout>
             
             </ScrollView>

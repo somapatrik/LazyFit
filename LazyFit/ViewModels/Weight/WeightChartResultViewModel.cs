@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Models.WeightModels;
 using LazyFit.Classes;
-using LazyFit.Models;
 using LazyFit.Services;
 using Microcharts;
 using SkiaSharp;
 
-namespace LazyFit.ViewModels.Weight
+namespace LazyFit.ViewModels.WeightViewModels
 {
     internal class WeightChartResultViewModel : ResultComponent
     {
@@ -21,7 +21,7 @@ namespace LazyFit.ViewModels.Weight
 
         protected override async void LoadResults()
         {
-            List<Weight> weights = (await DB.GetWeights(FirstDateTime, LastDateTime)).OrderBy(w => w.Time).ToList();
+            List<Models.WeightModels.Weight> weights = (await DB.GetWeights(FirstDateTime, LastDateTime)).OrderBy(w => w.Time).ToList();
 
 
             List<DateFloat> dateFloats = weights.GroupBy(obj => obj.Time.Date)

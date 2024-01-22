@@ -1,18 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Models;
-using LazyFit.Models.Foods;
 using LazyFit.Services;
 using LazyFit.Views;
 using LazyFit.Views.Pressure;
 using Mopups.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels.Mood
+namespace LazyFit.ViewModels.MoodViewModels
 {
     public class LogMoodViewModel : PrimeViewModel
     {

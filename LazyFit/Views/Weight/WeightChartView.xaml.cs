@@ -1,4 +1,4 @@
-using LazyFit.ViewModels.Weight;
+using LazyFit.ViewModels.WeightViewModels;
 
 namespace LazyFit.Views;
 

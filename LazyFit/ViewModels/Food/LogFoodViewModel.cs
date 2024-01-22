@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels.Food
+namespace LazyFit.ViewModels.FoodViewModels
 {
     internal class LogFoodViewModel : PrimeViewModel
     {

@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LazyFit.Views.LogFoodView"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
-                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-                 xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
-                Background="#80000000">
-    
-    
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
+             xmlns:foodVM="clr-namespace:LazyFit.ViewModels.FoodViewModels"
+             Background="#80000000">
+        
     <Border Padding="10" 
             VerticalOptions="End">
 
@@ -44,7 +44,7 @@
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding SetFood, Source={RelativeSource AncestorType={x:Type viewModels:LogFoodViewModel}}}"
+                                    Command="{Binding SetFood, Source={RelativeSource AncestorType={x:Type foodVM:LogFoodViewModel}}}"
                                     CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
 

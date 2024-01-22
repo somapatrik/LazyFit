@@ -5,7 +5,7 @@ using Mopups.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels.Drink
+namespace LazyFit.ViewModels.DrinkViewModels
 {
     class LogDrinkViewModel : PrimeViewModel
     {

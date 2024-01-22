@@ -1,10 +1,10 @@
-﻿using LazyFit.Models;
+﻿using LazyFit.Models.WeightModels;
 using LazyFit.Services;
 using Microcharts;
 using SkiaSharp;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels.Weight
+namespace LazyFit.ViewModels.WeightViewModels
 {
     internal class WeightChartViewModel : PrimeViewModel
     {

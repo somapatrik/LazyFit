@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using LazyFit.Models;
+using LazyFit.Models.WeightModels;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Windows.Input;
 
-namespace LazyFit.ViewModels.Weight
+namespace LazyFit.ViewModels.WeightViewModels
 {
     public class EnterWeightViewModel : PrimeViewModel
     {
