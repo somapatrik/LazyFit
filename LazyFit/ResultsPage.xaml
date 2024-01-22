@@ -29,19 +29,19 @@
 
                 <VerticalStackLayout Spacing="10" Padding="10,0">
                     
-                <Border StrokeThickness="1">
+                <Border StrokeThickness="1" Padding="0">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="7" />
+                        <RoundRectangle CornerRadius="5" />
                     </Border.StrokeShape>
                     
-                    <views:WeightResultChart HeightRequest="170"/>
+                    <views:WeightResultChart MinimumHeightRequest="500"/>
                 </Border>
 
                 <Border StrokeThickness="1">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="7" />
                     </Border.StrokeShape>
-                    <views:FastChart HeightRequest="230"/>
+                    <views:FastChart/>
                 </Border>
 
             </VerticalStackLayout>

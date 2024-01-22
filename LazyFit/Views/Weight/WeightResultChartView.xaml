@@ -5,24 +5,82 @@
              x:Class="LazyFit.Views.WeightResultChart">
 
 
-
-
-
     <Grid BackgroundColor="White">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-
-
-        <Label Text="Daily weight" 
+        <Label Text="Weight" 
+               TextColor="Gray"
                HorizontalTextAlignment="Start" 
                Style="{StaticResource PageSubHeader}"
                />
 
-        <micro:ChartView Grid.Row="1" Chart="{Binding WeightChart}" Margin="0,10,0,0"/>
+
+        <Grid Grid.Row="1" Margin="0,0,20,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <HorizontalStackLayout Grid.Row="0" HorizontalOptions="EndAndExpand">
+                    
+                    <Label  
+                        Text="Min: " 
+                        TextColor="Gray"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Start"/>
+                    
+                    <Label  
+                       Text="{Binding MinWeight}" 
+                       TextColor="Gray"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Start"/>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Row="2" HorizontalOptions="EndAndExpand">
+
+                    <Label
+                        Text="Max: " 
+                        TextColor="Gray"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="End"/>
+                    
+                    <Label  
+                       Text="{Binding MaxWeight}" 
+                       TextColor="Gray"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="End"/>
+
+                </HorizontalStackLayout>
+
+            </Grid>
+
+
+            <Label Grid.Column="0" 
+                   Text="{Binding AvgWeight}" 
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center"
+                   TextColor="Black"
+                   FontSize="50"/>
+
+        </Grid>
+        
+        <micro:ChartView 
+            Grid.Row="2" 
+            Chart="{Binding WeightChart}" 
+            Margin="0,0,0,0"/>
 
     </Grid>
 

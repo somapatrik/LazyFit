@@ -48,9 +48,6 @@ namespace LazyFit.ViewModels
             DateTime monday = today.AddDays(-(dayofWeek - 1));
             DateTime sunday = monday.AddDays(6);
 
-            //DateTime headerDate = DateTime.Now.AddMonths(PageNumber);
-            //PeriodText = headerDate.ToString("Y");
-
             PeriodText = $"{monday.ToString("d")} - {sunday.ToString("d")}";
         }
 
