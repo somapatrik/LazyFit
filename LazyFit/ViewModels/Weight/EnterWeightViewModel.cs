@@ -39,15 +39,13 @@ namespace LazyFit.ViewModels.WeightViewModels
         {
             Weight newWeight = new Weight(Guid.NewGuid(), inputWeight, UnitWeight.kg);
             await DB.InsertWeight(newWeight);
-            //WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
-            //WeakReferenceMessenger.Default.Send(new Messages.RefreshWeightMessage(newWeight));
+            WeakReferenceMessenger.Default.Send(new Messages.RefreshWeightMessage(true));
             await MopupService.Instance.PopAsync();
         }
 
         private bool canSave()
         {
             bool canParse = decimal.TryParse(entryWeight, out inputWeight);
-
             return canParse && inputWeight > 0 && inputWeight < 500;
         }
 

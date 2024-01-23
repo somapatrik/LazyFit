@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
@@ -30,6 +31,8 @@ namespace LazyFit.ViewModels.MoodViewModels
             ShowPressure = new Command(ShowLogPressureHandler);
 
             LoadLatestWeight();
+
+            WeakReferenceMessenger.Default.Register<RefreshWeightMessage>(this, (a, b) => LoadLatestWeight());
         }
 
         private async void LoadLatestWeight()
@@ -44,7 +47,7 @@ namespace LazyFit.ViewModels.MoodViewModels
         private async void ShowWeightHandler(object obj)
         {
             var weightView = new EnterWeightView();
-            weightView.EnterWeightClosed += (sender, e) => LoadLatestWeight();
+            //weightView.EnterWeightClosed += (sender, e) => LoadLatestWeight();
 
             await MopupService.Instance.PushAsync(weightView);
 

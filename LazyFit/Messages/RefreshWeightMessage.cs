@@ -3,9 +3,9 @@ using LazyFit.Models.WeightModels;
 
 namespace LazyFit.Messages
 {
-    public class RefreshWeightMessage : ValueChangedMessage<Weight>
+    public class RefreshWeightMessage : ValueChangedMessage<bool>
     {
-        public RefreshWeightMessage(Weight value) : base(value)
+        public RefreshWeightMessage(bool value) : base(value)
         {
         }
     }

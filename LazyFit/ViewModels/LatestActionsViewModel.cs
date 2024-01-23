@@ -34,7 +34,10 @@ namespace LazyFit.ViewModels
             {
                 await DB.DeleteItem(takenAction.ClassObject);
                 LatestActions.Remove(takenAction);
-                //LoadActions();
+
+                if (takenAction.Type == "Weight")
+                    WeakReferenceMessenger.Default.Send(new Messages.RefreshWeightMessage(true));
+
             }
             
         }

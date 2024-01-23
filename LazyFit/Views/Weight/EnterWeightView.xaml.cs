@@ -16,9 +16,9 @@ public partial class EnterWeightView : PopupPage
 
     }
 
-    protected override void OnDisappearing()
-    {
-        base.OnDisappearing();
-        EnterWeightClosed?.Invoke(this, EventArgs.Empty);
-    }
+    //protected override void OnDisappearing()
+    //{
+    //    base.OnDisappearing();
+    //    EnterWeightClosed?.Invoke(this, EventArgs.Empty);
+    //}
 }
