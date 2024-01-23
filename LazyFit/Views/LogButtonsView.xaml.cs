@@ -4,11 +4,11 @@ namespace LazyFit.Views;
 
 public partial class LogButtonsView : ContentView
 {
-    LogMoodViewModel _viewModel;
+    LogButtonsViewModel _viewModel;
 
     public LogButtonsView()
 	{
 		InitializeComponent();
-		BindingContext = _viewModel = new LogMoodViewModel();
+		BindingContext = _viewModel = new LogButtonsViewModel();
 	}
 }

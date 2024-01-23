@@ -25,9 +25,10 @@
 
             <Entry Keyboard="Numeric"
                    HorizontalTextAlignment="Center"
-                   FontSize="Medium"
+                   FontSize="50"
                    Text="{Binding entryWeight}"
-                   />
+                   Placeholder="Weight"
+                   ReturnCommand="{Binding SaveWeight}"/>
 
             <Button 
                     Text="Save" 

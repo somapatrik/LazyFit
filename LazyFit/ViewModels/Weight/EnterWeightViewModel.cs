@@ -9,8 +9,8 @@ namespace LazyFit.ViewModels.WeightViewModels
     public class EnterWeightViewModel : PrimeViewModel
     {
 
-        private decimal _entryWeight;
-        public decimal entryWeight
+        private string _entryWeight;
+        public string entryWeight
         {
             get
             {
@@ -22,6 +22,8 @@ namespace LazyFit.ViewModels.WeightViewModels
                 RefreshCans();
             }
         }
+
+        private decimal inputWeight;
 
         private bool _WeightValid;
         public bool WeightValid { get => _WeightValid; set => SetProperty(ref _WeightValid, value); }
@@ -35,14 +37,18 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         private async void SaveHandler()
         {
-            await DB.InsertWeight(new Weight(Guid.NewGuid(), entryWeight, UnitWeight.kg));
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+            Weight newWeight = new Weight(Guid.NewGuid(), inputWeight, UnitWeight.kg);
+            await DB.InsertWeight(newWeight);
+            //WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+            //WeakReferenceMessenger.Default.Send(new Messages.RefreshWeightMessage(newWeight));
             await MopupService.Instance.PopAsync();
         }
 
         private bool canSave()
         {
-            return entryWeight > 0 && entryWeight < 500;
+            bool canParse = decimal.TryParse(entryWeight, out inputWeight);
+
+            return canParse && inputWeight > 0 && inputWeight < 500;
         }
 
         private void RefreshCans()

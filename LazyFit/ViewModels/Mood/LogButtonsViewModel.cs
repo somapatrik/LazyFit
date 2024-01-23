@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace LazyFit.ViewModels.MoodViewModels
 {
-    public class LogMoodViewModel : PrimeViewModel
+    public class LogButtonsViewModel : PrimeViewModel
     {
         private string _latestWeight;
         public string LatestWeight { get => _latestWeight; set => SetProperty(ref _latestWeight, value); }
@@ -20,7 +20,7 @@ namespace LazyFit.ViewModels.MoodViewModels
         public ICommand ShowWeight { get; private set; }
         public ICommand ShowPressure { get; private set; }
 
-        public LogMoodViewModel()
+        public LogButtonsViewModel()
         {
             LogMood = new Command(LogMoodHandler);
             ShowLogMood = new Command(ShowLogMoodHandler);
