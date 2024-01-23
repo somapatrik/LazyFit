@@ -24,8 +24,6 @@ namespace LazyFit.ViewModels.WeightViewModels
         public decimal ImprovedValue { get => _ImprovedValue; set => SetProperty(ref _ImprovedValue, Math.Round(value,1)); }
         public WeightChartResultViewModel()
         {
-            LoadResults();
-            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (r, m) => { ShowPage(m.Value); });
         }
 
         protected override async void LoadResults()

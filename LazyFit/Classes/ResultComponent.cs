@@ -1,4 +1,5 @@
-﻿using LazyFit.ViewModels;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.ViewModels;
 using System.Windows.Input;
 
 namespace LazyFit.Classes
@@ -46,6 +47,8 @@ namespace LazyFit.Classes
         public ResultComponent()
         {
             SetDates();
+            LoadResults();
+            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (r, m) => { ShowPage(m.Value); });
         }
 
         protected virtual void SetDates()

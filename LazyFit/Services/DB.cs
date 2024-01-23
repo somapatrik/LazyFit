@@ -314,9 +314,16 @@ namespace LazyFit.Services
             await Database.InsertAsync(food);
         }
 
-        public static async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime)
+        public static async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
-            return await Database.Table<Food>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
+            if (!LoadProperties)
+                return await Database.Table<Food>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
+
+            var foods = await Database.Table<Food>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
+            var foodProperties = await GetFoodProperties();
+
+            foods.ForEach(f => f.Property = foodProperties.FirstOrDefault(fp => fp.FoodId == f.TypeOfFood));
+            return foods;
         }
 
         #endregion  
@@ -339,9 +346,17 @@ namespace LazyFit.Services
 
         }
 
-        public static async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime)
+        public static async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
-            return await Database.Table<Drink>().Where(d=>d.Time >= fromTime && d.Time <= toTime).ToListAsync();
+            if (!LoadProperties)
+                return await Database.Table<Drink>().Where(d=>d.Time >= fromTime && d.Time <= toTime).ToListAsync();
+
+            var drinks = await Database.Table<Drink>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
+            var drinkProperties = await GetDrinkProperties();
+
+            drinks.ForEach(f => f.Property = drinkProperties.FirstOrDefault(fp => fp.DrinkID == f.TypeOfDrink));
+            return drinks;
+
         }
         #endregion
 

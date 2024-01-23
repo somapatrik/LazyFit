@@ -9,7 +9,7 @@ using SkiaSharp.Views.Android;
 namespace LazyFit.ViewModels.Fasting
 {
 
-    class FastChartViewModel : ResultComponent
+    internal class FastChartViewModel : ResultComponent
     {
         private Chart _FastChart;
         private double _HoursFasted;
@@ -24,8 +24,7 @@ namespace LazyFit.ViewModels.Fasting
         public bool Completed { get => _Completed; set => SetProperty(ref _Completed, value); }
         public FastChartViewModel()
         {
-            LoadResults();
-            WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (r, m) => { ShowPage(m.Value); });
+
         }
 
         protected override async void LoadResults()

@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:LazyFit.Views"
+             xmlns:food="clr-namespace:LazyFit.Views.Food"
+             
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.ResultsPage"
              Title="ResultsPage"
@@ -32,16 +34,20 @@
         </StackLayout>
 
         <ScrollView Grid.Row="1">
-            <ScrollView.GestureRecognizers>
+            
+            <!--<ScrollView.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Left" Threshold="170" Command="{Binding ShowNewer}"/>
                 <SwipeGestureRecognizer Direction="Right" Threshold="170" Command="{Binding ShowOlder}"/>
-            </ScrollView.GestureRecognizers>
+            </ScrollView.GestureRecognizers>-->
 
             <VerticalStackLayout Spacing="10" 
                                  Padding="15,0">
 
                 <views:WeightResultChart />
                 <views:FastChart/>
+                <food:FoodChartResultView/>
+                <!--<drink:DrinkChartResultView/>-->
+                
 
             </VerticalStackLayout>
             

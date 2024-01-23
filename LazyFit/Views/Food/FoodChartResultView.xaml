@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="LazyFit.Views.Food.FoodChartResultView">
+    <Border StrokeThickness=".7">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="7"/>
+        </Border.StrokeShape>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Food" 
+                   TextColor="Gray"
+                   HorizontalTextAlignment="Start" 
+                   Style="{StaticResource PageSubHeader}"/>
+
+
+            <micro:ChartView 
+                    Grid.Row="1"
+                    Chart="{Binding FoodChart}" 
+                    HeightRequest="200"
+                    Margin="0,0,0,10"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"/>
+
+        </Grid>
+    </Border>
+</ContentView>

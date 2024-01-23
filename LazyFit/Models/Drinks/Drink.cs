@@ -13,6 +13,8 @@ namespace LazyFit.Models.Drinks
         public Guid Id { get; set; }
         public DateTime Time { get; set; }
         public TypeOfDrink TypeOfDrink { get; set; }
+        [Ignore]
+        public DrinkProperty Property { get; set; }
 
         public Drink() { }
 

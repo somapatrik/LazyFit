@@ -5,11 +5,11 @@
              Background="white">
     <VerticalStackLayout>
         
-        <Label Text="Log"
+        <!--<Label Text="Log"
                Style="{StaticResource PageSubHeader}"
-               HorizontalTextAlignment="Center"/>
+               HorizontalTextAlignment="Center"/>-->
 
-        <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,0,5,20">
+        <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,10,5,10">
 
             <Frame FlexLayout.Basis="50%" Background="OrangeRed" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 

@@ -10,6 +10,9 @@ namespace LazyFit.Models.Foods
         public DateTime Time { get; set; }
         public TypeOfFood TypeOfFood { get; set; }
 
+        [Ignore]
+        public FoodProperty Property { get; set; }
+
         public Food() { }
 
         public Food(Guid id, TypeOfFood typeOfFood)
