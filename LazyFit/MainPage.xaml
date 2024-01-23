@@ -30,18 +30,18 @@
 
 
         <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
+            <StackLayout Orientation="Vertical" Spacing="5" Padding="10">
                 
                 <Border>
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
+                        <RoundRectangle CornerRadius="7"/>
                     </Border.StrokeShape>
                     <fastViews:FastingView/>
                 </Border>
                 
                 <Border>
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
+                        <RoundRectangle CornerRadius="7"/>
                     </Border.StrokeShape>
                     <views:LogButtonsView />
                 </Border>
@@ -53,8 +53,6 @@
             
             
         </ScrollView>
-
-       
 
         <Label Grid.Row="2" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
 
