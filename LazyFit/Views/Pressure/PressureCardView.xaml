@@ -5,19 +5,21 @@
              xmlns:toolkit="toolkit"
              x:Class="LazyFit.Views.Pressure.PressureCardView">
 
-    <Border x:Name="kjikiu" MinimumWidthRequest="100">
+    <Border x:Name="kjikiu" MinimumWidthRequest="100" StrokeThickness=".7">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="10"/>
+            <RoundRectangle CornerRadius="7"/>
         </Border.StrokeShape>
 
-        <StackLayout Orientation="Vertical" Spacing="5">
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+        </Border.GestureRecognizers>
 
-                <Label Text="{Binding Time, Converter={converters:DatetimeToDateConverter}}" 
+        <StackLayout Orientation="Vertical" Spacing="3">
+
+            <Label Text="{Binding Time, Converter={converters:DatetimeToDateConverter}}" 
                        TextColor="Gray"
                        HorizontalTextAlignment="Center"
                        Padding="0,3,0,0"/>
-
-
 
                 <Label Text="{Binding High}"
                    Padding="5,0,0,0"

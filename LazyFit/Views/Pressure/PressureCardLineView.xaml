@@ -9,7 +9,7 @@
         <CollectionView ItemsSource="{Binding BloodPressures}">
             
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="3"/>
             </CollectionView.ItemsLayout>
             
             <CollectionView.ItemTemplate>
