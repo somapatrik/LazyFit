@@ -4,14 +4,107 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.FastChart">
 
-    <Grid BackgroundColor="{StaticResource White}">
+    <Border StrokeThickness=".7">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="7"/>
+        </Border.StrokeShape>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        <Grid>
 
-        <Label Text="Fasting hours" HorizontalTextAlignment="Start" Style="{StaticResource PageSubHeader}"/>
-        <micro:ChartView Grid.Row="1" Chart="{Binding FastChart}" Margin="10"/>
-    </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Fasting" 
+                   TextColor="Gray"
+                   Style="{StaticResource PageSubHeader}"/>
+
+            <Grid Grid.Row="1" Margin="0,0,0,20">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Label 
+                        Text="{Binding PercentFinished}" 
+                        TextColor="Black"
+                        FontSize="50">
+
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Completed}" Value="true">
+                                    <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                            
+                        </Label>
+
+                        <Label Text="%"
+                                TextColor="Black"
+                                FontSize="50">
+
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Completed}" Value="true">
+                                    <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+
+                        </Label>
+
+                    </HorizontalStackLayout>
+
+                    <Label Text="Hours completed"
+                    FontSize="Small"
+                    TextColor="Gray"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,10,0,0"/>
+
+                    <HorizontalStackLayout HorizontalOptions="Center">
+
+                        <Label Text="{Binding HoursFasted}" 
+                               FontSize="Small"
+                               TextColor="Black">
+
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Completed}" Value="false">
+                                    <Setter Property="TextColor" Value="{StaticResource GithubRed}"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding Completed}" Value="True">
+                                    <Setter Property="TextColor" Value="{StaticResource GithubGreen}"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+
+                        </Label>
+
+                        <Label Text=" / " 
+                               FontSize="Small"
+                               TextColor="Black"/>
+
+                        <Label Text="{Binding HoursShouldFasted}" 
+                               FontSize="Small"
+                               TextColor="Black"/>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+                <micro:ChartView 
+                    Grid.Row="1" 
+                    Grid.Column="1" 
+                    Chart="{Binding FastChart}" 
+                    HeightRequest="150"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"/>
+
+
+            </Grid>
+
+            
+        </Grid>
+        
+    </Border>
 </ContentView>

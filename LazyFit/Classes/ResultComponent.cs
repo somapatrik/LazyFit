@@ -20,6 +20,8 @@ namespace LazyFit.Classes
         }
 
         private int _pageNumber;
+        private bool _DataExists;
+        private bool _PreviousDataExists;
 
         public int PageNumber
         {
@@ -36,6 +38,10 @@ namespace LazyFit.Classes
         public DateTime LastDateTime { get; set; }
         public DateTime PreviousFirstDate { get; private set; }
         public DateTime PreviousLastDate { get; private set; }
+
+        public bool DataExists { get => _DataExists; set => SetProperty(ref _DataExists, value); }
+        public bool PreviousDataExists { get => _PreviousDataExists; set => SetProperty(ref _PreviousDataExists, value); }
+
 
         public ResultComponent()
         {

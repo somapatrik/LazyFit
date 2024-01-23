@@ -33,21 +33,15 @@
 
         <ScrollView Grid.Row="1">
             <ScrollView.GestureRecognizers>
-                <SwipeGestureRecognizer Direction="Left" Command="{Binding ShowOlder}"/>
-                <SwipeGestureRecognizer Direction="Right" Command="{Binding ShowNewer}"/>
+                <SwipeGestureRecognizer Direction="Left" Threshold="170" Command="{Binding ShowNewer}"/>
+                <SwipeGestureRecognizer Direction="Right" Threshold="170" Command="{Binding ShowOlder}"/>
             </ScrollView.GestureRecognizers>
 
             <VerticalStackLayout Spacing="10" 
                                  Padding="15,0">
 
                 <views:WeightResultChart />
-
-                <Border StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="7" />
-                    </Border.StrokeShape>
-                    <views:FastChart/>
-                </Border>
+                <views:FastChart/>
 
             </VerticalStackLayout>
             

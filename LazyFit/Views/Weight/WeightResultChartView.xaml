@@ -24,16 +24,14 @@
             <Label Text="Weight" 
                TextColor="Gray"
                HorizontalTextAlignment="Start" 
-               Style="{StaticResource PageSubHeader}">
-
-            </Label>
+               Style="{StaticResource PageSubHeader}"/>
 
 
             <HorizontalStackLayout Grid.Row="1" 
                                    Grid.Column="0" 
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center">
-                
+
                 <Label 
                    Text="{Binding AvgWeight}" 
                    HorizontalTextAlignment="Center" 
@@ -41,12 +39,6 @@
                    TextColor="Black"
                    FontSize="50"
                    Margin="0,0,0,0">
-
-                    <!--<Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding DataExists}" Value="false">
-                            <Setter Property="Text" Value=""/>
-                        </DataTrigger>
-                    </Label.Triggers>-->
 
                 </Label>
 

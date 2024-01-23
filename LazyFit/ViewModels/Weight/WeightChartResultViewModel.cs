@@ -2,22 +2,17 @@
 using LazyFit.Models.WeightModels;
 using LazyFit.Classes;
 using LazyFit.Services;
-using Microcharts;
-using SkiaSharp;
 
 namespace LazyFit.ViewModels.WeightViewModels
 {
     internal class WeightChartResultViewModel : ResultComponent
     {
-        private bool _DataExists;
         private decimal _MinWeight;
         private decimal _AvgWeight;
         private decimal _MaxWeight;
         private int _Improved;
         private decimal _ImprovedValue;
-        private bool _PreviousDataExists;
 
-        public bool DataExists { get => _DataExists; set => SetProperty(ref _DataExists, value); }
 
         public decimal MinWeight { get => _MinWeight; set => SetProperty(ref _MinWeight, Math.Round(value, 1)); }
 
@@ -27,8 +22,6 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         public int Improved { get => _Improved; set=> SetProperty(ref _Improved, value); }
         public decimal ImprovedValue { get => _ImprovedValue; set => SetProperty(ref _ImprovedValue, Math.Round(value,1)); }
-        public bool PreviousDataExists { get => _PreviousDataExists; set => SetProperty(ref _PreviousDataExists, value); }
-
         public WeightChartResultViewModel()
         {
             LoadResults();
@@ -42,8 +35,6 @@ namespace LazyFit.ViewModels.WeightViewModels
 
             List<Weight> previousWeights = await DB.GetWeights(PreviousFirstDate, PreviousLastDate);
             PreviousDataExists = previousWeights.Any();
-
-            List<ChartEntry> entries = new List<ChartEntry>();
 
             MinWeight = AvgWeight = MaxWeight = 0;
             Improved = 0;

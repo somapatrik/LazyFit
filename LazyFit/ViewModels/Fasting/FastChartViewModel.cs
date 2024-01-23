@@ -2,9 +2,9 @@
 using LazyFit.Classes;
 using LazyFit.Models;
 using LazyFit.Services;
-using LazyFit.ViewModels.Classes;
 using Microcharts;
 using SkiaSharp;
+using SkiaSharp.Views.Android;
 
 namespace LazyFit.ViewModels.Fasting
 {
@@ -12,8 +12,16 @@ namespace LazyFit.ViewModels.Fasting
     class FastChartViewModel : ResultComponent
     {
         private Chart _FastChart;
-        public Chart FastChart { get => _FastChart; set => SetProperty(ref _FastChart, value); }
+        private double _HoursFasted;
+        private double _HoursShouldFasted;
+        private bool _Completed;
+        private double _PercentFinished;
 
+        public Chart FastChart { get => _FastChart; set => SetProperty(ref _FastChart, value); }
+        public double HoursFasted { get => _HoursFasted; set => SetProperty(ref _HoursFasted, value); }
+        public double HoursShouldFasted { get => _HoursShouldFasted; set => SetProperty(ref _HoursShouldFasted, value); }
+        public double PercentFinished { get=>_PercentFinished; set => SetProperty(ref _PercentFinished,value); }
+        public bool Completed { get => _Completed; set => SetProperty(ref _Completed, value); }
         public FastChartViewModel()
         {
             LoadResults();
@@ -23,112 +31,60 @@ namespace LazyFit.ViewModels.Fasting
         protected override async void LoadResults()
         {
             List<Fast> fasts = await DB.GetFasts(FirstDateTime, LastDateTime);
-
-
-            List<DateInt> hoursFasted = fasts.GroupBy(obj => obj.StartTime.Date)
-                                             .Select(group => new DateInt()
-                                             {
-                                                 Date = group.Key,
-                                                 Value = (int)group.Sum(obj => ((TimeSpan)(obj.EndTime - obj.StartTime)).TotalHours)
-                                             }).ToList();
-
-
-            List<DateInt> shouldFasted = fasts.GroupBy(obj => obj.StartTime.Date)
-                                          .Select(group => new DateInt()
-                                          {
-                                              Date = group.Key,
-                                              Value = (int)group.Sum(obj => (obj.GetPlannedEnd() - obj.StartTime).TotalHours)
-                                          }).ToList();
-
-
-            ChartSerie shoudlFastSerie = new ChartSerie()
-            {
-                Entries = CreateEntriesPerWeek(shouldFasted),
-                Color = SKColor.Parse("#6c757d"),
-                Name = "Fasting plan"
-            };
-
-            ChartSerie hoursFastedSerie = new ChartSerie()
-            {
-                Entries = CreateEntriesPerWeek(hoursFasted),
-                Color = SKColor.Parse("#0b5ed7"),
-                Name = "Hours starved"
-            };
-
-
-            FastChart = new BarChart()
-            {
-                Series = new List<ChartSerie> { hoursFastedSerie, shoudlFastSerie },
-                LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal,
-                LabelTextSize = 36,
-                ValueLabelTextSize = 36,
-                SerieLabelTextSize = 36,
-                LegendOption = SeriesLegendOption.Bottom,
-
-            };
-
-        }
-
-        private List<ChartEntry> CreateEntriesPerWeek(List<DateInt> dateInts)
-        {
-            DateTime actDate = FirstDateTime;
-
-            //int remainHours = 0;
-            int enterValue = 0;
-
             List<ChartEntry> entries = new List<ChartEntry>();
+            DataExists = fasts.Any();
 
-            while (actDate <= LastDateTime)
+            HoursFasted = HoursShouldFasted = 0;
+            PercentFinished = 0;
+            Completed = false;
+
+            if (DataExists)
             {
-                DateInt found = dateInts.FirstOrDefault(x => x.Date.Date == actDate.Date);
-                int i = actDate.Day;
+                HoursFasted = Math.Floor(fasts.Sum(f => ((TimeSpan)(f.EndTime - f.StartTime)).TotalHours));
+                HoursShouldFasted = Math.Floor(fasts.Sum(f => (f.GetPlannedEnd() - f.StartTime).TotalHours));
+                
+                var percent = Math.Round((HoursFasted / HoursShouldFasted) * 100, 0);
+                if (percent > 100)
+                    percent = 100;
+                else if (percent < 0)
+                    percent = 0;
 
 
+                PercentFinished = percent;
 
-                //if (found != null)
-                //    enterValue = remainHours + found.Value;
-                //else 
-                //    enterValue = remainHours;
+                Completed = PercentFinished == 100;
 
-                //remainHours = 0;
+                SKColor color = SKColors.IndianRed;
 
-                //if (enterValue > 24)
-                //{
-                //    remainHours = enterValue - 24;
-                //    enterValue = 24;
-                //}
+                if (PercentFinished >= 50 && PercentFinished < 75)
+                    color = SKColor.Parse("#ffc107");
+                else if (PercentFinished >= 75 && PercentFinished < 100)
+                    color = SKColor.Parse("#187ccf");
+                else if (PercentFinished == 100)
+                    color = SKColors.LimeGreen;
 
-                // Bar color
-                //SKColor barColor = SKColor.Parse("#0b5ed7");
-                //SKColor labelColor = SKColors.Gray;
-
-                //if (enterValue == 0) 
-                //{ 
-                //    barColor = SKColors.Transparent;
-                //    labelColor = SKColors.Transparent;
-                //}
-
-
-                //entries.Add(new ChartEntry(enterValue) { Label = i.ToString(), ValueLabel = enterValue.ToString(), Color = barColor, ValueLabelColor = labelColor });
-
-
-                if (found == null)
+                entries.AddRange(new List<ChartEntry>()
                 {
-                    entries.Add(new ChartEntry(0) { Label = i.ToString() });
-                }
-                else
-                {
-                    entries.Add(new ChartEntry(found.Value) { Label = i.ToString(), ValueLabel = found.Value.ToString() });
-                }
+                    new ChartEntry((float)PercentFinished){ Color = color},
+                    new ChartEntry((float)(100 - PercentFinished)){ Color = SKColor.Parse("#f6f8fa")}
+                 });
+            }
+            else
+            {
+                entries.Add(new ChartEntry(0) { Color = SKColor.Parse("#f6f8fa") });
+                entries.Add(new ChartEntry(100) { Color = SKColor.Parse("#f6f8fa") });
+            }
 
-
-
-                actDate = actDate.AddDays(1);
+            FastChart = new DonutChart()
+            {
+                Entries = entries,
+                IsAnimated = false,
+                HoleRadius = 0.6f
             };
 
-            return entries;
         }
+
+        
 
     }
 }
