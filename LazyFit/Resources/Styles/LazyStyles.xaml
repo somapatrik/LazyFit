@@ -64,6 +64,11 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ImageSimpleButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderWidth" Value="0"/>
+    </Style>
+
     <Style x:Key="SimpleButton" TargetType="Button" BasedOn="{StaticResource TextButton}">
         <Setter Property="BorderWidth" Value=".7"/>
     </Style>
