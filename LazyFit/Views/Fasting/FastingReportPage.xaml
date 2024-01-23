@@ -7,9 +7,9 @@
              Title="FastingReportPage"
              Shell.NavBarIsVisible="False">
 
-    <Page.Behaviors>
+    <!--<Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="Black" StatusBarStyle="LightContent"/>
-    </Page.Behaviors>
+    </Page.Behaviors>-->
 
     <ContentPage.Triggers>
 

@@ -22,7 +22,7 @@
                                 <SwipeItem 
                                    Text="Delete"
                                    IconImageSource="icons/bin.png"
-                                   BackgroundColor="IndianRed"
+                                   BackgroundColor="{StaticResource GithubLight}"
                                    Command="{Binding DeleteAction, Source={RelativeSource AncestorType={x:Type viewModels:LatestActionsViewModel}}}"
                                    CommandParameter="{Binding .}"/>
                             </SwipeItems>

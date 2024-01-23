@@ -5,10 +5,10 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.ResultsPage"
              Title="ResultsPage"
-             Background="{StaticResource White}">
+             Background="{StaticResource GithubLight}">
 
     <Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
     </Page.Behaviors>
 
     <Grid>
@@ -60,13 +60,13 @@
                          Source="icons/arrow_left.png" 
                          Command="{Binding ShowOlder}" 
                          Style="{StaticResource ImageSimpleButton}"
-                         MaximumWidthRequest="40"/>
+                         WidthRequest="30"/>
 
             <ImageButton Grid.Row="0" Grid.Column="1" 
-                    Source="icons/arrow_right.png"
-                    Command="{Binding ShowNewer}" 
-                    Style="{StaticResource ImageSimpleButton}"
-                         MaximumWidthRequest="40"/>
+                         Source="icons/arrow_right.png"
+                         Command="{Binding ShowNewer}" 
+                         Style="{StaticResource ImageSimpleButton}"
+                         WidthRequest="30"/>
 
 
         </Grid>

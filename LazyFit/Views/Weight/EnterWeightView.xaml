@@ -14,7 +14,7 @@
         VerticalOptions="End">
 
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="10,10,0,0"/>
+            <RoundRectangle CornerRadius="7,7,0,0"/>
         </Border.StrokeShape>
         
         <VerticalStackLayout>
