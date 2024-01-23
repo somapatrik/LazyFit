@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:LazyFit.Views"
              xmlns:food="clr-namespace:LazyFit.Views.Food"
-             
+             xmlns:drink="clr-namespace:LazyFit.Views.Drink"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.ResultsPage"
              Title="ResultsPage"
@@ -46,9 +46,7 @@
                 <views:WeightResultChart />
                 <views:FastChart/>
                 <food:FoodChartResultView/>
-                <!--<drink:DrinkChartResultView/>-->
-                
-
+                <drink:DrinkChartResultView/>
             </VerticalStackLayout>
             
         </ScrollView>

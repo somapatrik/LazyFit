@@ -21,13 +21,13 @@
                Style="{StaticResource PageSubHeader}"/>
 
 
-            <!--<micro:ChartView 
+            <micro:ChartView 
                 Grid.Row="1"
                 Chart="{Binding DrinkChart}" 
                 HeightRequest="200"
                 Margin="0,0,0,10"
                 HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"/>-->
+                VerticalOptions="CenterAndExpand"/>
 
         </Grid>
     </Border>

@@ -8,6 +8,6 @@ public partial class DrinkChartResultView : ContentView
     public DrinkChartResultView()
 	{
 		InitializeComponent();
-		//BindingContext = _viewModel = new DrinkChartResultViewModel();
+		BindingContext = _viewModel = new DrinkChartResultViewModel();
 	}
 }
