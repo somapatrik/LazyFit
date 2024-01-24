@@ -35,17 +35,17 @@ namespace LazyFit.ViewModels.DrinkViewModels
                     SKColor color = SKColors.Gray;
 
                     if (drinkGroup.TypeOfDrink == TypeOfDrink.Coffee)
-                        color = SKColor.Parse("#187ccf");
+                        color = SKColors.Brown;
                     else if (drinkGroup.TypeOfDrink == TypeOfDrink.Sweet)
-                        color = SKColors.LimeGreen;
-                    else if (drinkGroup.TypeOfDrink == TypeOfDrink.Tea)
                         color = SKColors.DeepPink;
+                    else if (drinkGroup.TypeOfDrink == TypeOfDrink.Tea)
+                        color = SKColors.GreenYellow;
                     else if (drinkGroup.TypeOfDrink == TypeOfDrink.Beer)
-                        color = SKColors.Brown;
+                        color = SKColors.Gold;
                     else if (drinkGroup.TypeOfDrink == TypeOfDrink.Alcoholic)
-                        color = SKColors.Brown;
+                        color = SKColors.Red;
                     else if (drinkGroup.TypeOfDrink == TypeOfDrink.Water)
-                        color = SKColors.Brown;
+                        color = SKColor.Parse("#187ccf");
 
 
                     entries.Add(new ChartEntry(drinkGroup.Count)
