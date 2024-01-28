@@ -15,9 +15,14 @@ namespace LazyFit.ViewModels.DrinkViewModels
         public DrinkChartResultViewModel() { }
         protected override async void LoadResults()
         {
+            // Load data
             List<Drink> drinks = await DB.GetDrinks(FirstDateTime, LastDateTime, true);
             DataExists = drinks.Any();
             List<ChartEntry> entries = new List<ChartEntry>();
+
+            // Empty chart
+            var properties = await DB.GetDrinkProperties();
+            properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName, Color = SKColors.Gray }));
 
             if (DataExists)
             {
@@ -48,24 +53,25 @@ namespace LazyFit.ViewModels.DrinkViewModels
                         color = SKColor.Parse("#187ccf");
 
 
-                    entries.Add(new ChartEntry(drinkGroup.Count)
+                    var entryFound = entries.FirstOrDefault(e => e.Label == drinkGroup.DisplayName);
+
+                    if (entryFound != null)
                     {
-                        Color = color,
-                        Label = drinkGroup.DisplayName,
-                        ValueLabel = drinkGroup.Count.ToString()
-                    });
+                        entries.Remove(entryFound);
+
+                        entries.Add(new ChartEntry(drinkGroup.Count)
+                        {
+                            Color = color,
+                            Label = drinkGroup.DisplayName,
+                            ValueLabel = drinkGroup.Count.ToString()
+                        });
+                    }
                 }
             }
-            else
-            {
-                var properties = await DB.GetDrinkProperties();
-                properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName }));
-            }
-
 
             DrinkChart = new RadarChart()
             {
-                Entries = entries,
+                Entries = entries.OrderBy(x=>x.Label),
                 LabelTextSize = 40,
                 LineSize = 6
             };

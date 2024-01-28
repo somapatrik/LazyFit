@@ -59,13 +59,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
-	  <ApplicationDisplayVersion>0.2.1</ApplicationDisplayVersion>
-	  <ApplicationVersion>7</ApplicationVersion>
+	  <ApplicationDisplayVersion>0.3.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
-	  <ApplicationDisplayVersion>0.2.1</ApplicationDisplayVersion>
-	  <ApplicationVersion>7</ApplicationVersion>
+	  <ApplicationDisplayVersion>0.3.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -142,6 +142,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Drink\LogDrinkView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Mood\MoodResultChartView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Weight\EnterWeightView.xaml">

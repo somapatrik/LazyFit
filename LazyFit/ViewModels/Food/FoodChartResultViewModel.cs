@@ -22,6 +22,9 @@ namespace LazyFit.ViewModels.FoodViewModels
             DataExists = foods.Any();
             List<ChartEntry> entries = new List<ChartEntry>();
 
+            var properties = await DB.GetFoodProperties();
+            properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName }));
+
             if (DataExists) 
             {
                 var foodTypeCounts = foods
@@ -46,25 +49,24 @@ namespace LazyFit.ViewModels.FoodViewModels
                     else if (foodGroup.TypeOfFood == TypeOfFood.Unhealthy)
                         color = SKColors.Brown;
 
-
-                    entries.Add(new ChartEntry(foodGroup.Count) 
-                    { 
-                        Color = color, 
-                        Label = foodGroup.DisplayName, 
-                        ValueLabel = foodGroup.Count.ToString() 
-                    });
+                    var found = entries.FirstOrDefault(x=>x.Label == foodGroup.DisplayName);
+                    if (found != null)
+                    {
+                        entries.Remove(found);
+                        entries.Add(new ChartEntry(foodGroup.Count)
+                        {
+                            Color = color,
+                            Label = foodGroup.DisplayName,
+                            ValueLabel = foodGroup.Count.ToString()
+                        });
+                    }
                 }
-            }
-            else
-            {
-                var properties = await DB.GetFoodProperties();
-                properties.ForEach(p => entries.Add(new ChartEntry(0) {  Label = p.DisplayName}));
             }
 
 
             FoodChart = new RadarChart()
             {
-                Entries = entries,
+                Entries = entries.OrderBy(x=>x.Label),
                 LabelTextSize = 40,
                 LineSize = 6
             };
