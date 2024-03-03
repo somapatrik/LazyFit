@@ -12,7 +12,7 @@ namespace LazyFit.Services
     {
         #region DB settings
 
-        static SQLiteAsyncConnection Database;
+        public static SQLiteAsyncConnection Database;
 
         public static string DatabaseFilename = "lazyfit.db3";
 
