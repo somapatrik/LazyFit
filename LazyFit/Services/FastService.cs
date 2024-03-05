@@ -1,9 +1,22 @@
-﻿using LazyFit.Models;
+﻿using CommunityToolkit.Maui.Converters;
+using LazyFit.Models;
 
 namespace LazyFit.Services
 {
     public static class FastService
     {
+
+        public static async Task<List<Fast>> GetLastFasts(int numberOfFasts)
+        {
+            return await DB.Database.Table<Fast>().Where(f=>f.EndTime != null).ThenByDescending(f=>f.StartTime).ToListAsync();
+        } 
+
+        public static async Task<bool> FastsExists(int numberOfFasts)
+        {
+            var fasts = await GetLastFasts(numberOfFasts);
+            return fasts.Any();
+        }
+
         public static async Task<int> GetFastFinishRatio(int numberOfFasts)
         {
             var fasts = await DB.Database.Table<Fast>()
