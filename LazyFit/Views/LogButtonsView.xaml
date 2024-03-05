@@ -54,7 +54,7 @@
                 </Grid>
             </Frame>
 
-            <Frame FlexLayout.Basis="50%" Background="{StaticResource BootstrapWarningBg}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+            <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkWaterBlue}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowDrink}" />
@@ -70,7 +70,7 @@
                 </Grid>
             </Frame>
 
-            <Frame FlexLayout.Basis="50%" Background="{StaticResource NexenColor}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+            <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkFreshGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowFood}" />

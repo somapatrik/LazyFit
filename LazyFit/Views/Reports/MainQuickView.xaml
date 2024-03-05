@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.Reports.MainQuickView"
              xmlns:reportViewModels="clr-namespace:LazyFit.ViewModels.Reports">
 
@@ -8,30 +9,54 @@
         <reportViewModels:MainQuickViewModel/>
     </ContentView.BindingContext>
 
-
-        <Grid ColumnSpacing="10">
-            <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+        <Grid HorizontalOptions="FillAndExpand" Padding="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-            
-            
-        <VerticalStackLayout HorizontalOptions="CenterAndExpand">
-            <Label Text="{Binding Weight}" Style="{StaticResource QuickReportValue}" />
-            <Label Text="Weight" Style="{StaticResource QuickReportKey}"/>
+
+        <VerticalStackLayout Grid.Column="0" Spacing="0">
+
+            <Border BackgroundColor="DarkOrange" StrokeThickness="0" Padding="10">
+            <StackLayout>
+                <Label Text="{Binding Weight}" TextColor="White" Style="{StaticResource QuickReportValue}" />
+                <Label Text="Weight" TextColor="White" Style="{StaticResource QuickReportKey}"/>
+            </StackLayout>
+            </Border>
+            <Border BackgroundColor="{StaticResource DarkFreshGreen}" StrokeThickness="0" Padding="10">
+            <StackLayout>
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                    <Label Text="{Binding FoodRatio}" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                </HorizontalStackLayout>
+                    <Label Text="Food" TextColor="{StaticResource White}" Style="{StaticResource QuickReportKey}"/>
+            </StackLayout>
+            </Border>
+            <Border BackgroundColor="{StaticResource DarkWaterBlue}" StrokeThickness="0" Padding="10">
+                <StackLayout>
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding DrinkRatio}" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                </HorizontalStackLayout>
+                    <Label Text="Drink" TextColor="{StaticResource White}" Style="{StaticResource QuickReportKey}"/>
+            </StackLayout>
+            </Border>
+            <Border BackgroundColor="{StaticResource BootstrapWarningBg}" StrokeThickness="0" Padding="10">
+                <StackLayout>
+                    <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding FastRatio}" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                    </HorizontalStackLayout>
+                    <Label Text="Fasts" TextColor="{StaticResource White}" Style="{StaticResource QuickReportKey}"/>
+                </StackLayout>
+            </Border>
         </VerticalStackLayout>
-        
-        
-        <VerticalStackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
-            <HorizontalStackLayout>
-                <Label Text="{Binding FastRatio}" Style="{StaticResource QuickReportValue}"/>
-                <Label Text="%" Style="{StaticResource QuickReportValue}"/>
-            </HorizontalStackLayout>
-            <Label Text="Fasts" Style="{StaticResource QuickReportKey}"/>
-        </VerticalStackLayout>
-        
+
+        <Grid Grid.Column="1">
+            <micro:ChartView Chart="{Binding QuickChart}" 
+                             HeightRequest="200"/>
+        </Grid>
+            
     </Grid>
     
     

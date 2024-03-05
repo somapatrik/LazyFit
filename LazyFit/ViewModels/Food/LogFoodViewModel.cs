@@ -69,10 +69,13 @@ namespace LazyFit.ViewModels.FoodViewModels
         private async void SaveDrinkHandler()
         {
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
-            await DB.InsertFood(new Food(Guid.NewGuid(), time, SelectedFood.FoodId));
+
+            Food food = new Food(Guid.NewGuid(), time, SelectedFood.FoodId);
+            await FoodService.InsertFood(food);
+
+
 
             WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
-
             await MopupService.Instance.PopAsync();
         }
 
