@@ -14,14 +14,12 @@
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
     </Page.Behaviors>
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-
 
         <Grid ZIndex="100" Grid.RowSpan="3">
             <Grid.RowDefinitions>
@@ -42,7 +40,13 @@
                        TextColor="White"
                        FontSize="Body"
                        HorizontalOptions="Center" 
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
+                    </Label.GestureRecognizers>
+                    
+                </Label>
             </Border>
 
         </Grid>

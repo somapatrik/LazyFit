@@ -1,111 +1,122 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopup:PopupPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
              x:Class="LazyFit.Views.LogButtonsView"
-             Background="white">
-    <VerticalStackLayout>
-        
-        <!--<Label Text="Log"
-               Style="{StaticResource PageSubHeader}"
-               HorizontalTextAlignment="Center"/>-->
+             CloseWhenBackgroundIsClicked="True"
+                Background="#80000000">
 
-        <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,10,5,10">
+    <Border
+        Background="white"
+        Padding="20"
+        VerticalOptions="End">
 
-            <Frame FlexLayout.Basis="50%" Background="OrangeRed" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="7,7,0,0"/>
+        </Border.StrokeShape>
+        <VerticalStackLayout VerticalOptions="End">
 
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowWeight}" />
-                </Frame.GestureRecognizers>
-                
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+            <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,10,5,10">
 
-                    <Label Grid.Row="0" 
+                <Frame FlexLayout.Basis="50%" Background="OrangeRed" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowWeight}" />
+                    </Frame.GestureRecognizers>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" 
                            Grid.RowSpan="2" 
                            Text="{Binding LatestWeight}" 
                            TextColor="White" 
                            FontSize="Large" 
                            HorizontalTextAlignment="Start" 
                            VerticalTextAlignment="Start"/>
-                    
-                    <Label Grid.Row="1" Text="Weight" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
-                    
-                </Grid>
 
-            </Frame>
+                        <Label Grid.Row="1" Text="Weight" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
 
-            <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+                    </Grid>
 
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowLogMood}" />
-                </Frame.GestureRecognizers>
+                </Frame>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    
-                    <Label Grid.Row="1" Text="Mood" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
-                </Grid>
-            </Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowLogMood}" />
+                    </Frame.GestureRecognizers>
 
-            <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkWaterBlue}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowDrink}" />
-                </Frame.GestureRecognizers>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                        <Label Grid.Row="1" Text="Mood" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
 
-                    <Label Grid.Row="1" Text="Drink" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                    </Grid>
+                </Frame>
 
-                </Grid>
-            </Frame>
+                <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkWaterBlue}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
-            <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkFreshGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowDrink}" />
+                    </Frame.GestureRecognizers>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowFood}" />
-                </Frame.GestureRecognizers>
+                        <Label Grid.Row="1" Text="Drink" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    </Grid>
+                </Frame>
 
-                    <Label Grid.Row="1" Text="Food" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkFreshGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
-                </Grid>
-            </Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowFood}" />
+                    </Frame.GestureRecognizers>
 
-            <Frame FlexLayout.Basis="50%" Background="{StaticResource GithubGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowPressure}" />
-                </Frame.GestureRecognizers>
+                        <Label Grid.Row="1" Text="Food" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    </Grid>
+                </Frame>
 
-                    <Label Grid.Row="0" Text="Blood" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
-                    <Label Grid.Row="1" Text="Pressure" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                <Frame FlexLayout.Basis="50%" Background="{StaticResource GithubGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
-                </Grid>
-            </Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowPressure}" />
+                    </Frame.GestureRecognizers>
 
-        </FlexLayout>
-        
-    </VerticalStackLayout>
-</ContentView>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Text="Blood" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                        <Label Grid.Row="1" Text="Pressure" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+
+                    </Grid>
+                </Frame>
+
+            </FlexLayout>
+
+        </VerticalStackLayout>
+
+    </Border>
+
+</mopup:PopupPage>

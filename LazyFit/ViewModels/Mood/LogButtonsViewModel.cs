@@ -47,24 +47,28 @@ namespace LazyFit.ViewModels.MoodViewModels
         private async void ShowWeightHandler(object obj)
         {
             var weightView = new EnterWeightView();
-            //weightView.EnterWeightClosed += (sender, e) => LoadLatestWeight();
 
+            await Close();
             await MopupService.Instance.PushAsync(weightView);
 
         }
 
         private async void ShowFoodHandler(object obj)
         {
+            await Close();
             await MopupService.Instance.PushAsync(new LogFoodView());
         }
 
         private async void ShowDrinkHandler(object obj)
         {
+            await Close();
             await MopupService.Instance.PushAsync(new LogDrinkView());
+            
         }
 
         private async void ShowLogPressureHandler()
         {
+            await Close();
             await MopupService.Instance.PushAsync(new EnterPressureView());
         }
 
@@ -79,11 +83,18 @@ namespace LazyFit.ViewModels.MoodViewModels
                 await DB.InsertMood(new Mood(Guid.NewGuid(), selectedType));
                 WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
             }
+
+            await Close();
         }
 
         private void LogMoodHandler()
         {
 
+        }
+
+        private async Task Close()
+        {
+            await MopupService.Instance.PopAsync();
         }
     }
 }

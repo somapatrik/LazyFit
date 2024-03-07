@@ -1,8 +1,9 @@
 using LazyFit.ViewModels.MoodViewModels;
+using Mopups.Pages;
 
 namespace LazyFit.Views;
 
-public partial class LogButtonsView : ContentView
+public partial class LogButtonsView : PopupPage
 {
     LogButtonsViewModel _viewModel;
 
