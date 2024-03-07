@@ -14,12 +14,38 @@
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
     </Page.Behaviors>
 
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+
+        <Grid ZIndex="100" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="1" Grid.Column="1" Background="Orange" Margin="25" Padding="25">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Label Text="Log" 
+                       TextColor="White"
+                       FontSize="Body"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center"/>
+            </Border>
+
+        </Grid>
 
         <StackLayout Grid.Row="0" Orientation="Vertical" Padding="0,5">
             <StackLayout Orientation="Horizontal">
@@ -34,26 +60,17 @@
 
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0">
-                
-                
 
                <Border StrokeThickness="0" Padding="0">
                     <reportViews:MainQuickView/>
                 </Border>
-        
-                <Border>
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="7"/>
-                    </Border.StrokeShape>
-                    <fastViews:FastingView/>
-                </Border>
-                
-                <Border>
+                       
+                <!--<Border>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="7"/>
                     </Border.StrokeShape>
                     <views:LogButtonsView />
-                </Border>
+                </Border>-->
 
                 <psViews:PressureCardLineView/>
                 
@@ -64,7 +81,8 @@
             
         </ScrollView>
 
-        <Label Grid.Row="2" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
+
+        <Label Grid.Row="3" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
 
     </Grid>
 
