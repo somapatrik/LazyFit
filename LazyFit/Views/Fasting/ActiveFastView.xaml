@@ -11,34 +11,55 @@
     <ContentView.BindingContext>
         <fastVM:ActiveFastViewModel/>
     </ContentView.BindingContext>
-    
+
+    <SwipeView>
+        <SwipeView.LeftItems>
+            <SwipeItems>
+                <SwipeItem 
+                   Text="Delete"
+                   IconImageSource="icons/bin.png"
+                   BackgroundColor="{StaticResource GithubLight}"
+                   />
+            </SwipeItems>
+        </SwipeView.LeftItems>
+
+        <SwipeView.RightItems>
+            <SwipeItems>
+                <SwipeItem 
+           Text="Finish"
+           IconImageSource="icons/bin.png"
+           BackgroundColor="{StaticResource GithubLight}"
+           />
+            </SwipeItems>
+        </SwipeView.RightItems>
+
         <Border StrokeThickness="0" BackgroundColor="{StaticResource LazyColor}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <HorizontalStackLayout 
+                        <HorizontalStackLayout 
                 Grid.Row="0"
                 Padding="5,15"
                 HorizontalOptions="Start"
                 VerticalOptions="Center">
 
-                <Label Text="Active " Style="{StaticResource QuickHeader}"/>
-                <Label Text="{Binding ActiveFast.PlanMinutes, Converter={converters:MinutesToHoursConverter}}" 
+                            <Label Text="Active " Style="{StaticResource QuickHeader}"/>
+                            <Label Text="{Binding ActiveFast.PlanMinutes, Converter={converters:MinutesToHoursConverter}}" 
                        Style="{StaticResource QuickHeader}"/>
-                <Label Text=" fast" Style="{StaticResource QuickHeader}"/>
-                
-            </HorizontalStackLayout>
+                            <Label Text=" fast" Style="{StaticResource QuickHeader}"/>
 
-            <ProgressBar Grid.Row="1"
+                        </HorizontalStackLayout>
+
+                        <ProgressBar Grid.Row="1"
                          Grid.ColumnSpan="2"
                          HeightRequest="5"
                          ProgressColor="{StaticResource White}"
@@ -46,32 +67,35 @@
                          Background="Transparent"
                          Progress="{Binding Progress}"/>
 
-            <Grid 
+                        <Grid 
                 Grid.Row="0" 
                 Grid.Column="1"
                 Padding="5,3">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                <Label 
+                            <Label 
                     Grid.Row="0"
                     Text="{Binding StartSpan, Converter={converters:TimeSpanToStageConverter}}"
                     Style="{StaticResource QuickDetail}" VerticalOptions="Start"/>
 
-                <Label 
+                            <Label 
                     Grid.Row="1"
                     Text="{Binding EndSpan, Converter={converters:TimeSpanToCountdown}}"
                     Style="{StaticResource QuickDetail}" VerticalOptions="End" HorizontalOptions="End"/>
 
-            </Grid>
-            
+                        </Grid>
 
 
 
 
-        </Grid>
-        </Border>
+
+                    </Grid>
+                </Border>
+
+    </SwipeView>
+
 </ContentView>
