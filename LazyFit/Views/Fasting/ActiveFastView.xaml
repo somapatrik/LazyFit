@@ -19,6 +19,7 @@
                    Text="Delete"
                    IconImageSource="icons/bin.png"
                    BackgroundColor="{StaticResource GithubLight}"
+                   Command="{Binding DeleteFastCommand}"
                    />
             </SwipeItems>
         </SwipeView.LeftItems>
@@ -26,9 +27,10 @@
         <SwipeView.RightItems>
             <SwipeItems>
                 <SwipeItem 
-           Text="Finish"
-           IconImageSource="icons/bin.png"
-           BackgroundColor="{StaticResource GithubLight}"
+                       Text="Finish"
+                       IconImageSource="icons/bin.png"
+                       BackgroundColor="{StaticResource GithubLight}"
+                       Command="{Binding FinishFastCommand}"
            />
             </SwipeItems>
         </SwipeView.RightItems>

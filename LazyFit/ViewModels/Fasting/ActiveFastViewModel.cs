@@ -1,5 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
 using LazyFit.Models;
@@ -23,6 +24,8 @@ namespace LazyFit.ViewModels.Fasting
 
         [ObservableProperty]
         private double _Progress;
+
+
 
         private Timer _Timer;
 
@@ -55,6 +58,7 @@ namespace LazyFit.ViewModels.Fasting
         {
             WeakReferenceMessenger.Default.Register<StartFastMessage>(this, (a, b) => { LoadData(); });
             WeakReferenceMessenger.Default.Register<EndFastMessage>(this, (a, b) => { LoadData(); });
+            WeakReferenceMessenger.Default.Register<DeleteFastMessage>(this, (a, b) => { LoadData(); });
         }
 
         private async void LoadData()
@@ -71,6 +75,35 @@ namespace LazyFit.ViewModels.Fasting
             else
                 StopTimer();
 
+        }
+
+        [RelayCommand]
+        private async Task DeleteFast()
+        {
+            if (await Shell.Current.DisplayAlert("Delete active fast", "", "Delete","Cancel"))
+            {
+                await DB.DeleteItem(ActiveFast);
+                WeakReferenceMessenger.Default.Send(new DeleteFastMessage(ActiveFast));
+            }
+        }
+
+        [RelayCommand]
+        private async Task FinishFast()
+        {
+            bool EndIt = false;
+
+            // Display custom message for failed things
+            if (DateTime.Now < ActiveFast.GetPlannedEnd())
+                EndIt = await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY UNFIT", "no...sorry");
+            else
+                EndIt = await Shell.Current.DisplayAlert("Finish fast", "Good job. Would you like to finish this fast?", "Finish", "Cancel");
+
+            if (EndIt)
+            {
+                ActiveFast.End();
+                await FastService.UpdateFast(ActiveFast);
+                WeakReferenceMessenger.Default.Send(new EndFastMessage(ActiveFast));
+            }
         }
     }
 }
