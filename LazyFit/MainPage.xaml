@@ -32,21 +32,22 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="1" Grid.Column="1" Background="Orange" Margin="25" Padding="25">
+            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource LazyColor}" Margin="25" Padding="25">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10"/>
+                    <RoundRectangle CornerRadius="7"/>
                 </Border.StrokeShape>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
+                </Border.GestureRecognizers>
+
+
                 <Label Text="Log" 
                        TextColor="White"
                        FontSize="Body"
                        HorizontalOptions="Center" 
-                       VerticalOptions="Center">
+                       VerticalOptions="Center"/>
 
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
-                    </Label.GestureRecognizers>
-                    
-                </Label>
             </Border>
 
         </Grid>
