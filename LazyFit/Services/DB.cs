@@ -1,4 +1,6 @@
-﻿using LazyFit.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
+using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Pressure;
@@ -437,6 +439,7 @@ namespace LazyFit.Services
         public static async Task InsertFast(Fast fast)
         {
             await Database.InsertAsync(fast);
+            WeakReferenceMessenger.Default.Send(new StartFastMessage(fast));
         }
 
         public static async Task UpdateFast(Fast fast)

@@ -114,6 +114,9 @@
 	  <Compile Update="Views\Drink\LogDrinkView.xaml.cs">
 	    <DependentUpon>LogDrinkView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Fasting\ActiveFastView.xaml.cs">
+	    <DependentUpon>ActiveFastView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Fasting\FastResultChartView.xaml.cs">
 	    <DependentUpon>FastResultChartView.xaml</DependentUpon>
 	  </Compile>
@@ -130,6 +133,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Drink\DrinkChartResultView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Fasting\ActiveFastView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Fasting\FastingReportPage.xaml">

@@ -17,37 +17,40 @@
 
         <VerticalStackLayout Grid.Column="0" Spacing="0">
 
-            <Border BackgroundColor="DarkOrange" StrokeThickness="0" Padding="10">
-            <StackLayout>
-                <Label Text="{Binding Weight}" TextColor="White" Style="{StaticResource QuickReportValue}" />
-                <Label Text="Weight" TextColor="White" Style="{StaticResource QuickReportKey}"/>
-            </StackLayout>
+            <Border Style="{StaticResource QuickBorder}">
+                <StackLayout>
+                    <Label Text="{Binding Weight}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
+                    <Label Text="Weight" TextColor="DarkOrange" Style="{StaticResource QuickReportKey}"/>
+                </StackLayout>
             </Border>
-            <Border BackgroundColor="{StaticResource DarkFreshGreen}" StrokeThickness="0" Padding="10">
+
+            <Border Style="{StaticResource QuickBorder}">
             <StackLayout>
                 <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
-                    <Label Text="{Binding FoodRatio}" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
-                        <Label Text="%" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="{Binding FoodRatio}" TextColor="{StaticResource DarkFreshGreen}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource DarkFreshGreen}" Style="{StaticResource QuickReportValue}"/>
                 </HorizontalStackLayout>
-                    <Label Text="Food" TextColor="{StaticResource White}" Style="{StaticResource QuickReportKey}"/>
+                    <Label Text="Food" TextColor="{StaticResource DarkFreshGreen}" Style="{StaticResource QuickReportKey}"/>
             </StackLayout>
             </Border>
-            <Border BackgroundColor="{StaticResource DarkWaterBlue}" StrokeThickness="0" Padding="10">
+            
+            <Border Style="{StaticResource QuickBorder}">
                 <StackLayout>
                 <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
-                        <Label Text="{Binding DrinkRatio}" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
-                        <Label Text="%" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="{Binding DrinkRatio}" TextColor="{StaticResource DarkWaterBlue}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource DarkWaterBlue}" Style="{StaticResource QuickReportValue}"/>
                 </HorizontalStackLayout>
-                    <Label Text="Drink" TextColor="{StaticResource White}" Style="{StaticResource QuickReportKey}"/>
+                    <Label Text="Drink" TextColor="{StaticResource DarkWaterBlue}" Style="{StaticResource QuickReportKey}"/>
             </StackLayout>
             </Border>
-            <Border BackgroundColor="{StaticResource BootstrapWarningBg}" StrokeThickness="0" Padding="10">
+
+            <Border Style="{StaticResource QuickBorder}">
                 <StackLayout>
                     <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
-                        <Label Text="{Binding FastRatio}" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
-                        <Label Text="%" TextColor="{StaticResource White}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="{Binding FastRatio}" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportValue}"/>
                     </HorizontalStackLayout>
-                    <Label Text="Fasts" TextColor="{StaticResource White}" Style="{StaticResource QuickReportKey}"/>
+                    <Label Text="Fasts" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportKey}"/>
                 </StackLayout>
             </Border>
         </VerticalStackLayout>

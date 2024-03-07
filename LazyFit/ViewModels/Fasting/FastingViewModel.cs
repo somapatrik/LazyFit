@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views;
@@ -141,7 +142,9 @@ namespace LazyFit.ViewModels.Fasting
             CreateEmptyChart();
 
             ActiveFast.End();
-            await DB.UpdateFast(ActiveFast);
+            await FastService.UpdateFast(ActiveFast);
+            WeakReferenceMessenger.Default.Send(new EndFastMessage(ActiveFast));
+
             await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
 
             ActiveFast = null;
