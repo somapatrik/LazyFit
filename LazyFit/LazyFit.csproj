@@ -189,9 +189,6 @@
 	  <MauiXaml Update="Views\Fasting\StartFastingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\TimePickerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Weight\WeightChartView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

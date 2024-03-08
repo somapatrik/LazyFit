@@ -3,9 +3,15 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.LogButtonsView"
              CloseWhenBackgroundIsClicked="True"
-                Background="#80000000">
+             Background="#80000000">
+
+    <mopup:PopupPage.BindingContext>
+        <viewModels:LogButtonsViewModel/>
+    </mopup:PopupPage.BindingContext>
 
     <Border
         Background="white"
@@ -19,10 +25,34 @@
 
             <FlexLayout Wrap="Wrap" JustifyContent="Start" Margin="5,10,5,10">
 
+                <Frame FlexLayout.Basis="100%" 
+                       Background="{StaticResource LazyColor}" 
+                       CornerRadius="7" 
+                       Margin="3" 
+                       Padding="10" 
+                       MinimumHeightRequest="70"
+                       IsVisible="{Binding FastExists, Converter={converters:InverseBoolConverter}}">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StartFastCommand}" />
+                    </Frame.GestureRecognizers>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="1" Text="Start Fasting" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+
+                    </Grid>
+
+                </Frame>
+
                 <Frame FlexLayout.Basis="50%" Background="OrangeRed" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShowWeight}" />
+                        <TapGestureRecognizer Command="{Binding ShowWeightCommand}" />
                     </Frame.GestureRecognizers>
 
                     <Grid>
@@ -48,7 +78,7 @@
                 <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShowLogMood}" />
+                        <TapGestureRecognizer Command="{Binding ShowLogMoodCommand}" />
                     </Frame.GestureRecognizers>
 
                     <Grid>
@@ -65,7 +95,7 @@
                 <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkWaterBlue}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShowDrink}" />
+                        <TapGestureRecognizer Command="{Binding ShowDrinkCommand}" />
                     </Frame.GestureRecognizers>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -81,7 +111,7 @@
                 <Frame FlexLayout.Basis="50%" Background="{StaticResource DarkFreshGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShowFood}" />
+                        <TapGestureRecognizer Command="{Binding ShowFoodCommand}" />
                     </Frame.GestureRecognizers>
 
                     <Grid>
@@ -98,7 +128,7 @@
                 <Frame FlexLayout.Basis="50%" Background="{StaticResource GithubGreen}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShowPressure}" />
+                        <TapGestureRecognizer Command="{Binding ShowPressureCommand}" />
                     </Frame.GestureRecognizers>
 
                     <Grid>

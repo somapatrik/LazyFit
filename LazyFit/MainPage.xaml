@@ -8,10 +8,10 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.MainPage"
              Shell.NavBarIsVisible="False"
-             Background="{StaticResource GithubLight}">
+             Background="{StaticResource White}">
 
     <Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
     </Page.Behaviors>
 
     <Grid>

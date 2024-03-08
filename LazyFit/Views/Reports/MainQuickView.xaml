@@ -44,7 +44,7 @@
             </StackLayout>
             </Border>
 
-            <Border Style="{StaticResource QuickBorder}">
+            <Border Style="{StaticResource QuickBorder}" IsVisible="{Binding FastsExists}">
                 <StackLayout>
                     <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
                         <Label Text="{Binding FastRatio}" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportValue}"/>
