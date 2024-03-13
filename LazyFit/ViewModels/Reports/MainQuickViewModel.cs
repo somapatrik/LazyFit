@@ -49,6 +49,14 @@ namespace LazyFit.ViewModels.Reports
                 await LoadChart();
             });
 
+            // Drinking
+            WeakReferenceMessenger.Default.Register<NewDrinkMessage>(this, async (a, b) => 
+            { 
+                await LoadDrink(); 
+                await LoadChart();
+            });
+
+            // Fasting
             WeakReferenceMessenger.Default.Register<StartFastMessage>(this, async (a, b) =>
             {
                 await LoadFasts();

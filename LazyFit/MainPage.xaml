@@ -69,13 +69,6 @@
                <Border StrokeThickness="0" Padding="0">
                     <reportViews:MainQuickView/>
                 </Border>
-                       
-                <!--<Border>
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="7"/>
-                    </Border.StrokeShape>
-                    <views:LogButtonsView />
-                </Border>-->
 
                 <psViews:PressureCardLineView/>
                 

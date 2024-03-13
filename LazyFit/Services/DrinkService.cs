@@ -1,9 +1,6 @@
-﻿using LazyFit.Models.Drinks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
+using LazyFit.Models.Drinks;
 
 namespace LazyFit.Services
 {
@@ -22,7 +19,7 @@ namespace LazyFit.Services
         public static async Task InsertDrink(Drink drink)
         {
             await DB.Database.InsertAsync(drink);
-
+            WeakReferenceMessenger.Default.Send(new NewDrinkMessage(drink));
         }
 
         public static async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
