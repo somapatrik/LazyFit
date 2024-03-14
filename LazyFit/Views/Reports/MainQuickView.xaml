@@ -9,11 +9,8 @@
         <reportViewModels:MainQuickViewModel/>
     </ContentView.BindingContext>
 
-        <Grid HorizontalOptions="FillAndExpand" Padding="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid HorizontalOptions="FillAndExpand" Padding="0" ColumnDefinitions="auto,*">
+
 
         <VerticalStackLayout Grid.Column="0" Spacing="0">
 

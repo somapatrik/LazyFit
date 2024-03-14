@@ -3,108 +3,75 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Convertes="clr-namespace:LazyFit.Converters"
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
+             xmlns:foodModels="clr-namespace:LazyFit.Models.Foods"
              x:Class="LazyFit.Views.LatestActionsView">
 
-    <VerticalStackLayout>
+    <ContentView.BindingContext>
+        <viewModels:LatestActionsViewModel/>
+    </ContentView.BindingContext>
 
-        <CollectionView ItemsSource="{Binding LatestActions}">
-            <CollectionView.ItemsLayout>
+    <ContentView.Content>
+        <VerticalStackLayout>
 
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+            <CollectionView ItemsSource="{Binding ActionSquares}">
 
-            </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                    <Border Padding="10,5" 
+                            StrokeThickness="0" 
+                            BackgroundColor="{StaticResource White}">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.LeftItems>
-                            <SwipeItems>
-                                <SwipeItem 
-                                   Text="Delete"
-                                   IconImageSource="icons/bin.png"
-                                   BackgroundColor="{StaticResource GithubLight}"
-                                   Command="{Binding DeleteAction, Source={RelativeSource AncestorType={x:Type viewModels:LatestActionsViewModel}}}"
-                                   CommandParameter="{Binding .}"/>
-                            </SwipeItems>
-                        </SwipeView.LeftItems>
-                        
-                        <Border StrokeThickness=".7" Padding="0,10">
-                            
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="7"/>
-                            </Border.StrokeShape>
-                            
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
+                            <StackLayout>
+                                <Label Text="{Binding DateTime, Converter={Convertes:DatetimeToDateConverter}}" TextColor="Gray"/>
+                                
+                                <FlexLayout Wrap="Wrap"
+                                            BindableLayout.ItemsSource="{Binding Actions}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                                            <Border Style="{StaticResource ActionBorder}">
 
-                                <BoxView Grid.Column="0" 
-                                     Grid.Row="0" 
-                                     Grid.RowSpan="1" 
-                                     WidthRequest="20" 
-                                     HeightRequest="20" 
-                                     CornerRadius="20" 
-                                     VerticalOptions="End"
-                                     HorizontalOptions="Center">
+                                                <Border.Triggers>
 
-                                    <BoxView.Triggers>
-                                        <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Food">
-                                            <Setter Property="Color" Value="{StaticResource NexenColor}"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Drink">
-                                            <Setter Property="Color" Value="{StaticResource BootstrapWarningBg}"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Mood">
-                                            <Setter Property="Color" Value="darkblue"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Weight">
-                                            <Setter Property="Color" Value="DarkOrange"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="BoxView" Binding="{Binding Type}" Value="Fast">
-                                            <Setter Property="Color" Value="{StaticResource Primary}"/>
-                                        </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ActionName}" Value="Food" TargetType="Border">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource FreshGreen}"/>
+                                                    </DataTrigger>
 
-                                    </BoxView.Triggers>
+                                                    <DataTrigger Binding="{Binding ActionName}" Value="Mood" TargetType="Border">
+                                                        <Setter Property="BackgroundColor" Value="DarkBlue"/>
+                                                    </DataTrigger>
 
-                                </BoxView>
 
-                                <Label Grid.Row="1" 
-                                   Grid.Column="0" 
-                                   Text="{Binding Type}" 
-                                   HorizontalTextAlignment="Center" 
-                                   VerticalTextAlignment="End" 
-                                   TextColor="Gray" 
-                                   FontSize="Small"/>
+                                                    <DataTrigger Binding="{Binding ActionName}" Value="Weight" TargetType="Border">
+                                                        <Setter Property="BackgroundColor" Value="OrangeRed"/>
+                                                    </DataTrigger>
 
-                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Date, Converter={Convertes:DateTimeToShortConverter}}" TextColor="Gray"/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding SubjectText}" FontSize="Medium"/>
-                                <!--<Button  Grid.Column="2" 
-                                     Grid.RowSpan="2"  
-                                     Text="⋮" 
-                                     FontSize="Large"
-                                     TextColor="Gray"
-                                     BackgroundColor="Transparent"
-                                     BorderWidth="0"
-                                     VerticalOptions="Center"
-                                     HorizontalOptions="Center"
-                                     Command="{Binding DeleteAction, Source={RelativeSource AncestorType={x:Type viewModels:LatestActionsViewModel}}}"
-                                     CommandParameter="{Binding .}"/>-->
-                            </Grid>
+
+                                                    <DataTrigger Binding="{Binding ActionName}" Value="Drink" TargetType="Border">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource WaterBlue}"/>
+                                                    </DataTrigger>
+
+
+                                                    <DataTrigger Binding="{Binding ActionName}" Value="Fast" TargetType="Border">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource LazyColor}"/>
+                                                    </DataTrigger>
+
+                                                </Border.Triggers>
+                                                
+                                            </Border>
+
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+                                
+                            </StackLayout>
                         </Border>
-                    </SwipeView>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>
 
-        </CollectionView>
-
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ContentView.Content>
 
 </ContentView>

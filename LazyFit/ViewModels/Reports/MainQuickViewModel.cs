@@ -92,7 +92,7 @@ namespace LazyFit.ViewModels.Reports
                 chartEntries.Add(new ChartEntry((float)FastRatio) { Color = SKColor.Parse(LazyColors.BootstrapWarningBg) });
             
             chartEntries.Add(new ChartEntry((float)DrinkRatio) { Color = SKColor.Parse(LazyColors.WaterBlue) });
-            chartEntries.Add(new ChartEntry((float)FoodRatio) { Color = SKColor.Parse(LazyColors.DarkFreshGreen) });
+            chartEntries.Add(new ChartEntry((float)FoodRatio) { Color = SKColor.Parse(LazyColors.FreshGreen) });
 
 
             QuickChart = new RadialGaugeChart()

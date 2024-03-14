@@ -1,46 +1,60 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace LazyFit.ViewModels
 {
-    class LatestActionsViewModel : PrimeViewModel
+    partial class LatestActionsViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private ObservableCollection<ActionSquareDate> _ActionSquares;
 
-        private ObservableCollection<TakenAction> _LatestActions;
-        public ObservableCollection<TakenAction> LatestActions { get => _LatestActions; set => SetProperty(ref _LatestActions, value); }   
+        private int numberOfDays = 7;
 
-        public ICommand DeleteAction { private set;get; }
         public LatestActionsViewModel() 
         {
-            LoadActions();
-            WeakReferenceMessenger.Default.Register<Messages.ReloadActionsMessage>(this, (r, m) => { LoadActions(); });
-            DeleteAction = new Command(DeleteActionHandler);
+            LoadData();
+            WireMessages();
         }
 
-        private async void LoadActions()
+        private void WireMessages()
         {
+            WeakReferenceMessenger.Default.Register<NewDrinkMessage>(this, async (a,b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<NewFoodMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<EndFastMessage>(this, async (a, b) => await LoadActions());
+
+            WeakReferenceMessenger.Default.Register<DeleteFastMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<NewWeightMessage>(this, async (a, b) => await LoadActions());
+
+            WeakReferenceMessenger.Default.Register<RefreshWeightMessage>(this, async (a, b) => await LoadActions());
+        }
+
+        private async void LoadData()
+        {
+            await LoadActions();
+        }
+
+        private async Task LoadActions()
+        {
+            ActionSquares = new ObservableCollection<ActionSquareDate>();
+
             DateTime now = DateTime.Now;
-            LatestActions = new ObservableCollection<TakenAction>();
-            (await DB.GetLatestActions(now.AddDays(-2), now)).ForEach(LatestActions.Add);
-        }
-
-        private async void DeleteActionHandler(object action)
-        {
-            TakenAction takenAction = (TakenAction) action;
-            if (await Shell.Current.DisplayAlert($"Delete '{takenAction.SubjectText}'", $"Erase action from {takenAction.Date.ToString("d")} ?", "Delete", "No"))
-            {
-                await DB.DeleteItem(takenAction.ClassObject);
-                LatestActions.Remove(takenAction);
-
-                if (takenAction.Type == "Weight")
-                    WeakReferenceMessenger.Default.Send(new Messages.RefreshWeightMessage(true));
-
-            }
             
+            for (int days = 0; days < numberOfDays; days++)
+            {
+                DateTime from = now.AddDays(-days).Date;
+                DateTime to = from.AddDays(1).AddSeconds(-1);
+                var actions = await DB.GetActionSquares(from, to);
+
+                if (actions.Any())
+                    ActionSquares.Add(new ActionSquareDate() { DateTime = from, Actions = actions });
+
+            }            
         }
+
 
     }
 }

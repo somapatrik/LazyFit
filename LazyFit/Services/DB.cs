@@ -110,11 +110,78 @@ namespace LazyFit.Services
 
         #endregion
 
-
-
         public static async Task DeleteItem(object item)
         {
             await Database.DeleteAsync(item); 
+        }
+
+        public static async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
+        {
+            var foods = await GetFoods(fromTime, toTime);
+            var drinks = await GetDrinks(fromTime, toTime);
+            var moods = await GetMoods(fromTime, toTime);
+            var weights = await GetWeights(fromTime, toTime);
+            var fasts = await GetFasts(fromTime, toTime);
+
+            List<ActionSquare> actionSquares = new List<ActionSquare>();
+
+            foods.ForEach(food =>
+            {
+                actionSquares.Add(new ActionSquare() 
+                { 
+                    ActionName = nameof(Food),
+                    Color = LazyColors.FreshGreen, 
+                    Time = food.Time, 
+                    IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack) });
+            });
+
+            drinks.ForEach(drink =>
+            {
+                actionSquares.Add(new ActionSquare() 
+                {
+                    ActionName = nameof(Drink),
+                    Color = LazyColors.WaterBlue, 
+                    Time = drink.Time, 
+                    IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea) });
+            });
+
+            moods.ForEach(mood =>
+            {
+                actionSquares.Add(new ActionSquare()
+                {
+                    ActionName = nameof(Mood),
+                    Color = Colors.DarkBlue.ToHex(),
+                    Time = mood.Time,
+                    IsBad = (mood.TypeOfMood == MoodName.Bad)
+                });
+            });
+
+            fasts.ForEach(fast =>
+            {
+                actionSquares.Add(new ActionSquare()
+                {
+                    ActionName = nameof(Fast),
+                    Color = LazyColors.LazyColor,
+                    Time = (DateTime)fast.EndTime,
+                    IsBad = (!fast.Completed)
+                });
+            });
+
+
+            weights.ForEach(weight =>
+            {
+                actionSquares.Add(new ActionSquare()
+                {
+                    ActionName = nameof(Weight),
+                    Color = Colors.DarkOrange.ToHex(),
+                    Time = weight.Time,
+                    IsBad = false
+                });
+            });
+
+
+            return actionSquares.OrderBy(a => a.Time).ToList();
+
         }
 
         public static async Task<List<TakenAction>> GetLatestActions(DateTime fromTime, DateTime toTime)
@@ -207,20 +274,6 @@ namespace LazyFit.Services
                 };
                 actions.Add(action);
             });
-
-            //pressures.ForEach(pressure =>
-            //{
-            //    TakenAction action = new TakenAction()
-            //    {
-            //        Id = pressure.Id,
-            //        Date = (DateTime)pressure.Time,
-            //        SubjectText = pressure.High + " / " + pressure.Low,
-            //        AdditionalText = "",
-            //        Type = "Blood pressure",
-            //        ClassObject = pressure,
-            //    };
-            //    actions.Add(action);
-            //});
 
             return actions.OrderByDescending(a=>a.Date).ToList();
 
