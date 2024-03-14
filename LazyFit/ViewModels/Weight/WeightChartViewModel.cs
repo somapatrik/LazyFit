@@ -60,7 +60,7 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         public async void LoadChartData(int pageNumber, int numberOfWeight)
         {
-            List<Weight> weights = await DB.GetWeightPage(pageNumber, numberOfWeight);
+            List<Weight> weights = await WeightService.GetWeightPage(pageNumber, numberOfWeight);
 
             var entries = weights
                 .OrderBy(w => w.Time)

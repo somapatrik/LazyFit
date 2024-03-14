@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Models.Foods;
-using LazyFit.Models.WeightModels;
 
 namespace LazyFit.Services
 {

@@ -40,7 +40,7 @@ namespace LazyFit.ViewModels
 
         private async Task LoadLatestWeight()
         {
-            var latest = await DB.GetLastWeight();
+            var latest = await WeightService.GetLastWeight();
             if (latest != null)
                 LatestWeight = latest.WeightValue.ToString();
             else

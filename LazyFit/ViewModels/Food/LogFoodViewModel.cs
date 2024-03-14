@@ -62,7 +62,7 @@ namespace LazyFit.ViewModels.FoodViewModels
         {
             Foods = new ObservableCollection<FoodProperty>();
 
-            var allDrinks = await DB.GetFoodProperties();
+            var allDrinks = await FoodService.GetFoodProperties();
             allDrinks.ForEach(Foods.Add);
         }
 
