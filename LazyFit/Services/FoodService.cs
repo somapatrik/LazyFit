@@ -19,7 +19,7 @@ namespace LazyFit.Services
         public static async Task InsertFood(Food food)
         {
             await DB.Database.InsertAsync(food);
-            WeakReferenceMessenger.Default.Send(new Messages.NewFoodMessage(food));
+            WeakReferenceMessenger.Default.Send(new Messages.FoodRefreshMessage(food));
         }
 
         public static async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)

@@ -9,7 +9,7 @@ namespace LazyFit.Services
         public static async Task InsertWeight(Weight weight)
         {
             await DB.Database.InsertAsync(weight);
-            WeakReferenceMessenger.Default.Send(new Messages.NewWeightMessage(weight));
+            WeakReferenceMessenger.Default.Send(new Messages.WeightRefreshMessage(weight));
         }
         public static async Task<Weight> GetLastWeight()
         {

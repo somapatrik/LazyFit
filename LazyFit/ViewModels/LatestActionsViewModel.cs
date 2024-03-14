@@ -22,12 +22,12 @@ namespace LazyFit.ViewModels
 
         private void WireMessages()
         {
-            WeakReferenceMessenger.Default.Register<NewDrinkMessage>(this, async (a,b) => await LoadActions());
-            WeakReferenceMessenger.Default.Register<NewFoodMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<DrinkRefreshMessage>(this, async (a,b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<FoodRefreshMessage>(this, async (a, b) => await LoadActions());
             WeakReferenceMessenger.Default.Register<EndFastMessage>(this, async (a, b) => await LoadActions());
 
             WeakReferenceMessenger.Default.Register<DeleteFastMessage>(this, async (a, b) => await LoadActions());
-            WeakReferenceMessenger.Default.Register<NewWeightMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => await LoadActions());
 
             WeakReferenceMessenger.Default.Register<RefreshWeightMessage>(this, async (a, b) => await LoadActions());
         }

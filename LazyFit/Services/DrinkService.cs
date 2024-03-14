@@ -19,7 +19,7 @@ namespace LazyFit.Services
         public static async Task InsertDrink(Drink drink)
         {
             await DB.Database.InsertAsync(drink);
-            WeakReferenceMessenger.Default.Send(new NewDrinkMessage(drink));
+            WeakReferenceMessenger.Default.Send(new DrinkRefreshMessage(drink));
         }
 
         public static async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
