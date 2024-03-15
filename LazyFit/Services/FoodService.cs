@@ -6,11 +6,16 @@ namespace LazyFit.Services
 {
     public static class FoodService
     {
-
         public static async Task CreateFood(Food food)
         {
             await DB.Database.InsertAsync(food);
             WeakReferenceMessenger.Default.Send(new FoodNewMessage(food));
+        }
+
+        public static async Task DeleteFood(Food food)
+        {
+            await DB.Database.DeleteAsync(food);
+            WeakReferenceMessenger.Default.Send(new FoodDeleteMessage(food));
         }
 
         public static async Task<List<FoodProperty>> GetFoodProperties()
