@@ -16,12 +16,12 @@ namespace LazyFit.ViewModels.DrinkViewModels
         protected override async void LoadResults()
         {
             // Load data
-            List<Drink> drinks = await DB.GetDrinks(FirstDateTime, LastDateTime, true);
+            List<Drink> drinks = await DrinkService.GetDrinks(FirstDateTime, LastDateTime, true);
             DataExists = drinks.Any();
             List<ChartEntry> entries = new List<ChartEntry>();
 
             // Empty chart
-            var properties = await DB.GetDrinkProperties();
+            var properties = await DrinkService.GetDrinkProperties();
             properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName, Color = SKColors.Gray }));
 
             if (DataExists)
