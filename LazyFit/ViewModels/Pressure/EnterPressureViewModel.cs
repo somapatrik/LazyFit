@@ -73,7 +73,7 @@ namespace LazyFit.ViewModels.Pressure
         {
             var bloodPressure = new BloodPressure(Guid.NewGuid(), int.Parse(High), int.Parse(Low));
 
-            await DB.InsertPressure(bloodPressure);
+            await PressureService.InsertPressure(bloodPressure);
             await MopupService.Instance.PushAsync(new PressureDiagnose(bloodPressure));
 
             WeakReferenceMessenger.Default.Send(new Messages.RefreshPressureCards(true));

@@ -70,7 +70,7 @@ namespace LazyFit.ViewModels.Fasting
         private async void LoadFastList()
         {
             FastHistory = new ObservableCollection<Fast>();
-            List<Fast> fasts = (await DB.GetFastsByPage(_pageNumber)).OrderByDescending(f => f.EndTime).ToList();
+            List<Fast> fasts = (await FastService.GetFastsByPage(_pageNumber)).OrderByDescending(f => f.EndTime).ToList();
             fasts.ForEach(FastHistory.Add);
         }
     }

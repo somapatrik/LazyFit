@@ -170,7 +170,7 @@ namespace LazyFit.ViewModels.Fasting
 
         private async void RefreshFastData()
         {
-            ActiveFast = await DB.GetRunningFast();
+            ActiveFast = await FastService.GetRunningFast();
             isFastActive = ActiveFast != null;
             if (ActiveFast != null)
             {

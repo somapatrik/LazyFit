@@ -139,7 +139,7 @@ namespace LazyFit.ViewModels.Fasting
 
         private async void LoadFast(Guid fastId)
         {
-            FinishedFast = await DB.GetFast(fastId);
+            FinishedFast = await FastService.GetFast(fastId);
 
             fastSpan = (DateTime)FinishedFast.EndTime - FinishedFast.StartTime;
             planSpan = FinishedFast.GetPlannedEnd() - FinishedFast.StartTime;
@@ -175,7 +175,7 @@ namespace LazyFit.ViewModels.Fasting
 
             fast.ChangeDates(st,end);
 
-            await DB.UpdateFast(fast);
+            await FastService.UpdateFast(fast);
             LoadFast(fast.Id);
         }
 

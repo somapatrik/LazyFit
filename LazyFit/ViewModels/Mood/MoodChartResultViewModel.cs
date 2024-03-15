@@ -14,7 +14,7 @@ namespace LazyFit.ViewModels.MoodViewModels
         public Chart MoodChart { get => _MoodChart; set => SetProperty(ref _MoodChart, value); }
         protected async override void LoadResults()
         {
-            List<Mood> moods = await DB.GetMoods(FirstDateTime, LastDateTime);
+            List<Mood> moods = await MoodService.GetMoods(FirstDateTime, LastDateTime);
             DataExists = moods.Any();
             List<ChartEntry> entries = new List<ChartEntry>
             {
