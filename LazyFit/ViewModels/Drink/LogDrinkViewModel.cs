@@ -67,10 +67,10 @@ namespace LazyFit.ViewModels.DrinkViewModels
         private async void SaveDrinkHandler()
         {
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
-            
-            await DrinkService.InsertDrink(new Drink(Guid.NewGuid(), time, SelectedDrink.DrinkID));
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+            Drink drink = new Drink(Guid.NewGuid(), time, SelectedDrink.DrinkID);
 
+            await DrinkService.CreateDrink(drink);
+  
             await MopupService.Instance.PopAsync();
         }
 

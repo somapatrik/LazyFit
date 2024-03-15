@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
+using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
 using System.Collections.ObjectModel;

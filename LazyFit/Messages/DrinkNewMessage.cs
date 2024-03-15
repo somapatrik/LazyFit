@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.Messaging.Messages;
+using LazyFit.Models.Drinks;
 
 namespace LazyFit.Messages
 {
-    internal class DrinkNewMessage
+    public class DrinkNewMessage : ValueChangedMessage<Drink>
     {
+        public DrinkNewMessage(Drink value) : base(value)
+        {
+        }
     }
 }

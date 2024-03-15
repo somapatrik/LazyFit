@@ -43,19 +43,20 @@ namespace LazyFit.ViewModels.Reports
                 await LoadWeight(); 
             });
 
-            WeakReferenceMessenger.Default.Register<FoodRefreshMessage>(this, async (a, b) => 
-            { 
-                await LoadFood(); 
+            // Food
+            WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) =>
+            {
+                await LoadFood();
+                await LoadChart();
+            });
+
+            WeakReferenceMessenger.Default.Register<FoodDeleteMessage>(this, async (a, b) =>
+            {
+                await LoadFood();
                 await LoadChart();
             });
 
             // Drinking
-            WeakReferenceMessenger.Default.Register<DrinkUpdateMessage>(this, async (a, b) => 
-            { 
-                await LoadDrink(); 
-                await LoadChart();
-            });
-
             WeakReferenceMessenger.Default.Register<DrinkNewMessage>(this, async (a, b) =>
             {
                 await LoadDrink();

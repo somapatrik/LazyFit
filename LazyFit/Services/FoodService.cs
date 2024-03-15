@@ -1,10 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
 using LazyFit.Models.Foods;
 
 namespace LazyFit.Services
 {
     public static class FoodService
     {
+
+        public static async Task CreateFood(Food food)
+        {
+            await DB.Database.InsertAsync(food);
+            WeakReferenceMessenger.Default.Send(new FoodNewMessage(food));
+        }
+
         public static async Task<List<FoodProperty>> GetFoodProperties()
         {
             return await DB.Database.Table<FoodProperty>().ToListAsync();
@@ -18,7 +26,6 @@ namespace LazyFit.Services
         public static async Task InsertFood(Food food)
         {
             await DB.Database.InsertAsync(food);
-            WeakReferenceMessenger.Default.Send(new Messages.FoodRefreshMessage(food));
         }
 
         public static async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
