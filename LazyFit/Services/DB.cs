@@ -279,29 +279,6 @@ namespace LazyFit.Services
         }
         #endregion
 
-        #region Blood pressure
-
-        public static async Task InsertPressure(BloodPressure pressure)
-        {
-            await Database.InsertAsync(pressure);
-        }
-
-        public static async Task<List<BloodPressure>> GetPressures(DateTime fromDate, DateTime toDate)
-        {
-            return await Database.Table<BloodPressure>().Where(p => p.Time >= fromDate && p.Time <= toDate).OrderByDescending(bp=>bp.Time).ToListAsync();
-        }
-
-        public static async Task<BloodPressure> GetPressure(Guid id)
-        {
-            return await Database.Table<BloodPressure>().FirstOrDefaultAsync(p => p.Id == id);
-        }
-
-        public static async Task<List<BloodPressure>> GetLastPressures(int count)
-        {
-            return await Database.Table<BloodPressure>().OrderByDescending(p=>p.Time).Take(count).ToListAsync();
-        }
-
-        #endregion
 
     }
 }

@@ -19,7 +19,7 @@ namespace LazyFit.ViewModels.Pressure
         private async void LoadPressure()
         {
             BloodPressures = new ObservableCollection<BloodPressure>();
-            (await DB.GetLastPressures(10)).ForEach(BloodPressures.Add);
+            (await PressureService.GetLastPressures(10)).ForEach(BloodPressures.Add);
         }
     }
 }
