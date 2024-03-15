@@ -6,7 +6,6 @@ using LazyFit.Models.Foods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
-using System.Text;
 
 namespace LazyFit.Services
 {
@@ -122,7 +121,7 @@ namespace LazyFit.Services
             var drinks = await DrinkService.GetDrinks(fromTime, toTime);
             var moods = await MoodService.GetMoods(fromTime, toTime);
             var weights = await WeightService.GetWeights(fromTime, toTime);
-            var fasts = await GetFasts(fromTime, toTime);
+            var fasts = await FastService.GetFasts(fromTime, toTime);
 
             List<ActionSquare> actionSquares = new List<ActionSquare>();
 
@@ -194,8 +193,7 @@ namespace LazyFit.Services
             var drinks = await DrinkService.GetDrinks(fromTime, toTime);
             var moods = await MoodService.GetMoods(fromTime, toTime);
             var weights = await WeightService.GetWeights(fromTime, toTime);
-            var fasts = await GetFasts(fromTime, toTime);
-            //var pressures = await GetPressures(fromTime, toTime);
+            var fasts = await FastService.GetFasts(fromTime, toTime);
 
             List<FoodProperty> foodProperties = await FoodService.GetFoodProperties();
             List<DrinkProperty> drinkProperties = await DrinkService.GetDrinkProperties();
@@ -279,68 +277,6 @@ namespace LazyFit.Services
             return actions.OrderByDescending(a=>a.Date).ToList();
 
         }
-        #endregion
-
-      
-
-       
-
-        #region Fast
-
-        public static async Task<Fast> GetFast(Guid fastId)
-        {
-            return await Database.Table<Fast>().FirstOrDefaultAsync(f=>f.Id == fastId);
-        }
-
-        public static async Task<List<Fast>> GetFastHistory()
-        {
-            return await Database.Table<Fast>().Where(f=> f.EndTime != null).OrderByDescending(x=>x.StartTime).ToListAsync();
-        }
-
-        public static async Task<List<Fast>> GetFastsByPage(int pageNumber = 0)
-        {
-            DateTime displayTime = DateTime.Today.AddMonths(pageNumber);
-            DateTime from = new DateTime(displayTime.Year, displayTime.Month, 1);
-            DateTime to = from.AddMonths(1).AddDays(-1);
-
-            var f = await Database.Table<Fast>().Where(f=>f.EndTime != null && f.StartTime >= from && f.StartTime<=to).ToListAsync();
-            return f;
-
-        }
-
-        public static async Task<List<Fast>> GetFastsByPagePerWeek(int pageNumber = 0)
-        {
-            DateTime today = DateTime.Today.AddDays(7 * pageNumber);
-            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek ;
-
-            DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(7).AddMinutes(-1);
-
-            var f = await Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= monday && f.StartTime <= sunday).ToListAsync();
-            return f;
-        }
-
-        public static async Task<List<Fast>> GetFasts(DateTime fromDate, DateTime toDate)
-        {
-            return await Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= fromDate && f.StartTime <= toDate).ToListAsync();
-        }
-
-        public static async Task<Fast> GetRunningFast()
-        {
-            return await Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);
-        }
-
-        public static async Task InsertFast(Fast fast)
-        {
-            await Database.InsertAsync(fast);
-            WeakReferenceMessenger.Default.Send(new StartFastMessage(fast));
-        }
-
-        public static async Task UpdateFast(Fast fast)
-        {
-            await Database.UpdateAsync(fast);
-        }
-
         #endregion
 
         #region Blood pressure

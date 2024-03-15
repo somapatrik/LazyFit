@@ -29,7 +29,7 @@ namespace LazyFit.ViewModels.Fasting
 
         protected override async void LoadResults()
         {
-            List<Fast> fasts = await DB.GetFasts(FirstDateTime, LastDateTime);
+            List<Fast> fasts = await FastService.GetFasts(FirstDateTime, LastDateTime);
             List<ChartEntry> entries = new List<ChartEntry>();
             DataExists = fasts.Any();
 
