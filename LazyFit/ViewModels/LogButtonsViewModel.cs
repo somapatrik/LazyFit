@@ -28,8 +28,8 @@ namespace LazyFit.ViewModels
         private void WireMessages()
         {
             WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => await LoadLatestWeight());
-            WeakReferenceMessenger.Default.Register<StartFastMessage>(this, async (a, b) => await LoadActiveFast());
-            WeakReferenceMessenger.Default.Register<EndFastMessage>(this, async (a, b) => await LoadActiveFast());
+            WeakReferenceMessenger.Default.Register<FastStartMessage>(this, async (a, b) => await LoadActiveFast());
+            WeakReferenceMessenger.Default.Register<FastEndMessage>(this, async (a, b) => await LoadActiveFast());
         }
 
         private async void LoadDataAsync()

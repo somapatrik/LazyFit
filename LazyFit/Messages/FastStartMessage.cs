@@ -3,9 +3,9 @@ using LazyFit.Models;
 
 namespace LazyFit.Messages
 {
-    public class StartFastMessage : ValueChangedMessage<Fast>
+    public class FastStartMessage : ValueChangedMessage<Fast>
     {
-        public StartFastMessage(Fast value) : base(value)
+        public FastStartMessage(Fast value) : base(value)
         {
         }
     }

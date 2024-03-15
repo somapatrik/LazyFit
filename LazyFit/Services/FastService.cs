@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui.Converters;
+using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
 using LazyFit.Models;
 
 namespace LazyFit.Services
@@ -10,13 +12,11 @@ namespace LazyFit.Services
         {
             return await DB.Database.Table<Fast>().Where(f=>f.EndTime != null).ThenByDescending(f=>f.StartTime).ToListAsync();
         } 
-
         public static async Task<bool> FastsExists(int numberOfFasts)
         {
             var fasts = await GetLastFasts(numberOfFasts);
             return fasts.Any();
         }
-
         public static async Task<int> GetFastFinishRatio(int numberOfFasts)
         {
             var fasts = await DB.Database.Table<Fast>()
@@ -36,12 +36,10 @@ namespace LazyFit.Services
         {
             return await DB.Database.Table<Fast>().FirstOrDefaultAsync(f => f.Id == fastId);
         }
-
         public static async Task<List<Fast>> GetFastHistory()
         {
             return await DB.Database.Table<Fast>().Where(f => f.EndTime != null).OrderByDescending(x => x.StartTime).ToListAsync();
         }
-
         public static async Task<List<Fast>> GetFastsByPage(int pageNumber = 0)
         {
             DateTime displayTime = DateTime.Today.AddMonths(pageNumber);
@@ -52,7 +50,6 @@ namespace LazyFit.Services
             return f;
 
         }
-
         public static async Task<List<Fast>> GetFastsByPagePerWeek(int pageNumber = 0)
         {
             DateTime today = DateTime.Today.AddDays(7 * pageNumber);
@@ -64,25 +61,35 @@ namespace LazyFit.Services
             var f = await DB.Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= monday && f.StartTime <= sunday).ToListAsync();
             return f;
         }
-
         public static async Task<List<Fast>> GetFasts(DateTime fromDate, DateTime toDate)
         {
             return await DB.Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= fromDate && f.StartTime <= toDate).ToListAsync();
         }
-
         public static async Task<Fast> GetRunningFast()
         {
             return await DB.Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);
         }
-
         public static async Task InsertFast(Fast fast)
         {
             await DB.Database.InsertAsync(fast);
+            WeakReferenceMessenger.Default.Send(new FastStartMessage(fast));
         }
-
         public static async Task UpdateFast(Fast fast)
         {
             await DB.Database.UpdateAsync(fast);
+        }
+        public static async Task EndFast(Fast fast)
+        {
+            fast.End();
+            await DB.Database.UpdateAsync(fast);
+            WeakReferenceMessenger.Default.Send(new FastEndMessage(fast));
+        }
+        public static async Task StartFast(int hours)
+        {
+            Fast fast = new Fast(Guid.NewGuid());
+            fast.SetHours(hours);
+            await DB.Database.InsertAsync(fast);
+            WeakReferenceMessenger.Default.Send(new FastStartMessage(fast));
         }
     }
 }

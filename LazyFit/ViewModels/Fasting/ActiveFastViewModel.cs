@@ -56,9 +56,9 @@ namespace LazyFit.ViewModels.Fasting
 
         private void WireMessages()
         {
-            WeakReferenceMessenger.Default.Register<StartFastMessage>(this, (a, b) => { LoadData(); });
-            WeakReferenceMessenger.Default.Register<EndFastMessage>(this, (a, b) => { LoadData(); });
-            WeakReferenceMessenger.Default.Register<DeleteFastMessage>(this, (a, b) => { LoadData(); });
+            WeakReferenceMessenger.Default.Register<FastStartMessage>(this, (a, b) => { LoadData(); });
+            WeakReferenceMessenger.Default.Register<FastEndMessage>(this, (a, b) => { LoadData(); });
+            WeakReferenceMessenger.Default.Register<FastDeleteMessage>(this, (a, b) => { LoadData(); });
         }
 
         private async void LoadData()
@@ -83,7 +83,7 @@ namespace LazyFit.ViewModels.Fasting
             if (await Shell.Current.DisplayAlert("Delete active fast", "", "Delete","Cancel"))
             {
                 await DB.DeleteItem(ActiveFast);
-                WeakReferenceMessenger.Default.Send(new DeleteFastMessage(ActiveFast));
+                WeakReferenceMessenger.Default.Send(new FastDeleteMessage(ActiveFast));
             }
         }
 
@@ -100,9 +100,7 @@ namespace LazyFit.ViewModels.Fasting
 
             if (EndIt)
             {
-                ActiveFast.End();
-                await FastService.UpdateFast(ActiveFast);
-                WeakReferenceMessenger.Default.Send(new EndFastMessage(ActiveFast));
+                await FastService.EndFast(ActiveFast);
             }
         }
     }

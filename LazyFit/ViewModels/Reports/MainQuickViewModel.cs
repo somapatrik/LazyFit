@@ -57,13 +57,13 @@ namespace LazyFit.ViewModels.Reports
             });
 
             // Fasting
-            WeakReferenceMessenger.Default.Register<StartFastMessage>(this, async (a, b) =>
+            WeakReferenceMessenger.Default.Register<FastStartMessage>(this, async (a, b) =>
             {
                 await LoadFasts();
                 await LoadChart();
             });
 
-            WeakReferenceMessenger.Default.Register<EndFastMessage>(this, async (a, b) =>
+            WeakReferenceMessenger.Default.Register<FastEndMessage>(this, async (a, b) =>
             {
                 await LoadFasts();
                 await LoadChart();
