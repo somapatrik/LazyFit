@@ -68,9 +68,7 @@ namespace LazyFit.ViewModels.FoodViewModels
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
 
             Food food = new Food(Guid.NewGuid(), time, SelectedFood.FoodId);
-            await FoodService.InsertFood(food);
-
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+            await FoodService.CreateFood(food);
             await MopupService.Instance.PopAsync();
         }
 
