@@ -120,7 +120,7 @@ namespace LazyFit.Services
         {
             var foods = await FoodService.GetFoods(fromTime, toTime);
             var drinks = await DrinkService.GetDrinks(fromTime, toTime);
-            var moods = await GetMoods(fromTime, toTime);
+            var moods = await MoodService.GetMoods(fromTime, toTime);
             var weights = await WeightService.GetWeights(fromTime, toTime);
             var fasts = await GetFasts(fromTime, toTime);
 
@@ -192,7 +192,7 @@ namespace LazyFit.Services
 
             var foods = await FoodService.GetFoods(fromTime, toTime);
             var drinks = await DrinkService.GetDrinks(fromTime, toTime);
-            var moods = await GetMoods(fromTime, toTime);
+            var moods = await MoodService.GetMoods(fromTime, toTime);
             var weights = await WeightService.GetWeights(fromTime, toTime);
             var fasts = await GetFasts(fromTime, toTime);
             //var pressures = await GetPressures(fromTime, toTime);
@@ -283,34 +283,7 @@ namespace LazyFit.Services
 
       
 
-        #region Mood
-
-        public static async Task InsertMood(Mood mood)
-        {
-            await Database.InsertAsync(mood);
-        }
-
-        public static async Task UpdateMood(Mood mood)
-        {
-            await Database.UpdateAsync(mood);
-        }
-
-        public static async Task DeleteMood(Mood mood)
-        {
-            await Database.DeleteAsync(mood);
-        }
-
-        public static async Task<List<Mood>> GetAllMoods()
-        {
-           return await Database.Table<Mood>().ToListAsync();
-        }
-
-        public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime)
-        {
-            return await Database.Table<Mood>().Where(m=> m.Time >= fromTime && m.Time <= toTime).ToListAsync();
-        }
-
-        #endregion
+       
 
         #region Fast
 
