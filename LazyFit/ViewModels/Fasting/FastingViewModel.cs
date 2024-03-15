@@ -7,7 +7,6 @@ using LazyFit.Views.Fasting;
 using Microcharts;
 using Mopups.Services;
 using SkiaSharp;
-using System;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels.Fasting

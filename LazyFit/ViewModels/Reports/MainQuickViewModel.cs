@@ -56,6 +56,18 @@ namespace LazyFit.ViewModels.Reports
                 await LoadChart();
             });
 
+            WeakReferenceMessenger.Default.Register<DrinkNewMessage>(this, async (a, b) =>
+            {
+                await LoadDrink();
+                await LoadChart();
+            });
+
+            WeakReferenceMessenger.Default.Register<DrinkDeleteMessage>(this, async (a, b) =>
+            {
+                await LoadDrink();
+                await LoadChart();
+            });
+
             // Fasting
             WeakReferenceMessenger.Default.Register<FastStartMessage>(this, async (a, b) =>
             {
@@ -64,6 +76,12 @@ namespace LazyFit.ViewModels.Reports
             });
 
             WeakReferenceMessenger.Default.Register<FastEndMessage>(this, async (a, b) =>
+            {
+                await LoadFasts();
+                await LoadChart();
+            });
+
+            WeakReferenceMessenger.Default.Register<FastDeleteMessage>(this, async (a, b) =>
             {
                 await LoadFasts();
                 await LoadChart();

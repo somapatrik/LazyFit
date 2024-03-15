@@ -82,8 +82,7 @@ namespace LazyFit.ViewModels.Fasting
         {
             if (await Shell.Current.DisplayAlert("Delete active fast", "", "Delete","Cancel"))
             {
-                await DB.DeleteItem(ActiveFast);
-                WeakReferenceMessenger.Default.Send(new FastDeleteMessage(ActiveFast));
+                await FastService.DeleteFast(ActiveFast);
             }
         }
 

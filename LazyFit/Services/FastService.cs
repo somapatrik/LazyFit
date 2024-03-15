@@ -69,15 +69,13 @@ namespace LazyFit.Services
         {
             return await DB.Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);
         }
-        public static async Task InsertFast(Fast fast)
-        {
-            await DB.Database.InsertAsync(fast);
-            WeakReferenceMessenger.Default.Send(new FastStartMessage(fast));
-        }
+        
+        [Obsolete]
         public static async Task UpdateFast(Fast fast)
         {
             await DB.Database.UpdateAsync(fast);
         }
+        
         public static async Task EndFast(Fast fast)
         {
             fast.End();
@@ -90,6 +88,12 @@ namespace LazyFit.Services
             fast.SetHours(hours);
             await DB.Database.InsertAsync(fast);
             WeakReferenceMessenger.Default.Send(new FastStartMessage(fast));
+        }
+
+        public static async Task DeleteFast(Fast activeFast)
+        {
+            await DB.Database.DeleteAsync(activeFast);
+            WeakReferenceMessenger.Default.Send(new FastDeleteMessage(activeFast));
         }
     }
 }
