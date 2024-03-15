@@ -50,7 +50,7 @@ namespace LazyFit.ViewModels.Reports
             });
 
             // Drinking
-            WeakReferenceMessenger.Default.Register<DrinkRefreshMessage>(this, async (a, b) => 
+            WeakReferenceMessenger.Default.Register<DrinkUpdateMessage>(this, async (a, b) => 
             { 
                 await LoadDrink(); 
                 await LoadChart();

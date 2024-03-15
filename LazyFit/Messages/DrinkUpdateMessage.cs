@@ -3,9 +3,9 @@ using LazyFit.Models.Drinks;
 
 namespace LazyFit.Messages
 {
-    public class DrinkRefreshMessage : ValueChangedMessage<Drink>
+    public class DrinkUpdateMessage : ValueChangedMessage<Drink>
     {
-        public DrinkRefreshMessage(Drink value) : base(value)
+        public DrinkUpdateMessage(Drink value) : base(value)
         {
         }
     }
