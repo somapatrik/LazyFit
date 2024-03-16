@@ -16,12 +16,6 @@ namespace LazyFit.Services
             return await DB.Database.Table<DrinkProperty>().ToListAsync();
         }
 
-        public static async Task InsertDrink(Drink drink)
-        {
-            await DB.Database.InsertAsync(drink);
-            WeakReferenceMessenger.Default.Send(new DrinkRefreshMessage(drink));
-        }
-
         public static async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
             if (!LoadProperties)
@@ -51,5 +45,19 @@ namespace LazyFit.Services
             return (int)Math.Round((goodDrinkCount / drinksCount)*100, 0);
 
         }
+
+
+        public static async Task CreateDrink(Drink drink)
+        {
+            await DB.Database.InsertAsync(drink);
+            WeakReferenceMessenger.Default.Send(new DrinkNewMessage(drink));
+        }
+
+        public static async Task DeleteDrink(Drink drink)
+        {
+            await DB.Database.DeleteAsync(drink);
+            WeakReferenceMessenger.Default.Send(new DrinkDeleteMessage(drink));
+        }
+
     }
 }

@@ -43,27 +43,46 @@ namespace LazyFit.ViewModels.Reports
                 await LoadWeight(); 
             });
 
-            WeakReferenceMessenger.Default.Register<FoodRefreshMessage>(this, async (a, b) => 
-            { 
-                await LoadFood(); 
+            // Food
+            WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) =>
+            {
+                await LoadFood();
+                await LoadChart();
+            });
+
+            WeakReferenceMessenger.Default.Register<FoodDeleteMessage>(this, async (a, b) =>
+            {
+                await LoadFood();
                 await LoadChart();
             });
 
             // Drinking
-            WeakReferenceMessenger.Default.Register<DrinkRefreshMessage>(this, async (a, b) => 
-            { 
-                await LoadDrink(); 
+            WeakReferenceMessenger.Default.Register<DrinkNewMessage>(this, async (a, b) =>
+            {
+                await LoadDrink();
+                await LoadChart();
+            });
+
+            WeakReferenceMessenger.Default.Register<DrinkDeleteMessage>(this, async (a, b) =>
+            {
+                await LoadDrink();
                 await LoadChart();
             });
 
             // Fasting
-            WeakReferenceMessenger.Default.Register<StartFastMessage>(this, async (a, b) =>
+            //WeakReferenceMessenger.Default.Register<FastStartMessage>(this, async (a, b) =>
+            //{
+            //    await LoadFasts();
+            //    await LoadChart();
+            //});
+
+            WeakReferenceMessenger.Default.Register<FastEndMessage>(this, async (a, b) =>
             {
                 await LoadFasts();
                 await LoadChart();
             });
 
-            WeakReferenceMessenger.Default.Register<EndFastMessage>(this, async (a, b) =>
+            WeakReferenceMessenger.Default.Register<FastDeleteMessage>(this, async (a, b) =>
             {
                 await LoadFasts();
                 await LoadChart();

@@ -7,7 +7,6 @@ using LazyFit.Views.Fasting;
 using Microcharts;
 using Mopups.Services;
 using SkiaSharp;
-using System;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels.Fasting
@@ -143,7 +142,7 @@ namespace LazyFit.ViewModels.Fasting
 
             ActiveFast.End();
             await FastService.UpdateFast(ActiveFast);
-            WeakReferenceMessenger.Default.Send(new EndFastMessage(ActiveFast));
+            WeakReferenceMessenger.Default.Send(new FastEndMessage(ActiveFast));
 
             await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
 

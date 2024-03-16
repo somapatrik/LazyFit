@@ -22,14 +22,20 @@ namespace LazyFit.ViewModels
 
         private void WireMessages()
         {
-            WeakReferenceMessenger.Default.Register<DrinkRefreshMessage>(this, async (a,b) => await LoadActions());
-            WeakReferenceMessenger.Default.Register<FoodRefreshMessage>(this, async (a, b) => await LoadActions());
-            WeakReferenceMessenger.Default.Register<EndFastMessage>(this, async (a, b) => await LoadActions());
+            // Drinking
+            WeakReferenceMessenger.Default.Register<DrinkNewMessage>(this, async (a,b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<DrinkDeleteMessage>(this, async (a, b) => await LoadActions());
 
-            WeakReferenceMessenger.Default.Register<DeleteFastMessage>(this, async (a, b) => await LoadActions());
+            // Food
+            WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<FoodDeleteMessage>(this, async (a, b) => await LoadActions());
+
+            // Fast
+            WeakReferenceMessenger.Default.Register<FastEndMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<FastDeleteMessage>(this, async (a, b) => await LoadActions());
+
+            // Weight
             WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => await LoadActions());
-
-            WeakReferenceMessenger.Default.Register<RefreshWeightMessage>(this, async (a, b) => await LoadActions());
         }
 
         private async void LoadData()
