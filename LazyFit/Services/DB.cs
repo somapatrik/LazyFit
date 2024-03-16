@@ -129,6 +129,7 @@ namespace LazyFit.Services
             {
                 actionSquares.Add(new ActionSquare() 
                 { 
+                    ActionObject = food,
                     ActionName = nameof(Food),
                     Color = LazyColors.FreshGreen, 
                     Time = food.Time, 
@@ -139,6 +140,7 @@ namespace LazyFit.Services
             {
                 actionSquares.Add(new ActionSquare() 
                 {
+                    ActionObject = drink,
                     ActionName = nameof(Drink),
                     Color = LazyColors.WaterBlue, 
                     Time = drink.Time, 
@@ -149,6 +151,7 @@ namespace LazyFit.Services
             {
                 actionSquares.Add(new ActionSquare()
                 {
+                    ActionObject = mood,
                     ActionName = nameof(Mood),
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
@@ -160,6 +163,7 @@ namespace LazyFit.Services
             {
                 actionSquares.Add(new ActionSquare()
                 {
+                    ActionObject = fast,
                     ActionName = nameof(Fast),
                     Color = LazyColors.LazyColor,
                     Time = (DateTime)fast.EndTime,
@@ -170,8 +174,10 @@ namespace LazyFit.Services
 
             weights.ForEach(weight =>
             {
+
                 actionSquares.Add(new ActionSquare()
                 {
+                    ActionObject = weight,
                     ActionName = nameof(Weight),
                     Color = Colors.DarkOrange.ToHex(),
                     Time = weight.Time,

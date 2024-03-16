@@ -15,5 +15,8 @@ namespace LazyFit.Models
 
         [ObservableProperty]
         private bool _IsBad;
+
+        [ObservableProperty]
+        private object _ActionObject;
     }
 }
