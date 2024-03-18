@@ -2,16 +2,11 @@
 
 namespace LazyFit.Models.Pressure
 {
-    public class BloodPressure
+    public class BloodPressure : LogAction
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
         public int High { get; set; }
         public int Low { get; set; }
         public int Pulse { get; set; }
-
-        public DateTime Time { get; set; }
-
         public PressureType Type { get; set; }
         
         public BloodPressure() { }

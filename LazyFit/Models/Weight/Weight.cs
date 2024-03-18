@@ -2,11 +2,8 @@
 
 namespace LazyFit.Models.WeightModels
 {
-    public class Weight
+    public class Weight : LogAction
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
-        public DateTime Time { get; set; }
         public decimal WeightValue { get; set; }
         public UnitWeight WeightUnit { get; set; }
 
