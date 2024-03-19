@@ -20,7 +20,7 @@ namespace LazyFit.ViewModels.Reports
         public ActionDayViewModel(ActionSquareDate actionSquare) 
         {
             ActionDate = actionSquare.Time;
-            actionSquare.Actions.ForEach(Actions.Add);
+            actionSquare.Actions.OrderByDescending(a=>a.Time).ToList().ForEach(Actions.Add);
         }
 
         [RelayCommand]
@@ -28,7 +28,7 @@ namespace LazyFit.ViewModels.Reports
         {
             ActionSquare selectedAction = (ActionSquare)action;
 
-            if (await Shell.Current.DisplayAlert($"Delete {selectedAction.ActionName}?",$"Remove {selectedAction.ItemName}?","Delete", "Cancel"))
+            if (await Shell.Current.DisplayAlert($"Delete {selectedAction.ActionName}?",$"Remove {selectedAction.ItemName} from {selectedAction.Time.ToShortTimeString()}?","Delete", "Cancel"))
             {
                 await DB.Database.DeleteAsync(selectedAction.ActionObject);
                 Actions.Remove(selectedAction);
