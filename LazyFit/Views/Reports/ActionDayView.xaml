@@ -27,7 +27,7 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                        <Grid ColumnDefinitions="*, 4*" RowDefinitions="auto, auto">
+                        <Grid ColumnDefinitions="*, 3*, *" RowDefinitions="auto, auto">
 
                             <Ellipse WidthRequest="20" HeightRequest="20">
 
@@ -141,13 +141,24 @@
                             <Grid Grid.Row="1" HorizontalOptions="Center">
                                 <Line X1="0" Y1="0" X2="0" Y2="35" Stroke="Gray" Opacity=".5"/>
                             </Grid>
-                            
-                            
+                                                 
                             <Label Grid.Column="1" 
                                    Text="{Binding Time, Converter={converters:DatetimeToTimeConverter}}" 
                                    TextColor="Gray"/>
                             
                             <Label Grid.Column="1" Grid.Row="1" Text="{Binding ItemName}" Style="{StaticResource DetailItemName}"/>
+
+                            <ImageButton Grid.Column="2" 
+                                         Grid.RowSpan="2" 
+                                         Source="icons/close.png" 
+                                         WidthRequest="20"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         Opacity=".5"
+                                         Margin="0"
+                                         Padding="0"
+                                         Command="{Binding BindingContext.DeleteActionCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}"
+                                         CommandParameter="{Binding .}"/>
 
                         </Grid>
                 </DataTemplate>

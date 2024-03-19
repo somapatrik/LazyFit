@@ -100,7 +100,7 @@ namespace LazyFit.ViewModels
             if (Enum.TryParse(selectedMood, out selectedType))
             {
                 await MoodService.InsertMood(new Mood(Guid.NewGuid(), selectedType));
-                WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+                
             }
 
             await Close();

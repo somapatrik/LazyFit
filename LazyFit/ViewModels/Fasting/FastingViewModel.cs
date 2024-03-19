@@ -151,7 +151,7 @@ namespace LazyFit.ViewModels.Fasting
             TimerMessage = "";
             PercentDone = 0;
 
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
+            
         }
 
         private async void OpenFastingStart()

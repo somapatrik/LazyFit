@@ -40,7 +40,7 @@ namespace LazyFit.ViewModels.WeightViewModels
             Weight newWeight = new Weight(Guid.NewGuid(), inputWeight, UnitWeight.kg);
             //await DB.InsertWeight(newWeight);
             await WeightService.InsertWeight(newWeight);
-            WeakReferenceMessenger.Default.Send(new Messages.WeightRefreshMessage(newWeight));
+            //WeakReferenceMessenger.Default.Send(new Messages.WeightRefreshMessage(newWeight));
 
             await MopupService.Instance.PopAsync();
         }

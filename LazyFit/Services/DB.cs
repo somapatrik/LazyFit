@@ -161,7 +161,7 @@ namespace LazyFit.Services
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
                     IsBad = (mood.TypeOfMood == MoodName.Bad),
-                    ItemName = Enum.GetName(typeof(Mood), mood.TypeOfMood)
+                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood)
                 });
             });
 

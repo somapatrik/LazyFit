@@ -39,6 +39,9 @@ namespace LazyFit.ViewModels
 
             // Weight
             WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => await LoadActions());
+
+            // Refresh actions
+            WeakReferenceMessenger.Default.Register<ActionsReloadMessages>(this, async (a,b) => await LoadActions());
         }
 
         private async void LoadData()

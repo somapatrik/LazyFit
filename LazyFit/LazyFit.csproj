@@ -97,6 +97,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\icons\close.png" />
 	  <None Remove="Resources\Images\icons\icons8-twitter-50.png" />
 	</ItemGroup>
 
