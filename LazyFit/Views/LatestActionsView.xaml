@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Convertes="clr-namespace:LazyFit.Converters"
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
-             xmlns:foodModels="clr-namespace:LazyFit.Models.Foods"
+             xmlns:reportViews="clr-namespace:LazyFit.Views.Reports"
              x:Class="LazyFit.Views.LatestActionsView">
 
     <ContentView.BindingContext>
@@ -18,11 +18,15 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                     <Border Padding="10,5" 
-                            StrokeThickness="0" 
-                            BackgroundColor="{StaticResource White}">
+                            StrokeThickness="0">
 
-                            <StackLayout>
-                                <Label Text="{Binding DateTime, Converter={Convertes:DatetimeToDateConverter}}" TextColor="Gray"/>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <StackLayout Background="Transparent">
+
+                                <Label Text="{Binding Time, Converter={Convertes:DatetimeToDateConverter}}" TextColor="Gray"/>
                                 
                                 <FlexLayout Wrap="Wrap"
                                             BindableLayout.ItemsSource="{Binding Actions}">
@@ -63,7 +67,7 @@
                                         </DataTemplate>
                                     </BindableLayout.ItemTemplate>
                                 </FlexLayout>
-                                
+
                             </StackLayout>
                         </Border>
                 </DataTemplate>

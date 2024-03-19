@@ -18,5 +18,8 @@ namespace LazyFit.Models
 
         [ObservableProperty]
         private object _ActionObject;
+
+        [ObservableProperty]
+        private string _ItemName;
     }
 }

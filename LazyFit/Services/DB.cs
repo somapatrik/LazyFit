@@ -6,6 +6,7 @@ using LazyFit.Models.Foods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
+using static Android.Icu.Text.CaseMap;
 
 namespace LazyFit.Services
 {
@@ -133,7 +134,9 @@ namespace LazyFit.Services
                     ActionName = nameof(Food),
                     Color = LazyColors.FreshGreen, 
                     Time = food.Time, 
-                    IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack) });
+                    IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack),
+                    ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood)
+                });
             });
 
             drinks.ForEach(drink =>
@@ -144,7 +147,9 @@ namespace LazyFit.Services
                     ActionName = nameof(Drink),
                     Color = LazyColors.WaterBlue, 
                     Time = drink.Time, 
-                    IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea) });
+                    IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea),
+                    ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink)
+                });
             });
 
             moods.ForEach(mood =>
@@ -155,7 +160,8 @@ namespace LazyFit.Services
                     ActionName = nameof(Mood),
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
-                    IsBad = (mood.TypeOfMood == MoodName.Bad)
+                    IsBad = (mood.TypeOfMood == MoodName.Bad),
+                    ItemName = Enum.GetName(typeof(Mood), mood.TypeOfMood)
                 });
             });
 
@@ -167,7 +173,8 @@ namespace LazyFit.Services
                     ActionName = nameof(Fast),
                     Color = LazyColors.LazyColor,
                     Time = (DateTime)fast.EndTime,
-                    IsBad = (!fast.Completed)
+                    IsBad = (!fast.Completed),
+                    ItemName = fast.Completed ? "Completed fast" : "Failed fast"
                 });
             });
 
@@ -181,8 +188,9 @@ namespace LazyFit.Services
                     ActionName = nameof(Weight),
                     Color = Colors.DarkOrange.ToHex(),
                     Time = weight.Time,
-                    IsBad = false
-                });
+                    IsBad = false,
+                    ItemName = weight.WeightValue.ToString()
+                }) ;
             });
 
 
@@ -190,99 +198,6 @@ namespace LazyFit.Services
 
         }
 
-        public static async Task<List<TakenAction>> GetLatestActions(DateTime fromTime, DateTime toTime)
-        {
-            List<TakenAction> actions = new List<TakenAction>();
-
-
-            var foods = await FoodService.GetFoods(fromTime, toTime);
-            var drinks = await DrinkService.GetDrinks(fromTime, toTime);
-            var moods = await MoodService.GetMoods(fromTime, toTime);
-            var weights = await WeightService.GetWeights(fromTime, toTime);
-            var fasts = await FastService.GetFasts(fromTime, toTime);
-
-            List<FoodProperty> foodProperties = await FoodService.GetFoodProperties();
-            List<DrinkProperty> drinkProperties = await DrinkService.GetDrinkProperties();
-
-            foods.ForEach(food =>
-            {
-                FoodProperty property = foodProperties.FirstOrDefault(f => f.FoodId == food.TypeOfFood);
-
-                TakenAction action = new TakenAction()
-                {
-                    Id = food.Id,
-                    Date = food.Time,
-                    SubjectText = property.DisplayName,
-                    AdditionalText = "",
-                    Type = food.GetType().Name,
-                    ClassObject = food,
-                };
-                actions.Add(action);
-
-            });
-
-            drinks.ForEach(drink =>
-            {
-                DrinkProperty property = drinkProperties.FirstOrDefault(d => d.DrinkID == drink.TypeOfDrink);
-
-                TakenAction action = new TakenAction()
-                {
-                    Id = drink.Id,
-                    Date = drink.Time,
-                    SubjectText = property.DisplayName,
-                    AdditionalText = "",
-                    Type = drink.GetType().Name,
-                    ClassObject = drink,
-                };
-                actions.Add(action);
-
-            });
-
-            moods.ForEach(mood =>
-            {
-                TakenAction action = new TakenAction()
-                {
-                    Id = mood.Id,
-                    Date = mood.Time,
-                    SubjectText = Enum.GetName(mood.TypeOfMood),
-                    AdditionalText = "",
-                    Type = mood.GetType().Name,
-                    ClassObject = mood,
-                };
-                actions.Add(action);
-            });
-
-            weights.ForEach(weight =>
-            {
-                TakenAction action = new TakenAction()
-                {
-                    Id = weight.Id,
-                    Date = weight.Time,
-                    SubjectText = weight.WeightValue.ToString(),
-                    AdditionalText = "",
-                    Type = weight.GetType().Name,
-                    ClassObject = weight,
-                };
-                actions.Add(action);
-            });
-
-            fasts.ForEach(fast =>
-            {
-                TakenAction action = new TakenAction()
-                {
-                    Id = fast.Id,
-                    Date = (DateTime)fast.EndTime,
-                    SubjectText = fast.Completed ? "Completed fast" : "Failed fast",
-                    AdditionalText = "",
-                    Type = fast.GetType().Name,
-                    ClassObject = fast,
-                };
-                actions.Add(action);
-            });
-
-            return actions.OrderByDescending(a=>a.Date).ToList();
-
-        }
         #endregion
 
 

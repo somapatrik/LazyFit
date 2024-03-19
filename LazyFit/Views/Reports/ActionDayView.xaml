@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:reportViewModels="clr-namespace:LazyFit.ViewModels.Reports"
+             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
+             x:Class="LazyFit.Views.Reports.ActionDayView"
+             BackgroundColor="#80000000">
+
+    <Border VerticalOptions="Center" Background="White" Margin="10">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="7"/>
+        </Border.StrokeShape>
+    <VerticalStackLayout >
+
+        
+        <Label Text="{Binding  ActionDate, Converter={converters:DatetimeToDateConverter}}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" 
+            Style="{StaticResource DetailHeader}"/>
+
+        <CollectionView ItemsSource="{Binding Actions}">
+            
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                        <Grid ColumnDefinitions="*, 4*" RowDefinitions="auto, auto">
+
+                            <Ellipse WidthRequest="20" HeightRequest="20">
+
+                                <Ellipse.Triggers>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Food"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
+                                        </MultiTrigger.Conditions>
+                                        
+                                        <Setter Property="Stroke" Value="{StaticResource FreshGreen}"/>
+                                        
+                                    </MultiTrigger>
+                                    
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Food"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Fill" Value="{StaticResource FreshGreen}"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Mood"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Stroke" Value="DarkBlue"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Mood"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Fill" Value="DarkBlue"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Weight"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Stroke" Value="OrangeRed"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Weight"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Fill" Value="OrangeRed"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Drink"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Stroke" Value="{StaticResource WaterBlue}"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Drink"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Fill" Value="{StaticResource WaterBlue}"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Fast"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Stroke" Value="{StaticResource LazyColor}"/>
+
+                                    </MultiTrigger>
+
+                                    <MultiTrigger TargetType="Ellipse">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding ActionName}" Value="Fast"/>
+                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Fill" Value="{StaticResource LazyColor}"/>
+
+                                    </MultiTrigger>
+
+
+                                </Ellipse.Triggers>
+                                
+                            </Ellipse>
+
+                            <Grid Grid.Row="1" HorizontalOptions="Center">
+                                <Line X1="0" Y1="0" X2="0" Y2="35" Stroke="Gray" Opacity=".5"/>
+                            </Grid>
+                            
+                            
+                            <Label Grid.Column="1" 
+                                   Text="{Binding Time, Converter={converters:DatetimeToTimeConverter}}" 
+                                   TextColor="Gray"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding ItemName}" Style="{StaticResource DetailItemName}"/>
+
+                        </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+
+    </VerticalStackLayout>
+    </Border>
+
+</mopup:PopupPage>
