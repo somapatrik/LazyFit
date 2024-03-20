@@ -1,4 +1,6 @@
-﻿using LazyFit.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
+using LazyFit.Models;
 
 namespace LazyFit.Services
 {
@@ -7,16 +9,19 @@ namespace LazyFit.Services
         public static async Task InsertMood(Mood mood)
         {
             await DB.Database.InsertAsync(mood);
+            WeakReferenceMessenger.Default.Send(new MoodNewMessage(mood));
         }
 
         public static async Task UpdateMood(Mood mood)
         {
             await DB.Database.UpdateAsync(mood);
+            WeakReferenceMessenger.Default.Send(new MoodUpdateMessage(mood));
         }
 
         public static async Task DeleteMood(Mood mood)
         {
             await DB.Database.DeleteAsync(mood);
+            WeakReferenceMessenger.Default.Send(new MoodDeleteMessage(mood));
         }
 
         public static async Task<List<Mood>> GetAllMoods()

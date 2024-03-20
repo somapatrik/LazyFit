@@ -19,8 +19,19 @@ namespace LazyFit.ViewModels.Reports
 
         public ActionDayViewModel(ActionSquareDate actionSquare) 
         {
+            FillData(actionSquare);
+        }
+
+        private async void FillData(ActionSquareDate actionSquare)
+        {
+            await FillDataAsync(actionSquare);
+        }
+
+        private Task FillDataAsync(ActionSquareDate actionSquare)
+        {
             ActionDate = actionSquare.Time;
-            actionSquare.Actions.OrderByDescending(a=>a.Time).ToList().ForEach(Actions.Add);
+            actionSquare.Actions.OrderByDescending(a => a.Time).ToList().ForEach(Actions.Add);
+            return Task.CompletedTask;
         }
 
         [RelayCommand]

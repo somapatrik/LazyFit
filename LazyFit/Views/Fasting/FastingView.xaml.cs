@@ -2,7 +2,7 @@ using LazyFit.ViewModels.Fasting;
 
 namespace LazyFit.Views.Fasting;
 
-public partial class FastingView : ContentView
+public partial class FastingView : ContentPage
 {
 	FastingViewModel _viewModel;
 	public FastingView()

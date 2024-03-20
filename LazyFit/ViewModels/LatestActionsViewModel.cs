@@ -40,6 +40,13 @@ namespace LazyFit.ViewModels
             // Weight
             WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => await LoadActions());
 
+            // Mood
+            WeakReferenceMessenger.Default.Register<MoodNewMessage>(this, async (a,b) => await LoadActions());
+
+            WeakReferenceMessenger.Default.Register<MoodDeleteMessage>(this, async (a, b) => await LoadActions());
+
+            WeakReferenceMessenger.Default.Register<MoodUpdateMessage>(this, async (a, b) => await LoadActions());
+
             // Refresh actions
             WeakReferenceMessenger.Default.Register<ActionsReloadMessages>(this, async (a,b) => await LoadActions());
         }

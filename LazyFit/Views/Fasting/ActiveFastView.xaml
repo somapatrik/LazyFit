@@ -28,7 +28,7 @@
             <SwipeItems>
                 <SwipeItem 
                        Text="Finish"
-                       IconImageSource="icons/bin.png"
+                       IconImageSource="icons/checkmark.png"
                        BackgroundColor="{StaticResource GithubLight}"
                        Command="{Binding FinishFastCommand}"
            />
@@ -36,27 +36,23 @@
         </SwipeView.RightItems>
 
         <Border StrokeThickness="0" BackgroundColor="{StaticResource LazyColor}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenFastCommand}"/>
+            </Border.GestureRecognizers>
+                    
+            <Grid RowDefinitions="auto, auto, auto" 
+                  ColumnDefinitions="*,auto">
+                        
                         <HorizontalStackLayout 
-                Grid.Row="0"
-                Padding="5,15"
-                HorizontalOptions="Start"
-                VerticalOptions="Center">
+                                Grid.Row="0"
+                                Padding="5,15"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center">
 
                             <Label Text="Active " Style="{StaticResource QuickHeader}"/>
                             <Label Text="{Binding ActiveFast.PlanMinutes, Converter={converters:MinutesToHoursConverter}}" 
-                       Style="{StaticResource QuickHeader}"/>
+                                   Style="{StaticResource QuickHeader}"/>
                             <Label Text=" fast" Style="{StaticResource QuickHeader}"/>
 
                         </HorizontalStackLayout>
@@ -69,12 +65,12 @@
                          Background="Transparent"
                          Progress="{Binding Progress}"/>
 
-                        <Grid 
-                Grid.Row="0" 
-                Grid.Column="1"
-                Padding="5,3">
+                <Grid 
+                    Grid.Row="0" 
+                    Grid.Column="1"
+                    Padding="5,3">
 
-                            <Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>

@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
+using LazyFit.Views.Fasting;
+using Mopups.Services;
 
 namespace LazyFit.ViewModels.Fasting
 {
@@ -101,6 +103,12 @@ namespace LazyFit.ViewModels.Fasting
             {
                 await FastService.EndFast(ActiveFast);
             }
+        }
+
+        [RelayCommand]
+        private async Task OpenFast()
+        {
+            await Shell.Current.Navigation.PushAsync(new FastingView());
         }
     }
 }
