@@ -4,8 +4,7 @@
              xmlns:fastVM="clr-namespace:LazyFit.ViewModels.Fasting"
              xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Fasting.ActiveFast"
-             IsVisible="{Binding IsRunning}"
-             >
+             IsVisible="{Binding IsRunning}">
 
 
     <ContentView.BindingContext>
@@ -76,14 +75,14 @@
                             </Grid.RowDefinitions>
 
                             <Label 
-                    Grid.Row="0"
-                    Text="{Binding StartSpan, Converter={converters:TimeSpanToStageConverter}}"
-                    Style="{StaticResource QuickDetail}" VerticalOptions="Start"/>
+                                Grid.Row="0"
+                                Text="{Binding StartSpan, Converter={converters:TimeSpanToStageConverter}}"
+                                Style="{StaticResource QuickDetail}" VerticalOptions="Start"/>
 
                             <Label 
-                    Grid.Row="1"
-                    Text="{Binding EndSpan, Converter={converters:TimeSpanToCountdown}}"
-                    Style="{StaticResource QuickDetail}" VerticalOptions="End" HorizontalOptions="End"/>
+                                Grid.Row="1"
+                                Text="{Binding EndSpan, Converter={converters:TimeSpanToCountdown}}"
+                                Style="{StaticResource QuickDetail}" VerticalOptions="End" HorizontalOptions="End"/>
 
                         </Grid>
 
