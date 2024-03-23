@@ -126,25 +126,26 @@
                 
                 <Label Text="Start" TextColor="Gray"/>
 
-                <StackLayout Orientation="Horizontal" 
-                             HorizontalOptions="End">
+                <HorizontalStackLayout HorizontalOptions="End">
 
                     <DatePicker 
-                            Date="{Binding FastStartDate}"/>
-                    <!-- MaximumDate="{Binding ActiveFast.StartTime}"/> -->
+                            Date="{Binding FastStartDate}"
+                            MaximumDate="{Binding ActiveFast.StartTime}"/>
 
                     <TimePicker 
                             Time="{Binding FastStartTime}"/>
 
-                </StackLayout>
+                </HorizontalStackLayout>
 
             </VerticalStackLayout>
+            
             <Border Style="{StaticResource Splitter}"/>
 
             <VerticalStackLayout Padding="10,0">
                 <Label Text="Planned end" TextColor="Gray"/>
                 <Label Text="{Binding PlannedEnd}" HorizontalOptions="End"/>
             </VerticalStackLayout>
+            
             <Border Style="{StaticResource Splitter}"/>
 
         </VerticalStackLayout>

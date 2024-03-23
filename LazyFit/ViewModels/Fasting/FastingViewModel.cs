@@ -70,7 +70,6 @@ namespace LazyFit.ViewModels.Fasting
         {
             _RefreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
 
-            //CreateEmptyChart();
             RefreshFastData();
         }
         private async void RefreshFastData()
@@ -143,7 +142,7 @@ namespace LazyFit.ViewModels.Fasting
                 return;
             }
 
-            StopFasting();
+            await StopFasting();
         }
 
         [RelayCommand]
@@ -154,11 +153,11 @@ namespace LazyFit.ViewModels.Fasting
 
             await FastService.EndFast(ActiveFast);
 
-            await Shell.Current.Navigation.PopAsync();
+            await MopupService.Instance.PopAsync();
             await Shell.Current.Navigation.PushModalAsync(new FastingReportPage(ActiveFast.Id));
 
-            TimerMessage = "";
-            PercentDone = 0;
+            //TimerMessage = "";
+            //PercentDone = 0;
 
         }
     }
