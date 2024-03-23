@@ -38,7 +38,7 @@ namespace LazyFit.ViewModels.Fasting
         private System.Threading.Timer _RefreshTimer;
 
 
-        async partial void OnFastStartDateChanged(DateTime? oldValue, DateTime? newValue)
+        partial void OnFastStartDateChanged(DateTime? oldValue, DateTime? newValue)
         {
             if (oldValue == null || newValue == null || FastStartTime == null)
                 return;
@@ -63,14 +63,6 @@ namespace LazyFit.ViewModels.Fasting
             SetNewStart();
         }
 
-        private async void SetNewStart()
-        {
-            DateTime newStart = FastStartDate.Value.Date;
-            newStart = newStart.AddTicks(FastStartTime.Value.Ticks);
-            ActiveFast.StartTime = newStart;
-            await FastService.UpdateFast(ActiveFast);
-        }
-
         #endregion
 
 
@@ -78,8 +70,24 @@ namespace LazyFit.ViewModels.Fasting
         {
             _RefreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
 
-            CreateEmptyChart();
+            //CreateEmptyChart();
             RefreshFastData();
+        }
+        private async void RefreshFastData()
+        {
+            ActiveFast = await FastService.GetRunningFast();
+            FastStartDate = ActiveFast.StartTime;
+            FastStartTime = ActiveFast.StartTime.TimeOfDay;
+
+            _RefreshTimer.Change(0, 1000);
+        }
+
+        private async void SetNewStart()
+        {
+            DateTime newStart = FastStartDate.Value.Date;
+            newStart = newStart.AddTicks(FastStartTime.Value.Ticks);
+            ActiveFast.StartTime = newStart;
+            await FastService.UpdateFast(ActiveFast);
         }
 
         private void TimerHandler(object state)
@@ -127,7 +135,7 @@ namespace LazyFit.ViewModels.Fasting
         }
 
         [RelayCommand]
-        private async void ShowStopDialog()
+        private async Task ShowStopDialog()
         {
             if (DateTime.Now < ActiveFast.GetPlannedEnd() &&
                 await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY UNFIT", "no...sorry") == false)
@@ -139,7 +147,7 @@ namespace LazyFit.ViewModels.Fasting
         }
 
         [RelayCommand]
-        private async void StopFasting()
+        private async Task StopFasting()
         {
             _RefreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
             CreateEmptyChart();
@@ -152,15 +160,6 @@ namespace LazyFit.ViewModels.Fasting
             TimerMessage = "";
             PercentDone = 0;
 
-        }
-
-        private async void RefreshFastData()
-        {
-            ActiveFast = await FastService.GetRunningFast();
-            FastStartDate = ActiveFast.StartTime;
-            FastStartTime = ActiveFast.StartTime.TimeOfDay;
-            
-            _RefreshTimer.Change(0, 1000);
         }
     }
 }
