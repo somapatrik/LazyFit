@@ -108,7 +108,7 @@ namespace LazyFit.ViewModels.Fasting
         [RelayCommand]
         private async Task OpenFast()
         {
-            await Shell.Current.Navigation.PushAsync(new FastingView());
+            await MopupService.Instance.PushAsync(new FastingView());
         }
     }
 }

@@ -4,8 +4,12 @@ using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views.Fasting;
 using Microcharts;
+using Mopups.Droid.Implementation;
+using Mopups.PreBaked.PopupPages.EntryInput;
+using Mopups.PreBaked.PopupPages.SingleResponse;
+using Mopups.PreBaked.Services;
+using Mopups.Services;
 using SkiaSharp;
-using System.Windows.Input;
 
 namespace LazyFit.ViewModels.Fasting
 {
@@ -13,8 +17,6 @@ namespace LazyFit.ViewModels.Fasting
     {
         #region Properties
 
-        [ObservableProperty]
-        private bool _isFastActive;
         [ObservableProperty]
         private Fast _ActiveFast;
         [ObservableProperty]
@@ -26,9 +28,48 @@ namespace LazyFit.ViewModels.Fasting
         [ObservableProperty]
         private Chart _ProgressChart;
         [ObservableProperty]
-        private string _StopLabel;
+        private DateTime _PlannedEnd;
+
+        [ObservableProperty]
+        private TimeSpan? _FastStartTime;
+        [ObservableProperty]
+        private DateTime? _FastStartDate;
 
         private System.Threading.Timer _RefreshTimer;
+
+
+        async partial void OnFastStartDateChanged(DateTime? oldValue, DateTime? newValue)
+        {
+            if (oldValue == null || newValue == null || FastStartTime == null)
+                return;
+
+            if (newValue > DateTime.Now.Date) 
+                return;
+
+            SetNewStart();
+        }
+
+        partial void OnFastStartTimeChanged(TimeSpan? value)
+        {
+            if (value is null || FastStartDate == null)
+                return;
+
+            DateTime startDate = FastStartDate.Value;
+            DateTime Now = DateTime.Now;
+
+            if (startDate.Date >= Now.Date && value.Value > Now.TimeOfDay)
+                return;
+
+            SetNewStart();
+        }
+
+        private async void SetNewStart()
+        {
+            DateTime newStart = FastStartDate.Value.Date;
+            newStart = newStart.AddTicks(FastStartTime.Value.Ticks);
+            ActiveFast.StartTime = newStart;
+            await FastService.UpdateFast(ActiveFast);
+        }
 
         #endregion
 
@@ -37,16 +78,14 @@ namespace LazyFit.ViewModels.Fasting
         {
             _RefreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
 
+            CreateEmptyChart();
             RefreshFastData();
-            
-            if (!IsFastActive)
-                CreateEmptyChart();
         }
 
         private void TimerHandler(object state)
         {
             PercentDone = ActiveFast.GetElapsedTimePercentage(DateTime.Now);
-            //TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
+            PlannedEnd = ActiveFast.GetPlannedEnd();
             TimeSinceStart = ActiveFast.GetTimeSpanSinceStart(DateTime.Now);
             TimerMessage = PercentDone >= 100 ? "Done!" + Environment.NewLine + "+" + TimeSinceStart.ToString(@"hh\:mm\:ss") : TimeSinceStart.ToString(@"hh\:mm\:ss");
             RefreshChart();
@@ -107,29 +146,21 @@ namespace LazyFit.ViewModels.Fasting
 
             await FastService.EndFast(ActiveFast);
 
-            ActiveFast = null;
-            IsFastActive = false;
+            await Shell.Current.Navigation.PopAsync();
+            await Shell.Current.Navigation.PushModalAsync(new FastingReportPage(ActiveFast.Id));
+
             TimerMessage = "";
             PercentDone = 0;
 
-
-            await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));            
-        }
-
-        private void StartView_NewFastStarted(object sender, EventArgs e)
-        {
-            RefreshFastData();
         }
 
         private async void RefreshFastData()
         {
             ActiveFast = await FastService.GetRunningFast();
-            IsFastActive = ActiveFast != null;
-            if (ActiveFast != null)
-            {
-                IsFastActive = true;
-                _RefreshTimer.Change(0, 1000);
-            }
+            FastStartDate = ActiveFast.StartTime;
+            FastStartTime = ActiveFast.StartTime.TimeOfDay;
+            
+            _RefreshTimer.Change(0, 1000);
         }
     }
 }

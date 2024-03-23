@@ -70,7 +70,7 @@ namespace LazyFit.Services
             return await DB.Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);
         }
         
-        [Obsolete]
+       
         public static async Task UpdateFast(Fast fast)
         {
             await DB.Database.UpdateAsync(fast);

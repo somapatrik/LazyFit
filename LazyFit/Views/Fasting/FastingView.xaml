@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:LazyFit.Converters"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+                 xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:fastViewModels="clr-namespace:LazyFit.ViewModels.Fasting"
              x:Class="LazyFit.Views.Fasting.FastingView"
              BackgroundColor="White">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete fast" Command="{Binding DeleteFastCommand}"/>
-    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <fastViewModels:FastingViewModel/>
+    </ContentPage.BindingContext>
     
     
     <VerticalStackLayout>
@@ -106,7 +108,7 @@
             IsVisible="{Binding isFastActive}"/>
 
         <Button Text="Finish" 
-                Command="{Binding ShowStopDialog}" 
+                Command="{Binding ShowStopDialogCommand}" 
                 Margin="5"
                 FontSize="Default"
                 Style="{StaticResource SimpleButton}"
@@ -121,14 +123,27 @@
         <VerticalStackLayout Margin="0,10,0,0">
 
             <VerticalStackLayout Padding="10,0" >
+                
                 <Label Text="Start" TextColor="Gray"/>
-                <Label Text="{Binding ActiveFast.StartTime}"/>
+
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="End">
+
+                    <DatePicker 
+                            Date="{Binding FastStartDate}"/>
+                    <!-- MaximumDate="{Binding ActiveFast.StartTime}"/> -->
+
+                    <TimePicker 
+                            Time="{Binding FastStartTime}"/>
+
+                </StackLayout>
+
             </VerticalStackLayout>
             <Border Style="{StaticResource Splitter}"/>
 
             <VerticalStackLayout Padding="10,0">
                 <Label Text="Planned end" TextColor="Gray"/>
-                <Label Text="{Binding ActiveFast.StartTime}"/>
+                <Label Text="{Binding PlannedEnd}" HorizontalOptions="End"/>
             </VerticalStackLayout>
             <Border Style="{StaticResource Splitter}"/>
 
@@ -138,4 +153,4 @@
 
     </VerticalStackLayout>
 
-</ContentPage>
+</mopup:PopupPage>
