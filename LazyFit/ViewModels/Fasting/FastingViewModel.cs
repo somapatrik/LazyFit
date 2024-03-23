@@ -149,16 +149,11 @@ namespace LazyFit.ViewModels.Fasting
         private async Task StopFasting()
         {
             _RefreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            CreateEmptyChart();
-
+            
             await FastService.EndFast(ActiveFast);
 
             await MopupService.Instance.PopAsync();
-            await Shell.Current.Navigation.PushModalAsync(new FastingReportPage(ActiveFast.Id));
-
-            //TimerMessage = "";
-            //PercentDone = 0;
-
+            await MopupService.Instance.PushAsync(new FastingReportPage(ActiveFast.Id));
         }
     }
 }

@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:LazyFit.Converters"
-             x:Class="LazyFit.Views.Fasting.FastingReportPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="FastingReportPage"
-             Shell.NavBarIsVisible="False">
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="LazyFit.Views.Fasting.FastingReportPage"
+                  Background="#80000000">
 
-    <!--<Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="Black" StatusBarStyle="LightContent"/>
-    </Page.Behaviors>-->
+    <VerticalStackLayout VerticalOptions="Center" Margin="10">
 
-    <ContentPage.Triggers>
+        <Border StrokeThickness="0">
 
-        <DataTrigger TargetType="ContentPage" Binding="{Binding FinishedFast.Completed}" Value="True">
-            <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
-        </DataTrigger>
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding FinishedFast.Completed}" Value="True">
+                    <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
+                </DataTrigger>
 
-        <DataTrigger TargetType="ContentPage" Binding="{Binding FinishedFast.Completed}" Value="False">
-            <Setter Property="BackgroundColor" Value="{StaticResource  GithubRed}"/>
-        </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding FinishedFast.Completed}" Value="False">
+                    <Setter Property="BackgroundColor" Value="{StaticResource  GithubRed}"/>
+                </DataTrigger>
+            </Border.Triggers>
 
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="7"/>
+            </Border.StrokeShape>
 
-    </ContentPage.Triggers>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+                <VerticalStackLayout VerticalOptions="Center" Spacing="10">
 
-        <VerticalStackLayout VerticalOptions="Center" Spacing="10">
-
-        <Image 
+                    <Image 
                HorizontalOptions="Center"
                MaximumWidthRequest="80">
-            <Image.Triggers>
-                <DataTrigger TargetType="Image" Binding="{Binding FinishedFast.Completed}" Value="False">
-                    <Setter Property="Source" Value="icons/nok.png"/>
-                </DataTrigger>
-                <DataTrigger TargetType="Image" Binding="{Binding FinishedFast.Completed}" Value="True">
-                    <Setter Property="Source" Value="icons/ok.png"/>
-                </DataTrigger>
-            </Image.Triggers>
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image" Binding="{Binding FinishedFast.Completed}" Value="False">
+                                <Setter Property="Source" Value="icons/nok.png"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Image" Binding="{Binding FinishedFast.Completed}" Value="True">
+                                <Setter Property="Source" Value="icons/ok.png"/>
+                            </DataTrigger>
+                        </Image.Triggers>
 
-        </Image>
+                    </Image>
 
-        <Label 
+                    <Label 
             Text="{Binding ResultTitle}"
             TextColor="White"
             FontSize="Title"
@@ -54,142 +55,142 @@
             HorizontalOptions="Center"
             Margin="0,20,0,0">
 
-        </Label>
+                    </Label>
 
-        <!-- Stage -->
-        <Grid Margin="0,0,0,20">
+                    <!-- Stage -->
+                    <Grid Margin="0,0,0,20">
 
-            <StackLayout Orientation="Horizontal" 
+                        <StackLayout Orientation="Horizontal" 
                 HorizontalOptions="Center">
 
-                <Label Text="{Binding fastSpan, Converter={converters:TimeSpanToStageConverter}}" 
+                            <Label Text="{Binding fastSpan, Converter={converters:TimeSpanToStageConverter}}" 
             FontSize="Medium"
             Style="{StaticResource ReportValue}"/>
 
-                <Label Text=" reached" 
+                            <Label Text=" reached" 
             FontSize="Medium"
             HorizontalTextAlignment="Center" 
             Style="{StaticResource ReportKey}"/>
 
-            </StackLayout>
+                        </StackLayout>
 
-        </Grid>
+                    </Grid>
 
-        <!-- Time span -->
-        <Grid Margin="0,0,0,40">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                    <!-- Time span -->
+                    <Grid Margin="0,0,0,40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-            <VerticalStackLayout Grid.Column="0" 
+                        <VerticalStackLayout Grid.Column="0" 
                                  HorizontalOptions="Center">
 
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding planSpan,Converter={converters:TimeSpanToHours}}" 
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding planSpan,Converter={converters:TimeSpanToHours}}" 
                            Style="{StaticResource ReportValue}"/>
-                    <Label Text=" h" 
+                                <Label Text=" h" 
                            VerticalTextAlignment="Center" 
                            Style="{StaticResource ReportValue}"/>
-                </StackLayout>
+                            </StackLayout>
 
-                <Label Text="Plan" 
+                            <Label Text="Plan" 
                        Style="{StaticResource ReportKey}"/>
 
-            </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="1" 
+                        <VerticalStackLayout Grid.Column="1" 
                                  HorizontalOptions="Center">
 
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding fastSpan,Converter={converters:TimeSpanToHours}}" 
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding fastSpan,Converter={converters:TimeSpanToHours}}" 
                            Style="{StaticResource ReportValue}"/>
-                    <Label Text=" h" 
+                                <Label Text=" h" 
                            VerticalTextAlignment="Center" 
                            Style="{StaticResource ReportValue}"/>
-                </StackLayout>
+                            </StackLayout>
 
-                <Label Text="Reality" 
+                            <Label Text="Reality" 
                        Style="{StaticResource ReportKey}"/>
 
-            </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-        </Grid>
+                    </Grid>
 
-        <!-- Dates -->
-        <Grid>
+                    <!-- Dates -->
+                    <Grid>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
 
-            <VerticalStackLayout Grid.Column="0">
+                        <VerticalStackLayout Grid.Column="0">
 
-                    <TimePicker Time="{Binding StartTime}" 
+                            <TimePicker Time="{Binding StartTime}" 
         FontSize="Medium" 
         FontAttributes="Bold"
         HorizontalOptions="Center"
         TextColor="White"/>
 
-                    <DatePicker Date="{Binding StartDate}"  
+                            <DatePicker Date="{Binding StartDate}"  
                             FontSize="Medium" 
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             TextColor="White"/>
 
-                    
 
-            </VerticalStackLayout>
 
-            <Label Grid.Column="1" 
+                        </VerticalStackLayout>
+
+                        <Label Grid.Column="1" 
                    Text="->"
                    FontSize="Large"
                    TextColor="White"
                    VerticalOptions="CenterAndExpand"/>
 
-            <VerticalStackLayout Grid.Column="2">
+                        <VerticalStackLayout Grid.Column="2">
 
-                    <TimePicker Time="{Binding EndTime}" 
+                            <TimePicker Time="{Binding EndTime}" 
                     FontSize="Medium" 
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
-                    TextColor="White"/> 
+                    TextColor="White"/>
 
-                    <DatePicker Date="{Binding EndDate}"  
+                            <DatePicker Date="{Binding EndDate}"  
                 FontSize="Medium" 
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
                 TextColor="White"/>
 
-                
-
-            </VerticalStackLayout>
 
 
-        </Grid>
-
-           
-
-        </VerticalStackLayout>
+                        </VerticalStackLayout>
 
 
-        <Grid Grid.Row="1" ColumnSpacing=".5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                    </Grid>
 
-            <Button Text="Delete fast"
+
+
+                </VerticalStackLayout>
+
+
+                <Grid Grid.Row="1" ColumnSpacing=".5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Text="Delete fast"
                     Padding="20"
                     Background="White"
                     CornerRadius="0"
                     Command="{Binding DeleteFast}"
                     Style="{StaticResource TextButton}"/>
 
-            <Button Grid.Column="2"
+                    <Button Grid.Column="2"
                     Text="Save changes"
                     Padding="20"
                     Background="White"
@@ -197,8 +198,11 @@
                     Command="{Binding SaveEdits}"
                     Style="{StaticResource TextButton}"/>
 
-        </Grid>
-    
-    </Grid>
+                </Grid>
 
-</ContentPage>
+            </Grid>
+
+        </Border>
+    </VerticalStackLayout>
+
+</mopups:PopupPage>
