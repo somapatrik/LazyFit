@@ -43,7 +43,11 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="1" Text="Start Fasting" TextColor="White" FontSize="Medium" HorizontalTextAlignment="End"/>
+                        <Label Grid.Row="1" 
+                               Text="Start Fasting" 
+                               TextColor="White" 
+                               FontSize="Medium" 
+                               HorizontalTextAlignment="End"/>
 
                     </Grid>
 
@@ -75,7 +79,7 @@
 
                 </Frame>
 
-                <Frame FlexLayout.Basis="50%" Background="darkblue" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
+                <Frame FlexLayout.Basis="50%" Background="{StaticResource NexenColor}" CornerRadius="7" Margin="3" Padding="10" MinimumHeightRequest="70">
 
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ShowLogMoodCommand}" />

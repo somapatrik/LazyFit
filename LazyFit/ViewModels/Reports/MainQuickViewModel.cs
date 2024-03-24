@@ -108,7 +108,7 @@ namespace LazyFit.ViewModels.Reports
             List<ChartEntry> chartEntries = new List<ChartEntry>();
             
             if (FastsExists)
-                chartEntries.Add(new ChartEntry((float)FastRatio) { Color = SKColor.Parse(LazyColors.BootstrapWarningBg) });
+                chartEntries.Add(new ChartEntry((float)FastRatio) { Color = SKColor.Parse(LazyColors.Yellow100Accent) });
             
             chartEntries.Add(new ChartEntry((float)DrinkRatio) { Color = SKColor.Parse(LazyColors.WaterBlue) });
             chartEntries.Add(new ChartEntry((float)FoodRatio) { Color = SKColor.Parse(LazyColors.FreshGreen) });

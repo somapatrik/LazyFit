@@ -36,28 +36,28 @@
 
         <Border StrokeThickness="0" BackgroundColor="{StaticResource LazyColor}">
 
-            <Border.GestureRecognizers>
+            <!--<Border.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding OpenFastCommand}"/>
-            </Border.GestureRecognizers>
+            </Border.GestureRecognizers>-->
                     
             <Grid RowDefinitions="auto, auto, auto" 
-                  ColumnDefinitions="*,auto">
-                        
-                        <HorizontalStackLayout 
+                  ColumnDefinitions="*,auto,auto">
+
+                <HorizontalStackLayout 
                                 Grid.Row="0"
                                 Padding="5,15"
                                 HorizontalOptions="Start"
                                 VerticalOptions="Center">
 
-                            <Label Text="Active " Style="{StaticResource QuickHeader}"/>
-                            <Label Text="{Binding ActiveFast.PlanMinutes, Converter={converters:MinutesToHoursConverter}}" 
+                    <Label Text="Active " Style="{StaticResource QuickHeader}"/>
+                    <Label Text="{Binding ActiveFast.PlanMinutes, Converter={converters:MinutesToHoursConverter}}" 
                                    Style="{StaticResource QuickHeader}"/>
-                            <Label Text=" fast" Style="{StaticResource QuickHeader}"/>
+                    <Label Text=" fast" Style="{StaticResource QuickHeader}"/>
 
-                        </HorizontalStackLayout>
+                </HorizontalStackLayout>
 
-                        <ProgressBar Grid.Row="1"
-                         Grid.ColumnSpan="2"
+                <ProgressBar Grid.Row="1"
+                         Grid.ColumnSpan="3"
                          HeightRequest="5"
                          ProgressColor="{StaticResource White}"
                          BackgroundColor="Transparent"
@@ -86,11 +86,19 @@
 
                         </Grid>
 
+                <Button Grid.Column="2" 
+                             Text=">"
+                        CornerRadius="0"
+                             Margin="8,0,0,0"
+                             WidthRequest="50"
+                             Grid.RowSpan="1"
+                             FontSize="Large"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                        BackgroundColor="{StaticResource Blue100Accent}"
+                        Command="{Binding OpenFastCommand}"/>
 
-
-
-
-                    </Grid>
+            </Grid>
                 </Border>
 
     </SwipeView>

@@ -45,9 +45,10 @@
                                 
                                 <Button Grid.Column="2" 
                                         Grid.RowSpan="2" 
-                                        Text="Suffer" 
+                                        Text="{Binding Name}" 
                                         Command="{Binding StartFast, Source={RelativeSource AncestorType={x:Type vm:ChooseFastViewModel}}}" 
-                                        CommandParameter="{Binding .}"/>
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="{StaticResource Yellow100Accent}"/>
 
                             </Grid>
                         </Border>

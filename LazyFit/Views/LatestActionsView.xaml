@@ -33,7 +33,7 @@
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
 
-                                            <Ellipse WidthRequest="20" HeightRequest="20">
+                                            <Ellipse WidthRequest="20" HeightRequest="20" Margin="1">
 
                                                 <Ellipse.Triggers>
 
@@ -63,7 +63,7 @@
                                                             <BindingCondition Binding="{Binding IsBad}" Value="true"/>
                                                         </MultiTrigger.Conditions>
 
-                                                        <Setter Property="Stroke" Value="DarkBlue"/>
+                                                        <Setter Property="Stroke" Value="{StaticResource NexenColor}"/>
 
                                                     </MultiTrigger>
 
@@ -73,7 +73,7 @@
                                                             <BindingCondition Binding="{Binding IsBad}" Value="false"/>
                                                         </MultiTrigger.Conditions>
 
-                                                        <Setter Property="Fill" Value="DarkBlue"/>
+                                                        <Setter Property="Fill" Value="{StaticResource NexenColor}"/>
 
                                                     </MultiTrigger>
 
@@ -145,6 +145,8 @@
                                         </DataTemplate>
                                     </BindableLayout.ItemTemplate>
                                 </FlexLayout>
+
+                                <Border Style="{StaticResource Splitter}"/>
 
                             </StackLayout>
                         </Border>

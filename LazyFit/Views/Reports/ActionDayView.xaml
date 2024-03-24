@@ -62,7 +62,7 @@
                                             <BindingCondition Binding="{Binding IsBad}" Value="true"/>
                                         </MultiTrigger.Conditions>
 
-                                        <Setter Property="Stroke" Value="DarkBlue"/>
+                                        <Setter Property="Stroke" Value="{StaticResource NexenColor}"/>
 
                                     </MultiTrigger>
 
@@ -72,7 +72,7 @@
                                             <BindingCondition Binding="{Binding IsBad}" Value="false"/>
                                         </MultiTrigger.Conditions>
 
-                                        <Setter Property="Fill" Value="DarkBlue"/>
+                                        <Setter Property="Fill" Value="{StaticResource NexenColor}"/>
 
                                     </MultiTrigger>
 

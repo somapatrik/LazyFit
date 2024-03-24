@@ -44,10 +44,10 @@
             <Border Style="{StaticResource QuickBorder}" IsVisible="{Binding FastsExists}">
                 <StackLayout>
                     <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
-                        <Label Text="{Binding FastRatio}" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportValue}"/>
-                        <Label Text="%" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="{Binding FastRatio}" TextColor="{StaticResource Yellow100Accent}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource Yellow100Accent}" Style="{StaticResource QuickReportValue}"/>
                     </HorizontalStackLayout>
-                    <Label Text="Fasts" TextColor="{StaticResource BootstrapWarningBg}" Style="{StaticResource QuickReportKey}"/>
+                    <Label Text="Fasts" TextColor="{StaticResource Yellow100Accent}" Style="{StaticResource QuickReportKey}"/>
                 </StackLayout>
             </Border>
         </VerticalStackLayout>
