@@ -36,11 +36,7 @@ namespace LazyFit.ViewModels.Fasting
         private async void StartFastHandler(object selectedFast)
         {
             FastingOption option = (FastingOption)selectedFast;
-
-            Fast fast = new Fast(Guid.NewGuid());
-            fast.SetHours(option.Hours);
-
-            await DB.InsertFast(fast);
+            await FastService.StartFast(option.Hours);
 
             OptionSelected = true;
             await MopupService.Instance.PopAsync();

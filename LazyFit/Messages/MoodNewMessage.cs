@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
+using LazyFit.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace LazyFit.Messages
 {
-    class ReloadActionsMessage : ValueChangedMessage<int>
+    public class MoodNewMessage : ValueChangedMessage<Mood>
     {
-        public ReloadActionsMessage(int value) : base(value)
+        public MoodNewMessage(Mood value) : base(value)
         {
         }
     }

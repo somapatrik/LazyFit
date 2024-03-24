@@ -1,82 +1,94 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using LazyFit.Models;
 using LazyFit.Services;
-using LazyFit.Views;
 using LazyFit.Views.Fasting;
 using Microcharts;
 using Mopups.Services;
 using SkiaSharp;
-using System;
-using System.Windows.Input;
 
 namespace LazyFit.ViewModels.Fasting
 {
-    internal class FastingViewModel : PrimeViewModel
+    internal partial class FastingViewModel : ObservableObject
     {
         #region Properties
 
-        private bool _isFastActive;
+        [ObservableProperty]
         private Fast _ActiveFast;
+        [ObservableProperty]
         private string _TimerMessage;
+        [ObservableProperty]
         private TimeSpan _TimeSinceStart;
+        [ObservableProperty]
         private double _PercentDone;
+        [ObservableProperty]
         private Chart _ProgressChart;
-        private System.Threading.Timer refreshTimer;
-        private string _StopLabel;
+        [ObservableProperty]
+        private DateTime _PlannedEnd;
 
-        public bool isFastActive { get => _isFastActive; set => SetProperty(ref _isFastActive, value); }
-        public Fast ActiveFast { get => _ActiveFast; set => SetProperty(ref _ActiveFast, value); }
-        public string TimerMessage { get => _TimerMessage; set => SetProperty(ref _TimerMessage, value); }
-        public string StopLabel { get => _StopLabel; set => SetProperty(ref _StopLabel, value); }
-        public TimeSpan TimeSinceStart { get => _TimeSinceStart; set => SetProperty(ref _TimeSinceStart, value); }
-        public double PercentDone { get => _PercentDone; set => SetProperty(ref _PercentDone, value); }
-        public Chart ProgressChart { get => _ProgressChart; set => SetProperty(ref _ProgressChart, value); }
+        [ObservableProperty]
+        private TimeSpan? _FastStartTime;
+        [ObservableProperty]
+        private DateTime? _FastStartDate;
+
+        private System.Threading.Timer _RefreshTimer;
+
+
+        partial void OnFastStartDateChanged(DateTime? oldValue, DateTime? newValue)
+        {
+            if (oldValue == null || newValue == null || FastStartTime == null)
+                return;
+
+            if (newValue > DateTime.Now.Date) 
+                return;
+
+            SetNewStart();
+        }
+
+        partial void OnFastStartTimeChanged(TimeSpan? value)
+        {
+            if (value is null || FastStartDate == null)
+                return;
+
+            DateTime startDate = FastStartDate.Value;
+            DateTime Now = DateTime.Now;
+
+            if (startDate.Date >= Now.Date && value.Value > Now.TimeOfDay)
+                return;
+
+            SetNewStart();
+        }
 
         #endregion
 
-        #region Commands
-
-        public ICommand OpenFasting { get; private set; }
-        public ICommand StopFasting { get; private set; }
-        public ICommand ShowStopDialog { get; private set; }
-
-        #endregion
 
         public FastingViewModel()
         {
-            RelayCommands();
-
-            refreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
+            _RefreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
 
             RefreshFastData();
+        }
+        private async void RefreshFastData()
+        {
+            ActiveFast = await FastService.GetRunningFast();
+            FastStartDate = ActiveFast.StartTime;
+            FastStartTime = ActiveFast.StartTime.TimeOfDay;
 
-            if (!isFastActive)
-                CreateEmptyChart();
-
-            SelectStopLabel();
+            _RefreshTimer.Change(0, 1000);
         }
 
-        private void SelectStopLabel()
+        private async void SetNewStart()
         {
-            string[] endLabels = {
-                     "Stop fast"
-                    ,"End the suffering"
-                    ,"Screw it, let´s eat!"
-                    ,"Game over"
-                    ,"I´m done"
-                    ,"The grand finale"
-                    ,"End the journey"
-            };
-
-            Random random = new Random();
-            int index = random.Next(endLabels.Length);
-            StopLabel = endLabels[index];
+            DateTime newStart = FastStartDate.Value.Date;
+            newStart = newStart.AddTicks(FastStartTime.Value.Ticks);
+            ActiveFast.StartTime = newStart;
+            await FastService.UpdateFast(ActiveFast);
         }
 
         private void TimerHandler(object state)
         {
             PercentDone = ActiveFast.GetElapsedTimePercentage(DateTime.Now);
-            //TimeSpan untilEnd = ActiveFast.GetTimeSpanUntilEnd();
+            PlannedEnd = ActiveFast.GetPlannedEnd();
             TimeSinceStart = ActiveFast.GetTimeSpanSinceStart(DateTime.Now);
             TimerMessage = PercentDone >= 100 ? "Done!" + Environment.NewLine + "+" + TimeSinceStart.ToString(@"hh\:mm\:ss") : TimeSinceStart.ToString(@"hh\:mm\:ss");
             RefreshChart();
@@ -117,14 +129,8 @@ namespace LazyFit.ViewModels.Fasting
             };
         }
 
-        private void RelayCommands()
-        {
-            OpenFasting = new Command(OpenFastingStart);
-            StopFasting = new Command(StopFastingHandler);
-            ShowStopDialog = new Command(StopDialogHandler);
-        }
-
-        private async void StopDialogHandler()
+        [RelayCommand]
+        private async Task ShowStopDialog()
         {
             if (DateTime.Now < ActiveFast.GetPlannedEnd() &&
                 await Shell.Current.DisplayAlert("Fail fast", "Would you like to FAIL this fast?", "STAY UNFIT", "no...sorry") == false)
@@ -132,48 +138,19 @@ namespace LazyFit.ViewModels.Fasting
                 return;
             }
 
-            StopFastingHandler();
+            await StopFasting();
         }
 
-        private async void StopFastingHandler()
+        [RelayCommand]
+        private async Task StopFasting()
         {
-            refreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            CreateEmptyChart();
+            _RefreshTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            
+            await FastService.EndFast(ActiveFast);
 
-            ActiveFast.End();
-            await DB.UpdateFast(ActiveFast);
-            await Shell.Current.Navigation.PushAsync(new FastingReportPage(ActiveFast.Id));
-
-            ActiveFast = null;
-            isFastActive = false;
-            TimerMessage = "";
-            PercentDone = 0;
-
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
-        }
-
-        private async void OpenFastingStart()
-        {
-            var startView = new StartFastingView();
-            startView.NewFastStarted += StartView_NewFastStarted;
-
-            await MopupService.Instance.PushAsync(startView);
-        }
-
-        private void StartView_NewFastStarted(object sender, EventArgs e)
-        {
-            RefreshFastData();
-        }
-
-        private async void RefreshFastData()
-        {
-            ActiveFast = await DB.GetRunningFast();
-            isFastActive = ActiveFast != null;
-            if (ActiveFast != null)
-            {
-                isFastActive = true;
-                refreshTimer.Change(0, 1000);
-            }
+            await MopupService.Instance.PopAsync();
+            await Task.Delay(1000);
+            await MopupService.Instance.PushAsync(new FastingReportPage(ActiveFast));
         }
     }
 }

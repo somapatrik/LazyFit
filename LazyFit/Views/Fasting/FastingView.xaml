@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:LazyFit.Converters"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+                 xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:fastViewModels="clr-namespace:LazyFit.ViewModels.Fasting"
              x:Class="LazyFit.Views.Fasting.FastingView"
              BackgroundColor="White">
+
+    <ContentPage.BindingContext>
+        <fastViewModels:FastingViewModel/>
+    </ContentPage.BindingContext>
     
     
-    <VerticalStackLayout 
-        Spacing="10" 
-        Padding="0,10">
+    <VerticalStackLayout>
 
-        <Label 
-            Text="Fasting"
-            Style="{StaticResource PageSubHeader}"
-           HorizontalTextAlignment="Center"/>
+        <VerticalStackLayout Spacing="20" Padding="10">
+            <Label 
+                Text="Intermittent fasting"
+                Style="{StaticResource PageSubHeader}"
+                HorizontalTextAlignment="Center"/>
 
+            <!-- Stage -->
         <Border Padding="20,5" Margin="0,0,0,4" HorizontalOptions="Center" IsVisible="{Binding isFastActive}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20"/>
@@ -49,22 +55,38 @@
                    TextColor="Black">
 
                 <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Anabolic stage">
+                    <DataTrigger TargetType="Label" 
+                                 Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" 
+                                 Value="Anabolic stage">
                         
                     </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Catabolic stage">
+                    <DataTrigger TargetType="Label" 
+                                 Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" 
+                                 Value="Catabolic stage">
                         
                     </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Fat-burning stage">
+                    
+                    <DataTrigger TargetType="Label" 
+                                 Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" 
+                                 Value="Fat-burning stage">
                         <Setter Property="TextColor" Value="White"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Ketosis  stage">
+                    
+                    <DataTrigger TargetType="Label" 
+                                 Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" 
+                                 Value="Ketosis  stage">
                         <Setter Property="TextColor" Value="White"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Deep ketosis">
+                    
+                    <DataTrigger TargetType="Label" 
+                                 Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" 
+                                 Value="Deep ketosis">
                         <Setter Property="TextColor" Value="White"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" Value="Dead">
+                    
+                    <DataTrigger TargetType="Label" 
+                                 Binding="{Binding TimeSinceStart,Converter={converters:TimeSpanToStageConverter}}" 
+                                 Value="Dead">
                         <Setter Property="TextColor" Value="White"/>
                     </DataTrigger>
                 </Label.Triggers>
@@ -85,26 +107,51 @@
             FontSize="Medium"
             IsVisible="{Binding isFastActive}"/>
 
-        <Button Text="Enjoy a fast" 
-                    Command="{Binding OpenFasting}" 
-                    IsVisible="{Binding isFastActive,Converter={converters:InverseBoolConverter}}"
-                    Margin="5"
-                    FontSize="Default"
-                    HorizontalOptions="Center"
-                    BackgroundColor="{StaticResource LazyColor}"
-                    Style="{StaticResource ButtonOk}"/>
-
-        <Button Text="{Binding StopLabel}" 
-                Command="{Binding ShowStopDialog}" 
-                IsVisible="{Binding isFastActive}" 
+        <Button Text="Finish" 
+                Command="{Binding ShowStopDialogCommand}" 
                 Margin="5"
-                MinimumWidthRequest="100"
                 FontSize="Default"
-                HorizontalOptions="Center"
-                Style="{StaticResource SimpleButton}">
+                Style="{StaticResource SimpleButton}"
+                Background="{StaticResource LazyColor}"
+                TextColor="White">
 
         </Button>
 
+        </VerticalStackLayout>
+
+        <!-- Details -->
+        <VerticalStackLayout Margin="0,10,0,0">
+
+            <VerticalStackLayout Padding="10,0" >
+                
+                <Label Text="Start" TextColor="Gray"/>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="7">
+
+                    <DatePicker 
+                            Date="{Binding FastStartDate}"
+                            MaximumDate="{Binding ActiveFast.StartTime}"/>
+
+                    <TimePicker 
+                            Time="{Binding FastStartTime}"/>
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+            
+            <Border Style="{StaticResource Splitter}"/>
+
+            <VerticalStackLayout Padding="10,0">
+                <Label Text="Planned end" TextColor="Gray"/>
+                <Label Text="{Binding PlannedEnd}" HorizontalOptions="End"/>
+            </VerticalStackLayout>
+            
+            <Border Style="{StaticResource Splitter}"/>
+
+        </VerticalStackLayout>
+        
+        
+
     </VerticalStackLayout>
 
-</ContentView>
+</mopup:PopupPage>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fastVM="clr-namespace:LazyFit.ViewModels.Fasting"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
+             x:Class="LazyFit.Views.Fasting.ActiveFast"
+             IsVisible="{Binding IsRunning}">
+
+
+    <ContentView.BindingContext>
+        <fastVM:ActiveFastViewModel/>
+    </ContentView.BindingContext>
+
+    <SwipeView>
+        <SwipeView.LeftItems>
+            <SwipeItems>
+                <SwipeItem 
+                   Text="Delete"
+                   IconImageSource="icons/bin.png"
+                   BackgroundColor="{StaticResource GithubLight}"
+                   Command="{Binding DeleteFastCommand}"
+                   />
+            </SwipeItems>
+        </SwipeView.LeftItems>
+
+        <SwipeView.RightItems>
+            <SwipeItems>
+                <SwipeItem 
+                       Text="Finish"
+                       IconImageSource="icons/checkmark.png"
+                       BackgroundColor="{StaticResource GithubLight}"
+                       Command="{Binding FinishFastCommand}"
+           />
+            </SwipeItems>
+        </SwipeView.RightItems>
+
+        <Border StrokeThickness="0" BackgroundColor="{StaticResource LazyColor}">
+
+            <!--<Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenFastCommand}"/>
+            </Border.GestureRecognizers>-->
+                    
+            <Grid RowDefinitions="auto, auto, auto" 
+                  ColumnDefinitions="*,auto,auto">
+
+                <HorizontalStackLayout 
+                                Grid.Row="0"
+                                Padding="5,15"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center">
+
+                    <Label Text="Active " Style="{StaticResource QuickHeader}"/>
+                    <Label Text="{Binding ActiveFast.PlanMinutes, Converter={converters:MinutesToHoursConverter}}" 
+                                   Style="{StaticResource QuickHeader}"/>
+                    <Label Text=" fast" Style="{StaticResource QuickHeader}"/>
+
+                </HorizontalStackLayout>
+
+                <ProgressBar Grid.Row="1"
+                         Grid.ColumnSpan="3"
+                         HeightRequest="5"
+                         ProgressColor="{StaticResource White}"
+                         BackgroundColor="Transparent"
+                         Background="Transparent"
+                         Progress="{Binding Progress}"/>
+
+                <Grid 
+                    Grid.Row="0" 
+                    Grid.Column="1"
+                    Padding="5,3">
+
+                    <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Label 
+                                Grid.Row="0"
+                                Text="{Binding StartSpan, Converter={converters:TimeSpanToStageConverter}}"
+                                Style="{StaticResource QuickDetail}" VerticalOptions="Start"/>
+
+                            <Label 
+                                Grid.Row="1"
+                                Text="{Binding EndSpan, Converter={converters:TimeSpanToCountdown}}"
+                                Style="{StaticResource QuickDetail}" VerticalOptions="End" HorizontalOptions="End"/>
+
+                        </Grid>
+
+                <Button Grid.Column="2" 
+                             Text=">"
+                        CornerRadius="0"
+                             Margin="8,0,0,0"
+                             WidthRequest="50"
+                             Grid.RowSpan="1"
+                             FontSize="Large"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                        BackgroundColor="{StaticResource Blue100Accent}"
+                        Command="{Binding OpenFastCommand}"/>
+
+            </Grid>
+                </Border>
+
+    </SwipeView>
+
+</ContentView>

@@ -18,11 +18,11 @@ namespace LazyFit.ViewModels.FoodViewModels
         }
         protected override async void LoadResults()
         {
-            List<Food> foods = await DB.GetFoods(FirstDateTime, LastDateTime,true);
+            List<Food> foods = await FoodService.GetFoods(FirstDateTime, LastDateTime,true);
             DataExists = foods.Any();
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            var properties = await DB.GetFoodProperties();
+            var properties = await FoodService.GetFoodProperties();
             properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName }));
 
             if (DataExists) 

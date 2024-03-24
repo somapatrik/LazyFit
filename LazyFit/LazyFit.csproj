@@ -59,13 +59,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
-	  <ApplicationDisplayVersion>0.3.0</ApplicationDisplayVersion>
-	  <ApplicationVersion>9</ApplicationVersion>
+	  <ApplicationDisplayVersion>0.4.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>10</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
-	  <ApplicationDisplayVersion>0.3.0</ApplicationDisplayVersion>
-	  <ApplicationVersion>9</ApplicationVersion>
+	  <ApplicationDisplayVersion>0.4.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>10</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -97,6 +97,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\icons\checkmark.png" />
+	  <None Remove="Resources\Images\icons\close.png" />
 	  <None Remove="Resources\Images\icons\icons8-twitter-50.png" />
 	</ItemGroup>
 
@@ -113,6 +115,9 @@
 	<ItemGroup>
 	  <Compile Update="Views\Drink\LogDrinkView.xaml.cs">
 	    <DependentUpon>LogDrinkView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Fasting\ActiveFastView.xaml.cs">
+	    <DependentUpon>ActiveFastView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Fasting\FastResultChartView.xaml.cs">
 	    <DependentUpon>FastResultChartView.xaml</DependentUpon>
@@ -132,6 +137,9 @@
 	  <MauiXaml Update="Views\Drink\DrinkChartResultView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Fasting\ActiveFastView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Fasting\FastingReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -145,6 +153,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Mood\MoodResultChartView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Reports\ActionDayView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Reports\MainQuickView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Weight\EnterWeightView.xaml">
@@ -178,9 +192,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Fasting\StartFastingView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\TimePickerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Weight\WeightChartView.xaml">

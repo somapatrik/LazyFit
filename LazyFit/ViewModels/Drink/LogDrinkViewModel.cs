@@ -60,17 +60,17 @@ namespace LazyFit.ViewModels.DrinkViewModels
         {
             Drinks = new ObservableCollection<DrinkProperty>();
 
-            var allDrinks = await DB.GetDrinkProperties();
+            var allDrinks = await DrinkService.GetDrinkProperties();
             allDrinks.ForEach(Drinks.Add);
         }
 
         private async void SaveDrinkHandler()
         {
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
-            await DB.InsertDrink(new Drink(Guid.NewGuid(), time, SelectedDrink.DrinkID));
+            Drink drink = new Drink(Guid.NewGuid(), time, SelectedDrink.DrinkID);
 
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
-
+            await DrinkService.CreateDrink(drink);
+  
             await MopupService.Instance.PopAsync();
         }
 

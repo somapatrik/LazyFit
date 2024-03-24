@@ -3,15 +3,12 @@ using LazyFit.Models.Foods;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Collections.ObjectModel;
-
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels.FoodViewModels
 {
     internal class LogFoodViewModel : PrimeViewModel
     {
-
-
         private ObservableCollection<FoodProperty> _Foods;
         public ObservableCollection<FoodProperty> Foods { get => _Foods; set => SetProperty(ref _Foods, value); }
 
@@ -62,17 +59,16 @@ namespace LazyFit.ViewModels.FoodViewModels
         {
             Foods = new ObservableCollection<FoodProperty>();
 
-            var allDrinks = await DB.GetFoodProperties();
+            var allDrinks = await FoodService.GetFoodProperties();
             allDrinks.ForEach(Foods.Add);
         }
 
         private async void SaveDrinkHandler()
         {
             DateTime time = DateTime.Now.Date.Add(SelectedTime);
-            await DB.InsertFood(new Food(Guid.NewGuid(), time, SelectedFood.FoodId));
 
-            WeakReferenceMessenger.Default.Send(new Messages.ReloadActionsMessage(0));
-
+            Food food = new Food(Guid.NewGuid(), time, SelectedFood.FoodId);
+            await FoodService.CreateFood(food);
             await MopupService.Instance.PopAsync();
         }
 

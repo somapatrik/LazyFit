@@ -1,17 +1,9 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LazyFit.Models.Drinks
 {
-    public class Drink
+    public class Drink : LogAction
     {
-        [PrimaryKey]
-        public Guid Id { get; set; }
-        public DateTime Time { get; set; }
         public TypeOfDrink TypeOfDrink { get; set; }
         [Ignore]
         public DrinkProperty Property { get; set; }

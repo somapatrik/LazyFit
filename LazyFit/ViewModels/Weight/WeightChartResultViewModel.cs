@@ -28,10 +28,10 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         protected override async void LoadResults()
         {
-            List<Weight> weights = await DB.GetWeights(FirstDateTime, LastDateTime);
+            List<Weight> weights = await WeightService.GetWeights(FirstDateTime, LastDateTime);
             DataExists = weights.Any();
 
-            List<Weight> previousWeights = await DB.GetWeights(PreviousFirstDate, PreviousLastDate);
+            List<Weight> previousWeights = await WeightService.GetWeights(PreviousFirstDate, PreviousLastDate);
             PreviousDataExists = previousWeights.Any();
 
             MinWeight = AvgWeight = MaxWeight = 0;

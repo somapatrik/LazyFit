@@ -1,14 +1,12 @@
-using LazyFit.ViewModels.Fasting;
+using Mopups.Pages;
 
 namespace LazyFit.Views.Fasting;
 
-public partial class FastingView : ContentView
+public partial class FastingView : PopupPage
 {
-	FastingViewModel _viewModel;
 	public FastingView()
 	{
 		InitializeComponent();
-		BindingContext = _viewModel = new FastingViewModel();
 	}
 
 }

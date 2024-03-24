@@ -1,46 +1,84 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
+using LazyFit.Views.Reports;
+using Mopups.Services;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace LazyFit.ViewModels
 {
-    class LatestActionsViewModel : PrimeViewModel
+    partial class LatestActionsViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private ObservableCollection<ActionSquareDate> _ActionSquares;
 
-        private ObservableCollection<TakenAction> _LatestActions;
-        public ObservableCollection<TakenAction> LatestActions { get => _LatestActions; set => SetProperty(ref _LatestActions, value); }   
+        private int numberOfDays = 7;
 
-        public ICommand DeleteAction { private set;get; }
         public LatestActionsViewModel() 
         {
-            LoadActions();
-            WeakReferenceMessenger.Default.Register<Messages.ReloadActionsMessage>(this, (r, m) => { LoadActions(); });
-            DeleteAction = new Command(DeleteActionHandler);
+            LoadData();
+            WireMessages();
         }
 
-        private async void LoadActions()
+        private void WireMessages()
         {
+            // Drinking
+            WeakReferenceMessenger.Default.Register<DrinkNewMessage>(this, async (a,b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<DrinkDeleteMessage>(this, async (a, b) => await LoadActions());
+
+            // Food
+            WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<FoodDeleteMessage>(this, async (a, b) => await LoadActions());
+
+            // Fast
+            WeakReferenceMessenger.Default.Register<FastEndMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<FastDeleteMessage>(this, async (a, b) => await LoadActions());
+
+            // Weight
+            WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => await LoadActions());
+
+            // Mood
+            WeakReferenceMessenger.Default.Register<MoodNewMessage>(this, async (a,b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<MoodDeleteMessage>(this, async (a, b) => await LoadActions());
+            WeakReferenceMessenger.Default.Register<MoodUpdateMessage>(this, async (a, b) => await LoadActions());
+
+            // Refresh actions
+            WeakReferenceMessenger.Default.Register<ActionsReloadMessages>(this, async (a,b) => await LoadActions());
+        }
+
+        private async void LoadData()
+        {
+            await LoadActions();
+        }
+
+        private async Task LoadActions()
+        {
+            ActionSquares = new ObservableCollection<ActionSquareDate>();
+
             DateTime now = DateTime.Now;
-            LatestActions = new ObservableCollection<TakenAction>();
-            (await DB.GetLatestActions(now.AddDays(-2), now)).ForEach(LatestActions.Add);
-        }
-
-        private async void DeleteActionHandler(object action)
-        {
-            TakenAction takenAction = (TakenAction) action;
-            if (await Shell.Current.DisplayAlert($"Delete '{takenAction.SubjectText}'", $"Erase action from {takenAction.Date.ToString("d")} ?", "Delete", "No"))
-            {
-                await DB.DeleteItem(takenAction.ClassObject);
-                LatestActions.Remove(takenAction);
-
-                if (takenAction.Type == "Weight")
-                    WeakReferenceMessenger.Default.Send(new Messages.RefreshWeightMessage(true));
-
-            }
             
+            for (int days = 0; days < numberOfDays; days++)
+            {
+                DateTime from = now.AddDays(-days).Date;
+                DateTime to = from.AddDays(1).AddSeconds(-1);
+                var actions = await DB.GetActionSquares(from, to);
+
+                if (actions.Any())
+                    ActionSquares.Add(new ActionSquareDate() { Time = from, Actions = actions });
+
+            }            
         }
+
+        [RelayCommand]
+        private async Task OpenDay(object sender)
+        {
+            ActionSquareDate day = (ActionSquareDate)sender;
+            await MopupService.Instance.PushAsync(new ActionDayView(day));
+        }
+
 
     }
 }
