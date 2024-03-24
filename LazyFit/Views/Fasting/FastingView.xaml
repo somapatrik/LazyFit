@@ -126,7 +126,7 @@
                 
                 <Label Text="Start" TextColor="Gray"/>
 
-                <HorizontalStackLayout HorizontalOptions="End">
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="7">
 
                     <DatePicker 
                             Date="{Binding FastStartDate}"

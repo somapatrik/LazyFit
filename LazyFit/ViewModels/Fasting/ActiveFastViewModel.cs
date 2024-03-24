@@ -102,6 +102,7 @@ namespace LazyFit.ViewModels.Fasting
             if (EndIt)
             {
                 await FastService.EndFast(ActiveFast);
+                await MopupService.Instance.PushAsync(new FastingReportPage(ActiveFast));
             }
         }
 

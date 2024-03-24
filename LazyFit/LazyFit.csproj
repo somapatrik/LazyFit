@@ -134,9 +134,6 @@
 	  <MauiXaml Update="ResultsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ActionDayView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Drink\DrinkChartResultView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

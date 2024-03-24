@@ -4,10 +4,6 @@ using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views.Fasting;
 using Microcharts;
-using Mopups.Droid.Implementation;
-using Mopups.PreBaked.PopupPages.EntryInput;
-using Mopups.PreBaked.PopupPages.SingleResponse;
-using Mopups.PreBaked.Services;
 using Mopups.Services;
 using SkiaSharp;
 
@@ -153,7 +149,8 @@ namespace LazyFit.ViewModels.Fasting
             await FastService.EndFast(ActiveFast);
 
             await MopupService.Instance.PopAsync();
-            await MopupService.Instance.PushAsync(new FastingReportPage(ActiveFast.Id));
+            await Task.Delay(1000);
+            await MopupService.Instance.PushAsync(new FastingReportPage(ActiveFast));
         }
     }
 }

@@ -5,18 +5,18 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
              x:Class="LazyFit.Views.Fasting.FastingReportPage"
-                  Background="#80000000">
+             Background="#80000000">
 
     <VerticalStackLayout VerticalOptions="Center" Margin="10">
 
         <Border StrokeThickness="0">
 
             <Border.Triggers>
-                <DataTrigger TargetType="Border" Binding="{Binding FinishedFast.Completed}" Value="True">
+                <DataTrigger TargetType="Border" Binding="{Binding FastCompleted}" Value="true">
                     <Setter Property="BackgroundColor" Value="{StaticResource GithubGreen}"/>
                 </DataTrigger>
 
-                <DataTrigger TargetType="Border" Binding="{Binding FinishedFast.Completed}" Value="False">
+                <DataTrigger TargetType="Border" Binding="{Binding FastCompleted}" Value="false">
                     <Setter Property="BackgroundColor" Value="{StaticResource  GithubRed}"/>
                 </DataTrigger>
             </Border.Triggers>
@@ -25,77 +25,46 @@
                 <RoundRectangle CornerRadius="7"/>
             </Border.StrokeShape>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+            <Grid RowDefinitions="*,auto">
 
-                <VerticalStackLayout VerticalOptions="Center" Spacing="10">
+                <VerticalStackLayout Spacing="10">
 
-                    <Image 
-               HorizontalOptions="Center"
-               MaximumWidthRequest="80">
-                        <Image.Triggers>
-                            <DataTrigger TargetType="Image" Binding="{Binding FinishedFast.Completed}" Value="False">
-                                <Setter Property="Source" Value="icons/nok.png"/>
+                    <Label
+                        TextColor="White"
+                        FontSize="Title"
+                        HorizontalOptions="Center"
+                        Margin="0,10">
+
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding FastCompleted}" Value="true">
+                                <Setter Property="Text" Value="Fast completed"/>
                             </DataTrigger>
-                            <DataTrigger TargetType="Image" Binding="{Binding FinishedFast.Completed}" Value="True">
-                                <Setter Property="Source" Value="icons/ok.png"/>
+
+                            <DataTrigger TargetType="Label" Binding="{Binding FastCompleted}" Value="false">
+                                <Setter Property="Text" Value="You have failed!"/>
                             </DataTrigger>
-                        </Image.Triggers>
-
-                    </Image>
-
-                    <Label 
-            Text="{Binding ResultTitle}"
-            TextColor="White"
-            FontSize="Title"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Margin="0,20,0,0">
+                        </Label.Triggers>
 
                     </Label>
 
-                    <!-- Stage -->
-                    <Grid Margin="0,0,0,20">
-
-                        <StackLayout Orientation="Horizontal" 
-                HorizontalOptions="Center">
-
-                            <Label Text="{Binding fastSpan, Converter={converters:TimeSpanToStageConverter}}" 
-            FontSize="Medium"
-            Style="{StaticResource ReportValue}"/>
-
-                            <Label Text=" reached" 
-            FontSize="Medium"
-            HorizontalTextAlignment="Center" 
-            Style="{StaticResource ReportKey}"/>
-
-                        </StackLayout>
-
-                    </Grid>
-
                     <!-- Time span -->
-                    <Grid Margin="0,0,0,40">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                    <Grid ColumnDefinitions="*,*">
 
-                        <VerticalStackLayout Grid.Column="0" 
-                                 HorizontalOptions="Center">
+                        <VerticalStackLayout 
+                            Grid.Column="0" 
+                            HorizontalOptions="Center">
 
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding planSpan,Converter={converters:TimeSpanToHours}}" 
-                           Style="{StaticResource ReportValue}"/>
+                                <Label Text="{Binding PlanSpan,Converter={converters:TimeSpanToHours}}" 
+                                        Style="{StaticResource ReportValue}"/>
+                               
                                 <Label Text=" h" 
-                           VerticalTextAlignment="Center" 
-                           Style="{StaticResource ReportValue}"/>
+                                        VerticalTextAlignment="Center" 
+                                        Style="{StaticResource ReportValue}"/>
                             </StackLayout>
 
                             <Label Text="Plan" 
-                       Style="{StaticResource ReportKey}"/>
+                                   Style="{StaticResource ReportKey}"/>
 
                         </VerticalStackLayout>
 
@@ -103,11 +72,12 @@
                                  HorizontalOptions="Center">
 
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding fastSpan,Converter={converters:TimeSpanToHours}}" 
-                           Style="{StaticResource ReportValue}"/>
+                                <Label Text="{Binding FastSpan,Converter={converters:TimeSpanToHours}}" 
+                                       Style="{StaticResource ReportValue}"/>
+
                                 <Label Text=" h" 
-                           VerticalTextAlignment="Center" 
-                           Style="{StaticResource ReportValue}"/>
+                                        VerticalTextAlignment="Center" 
+                                        Style="{StaticResource ReportValue}"/>
                             </StackLayout>
 
                             <Label Text="Reality" 
@@ -117,88 +87,57 @@
 
                     </Grid>
 
-                    <!-- Dates -->
-                    <Grid>
+                    <!-- Stage -->
+                    <Grid Margin="0,10">
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
+                        <StackLayout Orientation="Horizontal" 
+                                HorizontalOptions="Center">
 
+                            <Label Text="{Binding FastSpan, Converter={converters:TimeSpanToStageConverter}}" 
+                                FontSize="Medium"
+                                Style="{StaticResource ReportValue}"/>
 
-                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text=" reached" 
+                                    FontSize="Medium"
+                                    HorizontalTextAlignment="Center" 
+                                    Style="{StaticResource ReportKey}"/>
 
-                            <TimePicker Time="{Binding StartTime}" 
-        FontSize="Medium" 
-        FontAttributes="Bold"
-        HorizontalOptions="Center"
-        TextColor="White"/>
-
-                            <DatePicker Date="{Binding StartDate}"  
-                            FontSize="Medium" 
-                            FontAttributes="Bold"
-                            HorizontalOptions="Center"
-                            TextColor="White"/>
-
-
-
-                        </VerticalStackLayout>
-
-                        <Label Grid.Column="1" 
-                   Text="->"
-                   FontSize="Large"
-                   TextColor="White"
-                   VerticalOptions="CenterAndExpand"/>
-
-                        <VerticalStackLayout Grid.Column="2">
-
-                            <TimePicker Time="{Binding EndTime}" 
-                    FontSize="Medium" 
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    TextColor="White"/>
-
-                            <DatePicker Date="{Binding EndDate}"  
-                FontSize="Medium" 
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                TextColor="White"/>
-
-
-
-                        </VerticalStackLayout>
-
+                        </StackLayout>
 
                     </Grid>
+
+                    <!-- Dates -->
+                    <VerticalStackLayout Padding="10,0">
+
+                        <VerticalStackLayout>
+
+                            <Label Text="Started" TextColor="White"/>
+                            <Label Text="{Binding FinishedFast.StartTime, Converter={converters:DateTimeToShortConverter}}" 
+                                   HorizontalOptions="End"
+                                   TextColor="White"/>
+                            
+                        </VerticalStackLayout>
+
+                        <Border Style="{StaticResource Splitter}" Background="White"/>
+
+                        <VerticalStackLayout>
+                            <Label Text="Ended" TextColor="White"/>
+                            <HorizontalStackLayout HorizontalOptions="End" Spacing="7">
+
+                                <DatePicker Date="{Binding EndDate}" MinimumDate="{Binding FinishedFast.StartTime}" TextColor="White" HorizontalOptions="End"/>
+                                <TimePicker Time="{Binding EndTime}" TextColor="White" HorizontalOptions="End"/>
+
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <Border Style="{StaticResource Splitter}" Background="White"/>
+
+                    </VerticalStackLayout>
 
 
 
                 </VerticalStackLayout>
 
-
-                <Grid Grid.Row="1" ColumnSpacing=".5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button Text="Delete fast"
-                    Padding="20"
-                    Background="White"
-                    CornerRadius="0"
-                    Command="{Binding DeleteFast}"
-                    Style="{StaticResource TextButton}"/>
-
-                    <Button Grid.Column="2"
-                    Text="Save changes"
-                    Padding="20"
-                    Background="White"
-                    CornerRadius="0"
-                    Command="{Binding SaveEdits}"
-                    Style="{StaticResource TextButton}"/>
-
-                </Grid>
 
             </Grid>
 

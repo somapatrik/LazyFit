@@ -42,9 +42,7 @@ namespace LazyFit.ViewModels
 
             // Mood
             WeakReferenceMessenger.Default.Register<MoodNewMessage>(this, async (a,b) => await LoadActions());
-
             WeakReferenceMessenger.Default.Register<MoodDeleteMessage>(this, async (a, b) => await LoadActions());
-
             WeakReferenceMessenger.Default.Register<MoodUpdateMessage>(this, async (a, b) => await LoadActions());
 
             // Refresh actions
