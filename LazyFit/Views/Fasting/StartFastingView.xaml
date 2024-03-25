@@ -48,7 +48,7 @@
                                         Text="{Binding Name}" 
                                         Command="{Binding StartFast, Source={RelativeSource AncestorType={x:Type vm:ChooseFastViewModel}}}" 
                                         CommandParameter="{Binding .}"
-                                        BackgroundColor="{StaticResource Yellow100Accent}"/>
+                                        BackgroundColor="{StaticResource LazyColor}"/>
 
                             </Grid>
                         </Border>

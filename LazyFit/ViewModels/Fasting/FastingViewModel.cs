@@ -116,19 +116,6 @@ namespace LazyFit.ViewModels.Fasting
 
         }
 
-        private void CreateEmptyChart()
-        {
-            ProgressChart = new DonutChart()
-            {
-                Entries = new List<ChartEntry>() { new ChartEntry(100) { Color = SKColor.Parse("#f6f8fa") } },
-                IsAnimated = true,
-                MaxValue = 100f,
-                MinValue = 0f,
-                Margin = 0,
-                HoleRadius = 0.6f
-            };
-        }
-
         [RelayCommand]
         private async Task ShowStopDialog()
         {
