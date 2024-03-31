@@ -5,6 +5,7 @@
              xmlns:psViews="clr-namespace:LazyFit.Views.Pressure"
              xmlns:fastViews="clr-namespace:LazyFit.Views.Fasting"
              xmlns:reportViews="clr-namespace:LazyFit.Views.Reports"
+             xmlns:WeightViews="clr-namespace:LazyFit.Views.Weight"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.MainPage"
              Shell.NavBarIsVisible="False"
@@ -65,6 +66,8 @@
 
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0">
+
+                <WeightViews:WeightQuickView/>
 
                 <reportViews:MainQuickView/>
 
