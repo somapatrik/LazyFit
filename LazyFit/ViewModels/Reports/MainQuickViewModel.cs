@@ -38,10 +38,10 @@ namespace LazyFit.ViewModels.Reports
 
         private async void SetRefreshValues()
         {
-            WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => 
-            { 
-                await LoadWeight(); 
-            });
+            //WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => 
+            //{ 
+            //    await LoadWeight(); 
+            //});
 
             // Food
             WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) =>
@@ -93,7 +93,7 @@ namespace LazyFit.ViewModels.Reports
         {
             List<Task> tasks = new List<Task>
             {
-                LoadWeight(), 
+                //LoadWeight(), 
                 LoadFood(), 
                 LoadFasts(), 
                 LoadDrink()

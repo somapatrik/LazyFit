@@ -14,12 +14,12 @@
 
         <VerticalStackLayout Grid.Column="0" Spacing="0">
 
-            <Border Style="{StaticResource QuickBorder}">
+            <!--<Border Style="{StaticResource QuickBorder}">
                 <StackLayout>
                     <Label Text="{Binding Weight}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
                     <Label Text="Weight" TextColor="DarkOrange" Style="{StaticResource QuickReportKey}"/>
                 </StackLayout>
-            </Border>
+            </Border>-->
 
             <Border Style="{StaticResource QuickBorder}">
             <StackLayout>
