@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:WeightVM="clr-namespace:LazyFit.ViewModels.WeightViewModels"
-             x:Class="LazyFit.Views.Weight.WeightQuickView">
+             x:Class="LazyFit.Views.Weight.WeightQuickView"
+             IsVisible="{Binding IsVisible}">
     
     <ContentView.BindingContext>
         <WeightVM:WeightQuickViewModel />
@@ -12,7 +13,7 @@
     <Grid ColumnDefinitions="auto,*">
         <Border Style="{StaticResource QuickBorder}">
             <StackLayout>
-                <Label Text="{Binding Weight}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
+                <Label Text="{Binding WeightAvg}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
                 <Label Text="Weight" TextColor="DarkOrange" Style="{StaticResource QuickReportKey}"/>
             </StackLayout>
         </Border>

@@ -39,6 +39,10 @@ namespace LazyFit.Services
         public static async Task<int> GetGoodDrinkRatio(int numberOfDrinks)
         {
             var drinks = await GetLastDrinks(numberOfDrinks);
+
+            if (!drinks.Any())
+                return 0;
+
             double drinksCount = drinks.Count();
             int goodDrinkCount= drinks.Where(d=>d.TypeOfDrink == TypeOfDrink.Water || d.TypeOfDrink == TypeOfDrink.Tea).Count();
 

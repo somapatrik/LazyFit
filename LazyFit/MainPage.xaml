@@ -67,9 +67,9 @@
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0">
 
-                <WeightViews:WeightQuickView/>
-
+             
                 <reportViews:MainQuickView/>
+                <WeightViews:WeightQuickView/>
 
                 <psViews:PressureCardLineView/>
                 
