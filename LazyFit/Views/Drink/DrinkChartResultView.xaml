@@ -4,9 +4,9 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.Drink.DrinkChartResultView">
 
-    <Border StrokeThickness=".7">
+    <Border StrokeThickness="0">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="7"/>
+            <RoundRectangle CornerRadius="0"/>
         </Border.StrokeShape>
 
         <Grid>

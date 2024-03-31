@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.Mood.MoodResultChartView">
-    <Border StrokeThickness=".7">
+    <Border StrokeThickness="0">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="7"/>
+            <RoundRectangle CornerRadius="0"/>
         </Border.StrokeShape>
 
         <Grid>
