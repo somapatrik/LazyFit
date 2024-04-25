@@ -22,34 +22,39 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid ZIndex="100" Grid.RowSpan="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!-- Button  -->
+        <Grid ZIndex="100" 
+              Grid.RowSpan="3" 
+              RowDefinitions="*,auto,auto" 
+              ColumnDefinitions="*,*,*">
 
-            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource LazyColor}" Margin="25" Padding="25">
+            <Border Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="Transparent"
+                    Margin="0,0,0,10" 
+                    Padding="0"
+                    WidthRequest="100"
+                    HeightRequest="50">
+                
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="7"/>
+                    <RoundRectangle CornerRadius="50"/>
                 </Border.StrokeShape>
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
                 </Border.GestureRecognizers>
 
-
-                <Label Text="Log" 
-                       TextColor="White"
-                       FontSize="Body"
+                <Image Source="icons/edit"
+                       WidthRequest="28"
                        HorizontalOptions="Center" 
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Margin="5,0,0,0"/>
 
             </Border>
+
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
 
         </Grid>
 
@@ -81,7 +86,7 @@
         </ScrollView>
 
 
-        <Label Grid.Row="3" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
+        <!--<Label Grid.Row="3" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>-->
 
     </Grid>
 
