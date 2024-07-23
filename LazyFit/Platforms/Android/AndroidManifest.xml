@@ -3,7 +3,7 @@
 	<application android:allowBackup="true" android:supportsRtl="true" android:label="LazyFit" android:icon="@mipmap/appicon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="33" />
+	<uses-sdk android:minSdkVersion="34" android:targetSdkVersion="34" />
 	<queries>
 		<intent>
 			<action android:name="android.intent.action.VIEW" />
