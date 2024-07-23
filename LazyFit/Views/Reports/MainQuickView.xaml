@@ -9,17 +9,16 @@
         <reportViewModels:MainQuickViewModel/>
     </ContentView.BindingContext>
 
-        <Grid HorizontalOptions="FillAndExpand" Padding="0" ColumnDefinitions="auto,*">
+    <Border Style="{StaticResource ClassicBorder}">
+
+        <Grid 
+            HorizontalOptions="FillAndExpand" 
+            Padding="0"
+            ColumnDefinitions="auto,*"
+            BackgroundColor="White">
 
 
         <VerticalStackLayout Grid.Column="0" Spacing="0">
-
-            <!--<Border Style="{StaticResource QuickBorder}">
-                <StackLayout>
-                    <Label Text="{Binding Weight}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
-                    <Label Text="Weight" TextColor="DarkOrange" Style="{StaticResource QuickReportKey}"/>
-                </StackLayout>
-            </Border>-->
 
             <Border Style="{StaticResource QuickBorder}">
             <StackLayout>
@@ -58,6 +57,7 @@
         </Grid>
             
     </Grid>
-    
+
+    </Border>
     
 </ContentView>
