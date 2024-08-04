@@ -4,10 +4,7 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.Drink.DrinkChartResultView">
 
-    <Border StrokeThickness="0">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="0"/>
-        </Border.StrokeShape>
+    <Border Style="{StaticResource ReportBorder}">
 
         <Grid>
             <Grid.RowDefinitions>

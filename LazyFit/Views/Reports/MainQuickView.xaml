@@ -14,8 +14,7 @@
         <Grid 
             HorizontalOptions="FillAndExpand" 
             Padding="0"
-            ColumnDefinitions="auto,*"
-            BackgroundColor="White">
+            ColumnDefinitions="auto,*">
 
 
         <VerticalStackLayout Grid.Column="0" Spacing="0">
@@ -53,7 +52,8 @@
 
         <Grid Grid.Column="1">
             <micro:ChartView Chart="{Binding QuickChart}" 
-                             HeightRequest="200"/>
+                             HeightRequest="200"
+                             Margin="5"/>
         </Grid>
             
     </Grid>

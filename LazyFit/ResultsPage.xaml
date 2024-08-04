@@ -10,9 +10,9 @@
              Title="ResultsPage"
              Background="{StaticResource GithubLight}">
 
-    <Page.Behaviors>
+    <!--<Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
-    </Page.Behaviors>
+    </Page.Behaviors>-->
 
     <Grid>
 
