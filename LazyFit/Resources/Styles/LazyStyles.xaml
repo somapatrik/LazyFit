@@ -3,9 +3,15 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style x:Key="LogPopup" TargetType="Border">
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="VerticalOptions" Value="End"/>
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+    
     <Style x:Key="ClassicBorder" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
-        
+        <Setter Property="BackgroundColor" Value="White"/>
     </Style>
 
     <Style x:Key="ActionBorder" TargetType="Border">
@@ -34,7 +40,7 @@
     <Style x:Key="QuickBorder" TargetType="Border">
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Padding" Value="15,10,10,10"/>
     </Style>
 
     <Style x:Key="ReportValue" TargetType="Label">

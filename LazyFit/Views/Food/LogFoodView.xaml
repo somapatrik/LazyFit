@@ -7,16 +7,15 @@
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
              xmlns:foodVM="clr-namespace:LazyFit.ViewModels.FoodViewModels"
              Background="#80000000">
-        
-    <Border Padding="10" 
-            VerticalOptions="End">
+
+    <Border Style="{StaticResource LogPopup}">
 
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="10,10,0,0"/>
         </Border.StrokeShape>
 
         <VerticalStackLayout>
-            <Label Text="Log food" Style="{StaticResource PageSubHeader}"/>
+            <Label Text="What kind of food have you eaten?" Style="{StaticResource PageSubHeader}"/>
 
             <TimePicker HorizontalOptions="Center" FontSize="Large" Margin="20"  Time="{Binding SelectedTime}" />
 
