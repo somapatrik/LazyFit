@@ -7,8 +7,20 @@
         <Setter Property="Padding" Value="10"/>
         <Setter Property="VerticalOptions" Value="End"/>
         <Setter Property="BackgroundColor" Value="White"/>
+        
     </Style>
-    
+
+    <Style x:Key="ReportBorder" TargetType="Border">
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="0"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ClassicBorder" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
         <Setter Property="BackgroundColor" Value="White"/>
