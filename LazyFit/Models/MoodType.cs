@@ -3,8 +3,11 @@ namespace LazyFit.Models
 {
         public enum MoodName
         {
-            Bad = 0,
-            Normal = 1,
-            Good = 2
+            VeryBad = 0,
+            Bad = 1,
+            Normal = 2,
+            Good = 3,
+            VeryGood = 4,
+
         }
 }
