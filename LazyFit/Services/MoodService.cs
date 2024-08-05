@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
-using LazyFit.Models;
+using LazyFit.Models.Moods;
 
 namespace LazyFit.Services
 {

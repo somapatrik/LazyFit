@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace LazyFit.Models
+namespace LazyFit.Models.Moods
 {
     public class Mood
     {
@@ -16,6 +16,6 @@ namespace LazyFit.Models
             Id = id;
             Time = DateTime.Now;
             TypeOfMood = typeofmood;
-        }   
+        }
     }
 }

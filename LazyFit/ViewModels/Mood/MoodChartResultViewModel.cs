@@ -2,7 +2,7 @@
 using LazyFit.Services;
 using Microcharts;
 using SkiaSharp;
-using LazyFit.Models;
+using LazyFit.Models.Moods;
 
 namespace LazyFit.ViewModels.MoodViewModels
 {
@@ -41,7 +41,7 @@ namespace LazyFit.ViewModels.MoodViewModels
                     string name = "";
                     if (moodGroup.TypeOfMood == MoodName.VeryGood)
                     {
-                        name = "Very good";
+                        name = "";
                         color = SKColors.LimeGreen;
                     }
                     else if (moodGroup.TypeOfMood == MoodName.VeryBad)

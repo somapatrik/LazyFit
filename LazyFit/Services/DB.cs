@@ -3,6 +3,7 @@ using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
+using LazyFit.Models.Moods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
