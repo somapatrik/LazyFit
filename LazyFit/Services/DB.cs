@@ -39,7 +39,6 @@ namespace LazyFit.Services
             List<Task> tables = new List<Task>()
             {
                 Database.CreateTableAsync<Fast>(),
-                Database.CreateTableAsync<Mood>(),
                 Database.CreateTableAsync<Weight>(),
 
                 Database.CreateTableAsync<Drink>(),
@@ -47,6 +46,9 @@ namespace LazyFit.Services
 
                 Database.CreateTableAsync<Food>(),
                 Database.CreateTableAsync<FoodProperty>(),
+
+                Database.CreateTableAsync<Mood>(),
+                Database.CreateTableAsync<MoodProperty>(),
 
                 Database.CreateTableAsync<BloodPressure>()
             };
