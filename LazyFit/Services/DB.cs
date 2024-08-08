@@ -14,7 +14,9 @@ namespace LazyFit.Services
 
         public static SQLiteAsyncConnection Database;
 
-        public static string DatabaseFilename = "lazyfit.db3";
+        //public static string DatabaseFilename = "lazyfit.db3";
+        public static string DatabaseFilename = "lazyfit2.db3";
+
 
         public static SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
@@ -121,8 +123,8 @@ namespace LazyFit.Services
 
                 MoodProperty moodProperty = new MoodProperty()
                 {
-                    ID = moodName,
-                    Name = name,
+                    MoodID = moodName,
+                    DisplayName = name,
                     Description = "",
                     ImageName = moodName.ToString() + ".png",
                 };
