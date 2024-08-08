@@ -1,13 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using LazyFit.Messages;
-using LazyFit.Models;
+﻿using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Moods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
-using static Android.Icu.Text.CaseMap;
 
 namespace LazyFit.Services
 {
@@ -105,6 +102,31 @@ namespace LazyFit.Services
                     ImageName = food.ToString() + ".png"
                 };
                 await Database.InsertOrReplaceAsync(foodProperty);
+            }
+
+            foreach (MoodName moodName in Enum.GetValues(typeof(MoodName)))
+            {
+                string name = "";
+
+                if (moodName == MoodName.VeryBad)
+                    name = "Very bad";
+                else if (moodName == MoodName.Bad)
+                    name = "Bad";
+                else if (moodName == MoodName.Normal)
+                    name = "Normal";
+                else if (moodName == MoodName.Good)
+                    name = "Good";
+                else if (moodName == MoodName.VeryGood)
+                    name = "Very good";
+
+                MoodProperty moodProperty = new MoodProperty()
+                {
+                    ID = moodName,
+                    Name = name,
+                    Description = "",
+                    ImageName = moodName.ToString() + ".png",
+                };
+                await Database.InsertOrReplaceAsync(moodProperty);
             }
 
         }
