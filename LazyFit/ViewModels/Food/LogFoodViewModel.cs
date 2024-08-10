@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using LazyFit.Models.Foods;
+﻿using LazyFit.Models.Foods;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Collections.ObjectModel;
@@ -23,7 +22,7 @@ namespace LazyFit.ViewModels.FoodViewModels
                 RefreshCans();
             }
         }
-
+           
         private FoodProperty _SelectedFood;
         public FoodProperty SelectedFood
         {
