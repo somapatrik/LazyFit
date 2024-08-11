@@ -33,5 +33,10 @@ namespace LazyFit.Services
         {
             return await DB.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
         }
+
+        public static async Task<List<MoodProperty>> GetAllMoodProperties()
+        {
+            return await DB.Database.Table<MoodProperty>().ToListAsync();
+        }
     }
 }

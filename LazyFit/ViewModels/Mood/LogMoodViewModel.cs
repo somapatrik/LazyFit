@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using LazyFit.Models.Moods;
+using LazyFit.Services;
 
 namespace LazyFit.ViewModels.MoodViewModels
 {
@@ -9,14 +10,19 @@ namespace LazyFit.ViewModels.MoodViewModels
         [ObservableProperty]
         private List<MoodProperty> _moods;
 
+        [ObservableProperty]
+        private MoodProperty _selectedMood;
+
         public LogMoodViewModel() 
         {
             LoadMoods();
         }
 
-        private void LoadMoods()
+        private async void LoadMoods()
         {
-            Moods = new List<MoodProperty>();
+            //Moods = new List<MoodProperty>();
+            Moods = await MoodService.GetAllMoodProperties();
+            Moods = Moods.OrderByDescending(m => m.MoodID).ToList();
                
         }
     }

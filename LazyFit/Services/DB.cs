@@ -111,24 +111,40 @@ namespace LazyFit.Services
             foreach (MoodName moodName in Enum.GetValues(typeof(MoodName)))
             {
                 string name = "";
+                string imageName = "";
 
-                if (moodName == MoodName.VeryBad)
+                if (moodName == MoodName.VeryBad) 
+                {
                     name = "Very bad";
-                else if (moodName == MoodName.Bad)
+                    imageName = "cursing";
+                }
+                else if (moodName == MoodName.Bad) 
+                {
                     name = "Bad";
-                else if (moodName == MoodName.Normal)
+                    imageName = "angry";
+                }
+                else if (moodName == MoodName.Normal) 
+                {
                     name = "Normal";
-                else if (moodName == MoodName.Good)
+                    imageName = "neutral";
+                }
+                else if (moodName == MoodName.Good) 
+                {
                     name = "Good";
-                else if (moodName == MoodName.VeryGood)
+                    imageName = "happy";
+                }
+                else if (moodName == MoodName.VeryGood) 
+                {
                     name = "Very good";
+                    imageName = "very_happy";
+                }
 
                 MoodProperty moodProperty = new MoodProperty()
                 {
                     MoodID = moodName,
                     DisplayName = name,
                     Description = "",
-                    ImageName = moodName.ToString() + ".png",
+                    ImageName = imageName + ".png",
                 };
                 await Database.InsertOrReplaceAsync(moodProperty);
             }

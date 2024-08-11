@@ -30,11 +30,12 @@
 
             <Border Grid.Row="1" 
                     Grid.Column="1" 
-                    Background="Transparent"
-                    Margin="0,0,0,10" 
+                    BackgroundColor="{StaticResource LazyColor}"
+                    Margin="0,0,0,0" 
                     Padding="0"
                     WidthRequest="60"
-                    HeightRequest="60">
+                    HeightRequest="60"
+                    StrokeThickness="0">
                 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="50"/>
@@ -44,11 +45,17 @@
                     <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
                 </Border.GestureRecognizers>
 
-                <Image Source="icons/edit"
+                <!--<Image Source="icons/edit"
                        WidthRequest="28"
                        HorizontalOptions="Center" 
                        VerticalOptions="Center"
-                       Margin="5,0,0,0"/>
+                       Margin="5,0,0,0"/>-->
+
+                <Label Text="+"
+                       FontSize="43"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
 
             </Border>
 

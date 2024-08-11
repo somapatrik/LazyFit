@@ -3,22 +3,93 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:moodVM="clr-namespace:LazyFit.ViewModels.MoodViewModels"
-             
+             xmlns:moodModel="clr-namespace:LazyFit.Models.Moods"
              x:Class="LazyFit.Views.Mood.LogMoodView"
              Background="#80000000">
 
-    <Border Style="{StaticResource LogPopup}">
+    <Border Style="{StaticResource LogPopup}" Padding="10,0">
 
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="10,10,0,0"/>
-        </Border.StrokeShape>
+        <CollectionView ItemsSource="{Binding Moods}" 
+                        SelectionMode="Single" 
+                        SelectedItem="{Binding SelectedMood}"
+                        >
 
-        <VerticalStackLayout>
-            <Label 
-            Text="Moods"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        </VerticalStackLayout>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout 
+                    Orientation="Vertical"
+                    Span="1" 
+                    />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                           BackgroundColor="White"
+                           Margin="3" 
+                           Padding="10" 
+                           MinimumHeightRequest="70">
+
+                        <!--<Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                        Command="{Binding SetFood, Source={RelativeSource AncestorType={x:Type moodVM:LogFoodViewModel}}}"
+                        CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>-->
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Border.BackgroundColor" Value="{StaticResource NexenColor}"/>
+                                            <Setter TargetName="moodLabel"  Property="Label.TextColor" Value="White" />
+                                            <Setter TargetName="moodDesc"  Property="Label.TextColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Normal" >
+                                        <VisualState.Setters>
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid RowDefinitions="*,*" 
+                              ColumnDefinitions="auto,*">
+
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding ImageName}"/>
+
+                            <Label x:Name="moodLabel" 
+                                   Grid.Row="0" 
+                                   Grid.Column="1"
+                                   Text="{Binding DisplayName}" 
+                                   TextColor="Black" 
+                                   FontSize="Medium" 
+                                   HorizontalTextAlignment="End"
+                                   HorizontalOptions="End"/>
+
+                            <Label x:Name="moodDesc" 
+                                   Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding Description}" 
+                                   TextColor="{StaticResource Gray300}" 
+                                   FontSize="Caption" 
+                                   HorizontalTextAlignment="End" 
+                                   HorizontalOptions="End"
+                                   VerticalOptions="End"/>
+
+                        </Grid>
+                        
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
 
     </Border>
 
