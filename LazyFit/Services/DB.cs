@@ -112,11 +112,13 @@ namespace LazyFit.Services
             {
                 string name = "";
                 string imageName = "";
+                string description = "";
 
                 if (moodName == MoodName.VeryBad) 
                 {
                     name = "Very bad";
                     imageName = "cursing";
+                    description = "Fuck";
                 }
                 else if (moodName == MoodName.Bad) 
                 {
@@ -143,7 +145,7 @@ namespace LazyFit.Services
                 {
                     MoodID = moodName,
                     DisplayName = name,
-                    Description = "",
+                    Description = description,
                     ImageName = imageName + ".png",
                 };
                 await Database.InsertOrReplaceAsync(moodProperty);
