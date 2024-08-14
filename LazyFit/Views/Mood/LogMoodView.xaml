@@ -6,19 +6,21 @@
              xmlns:moodModel="clr-namespace:LazyFit.Models.Moods"
              x:Class="LazyFit.Views.Mood.LogMoodView"
              Background="#80000000">
+    
+    
 
     <Border Style="{StaticResource LogPopup}" Padding="10,0">
 
+        <VerticalStackLayout Spacing="5">
+            
         <CollectionView ItemsSource="{Binding Moods}" 
                         SelectionMode="Single" 
-                        SelectedItem="{Binding SelectedMood}"
-                        >
+                        SelectedItem="{Binding SelectedMood}">
 
             <CollectionView.ItemsLayout>
                 <GridItemsLayout 
                     Orientation="Vertical"
-                    Span="1" 
-                    />
+                    Span="1"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -90,6 +92,12 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
+
+        <Button Text="Confirm" 
+                Style="{StaticResource ButtonOk}"
+                Command="{Binding SaveMoodCommand}"/>
+
+        </VerticalStackLayout>
 
     </Border>
 

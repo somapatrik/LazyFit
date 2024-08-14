@@ -1,4 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Java.Lang;
+using Java.Time.Temporal;
 using LazyFit.Models.Moods;
 using LazyFit.Services;
 
@@ -11,6 +14,7 @@ namespace LazyFit.ViewModels.MoodViewModels
         private List<MoodProperty> _moods;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveMoodCommand))]
         private MoodProperty _selectedMood;
 
         public LogMoodViewModel() 
@@ -25,5 +29,18 @@ namespace LazyFit.ViewModels.MoodViewModels
             Moods = Moods.OrderByDescending(m => m.MoodID).ToList();
                
         }
+
+        [RelayCommand(CanExecute = nameof(CanSave))]
+        private async Task SaveMood()
+        {
+            var i = 0;
+        }
+
+        private bool CanSave()
+        {
+            return SelectedMood != null;
+        }
+
+
     }
 }
