@@ -10,6 +10,6 @@ public partial class LogMoodView : PopupPage
 	public LogMoodView()
 	{
 		InitializeComponent();
-		BindingContext = _viewModel = new LogMoodViewModel();
+		//BindingContext = _viewModel = new LogMoodViewModel();
 	}
 }

@@ -4,42 +4,90 @@
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:moodVM="clr-namespace:LazyFit.ViewModels.MoodViewModels"
              xmlns:moodModel="clr-namespace:LazyFit.Models.Moods"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Mood.LogMoodView"
              Background="#80000000">
-    
-    
+
+    <mopup:PopupPage.BindingContext>
+        <moodVM:LogMoodViewModel/>
+    </mopup:PopupPage.BindingContext>
 
     <Border BackgroundColor="Transparent" Style="{StaticResource LogPopup}" Padding="0,0">
 
-        <VerticalStackLayout Spacing="5">
+        <VerticalStackLayout>
+
+            <Border BackgroundColor="White">
+            <CollectionView
+                ItemsSource="{Binding Dates}" 
+                SelectionMode="Single" 
+                SelectedItem="{Binding SelectedDate}"
+                HorizontalOptions="CenterAndExpand">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border Style="{StaticResource ClassicBorder}"
+                                Margin="3"
+                                Padding="10,5">
+                            <VerticalStackLayout>
+                                <Image Source="{Binding IconName}" WidthRequest="96" HorizontalOptions="CenterAndExpand"/>
+                                <Label x:Name="dateValue" Text="{Binding Value}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                                <Label x:Name="dateLabel" Text="{Binding Date, Converter={converters:DatetimeToDateConverter}}" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroupList>
+                                        <VisualStateGroup x:Name="CommonStates">
+
+                                            <VisualState x:Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Border.BackgroundColor" Value="{StaticResource Yellow100Accent}"/>
+                                                    <Setter TargetName="dateValue"  Property="Label.TextColor" Value="White" />
+                                                    <Setter TargetName="dateLabel"  Property="Label.TextColor" Value="White" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Normal" >
+                                                <VisualState.Setters>
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                    </VisualStateGroupList>
+                                </VisualStateManager.VisualStateGroups>
+
+                            </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+            </Border>
             
-        <CollectionView ItemsSource="{Binding Moods}" 
+            <CollectionView ItemsSource="{Binding Moods}" 
                         SelectionMode="Single" 
                         SelectedItem="{Binding SelectedMood}">
 
             <CollectionView.ItemsLayout>
                 <GridItemsLayout 
                     Orientation="Vertical"
-                    Span="1" VerticalItemSpacing="5"/>
+                    Span="1" VerticalItemSpacing="0.1"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
 
-                    <Border
+                        <Border
                            BackgroundColor="White"
                            StrokeThickness="0"
                            Margin="0" 
                            Padding="10" 
                            MinimumHeightRequest="70">
 
-                        <!--<Frame.GestureRecognizers>
-                            <TapGestureRecognizer
-                        Command="{Binding SetFood, Source={RelativeSource AncestorType={x:Type moodVM:LogFoodViewModel}}}"
-                        CommandParameter="{Binding .}"/>
-                        </Frame.GestureRecognizers>-->
-
-                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup x:Name="CommonStates">
 
@@ -95,7 +143,7 @@
 
         <Button Text="Confirm" 
                 Style="{StaticResource ButtonOk}"
-                Margin="5"
+                Margin="5,10,5,5"
                 Command="{Binding SaveMoodCommand}"/>
 
         </VerticalStackLayout>
