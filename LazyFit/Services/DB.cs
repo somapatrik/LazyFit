@@ -118,27 +118,31 @@ namespace LazyFit.Services
                 {
                     name = "Very bad";
                     imageName = "cursing";
-                    description = "Fuck";
+                    description = "F*ck this!";
                 }
                 else if (moodName == MoodName.Bad) 
                 {
                     name = "Bad";
                     imageName = "angry";
+                    description = "Could be better";
                 }
                 else if (moodName == MoodName.Normal) 
                 {
                     name = "Normal";
                     imageName = "neutral";
+                    description = "Not great, not terrible...";
                 }
                 else if (moodName == MoodName.Good) 
                 {
                     name = "Good";
                     imageName = "happy";
+                    description = "This is fine!";
                 }
                 else if (moodName == MoodName.VeryGood) 
                 {
                     name = "Very good";
                     imageName = "very_happy";
+                    description = "Everything is great!";
                 }
 
                 MoodProperty moodProperty = new MoodProperty()

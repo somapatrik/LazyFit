@@ -5,6 +5,7 @@ using Java.Time.Temporal;
 using LazyFit.Classes;
 using LazyFit.Models.Moods;
 using LazyFit.Services;
+using Mopups.Services;
 
 namespace LazyFit.ViewModels.MoodViewModels
 {
@@ -51,7 +52,9 @@ namespace LazyFit.ViewModels.MoodViewModels
         [RelayCommand(CanExecute = nameof(CanSave))]
         private async Task SaveMood()
         {
-            var i = 0;
+            Mood mood = new Mood(SelectedMood.MoodID, SelectedDate.Date);
+            await MoodService.InsertMood(mood);
+            await MopupService.Instance.PopAsync();
         }
 
         private bool CanSave()

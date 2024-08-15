@@ -134,7 +134,7 @@
                                        Grid.Column="1"
                                        Text="{Binding Description}" 
                                        TextColor="{StaticResource Gray300}" 
-                                       FontSize="Caption" 
+                                       FontSize="Medium" 
                                        HorizontalOptions="Start"
                                        VerticalOptions="Start"/>
 
