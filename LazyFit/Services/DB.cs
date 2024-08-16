@@ -1,12 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using LazyFit.Messages;
-using LazyFit.Models;
+﻿using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
+using LazyFit.Models.Moods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
-using static Android.Icu.Text.CaseMap;
 
 namespace LazyFit.Services
 {
@@ -16,7 +14,9 @@ namespace LazyFit.Services
 
         public static SQLiteAsyncConnection Database;
 
-        public static string DatabaseFilename = "lazyfit.db3";
+        //public static string DatabaseFilename = "lazyfit.db3";
+        public static string DatabaseFilename = "lazyfit2.db3";
+
 
         public static SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
@@ -39,7 +39,6 @@ namespace LazyFit.Services
             List<Task> tables = new List<Task>()
             {
                 Database.CreateTableAsync<Fast>(),
-                Database.CreateTableAsync<Mood>(),
                 Database.CreateTableAsync<Weight>(),
 
                 Database.CreateTableAsync<Drink>(),
@@ -47,6 +46,9 @@ namespace LazyFit.Services
 
                 Database.CreateTableAsync<Food>(),
                 Database.CreateTableAsync<FoodProperty>(),
+
+                Database.CreateTableAsync<Mood>(),
+                Database.CreateTableAsync<MoodProperty>(),
 
                 Database.CreateTableAsync<BloodPressure>()
             };
@@ -104,6 +106,53 @@ namespace LazyFit.Services
                     ImageName = food.ToString() + ".png"
                 };
                 await Database.InsertOrReplaceAsync(foodProperty);
+            }
+
+            foreach (MoodName moodName in Enum.GetValues(typeof(MoodName)))
+            {
+                string name = "";
+                string imageName = "";
+                string description = "";
+
+                if (moodName == MoodName.VeryBad) 
+                {
+                    name = "Very bad";
+                    imageName = "cursing";
+                    description = "F*ck this!";
+                }
+                else if (moodName == MoodName.Bad) 
+                {
+                    name = "Bad";
+                    imageName = "angry";
+                    description = "Could be better";
+                }
+                else if (moodName == MoodName.Normal) 
+                {
+                    name = "Normal";
+                    imageName = "neutral";
+                    description = "Not great, not terrible...";
+                }
+                else if (moodName == MoodName.Good) 
+                {
+                    name = "Good";
+                    imageName = "happy";
+                    description = "This is fine!";
+                }
+                else if (moodName == MoodName.VeryGood) 
+                {
+                    name = "Very good";
+                    imageName = "very_happy";
+                    description = "Everything is great!";
+                }
+
+                MoodProperty moodProperty = new MoodProperty()
+                {
+                    MoodID = moodName,
+                    DisplayName = name,
+                    Description = description,
+                    ImageName = imageName + ".png",
+                };
+                await Database.InsertOrReplaceAsync(moodProperty);
             }
 
         }
