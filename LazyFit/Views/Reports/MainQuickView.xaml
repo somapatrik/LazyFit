@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Reports.MainQuickView"
              xmlns:reportViewModels="clr-namespace:LazyFit.ViewModels.Reports">
 
@@ -16,8 +17,33 @@
             Padding="0"
             ColumnDefinitions="auto,*">
 
+            <VerticalStackLayout
+                HorizontalOptions="CenterAndExpand"
+                Spacing="5"
+                Padding="10"
+                
+                IsVisible="{Binding IsVisible,Converter={converters:InverseBoolConverter}}"
+                Grid.ColumnSpan="2">
 
-        <VerticalStackLayout Grid.Column="0" Spacing="0">
+                <Label Text="Log food,"
+                       HorizontalTextAlignment="Center"/>
+
+                <Label Text="drink"
+                       HorizontalTextAlignment="Center"/>
+
+                <Label Text="or fast"
+                       HorizontalTextAlignment="Center"/>
+
+                <Label Text="to see the results!"
+                       HorizontalTextAlignment="Center"/>
+
+            </VerticalStackLayout>
+
+            
+
+
+            <VerticalStackLayout Grid.Column="0" Spacing="0" 
+            IsVisible="{Binding IsVisible}">
 
             <Border Style="{StaticResource QuickBorder}">
             <StackLayout>
@@ -50,13 +76,14 @@
             </Border>
         </VerticalStackLayout>
 
-        <Grid Grid.Column="1">
-            <micro:ChartView Chart="{Binding QuickChart}" 
-                             HeightRequest="200"
-                             Margin="5"/>
+            <Grid Grid.Column="1" 
+            IsVisible="{Binding IsVisible}">
+                <micro:ChartView Chart="{Binding QuickChart}" 
+                                 HeightRequest="200"
+                                 Margin="5"/>
+            </Grid>
+
         </Grid>
-            
-    </Grid>
 
     </Border>
     

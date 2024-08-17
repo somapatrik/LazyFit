@@ -16,6 +16,11 @@ namespace LazyFit.ViewModels.Reports
         private decimal _FastRatio;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsVisible))]
+        private bool _FoodExists;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsVisible))]
         private bool _FastsExists;
 
         [ObservableProperty]
@@ -25,9 +30,15 @@ namespace LazyFit.ViewModels.Reports
         private decimal _DrinkRatio;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsVisible))]
+        private bool _DrinkExists;
+
+        [ObservableProperty]
         private Chart _QuickChart;
 
         private int _NumberOfRecords = 10;
+
+        public bool IsVisible => FoodExists || DrinkExists || FastsExists;
 
 
         public MainQuickViewModel() 
@@ -97,6 +108,7 @@ namespace LazyFit.ViewModels.Reports
                 LoadFood(), 
                 LoadFasts(), 
                 LoadDrink()
+
             };
 
             await Task.WhenAll(tasks);
@@ -123,13 +135,20 @@ namespace LazyFit.ViewModels.Reports
             };
         }
 
+        //private void SetVisibility()
+        //{
+        //    IsVisible = FoodExists || DrinkExists || FastsExists;
+        //}
+
         private async Task LoadFood()
         {
+            FoodExists = (await FoodService.GetLastFoods(_NumberOfRecords)).Any();
             FoodRatio = await FoodService.GetGoodFoodRatio(_NumberOfRecords);
         }
 
         private async Task LoadDrink()
         {
+            DrinkExists = (await DrinkService.GetLastDrinks(_NumberOfRecords)).Any();
             DrinkRatio = await DrinkService.GetGoodDrinkRatio(_NumberOfRecords);
         }
 
