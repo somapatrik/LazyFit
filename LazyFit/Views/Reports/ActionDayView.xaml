@@ -12,9 +12,8 @@
             <RoundRectangle CornerRadius="7"/>
         </Border.StrokeShape>
     
-        <Grid RowDefinitions="*,auto,3*" >
-
-            
+        <Grid RowDefinitions="auto,auto,*" >
+         
             <Label Grid.Row="1"
                 Text="{Binding  ActionDate, Converter={converters:DatetimeToDateConverter}}"
                 VerticalOptions="Center" 
