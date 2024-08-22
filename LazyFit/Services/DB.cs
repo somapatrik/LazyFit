@@ -169,7 +169,7 @@ namespace LazyFit.Services
         {
             var foods = await FoodService.GetFoods(fromTime, toTime);
             var drinks = await DrinkService.GetDrinks(fromTime, toTime);
-            var moods = await MoodService.GetMoods(fromTime, toTime);
+            var moods = await MoodService.GetMoods(fromTime, toTime, true);
             var weights = await WeightService.GetWeights(fromTime, toTime);
             var fasts = await FastService.GetFasts(fromTime, toTime);
 
@@ -185,6 +185,7 @@ namespace LazyFit.Services
                     Time = food.Time, 
                     IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack),
                     ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood)
+                    
                 });
             });
 
@@ -210,7 +211,8 @@ namespace LazyFit.Services
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
                     IsBad = (mood.TypeOfMood == MoodName.Bad),
-                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood)
+                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood),
+                    IconName = mood.Property.ImageName
                 });
             });
 
