@@ -27,31 +27,39 @@
                                 <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
-                            <HorizontalStackLayout 
-                                Background="White"
-                                Spacing="5">
+                        
+                            <Grid ColumnDefinitions="auto,auto,*">
 
                                 <Label Text="{Binding Time, Converter={convertes:DateTimeToDayConverter}}" 
                                        VerticalTextAlignment="Center"
                                        FontSize="Large"
-                                       Margin="3"/>
+                                       Margin="3"
+                                       Grid.Column="0"/>
 
-                                <Border StrokeThickness=".3"/>
+                                <Border StrokeThickness=".3" 
+                                        Margin="5,0"
+                                        Grid.Column="1"/>
 
 
-                                <FlexLayout Wrap="Wrap"
-                                            Direction="Column"
-                                            BindableLayout.ItemsSource="{Binding Actions}">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
+                            <CollectionView ItemsSource="{Binding Actions}"
+                                            VerticalOptions="Center"
+                                            Grid.Column="2">
 
-                                            <Image Source="{Binding IconName}" WidthRequest="32" Margin="1.5"/>
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
+                                </CollectionView.ItemsLayout>
 
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
-                                </FlexLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding IconName}" WidthRequest="32"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
 
-                            </HorizontalStackLayout>
+                            </CollectionView>
+
+                            </Grid>
+                        
+                        
                         </Border>
                 </DataTemplate>
                 </CollectionView.ItemTemplate>

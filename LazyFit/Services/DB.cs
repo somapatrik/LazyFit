@@ -7,6 +7,7 @@ using LazyFit.Models.WeightModels;
 using SQLite;
 using static Android.Util.EventLogTags;
 using Xamarin.Google.Crypto.Tink.Proto;
+using static Android.Icu.Text.CaseMap;
 
 namespace LazyFit.Services
 {
@@ -109,67 +110,41 @@ namespace LazyFit.Services
             };
 
             drinks.ForEach(async d => await Database.InsertOrReplaceAsync(d));
-            
-            //foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
-            //{
-            //    string description = "";
 
-            //    if (drink == TypeOfDrink.Coffee) 
-            //    { 
-            //        description = "Dark perfection";
-            //    }
-            //    else if (drink == TypeOfDrink.Beer)
-            //    {
-            //        description = "The beverage of Kings";
-            //    }
-            //    else if (drink == TypeOfDrink.Water)
-            //    {
-            //        description = "Basic stuff";
-            //    } 
-            //    else if (drink == TypeOfDrink.Sweet)
-            //    {
-            //        description = "Anything with sugar";
-            //    }
-            //    else if (drink == TypeOfDrink.Tea)
-            //    {
-            //        description = "No sugar!";
-            //    }
-            //    else if (drink == TypeOfDrink.Alcoholic)
-            //    {
-            //        description = "Beer excluded";
-            //    }
-            //        DrinkProperty drinkProperty = new DrinkProperty()
-            //        {
-            //            DrinkID = drink,
-            //            DisplayName = drink.ToString(),
-            //            Description = description,
-            //            ImageName = drink.ToString() + ".png",
-            //        };
-            //    await Database.InsertOrReplaceAsync(drinkProperty);
-            //}
-
-            foreach (TypeOfFood food in Enum.GetValues(typeof(TypeOfFood)))
+            // Food
+            List<FoodProperty> foods = new List<FoodProperty>()
             {
-                string description = "";
-
-                if (food == TypeOfFood.Normal)
-                    description = "Casual food";
-                else if (food == TypeOfFood.Healthy)
-                    description = "Like really healthy";
-                else if (food == TypeOfFood.Unhealthy)
-                    description = "The tasty stuff";
-                else if (food == TypeOfFood.Snack)
-                    description = "Usually the bad kind";
-
-                FoodProperty foodProperty = new FoodProperty()
+                new FoodProperty()
                 {
-                    FoodId = food,
-                    DisplayName = food.ToString(),
-                    Description = description,
-                    ImageName = food.ToString() + ".png"
-                };
-                await Database.InsertOrReplaceAsync(foodProperty);
-            }
+                    FoodId = TypeOfFood.Normal,
+                    DisplayName = "Casual",
+                    Description = "Ok food",
+                    ImageName = "normalfood.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Healthy,
+                    DisplayName = "Healthy",
+                    Description = "Like really healthy",
+                    ImageName = "healthyfood.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Unhealthy,
+                    DisplayName = "Unhealthy",
+                    Description = "Junk, tasty stuff",
+                    ImageName = "hamburger.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Snack,
+                    DisplayName = "Snack",
+                    Description = "Quick and bad",
+                    ImageName = "snack.png"
+                },
+            };
+
+            foods.ForEach(async f => await Database.InsertOrReplaceAsync(f));
 
             foreach (MoodName moodName in Enum.GetValues(typeof(MoodName)))
             {
@@ -230,7 +205,7 @@ namespace LazyFit.Services
         #region actions
         public static async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
         {
-            var foods = await FoodService.GetFoods(fromTime, toTime);
+            var foods = await FoodService.GetFoods(fromTime, toTime, true);
             var drinks = await DrinkService.GetDrinks(fromTime, toTime, true);
             var moods = await MoodService.GetMoods(fromTime, toTime, true);
             var weights = await WeightService.GetWeights(fromTime, toTime);
@@ -247,7 +222,8 @@ namespace LazyFit.Services
                     Color = LazyColors.FreshGreen, 
                     Time = food.Time, 
                     IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack),
-                    ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood)
+                    ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood),
+                    IconName = food.Property.ImageName
                     
                 });
             });
