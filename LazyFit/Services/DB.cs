@@ -5,9 +5,6 @@ using LazyFit.Models.Moods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
-using static Android.Util.EventLogTags;
-using Xamarin.Google.Crypto.Tink.Proto;
-using static Android.Icu.Text.CaseMap;
 
 namespace LazyFit.Services
 {
@@ -146,52 +143,47 @@ namespace LazyFit.Services
 
             foods.ForEach(async f => await Database.InsertOrReplaceAsync(f));
 
-            foreach (MoodName moodName in Enum.GetValues(typeof(MoodName)))
+            // Moods
+            List<MoodProperty> moods = new List<MoodProperty>()
             {
-                string name = "";
-                string imageName = "";
-                string description = "";
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryGood,
+                    DisplayName = "Very good",
+                    Description = "Everything is great!",
+                    ImageName = "very_happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Good,
+                    DisplayName = "Good",
+                    Description = "This is fine!",
+                    ImageName = "happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Normal,
+                    DisplayName = "Normal",
+                    Description = "Not great, not terrible...",
+                    ImageName = "neutral.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Bad,
+                    DisplayName = "Bad",
+                    Description = "Could be better",
+                    ImageName = "angry.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryBad,
+                    DisplayName = "Very bad",
+                    Description = "F*ck this!",
+                    ImageName = "cursing.png"
+                },
+            };
 
-                if (moodName == MoodName.VeryBad) 
-                {
-                    name = "Very bad";
-                    imageName = "cursing";
-                    description = "F*ck this!";
-                }
-                else if (moodName == MoodName.Bad) 
-                {
-                    name = "Bad";
-                    imageName = "angry";
-                    description = "Could be better";
-                }
-                else if (moodName == MoodName.Normal) 
-                {
-                    name = "Normal";
-                    imageName = "neutral";
-                    description = "Not great, not terrible...";
-                }
-                else if (moodName == MoodName.Good) 
-                {
-                    name = "Good";
-                    imageName = "happy";
-                    description = "This is fine!";
-                }
-                else if (moodName == MoodName.VeryGood) 
-                {
-                    name = "Very good";
-                    imageName = "very_happy";
-                    description = "Everything is great!";
-                }
-
-                MoodProperty moodProperty = new MoodProperty()
-                {
-                    MoodID = moodName,
-                    DisplayName = name,
-                    Description = description,
-                    ImageName = imageName + ".png",
-                };
-                await Database.InsertOrReplaceAsync(moodProperty);
-            }
+            moods.ForEach(async m=> await Database.InsertOrReplaceAsync(m));
 
         }
 
@@ -251,7 +243,7 @@ namespace LazyFit.Services
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
                     IsBad = (mood.TypeOfMood == MoodName.Bad),
-                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood),
+                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood) + " mood",
                     IconName = mood.Property.ImageName
                 });
             });
@@ -265,7 +257,8 @@ namespace LazyFit.Services
                     Color = LazyColors.LazyColor,
                     Time = (DateTime)fast.EndTime,
                     IsBad = (!fast.Completed),
-                    ItemName = fast.Completed ? "Completed fast" : "Failed fast"
+                    ItemName = fast.Completed ? "Completed fast" : "Failed fast",
+                    IconName = "fasting.png"
                 });
             });
 
@@ -280,7 +273,8 @@ namespace LazyFit.Services
                     Color = Colors.DarkOrange.ToHex(),
                     Time = weight.Time,
                     IsBad = false,
-                    ItemName = weight.WeightValue.ToString()
+                    ItemName = weight.WeightValue.ToString(),
+                    IconName = "weight.png"
                 }) ;
             });
 

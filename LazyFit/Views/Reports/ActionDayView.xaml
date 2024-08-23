@@ -36,7 +36,7 @@
                                    TextColor="Gray"/>
                             
                             <!-- Icon -->
-                            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="1" Margin="5,0" Source="{Binding IconName}" WidthRequest="32"/>
+                            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="1" Margin="7,0" Source="{Binding IconName}" WidthRequest="32"/>
 
                             <!-- Line -->
                             <Grid Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Start">
