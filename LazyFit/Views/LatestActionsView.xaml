@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Convertes="clr-namespace:LazyFit.Converters"
+             xmlns:convertes="clr-namespace:LazyFit.Converters"
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
              xmlns:reportViews="clr-namespace:LazyFit.Views.Reports"
              x:Class="LazyFit.Views.LatestActionsView">
@@ -11,26 +11,36 @@
     </ContentView.BindingContext>
 
     <ContentView.Content>
-        <VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding ActionSquares}">
+        <CollectionView ItemsSource="{Binding ActionSquares}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="1"/>
+            </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                    <Border Padding="10,5" 
-                            StrokeThickness="0">
+                    <Border Padding="5,5"
+                            Background="White" StrokeThickness="0">
 
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
-                            <HorizontalStackLayout Background="White">
+                            <HorizontalStackLayout 
+                                Background="White"
+                                Spacing="5">
 
-                                <Label Text="{Binding Time, Converter={Convertes:DateTimeToShortConverter}}" 
+                                <Label Text="{Binding Time, Converter={convertes:DateTimeToDayConverter}}" 
                                        VerticalTextAlignment="Center"
-                                       FontSize="Medium"/>
-                                
+                                       FontSize="Large"
+                                       Margin="3"/>
+
+                                <Border StrokeThickness=".3"/>
+
+
                                 <FlexLayout Wrap="Wrap"
+                                            Direction="Column"
                                             BindableLayout.ItemsSource="{Binding Actions}">
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
@@ -41,16 +51,13 @@
                                     </BindableLayout.ItemTemplate>
                                 </FlexLayout>
 
-                                <Border Style="{StaticResource Splitter}"/>
-
                             </HorizontalStackLayout>
                         </Border>
                 </DataTemplate>
                 </CollectionView.ItemTemplate>
                 
             </CollectionView>
-
-        </VerticalStackLayout>
+ 
     </ContentView.Content>
 
 </ContentView>
