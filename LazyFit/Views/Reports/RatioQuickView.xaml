@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:LazyFit.ViewModels.Reports"
+             xmlns:cvtr="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Reports.RatioQuickView">
 
     <ContentView.BindingContext>
@@ -9,12 +10,49 @@
     </ContentView.BindingContext>
 
 
-    <Border>
+    <Border Style="{StaticResource ClassicBorder}">
         <VerticalStackLayout>
-            <Grid ColumnDefinitions="auto,*">
-                <Label Text="1"/>
-                <ProgressBar Grid.Column="1" Progress="{Binding FoodRatio}" ProgressColor="{StaticResource GithubGreen}"/>
+
+            <Label Text="Log something..." 
+                   IsVisible="{Binding IsVisible, Converter={cvtr:InverseBoolConverter}}" 
+                   HorizontalTextAlignment="Center" 
+                   TextColor="Gray"
+                   Margin="15"/>
+
+            <Grid ColumnDefinitions="auto,*" Padding="10,0" IsVisible="{Binding FoodExists}">
+                <Image Source="apple.png" WidthRequest="32"/>
+                <VerticalStackLayout Grid.Column="1" Padding="10">
+                    <HorizontalStackLayout HorizontalOptions="End">
+                        <Label Text="{Binding FoodRatio}"  TextColor="{StaticResource DarkFreshGreen}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource DarkFreshGreen}" Style="{StaticResource QuickReportValue}"/>
+                    </HorizontalStackLayout>
+                    <ProgressBar  Progress="{Binding FoodRatio, Converter={cvtr:DecimalToProgressConverter}}"  ProgressColor="{StaticResource DarkFreshGreen}" Margin="10,0,0,0"/>
+                </VerticalStackLayout>
             </Grid>
+
+            
+            <Grid ColumnDefinitions="auto,*" Padding="10,0" IsVisible="{Binding DrinkExists}">
+                <Image Source="water.png" WidthRequest="32"/>
+                <VerticalStackLayout Grid.Column="1" Padding="10">
+                    <HorizontalStackLayout HorizontalOptions="End">
+                        <Label Text="{Binding DrinkRatio}"  TextColor="{StaticResource DarkWaterBlue}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource DarkWaterBlue}" Style="{StaticResource QuickReportValue}"/>
+                    </HorizontalStackLayout>
+                    <ProgressBar  Progress="{Binding DrinkRatio, Converter={cvtr:DecimalToProgressConverter}}"  ProgressColor="{StaticResource DarkWaterBlue}" Margin="10,0,0,0"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="auto,*" Padding="10,0" IsVisible="{Binding FastsExists}">
+                <Image Source="fasting.png" WidthRequest="32"/>
+                <VerticalStackLayout Grid.Column="1" Padding="10">
+                    <HorizontalStackLayout HorizontalOptions="End">
+                        <Label Text="{Binding FastRatio}"  TextColor="{StaticResource Yellow100Accent}" Style="{StaticResource QuickReportValue}"/>
+                        <Label Text="%" TextColor="{StaticResource Yellow100Accent}" Style="{StaticResource QuickReportValue}"/>
+                    </HorizontalStackLayout>
+                    <ProgressBar  Progress="{Binding FastRatio, Converter={cvtr:DecimalToProgressConverter}}"  ProgressColor="{StaticResource Yellow100Accent}" Margin="10,0,0,0"/>
+                </VerticalStackLayout>
+            </Grid>
+
         </VerticalStackLayout>
     </Border>
     

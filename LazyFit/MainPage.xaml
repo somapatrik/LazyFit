@@ -80,8 +80,8 @@
 
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0,0">
-                <reportViews:RatioQuickView/>
-                <reportViews:MainQuickView Margin="10,0"/>
+                <reportViews:RatioQuickView Margin="10,0"/>
+                <!--<reportViews:MainQuickView Margin="10,0"/>-->
                 <WeightViews:WeightQuickView Margin="10,0"/>
                 <psViews:PressureCardLineView Margin="10,0"/>
                 <views:LatestActionsView/>

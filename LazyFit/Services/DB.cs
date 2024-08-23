@@ -5,6 +5,8 @@ using LazyFit.Models.Moods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
+using static Android.Util.EventLogTags;
+using Xamarin.Google.Crypto.Tink.Proto;
 
 namespace LazyFit.Services
 {
@@ -58,32 +60,93 @@ namespace LazyFit.Services
 
 
             // Default data
-            foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
+            // Drink properties
+
+            List<DrinkProperty> drinks = new List<DrinkProperty>()
             {
-                string description = "";
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Coffee,
+                    DisplayName = "Coffee",
+                    Description = "Dark perfection",
+                    ImageName = "coffee.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Beer,
+                    DisplayName = "Beer",
+                    Description = "The beverage of Kings",
+                    ImageName = "beer.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Water,
+                    DisplayName = "Water",
+                    Description = "Classic",
+                    ImageName = "water.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Sweet,
+                    DisplayName = "Sweet",
+                    Description = "ANYTHING with sugar",
+                    ImageName = "cola.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Tea,
+                    DisplayName = "Tea",
+                    Description = "No sugar!",
+                    ImageName = "tea.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Alcoholic,
+                    DisplayName = "Alcoholic",
+                    Description = "Beer excluded",
+                    ImageName = "alcohol.png"
+                }
+            };
 
-                if (drink == TypeOfDrink.Coffee)
-                    description = "Dark perfection";
-                else if (drink == TypeOfDrink.Beer)
-                    description = "The beverage of Kings";
-                else if (drink == TypeOfDrink.Water)
-                    description = "Basic stuff";
-                else if (drink == TypeOfDrink.Sweet)
-                    description = "Anything with sugar";
-                else if (drink == TypeOfDrink.Tea)
-                    description = "No sugar!";
-                else if (drink == TypeOfDrink.Alcoholic)
-                    description = "Beer excluded";
+            drinks.ForEach(async d => await Database.InsertOrReplaceAsync(d));
+            
+            //foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
+            //{
+            //    string description = "";
 
-                    DrinkProperty drinkProperty = new DrinkProperty()
-                    {
-                        DrinkID = drink,
-                        DisplayName = drink.ToString(),
-                        Description = description,
-                        ImageName = drink.ToString() + ".png",
-                    };
-                await Database.InsertOrReplaceAsync(drinkProperty);
-            }
+            //    if (drink == TypeOfDrink.Coffee) 
+            //    { 
+            //        description = "Dark perfection";
+            //    }
+            //    else if (drink == TypeOfDrink.Beer)
+            //    {
+            //        description = "The beverage of Kings";
+            //    }
+            //    else if (drink == TypeOfDrink.Water)
+            //    {
+            //        description = "Basic stuff";
+            //    } 
+            //    else if (drink == TypeOfDrink.Sweet)
+            //    {
+            //        description = "Anything with sugar";
+            //    }
+            //    else if (drink == TypeOfDrink.Tea)
+            //    {
+            //        description = "No sugar!";
+            //    }
+            //    else if (drink == TypeOfDrink.Alcoholic)
+            //    {
+            //        description = "Beer excluded";
+            //    }
+            //        DrinkProperty drinkProperty = new DrinkProperty()
+            //        {
+            //            DrinkID = drink,
+            //            DisplayName = drink.ToString(),
+            //            Description = description,
+            //            ImageName = drink.ToString() + ".png",
+            //        };
+            //    await Database.InsertOrReplaceAsync(drinkProperty);
+            //}
 
             foreach (TypeOfFood food in Enum.GetValues(typeof(TypeOfFood)))
             {
@@ -168,7 +231,7 @@ namespace LazyFit.Services
         public static async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
         {
             var foods = await FoodService.GetFoods(fromTime, toTime);
-            var drinks = await DrinkService.GetDrinks(fromTime, toTime);
+            var drinks = await DrinkService.GetDrinks(fromTime, toTime, true);
             var moods = await MoodService.GetMoods(fromTime, toTime, true);
             var weights = await WeightService.GetWeights(fromTime, toTime);
             var fasts = await FastService.GetFasts(fromTime, toTime);
@@ -198,7 +261,8 @@ namespace LazyFit.Services
                     Color = LazyColors.WaterBlue, 
                     Time = drink.Time, 
                     IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea),
-                    ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink)
+                    ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink),
+                    IconName = drink.Property.ImageName
                 });
             });
 
