@@ -53,6 +53,7 @@
 
             </Border>
 
+            <!-- Version -->
             <Label Grid.Row="2"
                    Grid.Column="1"
                    Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
@@ -61,11 +62,10 @@
             <Grid Grid.Row="1"
                   Grid.RowSpan="2"
                   Grid.ColumnSpan="1"
-                  RowDefinitions="*,3*"
-                  ColumnDefinitions="*,*">
+                  RowDefinitions="*,2*"
+                  ColumnDefinitions="3*,*">
 
                 <Button Grid.Row="1" Text="1"/>
-                <Button Grid.Row="1" Grid.Column="1" Text="2"/>
 
             </Grid>
 
@@ -74,11 +74,10 @@
                   Grid.Column="2"
               Grid.RowSpan="2"
               Grid.ColumnSpan="1"
-              RowDefinitions="*,3*"
-              ColumnDefinitions="*,*">
+              RowDefinitions="*,2*"
+              ColumnDefinitions="*,3*">
 
-                <Button Grid.Row="1" Text="1"/>
-                <Button Grid.Row="1" Grid.Column="1" Text="2"/>
+                <Button Grid.Row="1" Grid.Column="1" Text="4"/>
 
             </Grid>
 
