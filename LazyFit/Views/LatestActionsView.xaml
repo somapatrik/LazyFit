@@ -43,7 +43,7 @@
 
                             <CollectionView ItemsSource="{Binding Actions}"
                                             VerticalOptions="Center"
-                                            Grid.Column="2">
+                                            Grid.Column="2" Background="Transparent">
 
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
@@ -51,7 +51,7 @@
 
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding IconName}" WidthRequest="32"/>
+                                        <Image Source="{Binding IconName}" WidthRequest="32" Background="Transparent"/>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
 

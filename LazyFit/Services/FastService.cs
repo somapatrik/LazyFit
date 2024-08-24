@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
 using LazyFit.Models;
+using LazyFit.Models.Drinks;
 
 namespace LazyFit.Services
 {
@@ -24,6 +25,11 @@ namespace LazyFit.Services
                 .OrderByDescending(w => w.EndTime)
                 .Take(numberOfFasts).ToListAsync();
 
+            return GetFastFinishRatioFromList(fasts);   
+        }
+
+        public static int GetFastFinishRatioFromList(List<Fast> fasts)
+        {
             decimal fastCount = fasts.Count();
             int finishedCount = fasts.Where(f => f.Completed).Count();
 
@@ -32,6 +38,7 @@ namespace LazyFit.Services
 
             return 0;
         }
+
         public static async Task<Fast> GetFast(Guid fastId)
         {
             return await DB.Database.Table<Fast>().FirstOrDefaultAsync(f => f.Id == fastId);
@@ -40,6 +47,7 @@ namespace LazyFit.Services
         {
             return await DB.Database.Table<Fast>().Where(f => f.EndTime != null).OrderByDescending(x => x.StartTime).ToListAsync();
         }
+
         public static async Task<List<Fast>> GetFastsByPage(int pageNumber = 0)
         {
             DateTime displayTime = DateTime.Today.AddMonths(pageNumber);
@@ -50,17 +58,7 @@ namespace LazyFit.Services
             return f;
 
         }
-        public static async Task<List<Fast>> GetFastsByPagePerWeek(int pageNumber = 0)
-        {
-            DateTime today = DateTime.Today.AddDays(7 * pageNumber);
-            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
 
-            DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(7).AddMinutes(-1);
-
-            var f = await DB.Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= monday && f.StartTime <= sunday).ToListAsync();
-            return f;
-        }
         public static async Task<List<Fast>> GetFasts(DateTime fromDate, DateTime toDate)
         {
             return await DB.Database.Table<Fast>().Where(f => f.EndTime != null && f.StartTime >= fromDate && f.StartTime <= toDate).ToListAsync();
@@ -69,8 +67,18 @@ namespace LazyFit.Services
         {
             return await DB.Database.Table<Fast>().FirstOrDefaultAsync(f => f.EndTime == null);
         }
-        
-       
+
+        public static async Task<List<Fast>> GetFastsFromLastDays(int numberOfDays)
+        {
+            DateTime now = DateTime.Today;
+
+            DateTime from = new DateTime(now.AddDays(-numberOfDays).Date.Ticks);
+            DateTime to = new DateTime(now.Ticks).AddDays(1).AddSeconds(-1);
+
+            return await GetFasts(from, to);
+
+        }
+
         public static async Task UpdateFast(Fast fast)
         {
             await DB.Database.UpdateAsync(fast);

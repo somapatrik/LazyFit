@@ -148,10 +148,11 @@ namespace LazyFit.ViewModels.Reports
 
         private async Task LoadFasts()
         {
-            FastsExists = await FastService.FastsExists(_NumberOfDays);
+            var fasts = await FastService.GetFastsFromLastDays(_NumberOfDays);
+            FastsExists = fasts.Any();
             
             if (FastsExists)
-                FastRatio = await FastService.GetFastFinishRatio(_NumberOfDays);
+                FastRatio = FastService.GetFastFinishRatioFromList(fasts);
         }
 
         private async Task LoadWeight()
