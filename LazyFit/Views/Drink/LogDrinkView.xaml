@@ -70,17 +70,26 @@
                                 </VisualStateGroupList>
                             </VisualStateManager.VisualStateGroups>
 
-                            <Grid Background="Transparent">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                            <Grid 
+                                RowDefinitions="auto,auto"
+                                ColumnDefinitions="auto,*"
+                                Background="Transparent">
 
-                                <Label x:Name="drinkLabel" Grid.Row="0" Text="{Binding DisplayName}" TextColor="Black" 
+                                <Image Source="{Binding ImageName}" 
+                                       Grid.RowSpan="2"
+                                       WidthRequest="32"/>
+
+                                <Label x:Name="drinkLabel" 
+                                       Grid.Row="0" 
+                                       Grid.Column="1"
+                                       Text="{Binding DisplayName}" TextColor="Black" 
                                        FontSize="Medium" 
                                        HorizontalTextAlignment="End"/>
                                 
-                                <Label x:Name="drinkDesc" Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
+                                <Label x:Name="drinkDesc" 
+                                       Grid.Row="1" 
+                                       Grid.Column="1"
+                                       Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
                                        FontSize="Caption" 
                                        HorizontalTextAlignment="End" 
                                        VerticalOptions="End"/>

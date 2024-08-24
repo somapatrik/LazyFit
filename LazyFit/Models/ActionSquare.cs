@@ -21,5 +21,8 @@ namespace LazyFit.Models
 
         [ObservableProperty]
         private string _ItemName;
+
+        [ObservableProperty]
+        private string _IconName;
     }
 }

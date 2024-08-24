@@ -68,17 +68,18 @@
                                 </VisualStateGroupList>
                             </VisualStateManager.VisualStateGroups>
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                            <Grid RowDefinitions="auto,auto"
+                                  ColumnDefinitions="auto,*">
 
-                                <Label x:Name="foodLabel" Grid.Row="0" Text="{Binding DisplayName}" TextColor="Black" 
+                                <Image Source="{Binding ImageName}" 
+                                       Grid.RowSpan="2"
+                                       WidthRequest="32"/>
+
+                                <Label x:Name="foodLabel" Grid.Row="0" Grid.Column="1" Text="{Binding DisplayName}" TextColor="Black" 
                                        FontSize="Medium" 
                                        HorizontalTextAlignment="End"/>
 
-                                <Label x:Name="foodDesc" Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
+                                <Label x:Name="foodDesc" Grid.Row="1" Grid.Column="1" Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
                                        FontSize="Caption" 
                                        HorizontalTextAlignment="End" 
                                        VerticalOptions="End"/>

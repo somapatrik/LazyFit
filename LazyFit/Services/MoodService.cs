@@ -29,9 +29,24 @@ namespace LazyFit.Services
             return await DB.Database.Table<Mood>().ToListAsync();
         }
 
-        public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime)
+        public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
-            return await DB.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
+            var moods = await DB.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
+
+            if (!LoadProperties)
+            {
+                return moods;
+            }
+            else
+            {
+                var properties = await GetAllMoodProperties();
+                foreach (var mood in moods)
+                    mood.Property = properties.FirstOrDefault(x => x.MoodID == mood.TypeOfMood);
+
+                return moods;
+
+            }
+
         }
 
         public static async Task<List<MoodProperty>> GetAllMoodProperties()
