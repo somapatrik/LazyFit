@@ -141,8 +141,9 @@ namespace LazyFit.ViewModels.Reports
 
         private async Task LoadDrink()
         {
-            DrinkExists = (await DrinkService.GetLastDrinks(_NumberOfDays)).Any();
-            DrinkRatio = await DrinkService.GetGoodDrinkRatio(_NumberOfDays);
+            var drinks = await DrinkService.GetDrinksFromLastDays(_NumberOfDays);
+            DrinkExists = drinks.Any();
+            DrinkRatio = DrinkService.GetGoodDrinkRationFromList(drinks);
         }
 
         private async Task LoadFasts()

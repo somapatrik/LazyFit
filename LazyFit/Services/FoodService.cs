@@ -57,13 +57,6 @@ namespace LazyFit.Services
         public static async Task<int> GetGoodFoodRatio(int numberOfFoods)
         {
             List<Food> foods = await GetLastFoods(numberOfFoods);
-            //double foodCount = foods.Count();
-
-            //if (foodCount == 0)
-            //    return 0;
-
-            //int goodCount = foods.Where(f=>f.TypeOfFood == TypeOfFood.Normal || f.TypeOfFood == TypeOfFood.Healthy).Count();
-            //int goodRatio = (int)Math.Round((goodCount / foodCount) * 100,0);
             return GetFoodRatioFromList(foods);
         }
 
