@@ -15,7 +15,7 @@ namespace LazyFit.ViewModels
         [ObservableProperty]
         private ObservableCollection<ActionSquareDate> _ActionSquares;
 
-        private int numberOfDays = 7;
+        private int numberOfDays = 15;
 
         public LatestActionsViewModel() 
         {

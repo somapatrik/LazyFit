@@ -36,7 +36,7 @@ namespace LazyFit.ViewModels.Reports
         [ObservableProperty]
         private Chart _QuickChart;
 
-        private int _NumberOfDays = 10;
+        private int _NumberOfDays = 15;
 
         public bool IsVisible => FoodExists || DrinkExists || FastsExists;
 

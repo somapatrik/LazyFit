@@ -10,13 +10,14 @@
         <vm:MoodQuickViewModel/>
     </ContentView.BindingContext>
     
-    <Border Style="{StaticResource ClassicBorder}">
+    <Border Style="{StaticResource ClassicBorder}" Padding="3">
 
         <VerticalStackLayout>
             
             <chart:ChartView
                 Chart="{Binding Chart}"
-                MinimumHeightRequest="170"  />
+                MinimumHeightRequest="120" 
+                Background="Transparent"/>
 
         </VerticalStackLayout>
 

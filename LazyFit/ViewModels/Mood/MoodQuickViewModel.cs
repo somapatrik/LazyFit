@@ -86,9 +86,8 @@ namespace LazyFit.ViewModels.MoodViewModels
                 Entries = chartEntries,
                 MaxValue = 5,
                 MinValue = 0,
-                LabelTextSize = 28,
+                LabelTextSize = 32,
                 LabelOrientation = Orientation.Vertical,
-                PointSize = 34,
                 PointMode = PointMode.None
             };
 
