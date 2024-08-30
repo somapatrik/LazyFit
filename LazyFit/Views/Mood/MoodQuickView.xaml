@@ -13,7 +13,9 @@
     <Border Style="{StaticResource ClassicBorder}" Padding="3">
 
         <VerticalStackLayout>
-            
+
+            <Label Text="Mood" Style="{StaticResource PageSubHeader}"/>
+
             <chart:ChartView
                 Chart="{Binding Chart}"
                 MinimumHeightRequest="120" 

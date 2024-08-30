@@ -16,6 +16,9 @@ namespace LazyFit.ViewModels.MoodViewModels
         [ObservableProperty]
         private bool _moodsExists;
 
+        [ObservableProperty]
+        private string _imageTitle;
+
         private int _numberOfDays = 15;
 
         public MoodQuickViewModel()
@@ -90,6 +93,7 @@ namespace LazyFit.ViewModels.MoodViewModels
                 LabelOrientation = Orientation.Vertical,
                 PointMode = PointMode.None
             };
+
 
         }
 
