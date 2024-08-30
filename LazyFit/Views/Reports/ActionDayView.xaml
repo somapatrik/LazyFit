@@ -5,7 +5,8 @@
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Reports.ActionDayView"
-             BackgroundColor="#80000000">
+             BackgroundColor="#80000000"
+                 CloseWhenBackgroundIsClicked="True">
 
     <Border Style="{StaticResource ClassicBorder}" Margin="20,0">
     

@@ -49,6 +49,16 @@ namespace LazyFit.Services
 
         }
 
+        public static async Task<List<Mood>> GetMoodsFromLastDays(int numberOfDays)
+        {
+            DateTime now = DateTime.Today;
+
+            DateTime from = new DateTime(now.AddDays(-numberOfDays).Date.Ticks);
+            DateTime to = new DateTime(now.Ticks).AddDays(1).AddSeconds(-1);
+
+            return await GetMoods(from, to, true);
+        }
+
         public static async Task<List<MoodProperty>> GetAllMoodProperties()
         {
             return await DB.Database.Table<MoodProperty>().ToListAsync();
