@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
 using LazyFit.Models;
+using LazyFit.Models.Moods;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Collections.ObjectModel;
@@ -41,10 +42,17 @@ namespace LazyFit.ViewModels.Reports
 
             if (await Shell.Current.DisplayAlert($"Delete {selectedAction.ActionName}?",$"Remove {selectedAction.ItemName} from {selectedAction.Time.ToShortTimeString()}?","Delete", "Cancel"))
             {
-                await DB.Database.DeleteAsync(selectedAction.ActionObject);
-                Actions.Remove(selectedAction);
-                WeakReferenceMessenger.Default.Send(new ActionsReloadMessages(selectedAction.ActionObject));
+                if (selectedAction.ActionObject.GetType() == typeof(Mood))
+                {
+                    await MoodService.DeleteMood((Mood)selectedAction.ActionObject);
+                }
+                else 
+                { 
+                    await DB.Database.DeleteAsync(selectedAction.ActionObject);
+                    WeakReferenceMessenger.Default.Send(new ActionsReloadMessages(selectedAction.ActionObject));
+                }
 
+                Actions.Remove(selectedAction);
                 if (!Actions.Any())
                     await MopupService.Instance.PopAsync();
             }
