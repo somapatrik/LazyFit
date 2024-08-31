@@ -1,12 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using LazyFit.Messages;
-using LazyFit.Models;
+﻿using LazyFit.Models;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
+using LazyFit.Models.Moods;
 using LazyFit.Models.Pressure;
 using LazyFit.Models.WeightModels;
 using SQLite;
-using static Android.Icu.Text.CaseMap;
 
 namespace LazyFit.Services
 {
@@ -16,7 +14,9 @@ namespace LazyFit.Services
 
         public static SQLiteAsyncConnection Database;
 
-        public static string DatabaseFilename = "lazyfit.db3";
+        //public static string DatabaseFilename = "lazyfit.db3";
+        public static string DatabaseFilename = "lazyfit2.db3";
+
 
         public static SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
@@ -39,7 +39,6 @@ namespace LazyFit.Services
             List<Task> tables = new List<Task>()
             {
                 Database.CreateTableAsync<Fast>(),
-                Database.CreateTableAsync<Mood>(),
                 Database.CreateTableAsync<Weight>(),
 
                 Database.CreateTableAsync<Drink>(),
@@ -47,6 +46,9 @@ namespace LazyFit.Services
 
                 Database.CreateTableAsync<Food>(),
                 Database.CreateTableAsync<FoodProperty>(),
+
+                Database.CreateTableAsync<Mood>(),
+                Database.CreateTableAsync<MoodProperty>(),
 
                 Database.CreateTableAsync<BloodPressure>()
             };
@@ -56,55 +58,132 @@ namespace LazyFit.Services
 
 
             // Default data
-            foreach (TypeOfDrink drink in Enum.GetValues(typeof(TypeOfDrink)))
+            // Drink properties
+
+            List<DrinkProperty> drinks = new List<DrinkProperty>()
             {
-                string description = "";
-
-                if (drink == TypeOfDrink.Coffee)
-                    description = "Dark perfection";
-                else if (drink == TypeOfDrink.Beer)
-                    description = "The beverage of Kings";
-                else if (drink == TypeOfDrink.Water)
-                    description = "Basic stuff";
-                else if (drink == TypeOfDrink.Sweet)
-                    description = "Anything with sugar";
-                else if (drink == TypeOfDrink.Tea)
-                    description = "No sugar!";
-                else if (drink == TypeOfDrink.Alcoholic)
-                    description = "Beer excluded";
-
-                    DrinkProperty drinkProperty = new DrinkProperty()
-                    {
-                        DrinkID = drink,
-                        DisplayName = drink.ToString(),
-                        Description = description,
-                        ImageName = drink.ToString() + ".png",
-                    };
-                await Database.InsertOrReplaceAsync(drinkProperty);
-            }
-
-            foreach (TypeOfFood food in Enum.GetValues(typeof(TypeOfFood)))
-            {
-                string description = "";
-
-                if (food == TypeOfFood.Normal)
-                    description = "Casual food";
-                else if (food == TypeOfFood.Healthy)
-                    description = "Like really healthy";
-                else if (food == TypeOfFood.Unhealthy)
-                    description = "The tasty stuff";
-                else if (food == TypeOfFood.Snack)
-                    description = "Usually the bad kind";
-
-                FoodProperty foodProperty = new FoodProperty()
+                new DrinkProperty()
                 {
-                    FoodId = food,
-                    DisplayName = food.ToString(),
-                    Description = description,
-                    ImageName = food.ToString() + ".png"
-                };
-                await Database.InsertOrReplaceAsync(foodProperty);
-            }
+                    DrinkID = TypeOfDrink.Coffee,
+                    DisplayName = "Coffee",
+                    Description = "Dark perfection",
+                    ImageName = "coffee.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Beer,
+                    DisplayName = "Beer",
+                    Description = "The beverage of Kings",
+                    ImageName = "beer.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Water,
+                    DisplayName = "Water",
+                    Description = "Classic",
+                    ImageName = "water.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Sweet,
+                    DisplayName = "Sweet",
+                    Description = "ANYTHING with sugar",
+                    ImageName = "cola.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Tea,
+                    DisplayName = "Tea",
+                    Description = "No sugar!",
+                    ImageName = "tea.png"
+                },
+                new DrinkProperty()
+                {
+                    DrinkID = TypeOfDrink.Alcoholic,
+                    DisplayName = "Alcoholic",
+                    Description = "Beer excluded",
+                    ImageName = "alcohol.png"
+                }
+            };
+
+            drinks.ForEach(async d => await Database.InsertOrReplaceAsync(d));
+
+            // Food
+            List<FoodProperty> foods = new List<FoodProperty>()
+            {
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Normal,
+                    DisplayName = "Casual",
+                    Description = "Ok food",
+                    ImageName = "normalfood.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Healthy,
+                    DisplayName = "Healthy",
+                    Description = "Like really healthy",
+                    ImageName = "healthyfood.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Unhealthy,
+                    DisplayName = "Unhealthy",
+                    Description = "Junk, tasty stuff",
+                    ImageName = "hamburger.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Snack,
+                    DisplayName = "Snack",
+                    Description = "Quick and bad",
+                    ImageName = "snack.png"
+                },
+            };
+
+            foods.ForEach(async f => await Database.InsertOrReplaceAsync(f));
+
+            // Moods
+            List<MoodProperty> moods = new List<MoodProperty>()
+            {
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryGood,
+                    DisplayName = "Very good",
+                    Description = "Everything is great!",
+                    ImageName = "very_happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Good,
+                    DisplayName = "Good",
+                    Description = "This is fine!",
+                    ImageName = "happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Normal,
+                    DisplayName = "Normal",
+                    Description = "Not great, not terrible...",
+                    ImageName = "neutral.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Bad,
+                    DisplayName = "Bad",
+                    Description = "Could be better",
+                    ImageName = "angry.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryBad,
+                    DisplayName = "Very bad",
+                    Description = "F*ck this!",
+                    ImageName = "cursing.png"
+                },
+            };
+
+            moods.ForEach(async m=> await Database.InsertOrReplaceAsync(m));
 
         }
 
@@ -118,9 +197,9 @@ namespace LazyFit.Services
         #region actions
         public static async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
         {
-            var foods = await FoodService.GetFoods(fromTime, toTime);
-            var drinks = await DrinkService.GetDrinks(fromTime, toTime);
-            var moods = await MoodService.GetMoods(fromTime, toTime);
+            var foods = await FoodService.GetFoods(fromTime, toTime, true);
+            var drinks = await DrinkService.GetDrinks(fromTime, toTime, true);
+            var moods = await MoodService.GetMoods(fromTime, toTime, true);
             var weights = await WeightService.GetWeights(fromTime, toTime);
             var fasts = await FastService.GetFasts(fromTime, toTime);
 
@@ -135,7 +214,9 @@ namespace LazyFit.Services
                     Color = LazyColors.FreshGreen, 
                     Time = food.Time, 
                     IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack),
-                    ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood)
+                    ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood),
+                    IconName = food.Property.ImageName
+                    
                 });
             });
 
@@ -148,7 +229,8 @@ namespace LazyFit.Services
                     Color = LazyColors.WaterBlue, 
                     Time = drink.Time, 
                     IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea),
-                    ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink)
+                    ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink),
+                    IconName = drink.Property.ImageName
                 });
             });
 
@@ -161,7 +243,8 @@ namespace LazyFit.Services
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
                     IsBad = (mood.TypeOfMood == MoodName.Bad),
-                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood)
+                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood) + " mood",
+                    IconName = mood.Property.ImageName
                 });
             });
 
@@ -174,7 +257,8 @@ namespace LazyFit.Services
                     Color = LazyColors.LazyColor,
                     Time = (DateTime)fast.EndTime,
                     IsBad = (!fast.Completed),
-                    ItemName = fast.Completed ? "Completed fast" : "Failed fast"
+                    ItemName = fast.Completed ? "Completed fast" : "Failed fast",
+                    IconName = "fasting.png"
                 });
             });
 
@@ -189,7 +273,8 @@ namespace LazyFit.Services
                     Color = Colors.DarkOrange.ToHex(),
                     Time = weight.Time,
                     IsBad = false,
-                    ItemName = weight.WeightValue.ToString()
+                    ItemName = weight.WeightValue.ToString(),
+                    IconName = "weight.png"
                 }) ;
             });
 

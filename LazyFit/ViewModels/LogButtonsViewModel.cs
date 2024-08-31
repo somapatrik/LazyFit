@@ -2,9 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
-using LazyFit.Models;
+using LazyFit.Models.Moods;
 using LazyFit.Services;
 using LazyFit.Views;
+using LazyFit.Views.Mood;
 using LazyFit.Views.Pressure;
 using Mopups.Services;
 
@@ -94,16 +95,23 @@ namespace LazyFit.ViewModels
         [RelayCommand]
         private async Task ShowLogMood()
         {
-            var selectedMood = await Shell.Current.DisplayActionSheet("What is your mood?", "None of your business", null, Enum.GetNames(typeof(MoodName)));
-            MoodName selectedType;
+            //var selectedMood = await Shell.Current.DisplayActionSheet(
+            //    "What is your mood?", 
+            //    "None of your business", 
+            //    null, 
+            //    Enum.GetNames(typeof(MoodName)));
 
-            if (Enum.TryParse(selectedMood, out selectedType))
-            {
-                await MoodService.InsertMood(new Mood(Guid.NewGuid(), selectedType));
-                
-            }
+            //MoodName selectedType;
+
+            //if (Enum.TryParse(selectedMood, out selectedType))
+            //{
+            //    await MoodService.InsertMood(new Mood(Guid.NewGuid(), selectedType));
+            //}
+
+            //await Close();
 
             await Close();
+            await MopupService.Instance.PushAsync(new LogMoodView());
         }
 
         private async Task Close()

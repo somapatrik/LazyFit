@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using LazyFit.Models;
+using LazyFit.Models.Moods;
 using System;
 using System.Collections.Generic;
 using System.Linq;

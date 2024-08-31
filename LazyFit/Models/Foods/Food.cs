@@ -13,7 +13,7 @@ namespace LazyFit.Models.Foods
         public Food(Guid id, TypeOfFood typeOfFood)
         {
             Id = id;
-            Time = DateTime.Now;
+            Time = DateTime.Now;   
             TypeOfFood = typeOfFood;
         }
 

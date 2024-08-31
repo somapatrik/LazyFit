@@ -9,10 +9,12 @@
     <ContentView.BindingContext>
         <WeightVM:WeightQuickViewModel />
     </ContentView.BindingContext>
+
+    <Border Style="{StaticResource ClassicBorder}">
     
     <Grid ColumnDefinitions="auto,*">
         <Border Style="{StaticResource QuickBorder}">
-            <StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding WeightAvg}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
                 <Label Text="Weight" TextColor="DarkOrange" Style="{StaticResource QuickReportKey}"/>
             </StackLayout>
@@ -21,7 +23,10 @@
         <micro:ChartView 
             Grid.Column="1"
             Chart="{Binding WeightChart}"
-            HeightRequest="100"/>
+            HeightRequest="100"
+            Margin="5"/>
     </Grid>
+
+    </Border>
 
 </ContentView>

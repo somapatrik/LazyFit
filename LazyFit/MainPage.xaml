@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:LazyFit.Views"
+             xmlns:Views="clr-namespace:LazyFit.Views"
              xmlns:psViews="clr-namespace:LazyFit.Views.Pressure"
              xmlns:fastViews="clr-namespace:LazyFit.Views.Fasting"
              xmlns:reportViews="clr-namespace:LazyFit.Views.Reports"
              xmlns:WeightViews="clr-namespace:LazyFit.Views.Weight"
+             xmlns:MoodViews="clr-namespace:LazyFit.Views.Mood"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.MainPage"
              Shell.NavBarIsVisible="False"
-             Background="{StaticResource White}">
+             Background="{StaticResource GithubLight}">
 
     <Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
@@ -22,66 +23,73 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid ZIndex="100" Grid.RowSpan="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!-- Button  -->
+        <Grid ZIndex="100" 
+              Grid.RowSpan="3" 
+              RowDefinitions="*,auto,auto" 
+              ColumnDefinitions="*,*,*">
 
-            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource LazyColor}" Margin="25" Padding="25">
+            <Border Grid.Row="1" 
+                    Grid.Column="1" 
+                    BackgroundColor="{StaticResource LazyColor}"
+                    Margin="0,0,0,0" 
+                    Padding="0"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    StrokeThickness="0">
+                
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="7"/>
+                    <RoundRectangle CornerRadius="50"/>
                 </Border.StrokeShape>
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
                 </Border.GestureRecognizers>
 
-
-                <Label Text="Log" 
-                       TextColor="White"
-                       FontSize="Body"
+                <!--<Image Source="icons/edit"
+                       WidthRequest="28"
                        HorizontalOptions="Center" 
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Margin="5,0,0,0"/>-->
+
+                <Label Text="+"
+                       FontSize="43"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
 
             </Border>
 
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
+
         </Grid>
 
-        <StackLayout Grid.Row="0" Orientation="Vertical" Padding="0,5">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="LazyFit" Style="{StaticResource PageHeader}" HorizontalOptions="StartAndExpand"/>
-                <ImageButton Source="pie_chart.png" WidthRequest="30" Margin="0,0,10,0" HorizontalOptions="End" Command="{Binding OpenResults}"/>
-            </StackLayout>
+        <StackLayout Grid.Row="0" Orientation="Vertical" Padding="0" Margin="0,0,0,5">
             
+            <!-- Fast Quick view -->
             <fastViews:ActiveFast/>
             
+            <StackLayout Orientation="Horizontal" BackgroundColor="White" Padding="20,0">
+                <Label Text="LazyFit" Style="{StaticResource PageHeader}" HorizontalOptions="StartAndExpand"/>
+                <ImageButton Source="pie_chart.png" WidthRequest="25" HorizontalOptions="End" Command="{Binding OpenResults}"/>
+            </StackLayout>
+
         </StackLayout>
-        
+
 
         <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Spacing="10" Padding="0">
+            <StackLayout Orientation="Vertical" Spacing="10" Padding="0,0">
+                <reportViews:RatioQuickView Margin="10,0"/>
+                <MoodViews:MoodQuickView Margin="10,0"/>
+                <WeightViews:WeightQuickView Margin="10,0"/>
+                <psViews:PressureCardLineView Margin="10,0"/>
+                <Views:LatestActionsView/>
 
-             
-                <reportViews:MainQuickView/>
-                <WeightViews:WeightQuickView/>
-
-                <psViews:PressureCardLineView/>
-                
-                <views:LatestActionsView/>
-                
             </StackLayout>
-            
-            
+
         </ScrollView>
-
-
-        <Label Grid.Row="3" Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
 
     </Grid>
 
