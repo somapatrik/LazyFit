@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Classes;
 using LazyFit.Messages;
+using LazyFit.Models.Moods;
 using LazyFit.Services;
 using Microcharts;
 using SkiaSharp;
@@ -36,11 +37,14 @@ namespace LazyFit.ViewModels.MoodViewModels
             var moods = await MoodService.GetMoodsFromLastDays(_numberOfDays);
             MoodsExists = moods.Any();
 
+            SetTitle(moods);
+
             // DateFloats
             var entries = GetEntriesReady();
 
             if (MoodsExists)
             {
+
                 // Group moods by day and Avg. value
                 var groupedMoods = moods.GroupBy(mood => mood.Time.Date)
                     .Select(item => new DateFloat() 
@@ -65,15 +69,15 @@ namespace LazyFit.ViewModels.MoodViewModels
             {
                 var color = SKColors.Transparent;
 
-                if (entry.Value >= 0 && entry.Value <= 1)
+                if (entry.Value >= 0 && entry.Value < 1)
                     color = SKColors.Red;
-                else if (entry.Value > 1 && entry.Value <= 2)
+                else if (entry.Value >= 1 && entry.Value < 2)
                     color = SKColors.IndianRed;
-                else if (entry.Value > 2 && entry.Value <= 3)
+                else if (entry.Value >= 2 && entry.Value < 3)
                     color = SKColors.Orange;
-                else if (entry.Value > 3 && entry.Value <= 4)
+                else if (entry.Value >= 3 && entry.Value < 4)
                     color = SKColors.LawnGreen;
-                else if (entry.Value > 4)
+                else if (entry.Value >= 4)
                     color = SKColors.LimeGreen;
 
 
@@ -111,6 +115,26 @@ namespace LazyFit.ViewModels.MoodViewModels
             }
 
             return entries;
+        }
+
+        private async void SetTitle(List<Mood> moods)
+        {
+            var title = "";
+
+            // Select the lowest mood as a default
+            var moodProperties = await MoodService.GetAllMoodProperties();
+            MoodProperty worstMood = moodProperties.FirstOrDefault(m=> m.MoodID == moodProperties.Min(mp => mp.MoodID));
+
+            title = worstMood.ImageName;
+
+            if (moods.Any())
+            {
+                var avgScore = moods.Average(m => (int)m.Property.MoodID);
+                var roundedMood = moodProperties.First(mp => (int)mp.MoodID == Math.Round(avgScore));
+                title = roundedMood.ImageName;
+            }
+
+            ImageTitle = title;
         }
 
     }

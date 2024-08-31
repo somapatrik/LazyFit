@@ -14,11 +14,15 @@
 
         <VerticalStackLayout>
 
-            <Label Text="Mood" Style="{StaticResource PageSubHeader}"/>
+            <Image Source="{Binding ImageTitle}" 
+                   WidthRequest="32" 
+                   HorizontalOptions="Start"
+                   Margin="10,5"
+                   ZIndex="100"/>
 
             <chart:ChartView
                 Chart="{Binding Chart}"
-                MinimumHeightRequest="120" 
+                MinimumHeightRequest="100" 
                 Background="Transparent"/>
 
         </VerticalStackLayout>
