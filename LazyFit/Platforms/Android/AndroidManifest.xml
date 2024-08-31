@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.somapatrik.lazyfit" android:versionCode="11" android:versionName="0.4.1">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.somapatrik.lazyfit" android:versionCode="13" android:versionName="0.4.3">
 	<application android:allowBackup="true" android:supportsRtl="true" android:label="LazyFit" android:icon="@mipmap/appicon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="33" />
+	<uses-sdk android:minSdkVersion="34" android:targetSdkVersion="34" />
 	<queries>
 		<intent>
 			<action android:name="android.intent.action.VIEW" />

@@ -8,15 +8,14 @@
                 xmlns:drinkVm="clr-namespace:LazyFit.ViewModels.DrinkViewModels"
                 Background="#80000000">
 
-    <Border Padding="10" 
-            VerticalOptions="End">
+    <Border Style="{StaticResource LogPopup}">
 
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="10,10,0,0"/>
         </Border.StrokeShape>
         
         <VerticalStackLayout>
-            <Label Text="Log drink" Style="{StaticResource PageSubHeader}"/>
+            <Label Text="What kind of drink?" Style="{StaticResource PageSubHeader}"/>
             
             <TimePicker HorizontalOptions="Center" FontSize="Large" Margin="20"  Time="{Binding SelectedTime}" />
 
@@ -71,17 +70,26 @@
                                 </VisualStateGroupList>
                             </VisualStateManager.VisualStateGroups>
 
-                            <Grid Background="Transparent">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                            <Grid 
+                                RowDefinitions="auto,auto"
+                                ColumnDefinitions="auto,*"
+                                Background="Transparent">
 
-                                <Label x:Name="drinkLabel" Grid.Row="0" Text="{Binding DisplayName}" TextColor="Black" 
+                                <Image Source="{Binding ImageName}" 
+                                       Grid.RowSpan="2"
+                                       WidthRequest="32"/>
+
+                                <Label x:Name="drinkLabel" 
+                                       Grid.Row="0" 
+                                       Grid.Column="1"
+                                       Text="{Binding DisplayName}" TextColor="Black" 
                                        FontSize="Medium" 
                                        HorizontalTextAlignment="End"/>
                                 
-                                <Label x:Name="drinkDesc" Grid.Row="1" Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
+                                <Label x:Name="drinkDesc" 
+                                       Grid.Row="1" 
+                                       Grid.Column="1"
+                                       Text="{Binding Description}" TextColor="{StaticResource Gray300}" 
                                        FontSize="Caption" 
                                        HorizontalTextAlignment="End" 
                                        VerticalOptions="End"/>

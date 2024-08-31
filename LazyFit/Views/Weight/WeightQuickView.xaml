@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:WeightVM="clr-namespace:LazyFit.ViewModels.WeightViewModels"
+             x:Class="LazyFit.Views.Weight.WeightQuickView"
+             IsVisible="{Binding IsVisible}">
+    
+    <ContentView.BindingContext>
+        <WeightVM:WeightQuickViewModel />
+    </ContentView.BindingContext>
+
+    <Border Style="{StaticResource ClassicBorder}">
+    
+    <Grid ColumnDefinitions="auto,*">
+        <Border Style="{StaticResource QuickBorder}">
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding WeightAvg}" TextColor="DarkOrange" Style="{StaticResource QuickReportValue}" />
+                <Label Text="Weight" TextColor="DarkOrange" Style="{StaticResource QuickReportKey}"/>
+            </StackLayout>
+        </Border>
+
+        <micro:ChartView 
+            Grid.Column="1"
+            Chart="{Binding WeightChart}"
+            HeightRequest="100"
+            Margin="5"/>
+    </Grid>
+
+    </Border>
+
+</ContentView>

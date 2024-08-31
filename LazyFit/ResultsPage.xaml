@@ -10,9 +10,9 @@
              Title="ResultsPage"
              Background="{StaticResource GithubLight}">
 
-    <Page.Behaviors>
+    <!--<Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
-    </Page.Behaviors>
+    </Page.Behaviors>-->
 
     <Grid>
 
@@ -42,7 +42,7 @@
             </ScrollView.GestureRecognizers>-->
 
             <VerticalStackLayout Spacing="10" 
-                                 Padding="15,0">
+                                 Padding="0,0">
 
                 <views:WeightResultChart />
                 <views:FastChart/>

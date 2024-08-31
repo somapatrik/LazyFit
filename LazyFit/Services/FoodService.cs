@@ -35,10 +35,11 @@ namespace LazyFit.Services
 
         public static async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
-            if (!LoadProperties)
-                return await DB.Database.Table<Food>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
-
             var foods = await DB.Database.Table<Food>().Where(f => f.Time >= fromTime && f.Time <= toTime).ToListAsync();
+
+            if (!LoadProperties)
+                return foods;
+
             var foodProperties = await GetFoodProperties();
 
             foods.ForEach(f => f.Property = foodProperties.FirstOrDefault(fp => fp.FoodId == f.TypeOfFood));
@@ -56,14 +57,30 @@ namespace LazyFit.Services
         public static async Task<int> GetGoodFoodRatio(int numberOfFoods)
         {
             List<Food> foods = await GetLastFoods(numberOfFoods);
-            double foodCount = foods.Count();
+            return GetFoodRatioFromList(foods);
+        }
+
+        public static int GetFoodRatioFromList(List<Food> foodList)
+        {
+            double foodCount = foodList.Count();
 
             if (foodCount == 0)
                 return 0;
 
-            int goodCount = foods.Where(f=>f.TypeOfFood == TypeOfFood.Normal || f.TypeOfFood == TypeOfFood.Healthy).Count();
-            int goodRatio = (int)Math.Round((goodCount / foodCount) * 100,0);
+            int goodCount = foodList.Where(f => f.TypeOfFood == TypeOfFood.Normal || f.TypeOfFood == TypeOfFood.Healthy).Count();
+            int goodRatio = (int)Math.Round((goodCount / foodCount) * 100, 0);
             return goodRatio;
+        }
+
+        public static async Task<List<Food>> GetFoodsFromLastDays(int numberOfDays)
+        {
+            DateTime now = DateTime.Today;
+             
+            DateTime from = new DateTime(now.AddDays(-numberOfDays).Date.Ticks);
+            DateTime to = new DateTime(now.Ticks).AddDays(1).AddSeconds(-1);
+            
+           return await GetFoods(from, to, true);
+
         }
         
     }

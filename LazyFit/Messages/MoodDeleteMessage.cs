@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using LazyFit.Models;
+using LazyFit.Models.Moods;
 
 namespace LazyFit.Messages
 {

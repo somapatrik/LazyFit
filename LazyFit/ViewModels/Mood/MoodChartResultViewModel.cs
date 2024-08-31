@@ -1,9 +1,8 @@
 ﻿using LazyFit.Classes;
-using LazyFit.Models.Foods;
 using LazyFit.Services;
 using Microcharts;
 using SkiaSharp;
-using LazyFit.Models;
+using LazyFit.Models.Moods;
 
 namespace LazyFit.ViewModels.MoodViewModels
 {
@@ -18,8 +17,11 @@ namespace LazyFit.ViewModels.MoodViewModels
             DataExists = moods.Any();
             List<ChartEntry> entries = new List<ChartEntry>
             {
+
+                new ChartEntry(0) { Label = "Very good", Color = SKColors.Gray,  },
                 new ChartEntry(0) { Label = "Good", Color = SKColors.Gray },
                 new ChartEntry(0) { Label = "Bad", Color = SKColors.Gray },
+                new ChartEntry(0) { Label = "Very bad", Color = SKColors.Gray },
                 new ChartEntry(0) { Label = "Normal", Color = SKColors.Gray }
             };
 
@@ -37,11 +39,20 @@ namespace LazyFit.ViewModels.MoodViewModels
                 {
                     SKColor color = SKColors.Gray;
                     string name = "";
-
-                    if (moodGroup.TypeOfMood == MoodName.Good)
+                    if (moodGroup.TypeOfMood == MoodName.VeryGood)
+                    {
+                        name = "";
+                        color = SKColors.LimeGreen;
+                    }
+                    else if (moodGroup.TypeOfMood == MoodName.VeryBad)
+                    {
+                        name = "Very bad";
+                        color = SKColors.Red;
+                    }
+                    else if (moodGroup.TypeOfMood == MoodName.Good)
                     {
                         name = "Good";
-                        color = SKColors.LimeGreen;
+                        color = SKColors.LightGreen;
                     }
                     else if (moodGroup.TypeOfMood == MoodName.Bad)
                     {
