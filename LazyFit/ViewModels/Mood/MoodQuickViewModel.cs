@@ -81,7 +81,8 @@ namespace LazyFit.ViewModels.MoodViewModels
                     color = SKColors.LimeGreen;
 
 
-                chartEntries.Add(new ChartEntry(entry.Value)
+                float? EntryValue = entry.Value == -1 ? null : entry.Value;
+                chartEntries.Add(new ChartEntry(EntryValue)
                 {
                     Label = entry.Date.ToString("d."),
                     Color = color
@@ -95,7 +96,6 @@ namespace LazyFit.ViewModels.MoodViewModels
                 MinValue = 0,
                 LabelTextSize = 32,
                 LabelOrientation = Orientation.Vertical,
-                PointMode = PointMode.None
             };
 
 
@@ -110,7 +110,7 @@ namespace LazyFit.ViewModels.MoodViewModels
 
             for (int i = 0; i <= _numberOfDays; i++)
             {
-                entries.Add(new DateFloat() { Date = someDay, Value = 0 });
+                entries.Add(new DateFloat() { Date = someDay, Value = -1 });
                 someDay = someDay.AddDays(1);
             }
 

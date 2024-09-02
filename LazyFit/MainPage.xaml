@@ -29,6 +29,7 @@
               RowDefinitions="*,auto,auto" 
               ColumnDefinitions="*,*,*">
 
+            
             <Border Grid.Row="1" 
                     Grid.Column="1" 
                     BackgroundColor="{StaticResource LazyColor}"
@@ -45,12 +46,6 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
                 </Border.GestureRecognizers>
-
-                <!--<Image Source="icons/edit"
-                       WidthRequest="28"
-                       HorizontalOptions="Center" 
-                       VerticalOptions="Center"
-                       Margin="5,0,0,0"/>-->
 
                 <Label Text="+"
                        FontSize="43"
