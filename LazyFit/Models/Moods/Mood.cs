@@ -9,6 +9,9 @@ namespace LazyFit.Models.Moods
         public DateTime Time { get; set; }
         public MoodName TypeOfMood { get; set; }
 
+        [Ignore]
+        public MoodProperty Property { get; set; }
+
         public Mood() { }
 
         public Mood(Guid id, MoodName typeofmood)

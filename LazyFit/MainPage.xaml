@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:LazyFit.Views"
+             xmlns:Views="clr-namespace:LazyFit.Views"
              xmlns:psViews="clr-namespace:LazyFit.Views.Pressure"
              xmlns:fastViews="clr-namespace:LazyFit.Views.Fasting"
              xmlns:reportViews="clr-namespace:LazyFit.Views.Reports"
              xmlns:WeightViews="clr-namespace:LazyFit.Views.Weight"
+             xmlns:MoodViews="clr-namespace:LazyFit.Views.Mood"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LazyFit.MainPage"
              Shell.NavBarIsVisible="False"
@@ -28,30 +29,28 @@
               RowDefinitions="*,auto,auto" 
               ColumnDefinitions="2*,*,2*">
 
-            <Border Grid.Row="1" 
-                    Grid.Column="1" 
-                    BackgroundColor="{StaticResource LazyColor}"
-                    Margin="0,0,0,0" 
-                    Padding="0"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    StrokeThickness="0">
-                
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="50"/>
-                </Border.StrokeShape>
+            <Ellipse
+                Grid.Row="1"
+                Grid.Column="1"
+                WidthRequest="60"
+                HeightRequest="60"
+                BackgroundColor="{StaticResource LazyColor}">
 
-                <Border.GestureRecognizers>
+                <Ellipse.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
-                </Border.GestureRecognizers>
+                </Ellipse.GestureRecognizers>
 
-                <Label Text="+"
-                       FontSize="43"
-                       TextColor="White"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Start"/>
+            </Ellipse>
 
-            </Border>
+            <Label 
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="+"
+                FontSize="40"
+                TextColor="White"
+                Background="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
 
             <!-- Version -->
             <Label Grid.Row="2"
@@ -95,13 +94,14 @@
 
         </StackLayout>
 
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Spacing="10" Padding="10,0">
 
-                <reportViews:MainQuickView/>
-                <WeightViews:WeightQuickView/>
-                <psViews:PressureCardLineView/>
-                <views:LatestActionsView/>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Spacing="10" Padding="0,0">
+                <reportViews:RatioQuickView Margin="10,0"/>
+                <MoodViews:MoodQuickView Margin="10,0"/>
+                <WeightViews:WeightQuickView Margin="10,0"/>
+                <psViews:PressureCardLineView Margin="10,0"/>
+                <Views:LatestActionsView/>
 
             </StackLayout>
 

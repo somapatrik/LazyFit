@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Convertes="clr-namespace:LazyFit.Converters"
+             xmlns:convertes="clr-namespace:LazyFit.Converters"
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
              xmlns:reportViews="clr-namespace:LazyFit.Views.Reports"
              x:Class="LazyFit.Views.LatestActionsView">
@@ -11,151 +11,61 @@
     </ContentView.BindingContext>
 
     <ContentView.Content>
-        <VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding ActionSquares}">
+        <CollectionView ItemsSource="{Binding ActionSquares}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="1"/>
+            </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                    <Border Padding="10,5" 
-                            StrokeThickness="0">
+                    <Border Padding="5,5"
+                            Background="White" StrokeThickness="0">
 
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
-                            <StackLayout Background="Transparent">
+                        
+                            <Grid ColumnDefinitions="auto,auto,*">
 
-                                <Label Text="{Binding Time, Converter={Convertes:DatetimeToDateConverter}}" TextColor="Gray"/>
-                                
-                                <FlexLayout Wrap="Wrap"
-                                            BindableLayout.ItemsSource="{Binding Actions}">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
+                                <Label Text="{Binding Time, Converter={convertes:DateTimeToDayConverter}}" 
+                                       VerticalTextAlignment="Center"
+                                       FontSize="Large"
+                                       Margin="3"
+                                       Grid.Column="0"/>
 
-                                            <Ellipse WidthRequest="20" HeightRequest="20" Margin="1">
-
-                                                <Ellipse.Triggers>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Food"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Stroke" Value="{StaticResource FreshGreen}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Food"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Fill" Value="{StaticResource FreshGreen}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Mood"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Stroke" Value="{StaticResource NexenColor}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Mood"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Fill" Value="{StaticResource NexenColor}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Weight"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Stroke" Value="OrangeRed"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Weight"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Fill" Value="OrangeRed"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Drink"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Stroke" Value="{StaticResource WaterBlue}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Drink"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Fill" Value="{StaticResource WaterBlue}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Fast"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="true"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Stroke" Value="{StaticResource LazyColor}"/>
-
-                                                    </MultiTrigger>
-
-                                                    <MultiTrigger TargetType="Ellipse">
-                                                        <MultiTrigger.Conditions>
-                                                            <BindingCondition Binding="{Binding ActionName}" Value="Fast"/>
-                                                            <BindingCondition Binding="{Binding IsBad}" Value="false"/>
-                                                        </MultiTrigger.Conditions>
-
-                                                        <Setter Property="Fill" Value="{StaticResource LazyColor}"/>
-
-                                                    </MultiTrigger>
+                                <Border StrokeThickness=".3" 
+                                        Margin="5,0"
+                                        Grid.Column="1"/>
 
 
-                                                </Ellipse.Triggers>
+                            <CollectionView ItemsSource="{Binding Actions}"
+                                            VerticalOptions="Center"
+                                            Grid.Column="2" Background="Transparent">
 
-                                            </Ellipse>
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
+                                </CollectionView.ItemsLayout>
 
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
-                                </FlexLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding IconName}" WidthRequest="32" Background="Transparent"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
 
-                                <Border Style="{StaticResource Splitter}"/>
+                            </CollectionView>
 
-                            </StackLayout>
+                            </Grid>
+                        
+                        
                         </Border>
                 </DataTemplate>
                 </CollectionView.ItemTemplate>
                 
             </CollectionView>
-
-        </VerticalStackLayout>
+ 
     </ContentView.Content>
 
 </ContentView>

@@ -36,7 +36,7 @@ namespace LazyFit.ViewModels.Reports
         [ObservableProperty]
         private Chart _QuickChart;
 
-        private int _NumberOfRecords = 10;
+        private int _NumberOfDays = 15;
 
         public bool IsVisible => FoodExists || DrinkExists || FastsExists;
 
@@ -49,11 +49,6 @@ namespace LazyFit.ViewModels.Reports
 
         private async void SetRefreshValues()
         {
-            //WeakReferenceMessenger.Default.Register<WeightRefreshMessage>(this, async (a, b) => 
-            //{ 
-            //    await LoadWeight(); 
-            //});
-
             // Food
             WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) =>
             {
@@ -135,34 +130,34 @@ namespace LazyFit.ViewModels.Reports
             };
         }
 
-        //private void SetVisibility()
-        //{
-        //    IsVisible = FoodExists || DrinkExists || FastsExists;
-        //}
 
         private async Task LoadFood()
         {
-            FoodExists = (await FoodService.GetLastFoods(_NumberOfRecords)).Any();
-            FoodRatio = await FoodService.GetGoodFoodRatio(_NumberOfRecords);
+            var foods = await FoodService.GetFoodsFromLastDays(_NumberOfDays);
+
+            FoodExists = foods.Any();
+            FoodRatio = FoodService.GetFoodRatioFromList(foods);
         }
 
         private async Task LoadDrink()
         {
-            DrinkExists = (await DrinkService.GetLastDrinks(_NumberOfRecords)).Any();
-            DrinkRatio = await DrinkService.GetGoodDrinkRatio(_NumberOfRecords);
+            var drinks = await DrinkService.GetDrinksFromLastDays(_NumberOfDays);
+            DrinkExists = drinks.Any();
+            DrinkRatio = DrinkService.GetGoodDrinkRationFromList(drinks);
         }
 
         private async Task LoadFasts()
         {
-            FastsExists = await FastService.FastsExists(_NumberOfRecords);
+            var fasts = await FastService.GetFastsFromLastDays(_NumberOfDays);
+            FastsExists = fasts.Any();
             
             if (FastsExists)
-                FastRatio = await FastService.GetFastFinishRatio(_NumberOfRecords);
+                FastRatio = FastService.GetFastFinishRatioFromList(fasts);
         }
 
         private async Task LoadWeight()
         {
-            Weight = await WeightService.GetWeightMonthAvg(DateTime.Now, _NumberOfRecords);
+            Weight = await WeightService.GetWeightMonthAvg(DateTime.Now, _NumberOfDays);
         }
     }
 }
