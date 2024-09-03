@@ -29,31 +29,28 @@
               RowDefinitions="*,auto,auto" 
               ColumnDefinitions="*,*,*">
 
-            
-            <Border Grid.Row="1" 
-                    Grid.Column="1" 
-                    BackgroundColor="{StaticResource LazyColor}"
-                    Margin="0,0,0,0" 
-                    Padding="0"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    StrokeThickness="0">
-                
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="50"/>
-                </Border.StrokeShape>
+            <Ellipse
+                Grid.Row="1"
+                Grid.Column="1"
+                WidthRequest="60"
+                HeightRequest="60"
+                BackgroundColor="{StaticResource LazyColor}">
 
-                <Border.GestureRecognizers>
+                <Ellipse.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
-                </Border.GestureRecognizers>
+                </Ellipse.GestureRecognizers>
 
-                <Label Text="+"
-                       FontSize="43"
-                       TextColor="White"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Start"/>
+            </Ellipse>
 
-            </Border>
+            <Label 
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="+"
+                FontSize="40"
+                TextColor="White"
+                Background="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
 
             <Label Grid.Row="2"
                    Grid.Column="1"

@@ -89,7 +89,7 @@ namespace LazyFit.ViewModels.MoodViewModels
                 });
             });
 
-            Chart = new LineChart()
+            Chart = new PointChart()
             {
                 Entries = chartEntries,
                 MaxValue = 5,
