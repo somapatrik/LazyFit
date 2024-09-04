@@ -96,6 +96,7 @@ namespace LazyFit.ViewModels.MoodViewModels
                 MinValue = 0,
                 LabelTextSize = 32,
                 LabelOrientation = Orientation.Vertical,
+                PointSize = 25
             };
 
 
