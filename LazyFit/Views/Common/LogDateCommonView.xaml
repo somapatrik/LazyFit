@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LazyFit.Views.Common.LogEntryCommonView">
+
+
+    <VerticalStackLayout>
+
+        <Grid ColumnDefinitions="*,*">
+
+            <VerticalStackLayout Margin="20" Spacing="3">
+                <Image Source="calendar.png" WidthRequest="26"/>
+                
+                <DatePicker HorizontalOptions="Center" 
+                        FontSize="Large" 
+                        Date="{Binding SelectedDate}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1" Margin="20" Spacing="3">
+                <Image Source="clock.png" WidthRequest="26"/>
+                <TimePicker 
+                        HorizontalOptions="Center" 
+                        FontSize="Large"  
+                        Time="{Binding SelectedTime}" />
+            </VerticalStackLayout>
+
+        </Grid>
+        
+            <Label Text="Now" TextColor="{StaticResource Blue100Accent}" Margin="0,0,0,20" HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SetNowCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+    </VerticalStackLayout>
+
+
+</ContentView>

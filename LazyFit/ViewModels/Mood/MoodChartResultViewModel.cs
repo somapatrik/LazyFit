@@ -62,7 +62,7 @@ namespace LazyFit.ViewModels.MoodViewModels
                     else if (moodGroup.TypeOfMood == MoodName.Normal)
                     {
                         name = "Normal";
-                        color = SKColor.Parse("#187ccf");
+                        color = SKColors.Orange;
                     }
 
                     var found = entries.FirstOrDefault(x => x.Label == name);
@@ -80,11 +80,13 @@ namespace LazyFit.ViewModels.MoodViewModels
             }
 
 
-            MoodChart = new RadarChart()
+            MoodChart = new DonutChart()
             {
                 Entries = entries.OrderBy(x => x.Label),
                 LabelTextSize = 40,
-                LineSize = 6
+                LabelMode = LabelMode.RightOnly,
+                GraphPosition = GraphPosition.AutoFill
+                //LineSize = 6
             };
         }
     }

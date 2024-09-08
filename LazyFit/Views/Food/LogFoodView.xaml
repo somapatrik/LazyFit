@@ -6,6 +6,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
              xmlns:foodVM="clr-namespace:LazyFit.ViewModels.FoodViewModels"
+             xmlns:cmn="clr-namespace:LazyFit.Views.Common"
              Background="#80000000">
 
     <Border Style="{StaticResource LogPopup}">
@@ -17,13 +18,7 @@
         <VerticalStackLayout>
             <Label Text="What kind of food have you eaten?" Style="{StaticResource PageSubHeader}"/>
 
-            <TimePicker HorizontalOptions="Center" FontSize="Large" Margin="20"  Time="{Binding SelectedTime}" />
-
-            <Label Text="Now" TextColor="{StaticResource Blue100Accent}" Margin="0,0,0,20" HorizontalOptions="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SetTimeNow}"/>
-                </Label.GestureRecognizers>
-            </Label>
+            <cmn:LogEntryCommonView/>
 
             <CollectionView ItemsSource="{Binding Foods}" SelectionMode="Single" SelectedItem="{Binding SelectedFood}">
 
@@ -43,7 +38,7 @@
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding SetFood, Source={RelativeSource AncestorType={x:Type foodVM:LogFoodViewModel}}}"
+                                    Command="{Binding SetFoodCommand, Source={RelativeSource AncestorType={x:Type foodVM:LogFoodViewModel}}}"
                                     CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
 
@@ -93,7 +88,7 @@
             </CollectionView>
 
 
-            <Button Text="Save" Margin="0,40,0,20" Command="{Binding SaveFood}"/>
+            <Button Text="Save" Margin="0,40,0,20" Command="{Binding SaveFoodCommand}"/>
 
 
         </VerticalStackLayout>

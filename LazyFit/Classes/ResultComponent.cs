@@ -53,6 +53,8 @@ namespace LazyFit.Classes
 
         protected virtual void SetDates()
         {
+            // Weekly period
+            /*
             // Start point inside week
             StartDate = DateTime.Today.AddDays(7 * PageNumber);
             int dayofWeek = StartDate.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)StartDate.DayOfWeek;
@@ -64,6 +66,21 @@ namespace LazyFit.Classes
             // Previous period
             PreviousFirstDate = FirstDateTime.AddDays(-7);
             PreviousLastDate = LastDateTime.AddDays(-7);
+
+            */
+
+            // Monthly
+            // 1st of this month
+            StartDate = (DateTime.Now.Date).AddMonths(PageNumber);
+
+            // First day
+            FirstDateTime = new DateTime(StartDate.Year, StartDate.Month, 1);
+            LastDateTime = FirstDateTime.AddMonths(1).AddSeconds(-1);
+
+            // 
+            PreviousFirstDate = FirstDateTime.AddMonths(-1);
+            PreviousLastDate = LastDateTime.AddMonths(-1);
+
         }
 
         protected virtual void ShowPage(int pageNum)

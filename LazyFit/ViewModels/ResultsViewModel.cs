@@ -41,13 +41,14 @@ namespace LazyFit.ViewModels
         private void SetHeader()
         {
 
-            DateTime today = DateTime.Today.AddDays(7 * PageNumber);
-            int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
+            //DateTime today = DateTime.Today.AddDays(7 * PageNumber);
+            //int dayofWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
 
-            DateTime monday = today.AddDays(-(dayofWeek - 1));
-            DateTime sunday = monday.AddDays(6);
+            //DateTime monday = today.AddDays(-(dayofWeek - 1));
+            //DateTime sunday = monday.AddDays(6);
 
-            PeriodText = $"{monday.ToString("d")} - {sunday.ToString("d")}";
+            DateTime thisMonth = (DateTime.Now.Date).AddMonths(PageNumber);
+            PeriodText = $"{thisMonth.ToString("yyyy MMMM")}";
         }
 
         private void ShowOlderHandler(object obj)

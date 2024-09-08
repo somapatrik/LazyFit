@@ -23,46 +23,102 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Button  -->
+        <!-- Overlay grid -->
         <Grid ZIndex="100" 
               Grid.RowSpan="3" 
               RowDefinitions="*,auto,auto" 
-              ColumnDefinitions="*,*,*">
+              ColumnDefinitions="*,auto,*">
 
-            <Border Grid.Row="1" 
-                    Grid.Column="1" 
-                    BackgroundColor="{StaticResource LazyColor}"
-                    Margin="0,0,0,0" 
-                    Padding="0"
+            <!-- Middle -->
+            <Grid
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.RowSpan="2"
+                RowDefinitions="*,2*,auto">
+
+                <Border Grid.Row="1" Grid.RowSpan="2" BackgroundColor="White" StrokeThickness="0"/>
+
+                <Ellipse
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.RowSpan="2"
                     WidthRequest="60"
                     HeightRequest="60"
-                    StrokeThickness="0">
+                    BackgroundColor="{StaticResource LazyColor}">
+
+                    <Ellipse.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
+                    </Ellipse.GestureRecognizers>
+
+                </Ellipse>
+
+                <Label 
+                Grid.Row="0"
+                Grid.Column="0"
+                    Grid.RowSpan="2"
+                Text="+"
+                FontSize="40"
+                TextColor="White"
+                Background="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+                <!-- Version -->
+                <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Text="{Binding AppVersion}" 
+                   HorizontalTextAlignment="Center"
+                   Margin="5"/>
+
+            </Grid>
+
+            <!-- Left menu -->
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="2"
+                  Grid.ColumnSpan="1"
+                  RowDefinitions="*,2*"
+                  ColumnDefinitions="*,*">
+
+                <Border Grid.Row="1" Grid.Column="1" StrokeThickness="0" BackgroundColor="White"/>
+
+                <Border Grid.Row="1" Grid.Column="0" StrokeThickness="0" BackgroundColor="White">
+                    <VerticalStackLayout
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center">
+                        <Image Source="pie_chart.png" WidthRequest="28"/>
+                        <Label Text="Report"/>
+                    </VerticalStackLayout>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenResults}" />
+                    </Border.GestureRecognizers>
+                    
+                </Border>
                 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="50"/>
-                </Border.StrokeShape>
+            </Grid>
 
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenLogButtonsCommand}"/>
-                </Border.GestureRecognizers>
+            <!-- Right menu -->
+            <Grid Grid.Row="1"
+                  Grid.Column="2"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="1"
+              RowDefinitions="*,2*"
+              ColumnDefinitions="*,*">
 
-                <!--<Image Source="icons/edit"
-                       WidthRequest="28"
-                       HorizontalOptions="Center" 
-                       VerticalOptions="Center"
-                       Margin="5,0,0,0"/>-->
+                <Border Grid.Row="1" Grid.Column="0" StrokeThickness="0" BackgroundColor="White"/>
 
-                <Label Text="+"
-                       FontSize="43"
-                       TextColor="White"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Start"/>
+                <Border Grid.Row="1" Grid.Column="1" StrokeThickness="0" BackgroundColor="White">
+                    <VerticalStackLayout IsVisible="False"
+                                     HorizontalOptions="Center" 
+                                     VerticalOptions="Center">
+                        <Image Source="pie_chart.png" WidthRequest="28"/>
+                        <Label Text="About"/>
+                    </VerticalStackLayout>
+                   
+                    
+                </Border>
 
-            </Border>
-
-            <Label Grid.Row="2"
-                   Grid.Column="1"
-                   Text="{Binding AppVersion}" HorizontalTextAlignment="Center" Margin="5"/>
+            </Grid>
 
         </Grid>
 
@@ -73,7 +129,7 @@
             
             <StackLayout Orientation="Horizontal" BackgroundColor="White" Padding="20,0">
                 <Label Text="LazyFit" Style="{StaticResource PageHeader}" HorizontalOptions="StartAndExpand"/>
-                <ImageButton Source="pie_chart.png" WidthRequest="25" HorizontalOptions="End" Command="{Binding OpenResults}"/>
+                <!--<ImageButton Source="pie_chart.png" WidthRequest="25" HorizontalOptions="End" Command="{Binding OpenResults}"/>-->
             </StackLayout>
 
         </StackLayout>

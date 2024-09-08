@@ -12,7 +12,7 @@
     
     <Border Style="{StaticResource ClassicBorder}" Padding="3">
 
-        <VerticalStackLayout>
+        <Grid ColumnDefinitions="auto,*">
 
             <Image Source="{Binding ImageTitle}" 
                    WidthRequest="32" 
@@ -22,10 +22,11 @@
 
             <chart:ChartView
                 Chart="{Binding Chart}"
+                Grid.Column="1"
                 MinimumHeightRequest="100" 
                 Background="Transparent"/>
 
-        </VerticalStackLayout>
+        </Grid>
 
     </Border>
     

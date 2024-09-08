@@ -64,11 +64,15 @@ namespace LazyFit.ViewModels.FoodViewModels
             }
 
 
-            FoodChart = new RadarChart()
+            FoodChart = new DonutChart()
             {
                 Entries = entries.OrderBy(x=>x.Label),
                 LabelTextSize = 40,
-                LineSize = 6
+                LabelMode = LabelMode.RightOnly,
+                GraphPosition = GraphPosition.AutoFill
+                //LineSize = 6,
+                 
+              
             };
         }
     }

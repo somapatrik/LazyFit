@@ -1,58 +1,44 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using LazyFit.Models.Drinks;
 using LazyFit.Services;
 using Mopups.Services;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace LazyFit.ViewModels.DrinkViewModels
 {
-    class LogDrinkViewModel : PrimeViewModel
+    internal partial class LogDrinkViewModel : ObservableObject
     {
-
+        [ObservableProperty]
         private ObservableCollection<DrinkProperty> _Drinks;
-        public ObservableCollection<DrinkProperty> Drinks { get => _Drinks; set => SetProperty(ref _Drinks, value); }
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveDrinkCommand))]
+        private DateTime _SelectedDate;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveDrinkCommand))]
         private TimeSpan _SelectedTime;
 
-        public TimeSpan SelectedTime
-        {
-            get => _SelectedTime; set
-            {
-                SetProperty(ref _SelectedTime, value);
-                RefreshCans();
-            }
-        }
-
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveDrinkCommand))]
         private DrinkProperty _SelectedDrink;
-        public DrinkProperty SelectedDrink
-        {
-            get => _SelectedDrink;
-            set
-            {
-                SetProperty(ref _SelectedDrink, value);
-                RefreshCans();
-            }
-        }
 
-        public ICommand SaveDrink { private set; get; }
-        public ICommand SetDrink { private set; get; }
-        public ICommand SetTimeNow { private set; get; }
+        [ObservableProperty]
+        private DateTime _MaxDate;
 
         public LogDrinkViewModel()
         {
-            SaveDrink = new Command(SaveDrinkHandler, CanSave);
-            SetDrink = new Command(SetDrinkHandler);
-            SetTimeNow = new Command(SetNow);
+            MaxDate = DateTime.Today;
 
             SetNow();
             LoadDrinks();
-
         }
 
+        [RelayCommand]
         private void SetNow()
         {
+            SelectedDate = DateTime.Now.Date;
             SelectedTime = DateTime.Now.TimeOfDay;
         }
 
@@ -64,29 +50,28 @@ namespace LazyFit.ViewModels.DrinkViewModels
             allDrinks.ForEach(Drinks.Add);
         }
 
-        private async void SaveDrinkHandler()
+        [RelayCommand(CanExecute = nameof(CanSave))]
+        private async Task SaveDrink()
         {
-            DateTime time = DateTime.Now.Date.Add(SelectedTime);
+            DateTime time = SelectedDate.Date.Add(SelectedTime);
             Drink drink = new Drink(Guid.NewGuid(), time, SelectedDrink.DrinkID);
 
             await DrinkService.CreateDrink(drink);
   
             await MopupService.Instance.PopAsync();
         }
-
-        private bool CanSave()
-        {
-            return SelectedTime <= DateTime.Now.TimeOfDay && SelectedDrink != null;
-        }
-
-        private async void SetDrinkHandler(object selectedDrink)
+        [RelayCommand]
+        private void SetDrink(object selectedDrink)
         {
             SelectedDrink = (DrinkProperty)selectedDrink;
         }
 
-        private void RefreshCans()
+        private bool CanSave()
         {
-            ((Command)SaveDrink).ChangeCanExecute();
+            DateTime checkTime = new DateTime(SelectedDate.Date.Ticks + SelectedTime.Ticks);
+            return checkTime <= DateTime.Now && SelectedDrink != null;
         }
+
+
     }
 }
