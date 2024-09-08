@@ -22,7 +22,20 @@ namespace LazyFit.ViewModels.FoodViewModels
                 RefreshCans();
             }
         }
-           
+
+        private DateTime _SelectedDate;
+
+        public DateTime SelectedDate
+        {
+            get => _SelectedDate; set
+            {
+                SetProperty(ref _SelectedDate, value);
+                RefreshCans();
+            }
+        }
+
+
+
         private FoodProperty _SelectedFood;
         public FoodProperty SelectedFood
         {
@@ -51,6 +64,7 @@ namespace LazyFit.ViewModels.FoodViewModels
 
         private void SetNow()
         {
+            SelectedDate = DateTime.Now.Date;
             SelectedTime = DateTime.Now.TimeOfDay;
         }
 
@@ -73,7 +87,7 @@ namespace LazyFit.ViewModels.FoodViewModels
 
         private bool CanSave()
         {
-            return SelectedTime <= DateTime.Now.TimeOfDay && SelectedFood != null;
+            return SelectedTime <= DateTime.Now.TimeOfDay && SelectedFood != null && SelectedDate.Date <= DateTime.Now.Date;
         }
 
         private async void SetDrinkHandler(object selectedDrink)
