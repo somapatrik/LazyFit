@@ -69,11 +69,13 @@ namespace LazyFit.ViewModels.DrinkViewModels
                 }
             }
 
-            DrinkChart = new RadarChart()
+            DrinkChart = new DonutChart()
             {
                 Entries = entries.OrderBy(x=>x.Label),
+                GraphPosition = GraphPosition.AutoFill,
+                LabelMode = LabelMode.RightOnly,
                 LabelTextSize = 40,
-                LineSize = 6
+                //LineSize = 6
             };
         }
     }

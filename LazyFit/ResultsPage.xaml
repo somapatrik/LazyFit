@@ -10,10 +10,6 @@
              Title="ResultsPage"
              Background="{StaticResource GithubLight}">
 
-    <!--<Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
-    </Page.Behaviors>-->
-
     <Grid>
 
         <Grid.RowDefinitions>
@@ -48,12 +44,14 @@
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Spacing="10" 
                                  Padding="10,0">
-                
+
                 <mood:MoodResultChartView/>
-                <views:WeightResultChart />
+                
+                <food:FoodChartResultView />
+                    <drink:DrinkChartResultView />
+
+                    <views:WeightResultChart />
                 <views:FastChart/>
-                <food:FoodChartResultView/>
-                <drink:DrinkChartResultView/>
                 
             </VerticalStackLayout>
 

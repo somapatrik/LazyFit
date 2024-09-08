@@ -22,7 +22,9 @@
                 Grid.Row="1"
                 Chart="{Binding MoodChart}" 
                 HeightRequest="150"
-                Margin="10"/>
+                Margin="10"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"/>
 
         </Grid>
     </Border>

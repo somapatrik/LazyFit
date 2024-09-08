@@ -85,7 +85,7 @@ namespace LazyFit.ViewModels.MoodViewModels
                 Entries = entries.OrderBy(x => x.Label),
                 LabelTextSize = 40,
                 LabelMode = LabelMode.RightOnly,
-                 GraphPosition = GraphPosition.AutoFill
+                GraphPosition = GraphPosition.AutoFill
                 //LineSize = 6
             };
         }

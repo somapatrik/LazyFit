@@ -4,7 +4,7 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="LazyFit.Views.Food.FoodChartResultView">
 
-    <Border Style="{StaticResource ReportBorder}">
+    <Border Style="{StaticResource ClassicBorder}">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -21,8 +21,8 @@
             <micro:ChartView 
                     Grid.Row="1"
                     Chart="{Binding FoodChart}" 
-                    HeightRequest="200"
-                    Margin="0,0,0,10"
+                    MinimumHeightRequest="150"
+                    Margin="10"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"/>
 
