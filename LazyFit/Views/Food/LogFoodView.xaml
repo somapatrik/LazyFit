@@ -38,7 +38,7 @@
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding SetFood, Source={RelativeSource AncestorType={x:Type foodVM:LogFoodViewModel}}}"
+                                    Command="{Binding SetFoodCommand, Source={RelativeSource AncestorType={x:Type foodVM:LogFoodViewModel}}}"
                                     CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
 
@@ -88,7 +88,7 @@
             </CollectionView>
 
 
-            <Button Text="Save" Margin="0,40,0,20" Command="{Binding SaveFood}"/>
+            <Button Text="Save" Margin="0,40,0,20" Command="{Binding SaveFoodCommand}"/>
 
 
         </VerticalStackLayout>

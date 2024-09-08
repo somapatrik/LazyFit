@@ -28,7 +28,7 @@
         
             <Label Text="Now" TextColor="{StaticResource Blue100Accent}" Margin="0,0,0,20" HorizontalOptions="Center">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SetTimeNow}"/>
+                    <TapGestureRecognizer Command="{Binding SetNowCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
 
