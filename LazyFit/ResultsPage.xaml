@@ -10,10 +10,6 @@
              Title="ResultsPage"
              Background="{StaticResource GithubLight}">
 
-    <!--<Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource GithubLight}" StatusBarStyle="DarkContent"/>
-    </Page.Behaviors>-->
-
     <Grid>
 
         <Grid.RowDefinitions>
@@ -22,60 +18,44 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-        <StackLayout Orientation="Vertical">
-            
-            <Label Text="Weekly results"
+        <Grid ColumnDefinitions="*,*,*" BackgroundColor="White">
+
+            <Label Text="{Binding PeriodText}" 
+                   Grid.Column="1"
                    HorizontalTextAlignment="Center"
                    Style="{StaticResource PageHeader}"/>
 
-            <Label Text="{Binding PeriodText}" 
-                   HorizontalTextAlignment="Center"
-                   Style="{StaticResource PageSubHeader}"/>
-            
-        </StackLayout>
+            <ImageButton 
+             Grid.Column="0" 
+             Source="icons/arrow_left.png" 
+             Command="{Binding ShowOlder}" 
+             Style="{StaticResource ImageSimpleButton}"
+             WidthRequest="30"/>
 
-        <ScrollView Grid.Row="1">
-            
-            <!--<ScrollView.GestureRecognizers>
-                <SwipeGestureRecognizer Direction="Left" Threshold="170" Command="{Binding ShowNewer}"/>
-                <SwipeGestureRecognizer Direction="Right" Threshold="170" Command="{Binding ShowOlder}"/>
-            </ScrollView.GestureRecognizers>-->
-
-            <VerticalStackLayout Spacing="10" 
-                                 Padding="0,0">
-
-                <views:WeightResultChart />
-                <views:FastChart/>
-                <food:FoodChartResultView/>
-                <drink:DrinkChartResultView/>
-                <mood:MoodResultChartView/>
-            </VerticalStackLayout>
-            
-        </ScrollView>
-
-        <!-- Controls -->
-            <Grid Grid.Row="2" Background="White" Padding="0,0,0,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-
-            <ImageButton Grid.Row="0" 
-                         Grid.Column="0" 
-                         Source="icons/arrow_left.png" 
-                         Command="{Binding ShowOlder}" 
-                         Style="{StaticResource ImageSimpleButton}"
-                         WidthRequest="30"/>
-
-            <ImageButton Grid.Row="0" Grid.Column="1" 
-                         Source="icons/arrow_right.png"
-                         Command="{Binding ShowNewer}" 
-                         Style="{StaticResource ImageSimpleButton}"
-                         WidthRequest="30"/>
-
+            <ImageButton 
+                Grid.Column="2" 
+             Source="icons/arrow_right.png"
+             Command="{Binding ShowNewer}" 
+             Style="{StaticResource ImageSimpleButton}"
+             WidthRequest="30"/>
 
         </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="10" 
+                                 Padding="10,0">
+
+                <mood:MoodResultChartView/>
+                
+                <food:FoodChartResultView />
+                    <drink:DrinkChartResultView />
+
+                    <views:WeightResultChart />
+                <views:FastChart/>
+                
+            </VerticalStackLayout>
+
+        </ScrollView>
 
     </Grid>
 
