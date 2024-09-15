@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
 using LazyFit.Models;
+using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Moods;
 using LazyFit.Services;
@@ -51,10 +52,10 @@ namespace LazyFit.ViewModels.Reports
                 {
                     await FoodService.DeleteFood((Food)selectedAction.ActionObject);
                 }
-                //else if (selectedAction.ActionObject.GetType() == typeof(Drink))
-                //{
-                //    await DrinkService.DeleteDrink((Drink)selectedAction.ActionObject);
-                //}
+                else if (selectedAction.ActionObject.GetType() == typeof(Drink))
+                {
+                    await DrinkService.DeleteDrink((Drink)selectedAction.ActionObject);
+                }
                 else 
                 { 
                     await DB.Database.DeleteAsync(selectedAction.ActionObject);

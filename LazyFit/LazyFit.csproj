@@ -184,6 +184,9 @@
 	  <MauiXaml Update="Views\Reports\MainQuickView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Reports\NoWaterWarning.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Reports\RatioQuickView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
