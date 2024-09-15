@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LazyFit.Messages;
 using LazyFit.Models;
-using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Moods;
 using LazyFit.Services;
