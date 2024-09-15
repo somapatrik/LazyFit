@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:reportViewModels="clr-namespace:LazyFit.ViewModels.Reports"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:converters="clr-namespace:LazyFit.Converters"
              x:Class="LazyFit.Views.Reports.ActionDayView"
-             BackgroundColor="#80000000"
-                 CloseWhenBackgroundIsClicked="True">
+             >
 
-    <Border Style="{StaticResource ClassicBorder}" Margin="20,0">
-    
+
         <Grid RowDefinitions="auto,*" >
-         
-            <Label Grid.Row="0"
-                Text="{Binding  ActionDate, Converter={converters:DatetimeToDateConverter}}" 
-                Style="{StaticResource PageSubHeader}"/>
+
+        <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
+            
+            <Label Text="{Binding  ActionDate, Converter={converters:DatetimeToDateConverter}}"
+                   Style="{StaticResource PageHeader}"/>
+            
+        </HorizontalStackLayout>
+            
+            
 
             <CollectionView Grid.Row="1" ItemsSource="{Binding Actions}" MinimumHeightRequest="150">
 
@@ -28,14 +31,14 @@
                         <Grid ColumnDefinitions="auto,auto, 3*, *" 
                               RowDefinitions="auto, auto"
                               Padding="5,0">
-                        
+
                             <!-- Time -->
                             <Label Grid.Column="0" 
                                    Text="{Binding Time, Converter={converters:DatetimeToTimeConverter}}"
                                    VerticalTextAlignment="Center"
                                    Margin="5,0"
                                    TextColor="Gray"/>
-                            
+
                             <!-- Icon -->
                             <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="1" Margin="7,0" Source="{Binding IconName}" WidthRequest="32"/>
 
@@ -67,6 +70,5 @@
 
             </CollectionView>
         </Grid>
-    </Border>
 
-</mopup:PopupPage>
+</ContentPage>

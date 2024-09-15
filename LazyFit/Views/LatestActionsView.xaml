@@ -12,7 +12,7 @@
 
     <ContentView.Content>
 
-        <CollectionView ItemsSource="{Binding ActionSquares}">
+        <CollectionView ItemsSource="{Binding ActionSquares}" Margin="0,0,0,30">
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="1"/>
@@ -21,43 +21,63 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                     <Border Padding="5,5"
-                            Background="White" StrokeThickness="0">
+                            Background="White" 
+                            StrokeThickness="0">
+   
+                            <Grid ColumnDefinitions="auto,auto,*,auto,auto">
 
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
-                            </Border.GestureRecognizers>
-
-                        
-                            <Grid ColumnDefinitions="auto,auto,*">
-
-                                <Label Text="{Binding Time, Converter={convertes:DateTimeToDayConverter}}" 
+                            <Label Text="{Binding Time, Converter={convertes:DateTimeToDayConverter}}" 
                                        VerticalTextAlignment="Center"
                                        FontSize="Large"
                                        Margin="3"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
 
-                                <Border StrokeThickness=".3" 
+                            <Border StrokeThickness=".3" 
                                         Margin="5,0"
                                         Grid.Column="1"/>
 
+                                <!-- Icons -->
+                                <CollectionView ItemsSource="{Binding Actions}"
+                                                VerticalOptions="Center"
+                                                Grid.Column="2">
 
-                            <CollectionView ItemsSource="{Binding Actions}"
-                                            VerticalOptions="Center"
-                                            Grid.Column="2" Background="Transparent">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
+                                    </CollectionView.ItemsLayout>
 
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
-                                </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding IconName}" WidthRequest="32"/>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
 
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding IconName}" WidthRequest="32" Background="Transparent"/>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
+                                </CollectionView>
 
-                            </CollectionView>
+                            <Border StrokeThickness=".3" 
+                                    Margin="5,0"
+                                    Grid.Column="3"/>
 
-                            </Grid>
+                            <Label Text=">"
+                                    Grid.Column="4"
+                                    FontSize="Large"
+                                    Margin="10,0"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="Gray">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenDayCommand, Source={RelativeSource AncestorType={x:Type CollectionView}}}" CommandParameter="{Binding .}" />
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                                    
+
+                        </Grid>
                         
                         
                         </Border>

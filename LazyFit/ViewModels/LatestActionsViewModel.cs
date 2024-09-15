@@ -76,7 +76,8 @@ namespace LazyFit.ViewModels
         private async Task OpenDay(object sender)
         {
             ActionSquareDate day = (ActionSquareDate)sender;
-            await MopupService.Instance.PushAsync(new ActionDayView(day));
+            //await MopupService.Instance.PushAsync(new ActionDayView(day));
+            await Shell.Current.Navigation.PushAsync(new ActionDayView(day));
         }
 
 

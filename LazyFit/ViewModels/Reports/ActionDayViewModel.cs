@@ -52,10 +52,10 @@ namespace LazyFit.ViewModels.Reports
                 {
                     await FoodService.DeleteFood((Food)selectedAction.ActionObject);
                 }
-                //else if (selectedAction.ActionObject.GetType() == typeof(Drink))
-                //{
-                //    await DrinkService.DeleteDrink((Drink)selectedAction.ActionObject);
-                //}
+                else if (selectedAction.ActionObject.GetType() == typeof(Drink))
+                {
+                    await DrinkService.DeleteDrink((Drink)selectedAction.ActionObject);
+                }
                 else 
                 { 
                     await DB.Database.DeleteAsync(selectedAction.ActionObject);
