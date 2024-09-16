@@ -148,7 +148,9 @@
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0,0">
                 
-                <MoodViews:MoodChartView From="{Binding FromDate}" To="{Binding ToDate}"/>
+                <MoodViews:MoodChartView 
+                    From="{Binding FromDate}" 
+                    To="{Binding ToDate}"/>
                 
                 <reportViews:RatioQuickView Margin="10,0"/>
                 <MoodViews:MoodQuickView Margin="10,0"/>
