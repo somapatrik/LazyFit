@@ -172,6 +172,9 @@
 	  <MauiXaml Update="Views\Mood\LogMoodView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Mood\MoodChartView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Mood\MoodQuickView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

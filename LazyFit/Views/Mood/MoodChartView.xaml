@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView
+        x:Name="this"
+        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="LazyFit.Views.Mood.MoodChartView">
+
+    <VerticalStackLayout BindingContext="{x:Reference this}">
+        
+        <Label  
+            Text="Setable chart"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label 
+            Text="{Binding From}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label 
+            Text="{Binding To}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentView>

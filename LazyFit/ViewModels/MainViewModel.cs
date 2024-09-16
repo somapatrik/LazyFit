@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using LazyFit.Models.Pressure;
 using LazyFit.Views;
 using Mopups.Services;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels
@@ -11,16 +9,17 @@ namespace LazyFit.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private ObservableCollection<BloodPressure> _BloodPressures;
+        private DateTime _FromDate;
 
-        public ICommand OpenX => new Command(async () => await Browser.Default.OpenAsync("https://www.x.com/lazyfitapp", BrowserLaunchMode.SystemPreferred));
-        public ICommand OpenResults => new Command(async () => await Shell.Current.Navigation.PushModalAsync(new ResultsPage()));
+        [ObservableProperty]
+        private DateTime _ToDate;
 
         public string AppVersion  => AppInfo.VersionString;
 
         public MainViewModel() 
         {
-
+            FromDate = DateTime.Now.AddDays(-1);
+            ToDate = DateTime.Now.AddDays(-2);
         }
 
         [RelayCommand]
@@ -29,7 +28,12 @@ namespace LazyFit.ViewModels
             await MopupService.Instance.PushAsync(new LogButtonsView());
         }
 
-        
+        [RelayCommand]
+        private void SetDates()
+        {
+            FromDate = FromDate.AddDays(-1);
+            ToDate = ToDate.AddDays(-1);
+        }
 
 
 

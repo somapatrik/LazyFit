@@ -14,8 +14,8 @@
     <!--<ContentView.Behaviors>
         <toolkit:EventToCommandBehavior EventName="" Command="{Binding CheckWaterCommand}"/>
     </ContentView.Behaviors>-->
-    
-    <Border BackgroundColor="{StaticResource DarkWaterBlue}" StrokeThickness="0">
+
+    <Border BackgroundColor="{StaticResource WaterBlue}" StrokeThickness="0">
         <Label 
             Text="Drink some water"
             VerticalOptions="Center" 
