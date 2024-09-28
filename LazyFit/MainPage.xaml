@@ -137,6 +137,7 @@
 
 
         <ScrollView Grid.Row="1">
+            
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0,0">
                 <reportViews:RatioQuickView Margin="10,0"/>
                 <MoodViews:MoodQuickView Margin="10,0"/>
