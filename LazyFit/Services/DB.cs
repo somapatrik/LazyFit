@@ -1,4 +1,5 @@
 ﻿using LazyFit.Models;
+using LazyFit.Models.Administration;
 using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Moods;
@@ -35,8 +36,14 @@ namespace LazyFit.Services
 
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
+            var InstanceResult = (await Database.CreateTableAsync<InstanceInfo>());
 
-            List<Task> tables = new List<Task>()
+            if (InstanceResult == CreateTableResult.Created)
+                CreateInstanceData();
+            else
+                UpdateInstanceData();
+
+            List< Task> tables = new List<Task>()
             {
                 Database.CreateTableAsync<Fast>(),
                 Database.CreateTableAsync<Weight>(),
@@ -53,13 +60,101 @@ namespace LazyFit.Services
                 Database.CreateTableAsync<BloodPressure>()
             };
 
-             Task CreateTables = Task.WhenAll(tables);
-             await CreateTables;
+            Task CreateTables = Task.WhenAll(tables);
+            await CreateTables;
 
+            CreateDefaultDrinkData();
+            CreateDefaultFoodData();
+            CreateDefaultMoodData();
 
-            // Default data
-            // Drink properties
+        }
 
+        #endregion
+
+        #region Default data creation
+        private static void CreateDefaultMoodData()
+        {
+            List<MoodProperty> moods = new List<MoodProperty>()
+            {
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryGood,
+                    DisplayName = "Very good",
+                    Description = "Everything is great!",
+                    ImageName = "very_happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Good,
+                    DisplayName = "Good",
+                    Description = "This is fine!",
+                    ImageName = "happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Normal,
+                    DisplayName = "Normal",
+                    Description = "Not great, not terrible...",
+                    ImageName = "neutral.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Bad,
+                    DisplayName = "Bad",
+                    Description = "Could be better",
+                    ImageName = "angry.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryBad,
+                    DisplayName = "Very bad",
+                    Description = "F*ck this!",
+                    ImageName = "cursing.png"
+                },
+            };
+
+            moods.ForEach(async m => await Database.InsertOrReplaceAsync(m));
+        }
+
+        private static void CreateDefaultFoodData()
+        {
+            List<FoodProperty> foods = new List<FoodProperty>()
+            {
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Normal,
+                    DisplayName = "Casual",
+                    Description = "Ok food",
+                    ImageName = "normalfood.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Healthy,
+                    DisplayName = "Healthy",
+                    Description = "Like really healthy",
+                    ImageName = "healthyfood.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Unhealthy,
+                    DisplayName = "Unhealthy",
+                    Description = "Junk, tasty stuff",
+                    ImageName = "hamburger.png"
+                },
+                new FoodProperty()
+                {
+                    FoodId = TypeOfFood.Snack,
+                    DisplayName = "Snack",
+                    Description = "Quick and bad",
+                    ImageName = "snack.png"
+                },
+            };
+
+            foods.ForEach(async f => await Database.InsertOrReplaceAsync(f));
+        }
+
+        private static void CreateDefaultDrinkData()
+        {
             List<DrinkProperty> drinks = new List<DrinkProperty>()
             {
                 new DrinkProperty()
@@ -107,94 +202,11 @@ namespace LazyFit.Services
             };
 
             drinks.ForEach(async d => await Database.InsertOrReplaceAsync(d));
-
-            // Food
-            List<FoodProperty> foods = new List<FoodProperty>()
-            {
-                new FoodProperty()
-                {
-                    FoodId = TypeOfFood.Normal,
-                    DisplayName = "Casual",
-                    Description = "Ok food",
-                    ImageName = "normalfood.png"
-                },
-                new FoodProperty()
-                {
-                    FoodId = TypeOfFood.Healthy,
-                    DisplayName = "Healthy",
-                    Description = "Like really healthy",
-                    ImageName = "healthyfood.png"
-                },
-                new FoodProperty()
-                {
-                    FoodId = TypeOfFood.Unhealthy,
-                    DisplayName = "Unhealthy",
-                    Description = "Junk, tasty stuff",
-                    ImageName = "hamburger.png"
-                },
-                new FoodProperty()
-                {
-                    FoodId = TypeOfFood.Snack,
-                    DisplayName = "Snack",
-                    Description = "Quick and bad",
-                    ImageName = "snack.png"
-                },
-            };
-
-            foods.ForEach(async f => await Database.InsertOrReplaceAsync(f));
-
-            // Moods
-            List<MoodProperty> moods = new List<MoodProperty>()
-            {
-                new MoodProperty()
-                {
-                    MoodID = MoodName.VeryGood,
-                    DisplayName = "Very good",
-                    Description = "Everything is great!",
-                    ImageName = "very_happy.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.Good,
-                    DisplayName = "Good",
-                    Description = "This is fine!",
-                    ImageName = "happy.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.Normal,
-                    DisplayName = "Normal",
-                    Description = "Not great, not terrible...",
-                    ImageName = "neutral.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.Bad,
-                    DisplayName = "Bad",
-                    Description = "Could be better",
-                    ImageName = "angry.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.VeryBad,
-                    DisplayName = "Very bad",
-                    Description = "F*ck this!",
-                    ImageName = "cursing.png"
-                },
-            };
-
-            moods.ForEach(async m=> await Database.InsertOrReplaceAsync(m));
-
         }
 
         #endregion
 
-        public static async Task DeleteItem(object item)
-        {
-            await Database.DeleteAsync(item); 
-        }
-
-        #region actions
+        #region Actions
         public static async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
         {
             var foods = await FoodService.GetFoods(fromTime, toTime, true);
@@ -298,6 +310,9 @@ namespace LazyFit.Services
 
         #endregion
 
-
+        public static async Task DeleteItem(object item)
+        {
+            await Database.DeleteAsync(item); 
+        }
     }
 }
