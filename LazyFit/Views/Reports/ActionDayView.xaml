@@ -10,15 +10,16 @@
 
         <Grid RowDefinitions="auto,*" >
 
-        <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
+        <VerticalStackLayout Margin="10" HorizontalOptions="Center">
             
-            <Label Text="{Binding  ActionDate, Converter={converters:DatetimeToDateConverter}}"
-                   Style="{StaticResource PageHeader}"/>
-            
-        </HorizontalStackLayout>
-            
-            
+            <Label Text="{Binding ActionDate, Converter={converters:DatetimeToDateConverter}}"
+                   Style="{StaticResource PageHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="End"/>
 
+            <Label Text="{Binding ActionDate, Converter={converters:DateTimeToDayNameConverter}}"
+                    FontSize="Medium" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"/> 
+            
+        </VerticalStackLayout>
+            
             <CollectionView Grid.Row="1" ItemsSource="{Binding Actions}" MinimumHeightRequest="150">
 
                 <CollectionView.ItemsLayout>

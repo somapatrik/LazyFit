@@ -236,14 +236,27 @@ namespace LazyFit.Services
 
             moods.ForEach(mood =>
             {
+
+                string moodName = Enum.GetName(typeof(MoodName), mood.TypeOfMood);
+
+                if (mood.TypeOfMood == MoodName.VeryBad)
+                {
+                    moodName = "Very bad";
+                }
+                
+                if (mood.TypeOfMood == MoodName.VeryGood)
+                {
+                    moodName = "Very good";
+                }
+                       
                 actionSquares.Add(new ActionSquare()
                 {
                     ActionObject = mood,
                     ActionName = nameof(Mood),
                     Color = Colors.DarkBlue.ToHex(),
                     Time = mood.Time,
-                    IsBad = (mood.TypeOfMood == MoodName.Bad),
-                    ItemName = Enum.GetName(typeof(MoodName), mood.TypeOfMood) + " mood",
+                    IsBad = mood.TypeOfMood == MoodName.Bad,
+                    ItemName = $"{moodName} mood",
                     IconName = mood.Property.ImageName
                 });
             });
