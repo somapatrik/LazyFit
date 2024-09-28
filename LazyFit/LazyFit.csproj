@@ -148,6 +148,12 @@
 	  <MauiXaml Update="ResultsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Administration\AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Administration\InstanceInfoView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Common\LogDateCommonView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

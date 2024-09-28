@@ -36,13 +36,7 @@ namespace LazyFit.Services
 
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
-            var InstanceResult = (await Database.CreateTableAsync<InstanceInfo>());
-
-            if (InstanceResult == CreateTableResult.Created)
-                CreateInstanceData();
-            else
-                UpdateInstanceData();
-
+            var InstanceResult = await Database.CreateTableAsync<InstanceInfo>();
             List< Task> tables = new List<Task>()
             {
                 Database.CreateTableAsync<Fast>(),
@@ -62,6 +56,11 @@ namespace LazyFit.Services
 
             Task CreateTables = Task.WhenAll(tables);
             await CreateTables;
+
+            if (InstanceResult == CreateTableResult.Created)
+                await InstanceInfoService.CreateNewInstanceInfo();
+            else
+                await InstanceInfoService.UpdateInstanceInfo();
 
             CreateDefaultDrinkData();
             CreateDefaultFoodData();

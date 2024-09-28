@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using LazyFit.Models.Pressure;
 using LazyFit.Views;
+using LazyFit.Views.Administration;
 using Mopups.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -13,9 +14,6 @@ namespace LazyFit.ViewModels
         [ObservableProperty]
         private ObservableCollection<BloodPressure> _BloodPressures;
 
-        public ICommand OpenX => new Command(async () => await Browser.Default.OpenAsync("https://www.x.com/lazyfitapp", BrowserLaunchMode.SystemPreferred));
-        public ICommand OpenResults => new Command(async () => await Shell.Current.Navigation.PushModalAsync(new ResultsPage()));
-
         public string AppVersion  => AppInfo.VersionString;
 
         public MainViewModel() 
@@ -24,12 +22,22 @@ namespace LazyFit.ViewModels
         }
 
         [RelayCommand]
+        private async Task OpenResults()
+        {
+            await Shell.Current.Navigation.PushModalAsync(new ResultsPage());
+        }
+
+        [RelayCommand]
+        private async Task OpenAbout()
+        {
+            await Shell.Current.Navigation.PushAsync(new AboutPage());
+        }
+
+        [RelayCommand]
         private async Task OpenLogButtons()
         {
             await MopupService.Instance.PushAsync(new LogButtonsView());
         }
-
-        
 
 
 

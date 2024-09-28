@@ -90,7 +90,7 @@
                     </VerticalStackLayout>
 
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenResults}" />
+                        <TapGestureRecognizer Command="{Binding OpenResultsCommand}" />
                     </Border.GestureRecognizers>
                     
                 </Border>
@@ -108,14 +108,18 @@
                 <Border Grid.Row="1" Grid.Column="0" StrokeThickness="0" BackgroundColor="White"/>
 
                 <Border Grid.Row="1" Grid.Column="1" StrokeThickness="0" BackgroundColor="White">
-                    <VerticalStackLayout IsVisible="False"
-                                     HorizontalOptions="Center" 
-                                     VerticalOptions="Center">
-                        <Image Source="pie_chart.png" WidthRequest="28"/>
+                    <VerticalStackLayout
+                                HorizontalOptions="Center" 
+                                VerticalOptions="Center">
+                        <Image Source="menu.png" WidthRequest="28"/>
                         <Label Text="About"/>
                     </VerticalStackLayout>
-                   
-                    
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenAboutCommand}" />
+                    </Border.GestureRecognizers>
+
+
                 </Border>
 
             </Grid>

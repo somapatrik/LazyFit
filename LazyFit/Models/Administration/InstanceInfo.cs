@@ -1,7 +1,10 @@
-﻿namespace LazyFit.Models.Administration
+﻿using SQLite;
+
+namespace LazyFit.Models.Administration
 {
     public class InstanceInfo
     {
+        [PrimaryKey]
         public Guid InstanceId { get; set; }
         public string DeviceType { get; set; }
         public string Platform { get; set; }
@@ -11,14 +14,14 @@
 
         public InstanceInfo() { }
 
-        public InstanceInfo(string deviceType, string platform, bool isVirtual, DateTime updateDate, DateTime createDate)
+        public InstanceInfo(string deviceType, string platform, bool isVirtual)
         {
             InstanceId = Guid.NewGuid();
             DeviceType = deviceType;
             Platform = platform;
             IsVirtual = isVirtual;
             UpdateDate = DateTime.Now;
-            CreateDate = DateTime.Now;
+            CreateDate = UpdateDate;
         }
 
         public void UpdateInstanceInfo(string deviceType, string platform, bool isVirtual)

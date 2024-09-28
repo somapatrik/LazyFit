@@ -66,7 +66,7 @@ namespace LazyFit.ViewModels.Reports
                 Actions.Remove(selectedAction);
 
                 if (!Actions.Any())
-                    await MopupService.Instance.PopAsync();
+                    await Shell.Current.Navigation.PopToRootAsync();
             }
 
 
