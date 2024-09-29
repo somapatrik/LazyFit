@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
+             x:Class="LazyFit.Views.LogButtonsDayView"
+             Background="{StaticResource PopupDarkTransparent}"
+             CloseWhenBackgroundIsClicked="True">
+    
+    <VerticalStackLayout VerticalOptions="Center" Padding="20" Spacing="10">
+
+        <!-- Drink -->
+        <Border Grid.Row="1" 
+                Grid.Column="0" 
+                BackgroundColor="{StaticResource DarkWaterBlue}" 
+                Style="{StaticResource LogButton}"
+                x:Name="DrinkButton">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShowDrinkCommand}" />
+            </Border.GestureRecognizers>
+            <Label Text="Drink" 
+                       TextColor="{StaticResource White}"
+                       Style="{StaticResource LogLabel}"
+                       HorizontalOptions="Center"
+                       Margin="20"/>
+
+        </Border>
+
+        <!-- Food -->
+        <Border Grid.Row="2"
+                Grid.Column="1"
+                BackgroundColor="{StaticResource DarkFreshGreen}"
+                Style="{StaticResource LogButton}"
+                x:Name="FoodButton">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShowFoodCommand}" />
+            </Border.GestureRecognizers>
+            <Label Text="Food" 
+                       TextColor="{StaticResource White}"
+                       Style="{StaticResource LogLabel}"
+                       HorizontalOptions="Center"
+                   Margin="20"/>
+
+        </Border>
+
+    </VerticalStackLayout>
+</mopup:PopupPage>

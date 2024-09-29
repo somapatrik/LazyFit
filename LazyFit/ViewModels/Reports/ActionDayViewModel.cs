@@ -7,6 +7,7 @@ using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Moods;
 using LazyFit.Services;
+using LazyFit.Views;
 using Mopups.Services;
 using System.Collections.ObjectModel;
 
@@ -38,6 +39,12 @@ namespace LazyFit.ViewModels.Reports
         }
 
         [RelayCommand]
+        private async Task AddMore()
+        {
+            await MopupService.Instance.PushAsync(new LogButtonsDayView(_ActionDate));
+        }
+
+        [RelayCommand]
         private async Task DeleteAction(object action)
         {
             ActionSquare selectedAction = (ActionSquare)action;
@@ -66,7 +73,7 @@ namespace LazyFit.ViewModels.Reports
                 Actions.Remove(selectedAction);
 
                 if (!Actions.Any())
-                    await MopupService.Instance.PopAsync();
+                    await Shell.Current.Navigation.PopToRootAsync();
             }
 
 

@@ -13,4 +13,10 @@ public partial class LogDrinkView : PopupPage
 
 		BindingContext = _viewModel = new LogDrinkViewModel();
 	}
+
+	public LogDrinkView(DateTime preset)
+	{
+		InitializeComponent();
+		BindingContext = _viewModel = new LogDrinkViewModel(preset);
+	}
 }

@@ -35,10 +35,23 @@ namespace LazyFit.ViewModels.DrinkViewModels
             LoadDrinks();
         }
 
+        public LogDrinkViewModel(DateTime presetDate)
+        {
+            MaxDate = presetDate.Date;
+            SetDate(presetDate);
+            LoadDrinks();
+        }
+
         [RelayCommand]
         private void SetNow()
         {
             SelectedDate = DateTime.Now.Date;
+            SelectedTime = DateTime.Now.TimeOfDay;
+        }
+
+        private void SetDate(DateTime presetDate)
+        {
+            SelectedDate = presetDate.Date;
             SelectedTime = DateTime.Now.TimeOfDay;
         }
 

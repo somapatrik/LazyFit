@@ -34,10 +34,23 @@ namespace LazyFit.ViewModels.FoodViewModels
             LoadDrinks();
         }
 
+        public LogFoodViewModel(DateTime preset)
+        {
+            MaxDate = preset.Date;
+            SetDate(preset);
+            LoadDrinks();
+        }
+
         [RelayCommand]
         private void SetNow()
         {
             SelectedDate = DateTime.Now.Date;
+            SelectedTime = DateTime.Now.TimeOfDay;
+        }
+
+        private void SetDate(DateTime preset)
+        {
+            SelectedDate = preset.Date;
             SelectedTime = DateTime.Now.TimeOfDay;
         }
 
