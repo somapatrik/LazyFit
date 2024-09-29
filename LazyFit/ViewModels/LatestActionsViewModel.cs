@@ -5,7 +5,6 @@ using LazyFit.Messages;
 using LazyFit.Models;
 using LazyFit.Services;
 using LazyFit.Views.Reports;
-using Mopups.Services;
 using System.Collections.ObjectModel;
 
 namespace LazyFit.ViewModels

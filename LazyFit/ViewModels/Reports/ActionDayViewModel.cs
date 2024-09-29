@@ -7,6 +7,7 @@ using LazyFit.Models.Drinks;
 using LazyFit.Models.Foods;
 using LazyFit.Models.Moods;
 using LazyFit.Services;
+using LazyFit.Views;
 using Mopups.Services;
 using System.Collections.ObjectModel;
 
@@ -35,6 +36,12 @@ namespace LazyFit.ViewModels.Reports
             ActionDate = actionSquare.Time;
             actionSquare.Actions.OrderByDescending(a => a.Time).ToList().ForEach(Actions.Add);
             return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private async Task AddMore()
+        {
+            await MopupService.Instance.PushAsync(new LogButtonsDayView(_ActionDate));
         }
 
         [RelayCommand]

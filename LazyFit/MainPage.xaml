@@ -34,7 +34,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Grid.RowSpan="2"
-                RowDefinitions="*,2*,auto">
+                RowDefinitions="*,2*,10">
 
                 <Border Grid.Row="1" Grid.RowSpan="2" BackgroundColor="White" StrokeThickness="0"/>
 
@@ -64,11 +64,11 @@
                 VerticalOptions="Center"/>
 
                 <!-- Version -->
-                <Label Grid.Row="2"
+                <!--<Label Grid.Row="2"
                    Grid.Column="0"
                    Text="{Binding AppVersion}" 
                    HorizontalTextAlignment="Center"
-                   Margin="5"/>
+                   Margin="5"/>-->
 
             </Grid>
 

@@ -16,10 +16,4 @@ public partial class LogButtonsView : PopupPage
         ContentStack.TranslationY = this.Height;
         await ContentStack.TranslateTo(0, 0, 500);
     }
-
-    protected override async void OnDisappearing()
-    {
-        base.OnDisappearing();
-        await ContentStack.TranslateTo(0, this.Height, 500);
-    }
 }

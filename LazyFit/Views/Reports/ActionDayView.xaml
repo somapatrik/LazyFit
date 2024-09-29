@@ -4,23 +4,32 @@
              xmlns:reportViewModels="clr-namespace:LazyFit.ViewModels.Reports"
              xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:converters="clr-namespace:LazyFit.Converters"
-             x:Class="LazyFit.Views.Reports.ActionDayView"
-             >
+             x:Class="LazyFit.Views.Reports.ActionDayView">
 
+    <Grid RowDefinitions="auto,auto,*" >
 
-        <Grid RowDefinitions="auto,*" >
+        <Label Grid.Row="0" Text="Add more" 
+               TextColor="{StaticResource Blue100Accent}" 
+               HorizontalOptions="End" 
+               Margin="10,5,10,0">
 
-        <VerticalStackLayout Margin="10" HorizontalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding AddMoreCommand}"/>
+            </Label.GestureRecognizers>
             
+        </Label>
+
+        <VerticalStackLayout Grid.Row="0" Margin="10" HorizontalOptions="CenterAndExpand">
+
             <Label Text="{Binding ActionDate, Converter={converters:DatetimeToDateConverter}}"
                    Style="{StaticResource PageHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="End"/>
 
             <Label Text="{Binding ActionDate, Converter={converters:DateTimeToDayNameConverter}}"
-                    FontSize="Medium" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"/> 
-            
+                    FontSize="Medium" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"/>
+
         </VerticalStackLayout>
-            
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Actions}" MinimumHeightRequest="150">
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Actions}" MinimumHeightRequest="150">
 
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="1"/>
@@ -70,6 +79,7 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
+            
         </Grid>
 
 </ContentPage>

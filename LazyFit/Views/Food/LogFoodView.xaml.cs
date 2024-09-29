@@ -12,4 +12,10 @@ public partial class LogFoodView : PopupPage
 		InitializeComponent();
 		BindingContext = viewModel = new LogFoodViewModel();
 	}
+
+    public LogFoodView(DateTime preset)
+    {
+        InitializeComponent();
+        BindingContext = viewModel = new LogFoodViewModel(preset);
+    }
 }

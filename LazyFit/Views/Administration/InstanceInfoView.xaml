@@ -8,12 +8,26 @@
         <vm:InstanceInfoViewModel/>
     </ContentView.BindingContext>
 
-    <VerticalStackLayout Padding="10,0">
+    <VerticalStackLayout Padding="10,0" Spacing="20">
         
     <Grid ColumnDefinitions="auto,*">
         <Label Text="Instance"/>
         <Label Grid.Column="1" Text="{Binding InstanceId}" HorizontalTextAlignment="End" TextColor="Gray"/>
     </Grid>
-        
+
+        <Grid ColumnDefinitions="auto,*">
+            <Label Text="Version"/>
+            <Label Grid.Column="1" Text="{Binding AppVersion}" HorizontalTextAlignment="End" TextColor="Gray"/>
+        </Grid>
+
+        <Grid ColumnDefinitions="auto,*">
+            <Label Text="Contact"/>
+            <Label Grid.Column="1" Text="soma.patrik@gmail.com" HorizontalTextAlignment="End" TextColor="Gray">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CreateEmailCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
     </VerticalStackLayout>
 </ContentView>

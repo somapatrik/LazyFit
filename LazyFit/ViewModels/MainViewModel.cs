@@ -5,7 +5,6 @@ using LazyFit.Views;
 using LazyFit.Views.Administration;
 using Mopups.Services;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace LazyFit.ViewModels
 {

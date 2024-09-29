@@ -175,6 +175,9 @@
 	  <MauiXaml Update="Views\Drink\LogDrinkView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\LogButtonsDayView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Mood\LogMoodView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
