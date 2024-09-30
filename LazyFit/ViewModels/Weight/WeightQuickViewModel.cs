@@ -71,10 +71,11 @@ namespace LazyFit.ViewModels.WeightViewModels
             {
                 Entries = entries,
                 ValueLabelTextSize = 36,
-                LineSize = 7,
-                PointSize = 20,
-                ValueLabelOption = ValueLabelOption.TopOfElement,
-                ValueLabelOrientation = Orientation.Horizontal
+                //LineSize = 7,
+                //PointSize = 20,
+                ValueLabelOption = ValueLabelOption.TopOfChart,
+                ValueLabelOrientation = Orientation.Vertical,
+
             };
         }
 
