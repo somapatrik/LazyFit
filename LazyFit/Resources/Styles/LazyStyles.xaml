@@ -32,10 +32,17 @@
 
     <Style x:Key="LogButton" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="StrokeThickness" Value="0"/>
-        <Setter Property="Margin" Value="2,7"/>
-        
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="MinimumHeightRequest" Value="50"/>
+    </Style>
+
+    <Style x:Key="LogLabel" TargetType="Label">
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="VerticalOptions" Value="End"/>
+        <Setter Property="FontSize" Value="Large"/>
+        <Setter Property="Margin" Value="0,0,10,10"/>
     </Style>
 
     <Style x:Key="ActionBorder" TargetType="Border">
@@ -50,16 +57,6 @@
         <Setter Property="Margin" Value="1"/>
     </Style>
 
-    <Style x:Key="LogLabel" TargetType="Label">
-        <Setter Property="HorizontalOptions" Value="End" />
-        <Setter Property="VerticalOptions" Value="End"/>
-            <Setter Property="FontSize" Value="Large"/>
-    </Style>
-    <Style x:Key="LogLabelDetail" TargetType="Label" BasedOn="{StaticResource LogLabel}">
-        <Setter Property="HorizontalOptions" Value="Start" />
-        <Setter Property="VerticalOptions" Value="Start"/>
-        <Setter Property="FontSize" Value="Large"/>
-    </Style>
 
     <Style x:Key="QuickHeader" TargetType="Label">
         <Setter Property="FontSize" Value="Small"/>

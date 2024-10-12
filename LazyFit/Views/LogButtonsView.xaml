@@ -17,7 +17,7 @@
 
             <FlexLayout Wrap="Wrap" 
                         JustifyContent="Start" 
-                        Margin="3,20,3,50">
+                        Margin="0,0,0,20">
 
                 <!-- Fast -->
             <Border FlexLayout.Basis="100%" 
@@ -29,13 +29,10 @@
                     <TapGestureRecognizer Command="{Binding StartFastCommand}" />
                 </Border.GestureRecognizers>
 
-                <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
                     <Label Text="Start Fasting" 
-                           Grid.Row="1" 
-                           Grid.Column="1"
                            TextColor="{StaticResource White}"
                            Style="{StaticResource LogLabel}"/>  
-                </Grid>
+                
 
             </Border>
 
@@ -46,16 +43,10 @@
                     <TapGestureRecognizer Command="{Binding ShowWeightCommand}" />
                 </Border.GestureRecognizers>
 
-                <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
-                    <Label Text="{Binding LatestWeight}"
-                           TextColor="White"
-                           Style="{StaticResource LogLabelDetail}"/>
-                    <Label Text="Weight" 
-                       Grid.Row="1" 
-                       Grid.Column="1"
+                <Label Text="Weight" 
+                       
                        TextColor="{StaticResource White}"
                        Style="{StaticResource LogLabel}"/>
-                </Grid>
 
             </Border>
                 
@@ -64,13 +55,11 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowLogMoodCommand}" />
                 </Border.GestureRecognizers>
-                <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                
                     <Label Text="Mood" 
-                           Grid.Row="1" 
-                           Grid.Column="1"
                            TextColor="{StaticResource White}"
                            Style="{StaticResource LogLabel}"/>
-                </Grid>
+               
                 
             </Border>
 
@@ -79,13 +68,11 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowDrinkCommand}" />
                 </Border.GestureRecognizers>
-                <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                
                     <Label Text="Drink" 
-                           Grid.Row="1" 
-                           Grid.Column="1"
                            TextColor="{StaticResource White}"
                            Style="{StaticResource LogLabel}"/>
-                </Grid>
+                
 
             </Border>
 
@@ -94,13 +81,11 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowFoodCommand}" />
                 </Border.GestureRecognizers>
-                <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                
                     <Label Text="Food" 
-                           Grid.Row="1" 
-                           Grid.Column="1"
                            TextColor="{StaticResource White}"
                            Style="{StaticResource LogLabel}"/>
-                </Grid>
+                
 
             </Border>
 

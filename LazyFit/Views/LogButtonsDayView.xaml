@@ -5,7 +5,8 @@
              xmlns:viewModels="clr-namespace:LazyFit.ViewModels"
              x:Class="LazyFit.Views.LogButtonsDayView"
              Background="{StaticResource PopupDarkTransparent}"
-             CloseWhenBackgroundIsClicked="True">
+             CloseWhenBackgroundIsClicked="True"
+             >
     
     <VerticalStackLayout VerticalOptions="Center" Padding="20" Spacing="10">
 
