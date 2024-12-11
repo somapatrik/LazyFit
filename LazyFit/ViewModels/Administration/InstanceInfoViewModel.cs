@@ -17,7 +17,7 @@ namespace LazyFit.ViewModels.Administration
 
         public InstanceInfoViewModel() 
         {
-
+            InstanceInfoRepository = new InstanceInfoService();
 
             LoadInstance();
             LoadVersion();
