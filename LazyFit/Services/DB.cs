@@ -29,15 +29,15 @@ namespace LazyFit.Services
 
         public DB()
         {
-            
+            Database = new SQLiteAsyncConnection(DatabasePath, Flags);
         }
 
         public async Task InitDB()
         {
-            if (Database != null)
-                return;
+            //if (Database != null)
+            //    return;
 
-            Database = new SQLiteAsyncConnection(DatabasePath, Flags);
+           
 
             List<Task> tables = new List<Task>()
             {

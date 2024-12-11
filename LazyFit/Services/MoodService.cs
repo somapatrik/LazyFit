@@ -11,9 +11,6 @@ namespace LazyFit.Services
         public MoodService()
         {
             Connection = new DB();
-            
-            if (Connection.Database == null)
-                Connection.InitDB();
         }
 
         public async Task InsertMood(Mood mood)
