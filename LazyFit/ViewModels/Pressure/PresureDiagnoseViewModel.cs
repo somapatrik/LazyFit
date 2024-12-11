@@ -1,4 +1,5 @@
 ﻿using LazyFit.Models.Pressure;
+using LazyFit.Services;
 using Mopups.Services;
 using System.Windows.Input;
 
@@ -14,8 +15,12 @@ namespace LazyFit.ViewModels.Pressure
 
         public ICommand CloseAll { private set; get; }
 
+        PressureService PressureService;
+
         public PresureDiagnoseViewModel(BloodPressure pressure)
         {
+            PressureService = new PressureService();
+
             Pressure = pressure;
 
             CloseAll = new Command(async () => await MopupService.Instance.PopAllAsync());

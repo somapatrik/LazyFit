@@ -25,10 +25,11 @@ namespace LazyFit.ViewModels.WeightViewModels
         private bool _noData;
         public bool NoData { get => _noData; set { SetProperty(ref _noData, value); RefreshCans(); } }
 
-
+        WeightService WeightService;
 
         public WeightChartViewModel()
         {
+            WeightService = new WeightService();
             LoadChartData(CurrentPage, _showResultsCount);
 
             ShowPrevious = new Command(ShowPreviousHandler, CanShowPrevious);

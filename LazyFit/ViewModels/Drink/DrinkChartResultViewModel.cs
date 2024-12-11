@@ -12,7 +12,12 @@ namespace LazyFit.ViewModels.DrinkViewModels
 
         public Chart DrinkChart { get => _DrinkChart; set => SetProperty(ref _DrinkChart, value); }
 
-        public DrinkChartResultViewModel() { }
+        DrinkService DrinkService;
+
+        public DrinkChartResultViewModel() 
+        {
+            DrinkService = new DrinkService();
+        }
         protected override async void LoadResults()
         {
             // Load data

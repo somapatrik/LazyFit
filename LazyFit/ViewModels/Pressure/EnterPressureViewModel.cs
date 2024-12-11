@@ -1,14 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Java.Util.Concurrent;
 using LazyFit.Models.Pressure;
 using LazyFit.Services;
 using LazyFit.Views.Pressure;
 using Mopups.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LazyFit.ViewModels.Pressure
@@ -56,9 +50,11 @@ namespace LazyFit.ViewModels.Pressure
             ((Command)SavePressure).ChangeCanExecute();
         }
 
-
+        PressureService PressureService;
         public EnterPressureViewModel()
         {
+            PressureService = new PressureService();
+
             SavePressure = new Command(SavePressureHandler, CanSave);
             SetTimeNow = new Command(SetNow);
             SetNow();

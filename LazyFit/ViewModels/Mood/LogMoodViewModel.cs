@@ -25,8 +25,12 @@ namespace LazyFit.ViewModels.MoodViewModels
         [ObservableProperty]
         private DateString _selectedDate;
 
+        MoodService MoodService;
+
         public LogMoodViewModel() 
         {
+            MoodService = new MoodService();
+
             LoadDates();
             LoadMoods();
         }

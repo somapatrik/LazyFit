@@ -22,8 +22,12 @@ namespace LazyFit.ViewModels.MoodViewModels
 
         private int _numberOfDays = 15;
 
+        MoodService MoodService;
+
         public MoodQuickViewModel()
         {
+            MoodService = new MoodService();
+
             WeakReferenceMessenger.Default.Register<MoodNewMessage>(this,  (a, b) =>  LoadChart());
             WeakReferenceMessenger.Default.Register<MoodDeleteMessage>(this,  (a, b) =>  LoadChart());
             WeakReferenceMessenger.Default.Register<MoodUpdateMessage>(this,  (a, b) =>  LoadChart());

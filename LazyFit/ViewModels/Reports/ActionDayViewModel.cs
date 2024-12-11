@@ -21,8 +21,16 @@ namespace LazyFit.ViewModels.Reports
         [ObservableProperty]
         private ObservableCollection<ActionSquare> _Actions = new ObservableCollection<ActionSquare>();
 
+        MoodService MoodService;
+        DrinkService DrinkService;
+        FoodService FoodService;
+
         public ActionDayViewModel(ActionSquareDate actionSquare) 
         {
+            MoodService = new MoodService();
+            DrinkService = new DrinkService();
+            FoodService = new FoodService();    
+
             FillData(actionSquare);
         }
 
@@ -65,7 +73,7 @@ namespace LazyFit.ViewModels.Reports
                 }
                 else 
                 { 
-                    await DB.Database.DeleteAsync(selectedAction.ActionObject);
+                    //await DB.Database.DeleteAsync(selectedAction.ActionObject);
                     WeakReferenceMessenger.Default.Send(new ActionsReloadMessages(selectedAction.ActionObject));
                     
                 }

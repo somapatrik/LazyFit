@@ -27,8 +27,12 @@ namespace LazyFit.ViewModels.DrinkViewModels
         [ObservableProperty]
         private DateTime _MaxDate;
 
+        DrinkService DrinkService;
+
         public LogDrinkViewModel()
         {
+            DrinkService = new DrinkService();
+
             MaxDate = DateTime.Today;
 
             SetNow();

@@ -55,20 +55,20 @@ namespace LazyFit.ViewModels
 
         private async Task LoadActions()
         {
-            ActionSquares = new ObservableCollection<ActionSquareDate>();
+            //ActionSquares = new ObservableCollection<ActionSquareDate>();
 
-            DateTime now = DateTime.Now;
+            //DateTime now = DateTime.Now;
             
-            for (int days = 0; days < numberOfDays; days++)
-            {
-                DateTime from = now.AddDays(-days).Date;
-                DateTime to = from.AddDays(1).AddSeconds(-1);
-                var actions = await DB.GetActionSquares(from, to);
+            //for (int days = 0; days < numberOfDays; days++)
+            //{
+            //    DateTime from = now.AddDays(-days).Date;
+            //    DateTime to = from.AddDays(1).AddSeconds(-1);
+            //    var actions = null await DB.GetActionSquares(from, to);
 
-                if (actions.Any())
-                    ActionSquares.Add(new ActionSquareDate() { Time = from, Actions = actions.OrderByDescending(a=>a.Time).ToList() });
+            //    if (actions.Any())
+            //        ActionSquares.Add(new ActionSquareDate() { Time = from, Actions = actions.OrderByDescending(a=>a.Time).ToList() });
 
-            }            
+            //}            
         }
 
         [RelayCommand]

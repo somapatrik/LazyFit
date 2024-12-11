@@ -32,8 +32,12 @@ namespace LazyFit.ViewModels.Fasting
             }
         }
 
+        FastService FastService;
+
         public FastHistoryViewModel()
         {
+            FastService = new FastService();
+
             RefreshList = new Command(LoadFastList);
             ShowOlder = new Command(ShowOlderHandler);
             ShowNewer = new Command(ShowNewerHandler);

@@ -11,8 +11,13 @@ namespace LazyFit.ViewModels.Reports
         [ObservableProperty]
         private bool _IsVisible;
 
+        DrinkService DrinkService;
+
         public NoWaterWarningViewModel()
         {
+
+            DrinkService = new DrinkService();
+
             WeakReferenceMessenger.Default.Register<DrinkNewMessage>(this, async (a, b) =>
             {
                 await CheckWaterToday();

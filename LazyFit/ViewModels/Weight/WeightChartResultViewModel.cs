@@ -22,8 +22,11 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         public int Improved { get => _Improved; set=> SetProperty(ref _Improved, value); }
         public decimal ImprovedValue { get => _ImprovedValue; set => SetProperty(ref _ImprovedValue, Math.Round(value,1)); }
+
+        WeightService WeightService;
         public WeightChartResultViewModel()
         {
+            WeightService = new WeightService();
         }
 
         protected override async void LoadResults()

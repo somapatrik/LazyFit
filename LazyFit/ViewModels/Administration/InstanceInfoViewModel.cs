@@ -12,15 +12,20 @@ namespace LazyFit.ViewModels.Administration
 
         [ObservableProperty]
         private string _AppVersion;
+
+        InstanceInfoService InstanceInfoRepository;
+
         public InstanceInfoViewModel() 
         {
+
+
             LoadInstance();
             LoadVersion();
         }
 
         private async void LoadInstance()
         {
-            var instance = await InstanceInfoService.GetInstance();
+            var instance = await InstanceInfoRepository.GetInstance();
             InstanceId = instance.InstanceId.ToString();
         }
 

@@ -12,9 +12,10 @@ namespace LazyFit.ViewModels.FoodViewModels
 
         public Chart FoodChart { get => _FoodChart; set => SetProperty(ref _FoodChart, value); }
 
+        FoodService FoodService;
         public FoodChartResultViewModel()
         {
-            
+            FoodService = new FoodService();    
         }
         protected override async void LoadResults()
         {

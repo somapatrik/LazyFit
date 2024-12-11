@@ -9,17 +9,15 @@ using SQLite;
 
 namespace LazyFit.Services
 {
-    public static class DB
+    public class DB
     {
         #region DB settings
 
-        public static SQLiteAsyncConnection Database;
+        public string DatabaseFilename = "lazyfit2.db3";
 
-        //public static string DatabaseFilename = "lazyfit.db3";
-        public static string DatabaseFilename = "lazyfit2.db3";
+        public SQLiteAsyncConnection Database;
 
-
-        public static SQLite.SQLiteOpenFlags Flags =
+        public SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
             SQLite.SQLiteOpenFlags.ReadWrite |
             // create the database if it doesn't exist
@@ -27,18 +25,23 @@ namespace LazyFit.Services
             // enable multi-threaded database access
             SQLite.SQLiteOpenFlags.SharedCache;
 
-        public static string DatabasePath => Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
+        public string DatabasePath => Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
 
-        public static async Task InitDB()
+        public DB()
+        {
+            
+        }
+
+        public async Task InitDB()
         {
             if (Database != null)
                 return;
 
             Database = new SQLiteAsyncConnection(DatabasePath, Flags);
 
-            var InstanceResult = await Database.CreateTableAsync<InstanceInfo>();
-            List< Task> tables = new List<Task>()
+            List<Task> tables = new List<Task>()
             {
+                Database.CreateTableAsync<InstanceInfo>(),
                 Database.CreateTableAsync<Fast>(),
                 Database.CreateTableAsync<Weight>(),
 
@@ -57,21 +60,21 @@ namespace LazyFit.Services
             Task CreateTables = Task.WhenAll(tables);
             await CreateTables;
 
-            if (InstanceResult == CreateTableResult.Created)
-                await InstanceInfoService.CreateNewInstanceInfo();
-            else
-                await InstanceInfoService.UpdateInstanceInfo();
+            //if (InstanceResult)
+            //    await InstanceInfoService.CreateNewInstanceInfo();
+            //else
+            //    await InstanceInfoService.UpdateInstanceInfo();
 
             CreateDefaultDrinkData();
             CreateDefaultFoodData();
             CreateDefaultMoodData();
-
+                        
         }
 
         #endregion
 
         #region Default data creation
-        private static void CreateDefaultMoodData()
+        private void CreateDefaultMoodData()
         {
             List<MoodProperty> moods = new List<MoodProperty>()
             {
@@ -115,7 +118,7 @@ namespace LazyFit.Services
             moods.ForEach(async m => await Database.InsertOrReplaceAsync(m));
         }
 
-        private static void CreateDefaultFoodData()
+        private void CreateDefaultFoodData()
         {
             List<FoodProperty> foods = new List<FoodProperty>()
             {
@@ -152,7 +155,7 @@ namespace LazyFit.Services
             foods.ForEach(async f => await Database.InsertOrReplaceAsync(f));
         }
 
-        private static void CreateDefaultDrinkData()
+        private void CreateDefaultDrinkData()
         {
             List<DrinkProperty> drinks = new List<DrinkProperty>()
             {
@@ -206,110 +209,110 @@ namespace LazyFit.Services
         #endregion
 
         #region Actions
-        public static async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
+        public  async Task<List<ActionSquare>> GetActionSquares(DateTime fromTime, DateTime toTime)
         {
-            var foods = await FoodService.GetFoods(fromTime, toTime, true);
-            var drinks = await DrinkService.GetDrinks(fromTime, toTime, true);
-            var moods = await MoodService.GetMoods(fromTime, toTime, true);
-            var weights = await WeightService.GetWeights(fromTime, toTime);
-            var fasts = await FastService.GetFasts(fromTime, toTime);
+            //var foods = await FoodService.GetFoods(fromTime, toTime, true);
+            //var drinks = await DrinkService.GetDrinks(fromTime, toTime, true);
+            //var moods = await MoodService.GetMoods(fromTime, toTime, true);
+            //var weights = await WeightService.GetWeights(fromTime, toTime);
+            //var fasts = await FastService.GetFasts(fromTime, toTime);
 
-            List<ActionSquare> actionSquares = new List<ActionSquare>();
+            //List<ActionSquare> actionSquares = new List<ActionSquare>();
 
-            foods.ForEach(food =>
-            {
-                actionSquares.Add(new ActionSquare() 
-                { 
-                    ActionObject = food,
-                    ActionName = nameof(Food),
-                    Color = LazyColors.FreshGreen, 
-                    Time = food.Time, 
-                    IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack),
-                    ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood),
-                    IconName = food.Property.ImageName
-                    
-                });
-            });
+            //foods.ForEach(food =>
+            //{
+            //    actionSquares.Add(new ActionSquare() 
+            //    { 
+            //        ActionObject = food,
+            //        ActionName = nameof(Food),
+            //        Color = LazyColors.FreshGreen, 
+            //        Time = food.Time, 
+            //        IsBad = (food.TypeOfFood == TypeOfFood.Unhealthy || food.TypeOfFood == TypeOfFood.Snack),
+            //        ItemName = Enum.GetName(typeof(TypeOfFood), food.TypeOfFood),
+            //        IconName = food.Property.ImageName
 
-            drinks.ForEach(drink =>
-            {
-                actionSquares.Add(new ActionSquare() 
-                {
-                    ActionObject = drink,
-                    ActionName = nameof(Drink),
-                    Color = LazyColors.WaterBlue, 
-                    Time = drink.Time, 
-                    IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea),
-                    ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink),
-                    IconName = drink.Property.ImageName
-                });
-            });
+            //    });
+            //});
 
-            moods.ForEach(mood =>
-            {
+            //drinks.ForEach(drink =>
+            //{
+            //    actionSquares.Add(new ActionSquare() 
+            //    {
+            //        ActionObject = drink,
+            //        ActionName = nameof(Drink),
+            //        Color = LazyColors.WaterBlue, 
+            //        Time = drink.Time, 
+            //        IsBad = (drink.TypeOfDrink != TypeOfDrink.Water && drink.TypeOfDrink != TypeOfDrink.Tea),
+            //        ItemName = Enum.GetName(typeof(TypeOfDrink), drink.TypeOfDrink),
+            //        IconName = drink.Property.ImageName
+            //    });
+            //});
 
-                string moodName = Enum.GetName(typeof(MoodName), mood.TypeOfMood);
+            //moods.ForEach(mood =>
+            //{
 
-                if (mood.TypeOfMood == MoodName.VeryBad)
-                {
-                    moodName = "Very bad";
-                }
-                
-                if (mood.TypeOfMood == MoodName.VeryGood)
-                {
-                    moodName = "Very good";
-                }
-                       
-                actionSquares.Add(new ActionSquare()
-                {
-                    ActionObject = mood,
-                    ActionName = nameof(Mood),
-                    Color = Colors.DarkBlue.ToHex(),
-                    Time = mood.Time,
-                    IsBad = mood.TypeOfMood == MoodName.Bad,
-                    ItemName = $"{moodName} mood",
-                    IconName = mood.Property.ImageName
-                });
-            });
+            //    string moodName = Enum.GetName(typeof(MoodName), mood.TypeOfMood);
 
-            fasts.ForEach(fast =>
-            {
-                actionSquares.Add(new ActionSquare()
-                {
-                    ActionObject = fast,
-                    ActionName = nameof(Fast),
-                    Color = LazyColors.LazyColor,
-                    Time = (DateTime)fast.EndTime,
-                    IsBad = (!fast.Completed),
-                    ItemName = fast.Completed ? "Completed fast" : "Failed fast",
-                    IconName = "fasting.png"
-                });
-            });
+            //    if (mood.TypeOfMood == MoodName.VeryBad)
+            //    {
+            //        moodName = "Very bad";
+            //    }
 
+            //    if (mood.TypeOfMood == MoodName.VeryGood)
+            //    {
+            //        moodName = "Very good";
+            //    }
 
-            weights.ForEach(weight =>
-            {
+            //    actionSquares.Add(new ActionSquare()
+            //    {
+            //        ActionObject = mood,
+            //        ActionName = nameof(Mood),
+            //        Color = Colors.DarkBlue.ToHex(),
+            //        Time = mood.Time,
+            //        IsBad = mood.TypeOfMood == MoodName.Bad,
+            //        ItemName = $"{moodName} mood",
+            //        IconName = mood.Property.ImageName
+            //    });
+            //});
 
-                actionSquares.Add(new ActionSquare()
-                {
-                    ActionObject = weight,
-                    ActionName = nameof(Weight),
-                    Color = Colors.DarkOrange.ToHex(),
-                    Time = weight.Time,
-                    IsBad = false,
-                    ItemName = weight.WeightValue.ToString(),
-                    IconName = "weight.png"
-                }) ;
-            });
+            //fasts.ForEach(fast =>
+            //{
+            //    actionSquares.Add(new ActionSquare()
+            //    {
+            //        ActionObject = fast,
+            //        ActionName = nameof(Fast),
+            //        Color = LazyColors.LazyColor,
+            //        Time = (DateTime)fast.EndTime,
+            //        IsBad = (!fast.Completed),
+            //        ItemName = fast.Completed ? "Completed fast" : "Failed fast",
+            //        IconName = "fasting.png"
+            //    });
+            //});
 
 
-            return actionSquares.OrderBy(a => a.Time).ToList();
+            //weights.ForEach(weight =>
+            //{
 
+            //    actionSquares.Add(new ActionSquare()
+            //    {
+            //        ActionObject = weight,
+            //        ActionName = nameof(Weight),
+            //        Color = Colors.DarkOrange.ToHex(),
+            //        Time = weight.Time,
+            //        IsBad = false,
+            //        ItemName = weight.WeightValue.ToString(),
+            //        IconName = "weight.png"
+            //    }) ;
+            //});
+
+
+            //return actionSquares.OrderBy(a => a.Time).ToList();
+            return new List<ActionSquare>();
         }
 
         #endregion
 
-        public static async Task DeleteItem(object item)
+        public async Task DeleteItem(object item)
         {
             await Database.DeleteAsync(item); 
         }

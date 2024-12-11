@@ -4,34 +4,44 @@ using LazyFit.Models.Moods;
 
 namespace LazyFit.Services
 {
-    public static class MoodService
+    public class MoodService
     {
-        public static async Task InsertMood(Mood mood)
+        DB Connection;
+
+        public MoodService()
         {
-            await DB.Database.InsertAsync(mood);
+            Connection = new DB();
+            
+            if (Connection.Database == null)
+                Connection.InitDB();
+        }
+
+        public async Task InsertMood(Mood mood)
+        {
+            await Connection.Database.InsertAsync(mood);
             WeakReferenceMessenger.Default.Send(new MoodNewMessage(mood));
         }
 
-        public static async Task UpdateMood(Mood mood)
+        public async Task UpdateMood(Mood mood)
         {
-            await DB.Database.UpdateAsync(mood);
+            await Connection.Database.UpdateAsync(mood);
             WeakReferenceMessenger.Default.Send(new MoodUpdateMessage(mood));
         }
 
-        public static async Task DeleteMood(Mood mood)
+        public async Task DeleteMood(Mood mood)
         {
-            await DB.Database.DeleteAsync(mood);
+            await Connection.Database.DeleteAsync(mood);
             WeakReferenceMessenger.Default.Send(new MoodDeleteMessage(mood));
         }
 
-        public static async Task<List<Mood>> GetAllMoods()
+        public async Task<List<Mood>> GetAllMoods()
         {
-            return await DB.Database.Table<Mood>().ToListAsync();
+            return await Connection.Database.Table<Mood>().ToListAsync();
         }
 
-        public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
+        public async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
-            var moods = await DB.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
+            var moods = await Connection.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
 
             if (!LoadProperties)
             {
@@ -49,7 +59,7 @@ namespace LazyFit.Services
 
         }
 
-        public static async Task<List<Mood>> GetMoodsFromLastDays(int numberOfDays)
+        public async Task<List<Mood>> GetMoodsFromLastDays(int numberOfDays)
         {
             DateTime now = DateTime.Today;
 
@@ -59,9 +69,53 @@ namespace LazyFit.Services
             return await GetMoods(from, to, true);
         }
 
-        public static async Task<List<MoodProperty>> GetAllMoodProperties()
+        public async Task<List<MoodProperty>> GetAllMoodProperties()
         {
-            return await DB.Database.Table<MoodProperty>().ToListAsync();
+            return await Connection.Database.Table<MoodProperty>().ToListAsync();
+        }
+
+        private void CreateDefaultMoodData()
+        {
+            List<MoodProperty> moods = new List<MoodProperty>()
+            {
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryGood,
+                    DisplayName = "Very good",
+                    Description = "Everything is great!",
+                    ImageName = "very_happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Good,
+                    DisplayName = "Good",
+                    Description = "This is fine!",
+                    ImageName = "happy.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Normal,
+                    DisplayName = "Normal",
+                    Description = "Not great, not terrible...",
+                    ImageName = "neutral.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.Bad,
+                    DisplayName = "Bad",
+                    Description = "Could be better",
+                    ImageName = "angry.png"
+                },
+                new MoodProperty()
+                {
+                    MoodID = MoodName.VeryBad,
+                    DisplayName = "Very bad",
+                    Description = "F*ck this!",
+                    ImageName = "cursing.png"
+                },
+            };
+
+            moods.ForEach(async m => await Connection.Database.InsertOrReplaceAsync(m));
         }
     }
 }

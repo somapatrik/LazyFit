@@ -11,8 +11,12 @@ namespace LazyFit.ViewModels.Pressure
         private ObservableCollection<BloodPressure> _BloodPressures;
         public ObservableCollection<BloodPressure> BloodPressures { get => _BloodPressures; private set => SetProperty(ref _BloodPressures, value); }
 
+        PressureService PressureService;
+
         public PressureCardLineViewModel() 
         {
+            PressureService = new PressureService();
+
             LoadPressure();
             WeakReferenceMessenger.Default.Register<RefreshPressureCards>(this, (a, b) => { LoadPressure(); });
         }

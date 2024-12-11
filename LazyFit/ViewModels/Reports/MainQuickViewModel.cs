@@ -40,14 +40,29 @@ namespace LazyFit.ViewModels.Reports
 
         public bool IsVisible => FoodExists || DrinkExists || FastsExists;
 
+        DrinkService DrinkService;
+        WeightService WeightService;
+        FoodService FoodService;
+        FastService FastService;
 
         public MainQuickViewModel() 
         {
-            InitValues();
-            SetRefreshValues();
+
+            DrinkService = new DrinkService();
+            WeightService = new WeightService();
+            FoodService = new FoodService();
+            FastService = new FastService();
+
+            InitDatabase();
         }
 
-        private async void SetRefreshValues()
+        private async void InitDatabase()
+        {
+            await InitValues();
+            await SetRefreshValues();
+        }
+
+        private async Task SetRefreshValues()
         {
             // Food
             WeakReferenceMessenger.Default.Register<FoodNewMessage>(this, async (a, b) =>
@@ -95,7 +110,7 @@ namespace LazyFit.ViewModels.Reports
             });
         }
 
-        private async void InitValues()
+        private async Task InitValues()
         {
             List<Task> tasks = new List<Task>
             {

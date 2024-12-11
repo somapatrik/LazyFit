@@ -2,7 +2,7 @@
 
 namespace LazyFit.Models.Administration
 {
-    public class InstanceInfo
+    public class InstanceInfo 
     {
         [PrimaryKey]
         public Guid InstanceId { get; set; }
@@ -24,6 +24,7 @@ namespace LazyFit.Models.Administration
             CreateDate = UpdateDate;
         }
 
+        
         public void UpdateInstanceInfo(string deviceType, string platform, bool isVirtual)
         {
             DeviceType = deviceType;

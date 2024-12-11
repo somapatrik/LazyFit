@@ -129,13 +129,13 @@
         <StackLayout Grid.Row="0" Orientation="Vertical" Padding="0" Margin="0,0,0,5">
 
             <!-- Fast Quick view -->
-            <fastViews:ActiveFast/>
+            <!--<fastViews:ActiveFast/>-->
             
             <StackLayout Orientation="Horizontal" BackgroundColor="White" Padding="20,0">
                 <Label Text="LazyFit" Style="{StaticResource PageHeader}" HorizontalOptions="StartAndExpand"/>
             </StackLayout>
 
-            <reportViews:NoWaterWarning/>
+            <!--<reportViews:NoWaterWarning/>-->
 
         </StackLayout>
 
@@ -143,11 +143,12 @@
         <ScrollView Grid.Row="1">
             
             <StackLayout Orientation="Vertical" Spacing="10" Padding="0,0">
-                <reportViews:RatioQuickView Margin="10,0"/>
+                
+                <!--<reportViews:RatioQuickView Margin="10,0"/>-->
                 <MoodViews:MoodQuickView Margin="10,0"/>
-                <WeightViews:WeightQuickView Margin="10,0"/>
-                <psViews:PressureCardLineView Margin="10,0"/>
-                <Views:LatestActionsView/>
+                <!--<WeightViews:WeightQuickView Margin="10,0"/>-->
+                <!--<psViews:PressureCardLineView Margin="10,0"/>-->
+                <!--<Views:LatestActionsView/>-->
 
             </StackLayout>
 

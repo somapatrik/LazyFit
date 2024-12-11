@@ -22,9 +22,11 @@ namespace LazyFit.ViewModels.Fasting
         public double HoursShouldFasted { get => _HoursShouldFasted; set => SetProperty(ref _HoursShouldFasted, value); }
         public double PercentFinished { get=>_PercentFinished; set => SetProperty(ref _PercentFinished,value); }
         public bool Completed { get => _Completed; set => SetProperty(ref _Completed, value); }
+
+        FastService FastService;
         public FastChartViewModel()
         {
-
+            FastService = new FastService();
         }
 
         protected override async void LoadResults()
