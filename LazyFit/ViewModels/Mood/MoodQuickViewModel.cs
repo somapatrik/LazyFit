@@ -22,8 +22,12 @@ namespace LazyFit.ViewModels.MoodViewModels
 
         private int _numberOfDays = 15;
 
+        MoodService MoodService;
+
         public MoodQuickViewModel()
         {
+            MoodService = new MoodService();
+
             WeakReferenceMessenger.Default.Register<MoodNewMessage>(this,  (a, b) =>  LoadChart());
             WeakReferenceMessenger.Default.Register<MoodDeleteMessage>(this,  (a, b) =>  LoadChart());
             WeakReferenceMessenger.Default.Register<MoodUpdateMessage>(this,  (a, b) =>  LoadChart());
@@ -118,12 +122,12 @@ namespace LazyFit.ViewModels.MoodViewModels
             return entries;
         }
 
-        private async void SetTitle(List<Mood> moods)
+        private void SetTitle(List<Mood> moods)
         {
             var title = "";
 
             // Select the lowest mood as a default
-            var moodProperties = await MoodService.GetAllMoodProperties();
+            var moodProperties = MoodService.GetAllMoodProperties();
             MoodProperty worstMood = moodProperties.FirstOrDefault(m=> m.MoodID == moodProperties.Min(mp => mp.MoodID));
 
             title = worstMood.ImageName;

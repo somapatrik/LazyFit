@@ -18,11 +18,13 @@ namespace LazyFit.ViewModels.WeightViewModels
         [ObservableProperty]
         private bool _IsVisible;
 
+        WeightService WeightService;
 
         public WeightQuickViewModel() 
         {
+            WeightService = new WeightService();
+            
             LoadData();
-
             
         }
 

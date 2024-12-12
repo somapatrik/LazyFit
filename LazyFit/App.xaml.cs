@@ -4,18 +4,18 @@ namespace LazyFit;
 
 public partial class App : Application
 {
-	public App()
+
+    public App()
 	{
 		InitializeComponent();
+		DatabaseInit();
 
 		MainPage = new AppShell();
-
-		InitDb();
-
 	}
 
-	public async void InitDb()
+	public void DatabaseInit()
 	{
-		await DB.InitDB();
-	}
+        DatabaseService data = new DatabaseService();
+		Task.Run(data.FullInicialization);
+    }
 }

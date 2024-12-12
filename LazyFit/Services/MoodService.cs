@@ -1,37 +1,46 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.LocalData;
 using LazyFit.Messages;
 using LazyFit.Models.Moods;
 
 namespace LazyFit.Services
 {
-    public static class MoodService
+    public class MoodService
     {
-        public static async Task InsertMood(Mood mood)
+        DatabaseService Connection;
+        LocalMoodPropertyData LocalMoodPropertyRepository;
+        public MoodService()
         {
-            await DB.Database.InsertAsync(mood);
+            Connection = new DatabaseService();
+            LocalMoodPropertyRepository = new LocalMoodPropertyData();
+        }
+
+        public async Task InsertMood(Mood mood)
+        {
+            await Connection.Database.InsertAsync(mood);
             WeakReferenceMessenger.Default.Send(new MoodNewMessage(mood));
         }
 
-        public static async Task UpdateMood(Mood mood)
+        public async Task UpdateMood(Mood mood)
         {
-            await DB.Database.UpdateAsync(mood);
+            await Connection.Database.UpdateAsync(mood);
             WeakReferenceMessenger.Default.Send(new MoodUpdateMessage(mood));
         }
 
-        public static async Task DeleteMood(Mood mood)
+        public async Task DeleteMood(Mood mood)
         {
-            await DB.Database.DeleteAsync(mood);
+            await Connection.Database.DeleteAsync(mood);
             WeakReferenceMessenger.Default.Send(new MoodDeleteMessage(mood));
         }
 
-        public static async Task<List<Mood>> GetAllMoods()
+        public async Task<List<Mood>> GetAllMoods()
         {
-            return await DB.Database.Table<Mood>().ToListAsync();
+            return await Connection.Database.Table<Mood>().ToListAsync();
         }
 
-        public static async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
+        public async Task<List<Mood>> GetMoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
         {
-            var moods = await DB.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
+            var moods = await Connection.Database.Table<Mood>().Where(m => m.Time >= fromTime && m.Time <= toTime).ToListAsync();
 
             if (!LoadProperties)
             {
@@ -39,7 +48,7 @@ namespace LazyFit.Services
             }
             else
             {
-                var properties = await GetAllMoodProperties();
+                var properties = LocalMoodPropertyRepository.MoodProperties;
                 foreach (var mood in moods)
                     mood.Property = properties.FirstOrDefault(x => x.MoodID == mood.TypeOfMood);
 
@@ -49,7 +58,7 @@ namespace LazyFit.Services
 
         }
 
-        public static async Task<List<Mood>> GetMoodsFromLastDays(int numberOfDays)
+        public async Task<List<Mood>> GetMoodsFromLastDays(int numberOfDays)
         {
             DateTime now = DateTime.Today;
 
@@ -59,9 +68,11 @@ namespace LazyFit.Services
             return await GetMoods(from, to, true);
         }
 
-        public static async Task<List<MoodProperty>> GetAllMoodProperties()
+        public List<MoodProperty> GetAllMoodProperties()
         {
-            return await DB.Database.Table<MoodProperty>().ToListAsync();
+            return LocalMoodPropertyRepository.MoodProperties;
         }
+
+
     }
 }

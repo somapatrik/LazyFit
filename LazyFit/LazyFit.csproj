@@ -69,13 +69,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
-	  <ApplicationDisplayVersion>0.5.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>18</ApplicationVersion>
+	  <ApplicationDisplayVersion>0.6.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>19</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
-	  <ApplicationDisplayVersion>0.5.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>18</ApplicationVersion>
+	  <ApplicationDisplayVersion>0.6.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>19</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -113,14 +113,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.2" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microcharts.Maui" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Mopups" Version="1.3.1" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.8" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.8" />
+		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -245,11 +245,11 @@
 
 	<ItemGroup>
 	  
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.70" />
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionLazyFitHideInfoBar="True" /></VisualStudio></ProjectExtensions>

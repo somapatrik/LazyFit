@@ -12,9 +12,10 @@ namespace LazyFit.ViewModels.FoodViewModels
 
         public Chart FoodChart { get => _FoodChart; set => SetProperty(ref _FoodChart, value); }
 
+        FoodService FoodService;
         public FoodChartResultViewModel()
         {
-            
+                
         }
         protected override async void LoadResults()
         {
@@ -22,7 +23,7 @@ namespace LazyFit.ViewModels.FoodViewModels
             DataExists = foods.Any();
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            var properties = await FoodService.GetFoodProperties();
+            var properties = FoodService.GetFoodProperties();
             properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName }));
 
             if (DataExists) 
@@ -74,6 +75,11 @@ namespace LazyFit.ViewModels.FoodViewModels
                  
               
             };
+        }
+
+        protected override void Inicialization()
+        {
+            FoodService = new FoodService();
         }
     }
 }

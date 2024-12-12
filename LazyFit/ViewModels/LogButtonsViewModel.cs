@@ -19,8 +19,14 @@ namespace LazyFit.ViewModels
         [ObservableProperty]
         private bool _FastExists;
 
+        WeightService WeightService;
+        FastService FastService;
+
         public LogButtonsViewModel()
         {
+            WeightService = new WeightService();
+            FastService = new FastService();
+
             LoadDataAsync();
             WireMessages();
         }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Mopups.Hosting;
 using Microcharts.Maui;
+using LazyFit.Services;
 
 namespace LazyFit;
 

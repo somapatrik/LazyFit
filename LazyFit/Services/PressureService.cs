@@ -1,32 +1,34 @@
 ﻿using LazyFit.Models.Pressure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LazyFit.Services
 {
-    public static class PressureService
+    public  class PressureService
     {
-        public static async Task InsertPressure(BloodPressure pressure)
+        DatabaseService Connection;
+
+        public PressureService()
         {
-            await DB.Database.InsertAsync(pressure);
+            Connection = new DatabaseService();
         }
 
-        public static async Task<List<BloodPressure>> GetPressures(DateTime fromDate, DateTime toDate)
+        public async Task InsertPressure(BloodPressure pressure)
         {
-            return await DB.Database.Table<BloodPressure>().Where(p => p.Time >= fromDate && p.Time <= toDate).OrderByDescending(bp => bp.Time).ToListAsync();
+            await Connection.Database.InsertAsync(pressure);
         }
 
-        public static async Task<BloodPressure> GetPressure(Guid id)
+        public async Task<List<BloodPressure>> GetPressures(DateTime fromDate, DateTime toDate)
         {
-            return await DB.Database.Table<BloodPressure>().FirstOrDefaultAsync(p => p.Id == id);
+            return await Connection.Database.Table<BloodPressure>().Where(p => p.Time >= fromDate && p.Time <= toDate).OrderByDescending(bp => bp.Time).ToListAsync();
         }
 
-        public static async Task<List<BloodPressure>> GetLastPressures(int count)
+        public async Task<BloodPressure> GetPressure(Guid id)
         {
-            return await DB.Database.Table<BloodPressure>().OrderByDescending(p => p.Time).Take(count).ToListAsync();
+            return await Connection.Database.Table<BloodPressure>().FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<List<BloodPressure>> GetLastPressures(int count)
+        {
+            return await Connection.Database.Table<BloodPressure>().OrderByDescending(p => p.Time).Take(count).ToListAsync();
         }
     }
 }

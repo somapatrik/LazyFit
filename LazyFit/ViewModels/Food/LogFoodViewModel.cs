@@ -27,18 +27,24 @@ namespace LazyFit.ViewModels.FoodViewModels
         [ObservableProperty]
         private DateTime _MaxDate;
 
+        private FoodService FoodService;
+
         public LogFoodViewModel()
         {
+            FoodService = new FoodService();
+
             MaxDate = DateTime.Today;
             SetNow();
-            LoadDrinks();
+            LoadFoods();
         }
 
         public LogFoodViewModel(DateTime preset)
         {
+            FoodService = new FoodService();
+
             MaxDate = preset.Date;
             SetDate(preset);
-            LoadDrinks();
+            LoadFoods();
         }
 
         [RelayCommand]
@@ -54,12 +60,12 @@ namespace LazyFit.ViewModels.FoodViewModels
             SelectedTime = DateTime.Now.TimeOfDay;
         }
 
-        private async void LoadDrinks()
+        private void LoadFoods()
         {
             Foods = new ObservableCollection<FoodProperty>();
 
-            var allDrinks = await FoodService.GetFoodProperties();
-            allDrinks.ForEach(Foods.Add);
+            var allFoods = FoodService.GetFoodProperties();
+            allFoods.ForEach(Foods.Add);
         }
 
         [RelayCommand(CanExecute = nameof(CanSave))]
@@ -83,8 +89,6 @@ namespace LazyFit.ViewModels.FoodViewModels
             DateTime checkTime = new DateTime(SelectedDate.Date.Ticks + SelectedTime.Ticks);
             return checkTime <= DateTime.Now && SelectedFood != null;
         }
-
-
 
     }
 }

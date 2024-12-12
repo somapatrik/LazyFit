@@ -30,8 +30,11 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         public ICommand SaveWeight { get; set; }
 
+        WeightService WeightService;
+
         public EnterWeightViewModel()
         {
+            WeightService = new WeightService();
             SaveWeight = new Command(SaveHandler, canSave);
         }
 

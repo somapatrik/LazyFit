@@ -46,6 +46,7 @@ namespace LazyFit.Classes
 
         public ResultComponent()
         {
+            Inicialization();
             SetDates();
             LoadResults();
             WeakReferenceMessenger.Default.Register<Messages.ShowPageMessage>(this, (r, m) => { ShowPage(m.Value); });
@@ -90,6 +91,7 @@ namespace LazyFit.Classes
 
         }
 
+        protected abstract void Inicialization();
         protected abstract void LoadResults();
     }
 }

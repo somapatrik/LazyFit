@@ -61,9 +61,10 @@ namespace LazyFit.ViewModels.Fasting
 
         #endregion
 
-
+        FastService FastService;
         public FastingViewModel()
         {
+            FastService = new FastService();
             _RefreshTimer = new System.Threading.Timer(TimerHandler, null, Timeout.Infinite, 1000);
 
             RefreshFastData();

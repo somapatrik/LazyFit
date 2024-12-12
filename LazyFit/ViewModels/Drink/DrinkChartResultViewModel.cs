@@ -12,7 +12,12 @@ namespace LazyFit.ViewModels.DrinkViewModels
 
         public Chart DrinkChart { get => _DrinkChart; set => SetProperty(ref _DrinkChart, value); }
 
-        public DrinkChartResultViewModel() { }
+        DrinkService DrinkService;
+
+        public DrinkChartResultViewModel() 
+        {
+            
+        }
         protected override async void LoadResults()
         {
             // Load data
@@ -21,7 +26,7 @@ namespace LazyFit.ViewModels.DrinkViewModels
             List<ChartEntry> entries = new List<ChartEntry>();
 
             // Empty chart
-            var properties = await DrinkService.GetDrinkProperties();
+            var properties = DrinkService.GetDrinkProperties();
             properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName, Color = SKColors.Gray }));
 
             if (DataExists)
@@ -77,6 +82,11 @@ namespace LazyFit.ViewModels.DrinkViewModels
                 LabelTextSize = 40,
                 //LineSize = 6
             };
+        }
+
+        protected override void Inicialization()
+        {
+            DrinkService = new DrinkService();
         }
     }
 }

@@ -11,6 +11,13 @@ namespace LazyFit.ViewModels.MoodViewModels
         private Chart _MoodChart;
 
         public Chart MoodChart { get => _MoodChart; set => SetProperty(ref _MoodChart, value); }
+
+        MoodService MoodService;
+
+        public MoodChartResultViewModel()
+        {
+        }
+
         protected async override void LoadResults()
         {
             List<Mood> moods = await MoodService.GetMoods(FirstDateTime, LastDateTime);
@@ -88,6 +95,11 @@ namespace LazyFit.ViewModels.MoodViewModels
                 GraphPosition = GraphPosition.AutoFill
                 //LineSize = 6
             };
+        }
+
+        protected override void Inicialization()
+        {
+            MoodService = new MoodService();
         }
     }
 }

@@ -16,8 +16,13 @@ namespace LazyFit.ViewModels.Fasting
 
         public bool OptionSelected { get; private set; }
 
+        FastService FastService;
+
         public ChooseFastViewModel()
         {
+
+            FastService = new FastService();
+
             FastingOptions = new ObservableCollection<FastingOption>()
             {
                 new FastingOption(4, "4 hours", "Also known as pussyfast..."),

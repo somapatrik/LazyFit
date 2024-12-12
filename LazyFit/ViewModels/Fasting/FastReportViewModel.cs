@@ -55,8 +55,11 @@ namespace LazyFit.ViewModels.Fasting
 
         }
 
+        FastService FastService;
         public FastReportViewModel(Fast finishedFast) 
         {
+            FastService = new FastService();
+
             FinishedFast = finishedFast;
             LoadSpan();
             LoadEnd();

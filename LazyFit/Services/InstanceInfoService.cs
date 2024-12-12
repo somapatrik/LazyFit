@@ -1,36 +1,49 @@
-﻿using Kotlin.Contracts;
-using LazyFit.Models.Administration;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using LazyFit.Models.Administration;
 
 namespace LazyFit.Services
 {
-    public static class InstanceInfoService
+    public class InstanceInfoService
     {
+        DatabaseService Connection;
 
-        public static async Task<bool> InstanceExists()
+        public InstanceInfoService() 
         {
-            return await DB.Database.Table<InstanceInfo>().CountAsync() > 0;
+            Connection = new DatabaseService();
         }
 
-        public static async Task CreateNewInstanceInfo()
+        public async Task<bool> InstanceExists()
+        {
+            return await Connection.Database.Table<InstanceInfo>().CountAsync() > 0;
+        }
+
+        public async Task CreateNewInstanceInfo()
         {
             var instance = new InstanceInfo(GetDeviceType(), "Android", IsVirtual());
-            await DB.Database.InsertAsync(instance);
+            await Connection.Database.InsertAsync(instance);
         }
 
-        public static async Task UpdateInstanceInfo()
+        public async Task UpdateInstanceInfo()
         {
-            var instance = await DB.Database.Table<InstanceInfo>().FirstAsync();
+            var instance = await Connection.Database.Table<InstanceInfo>().FirstAsync();
             instance.UpdateInstanceInfo(GetDeviceType(), "Android", IsVirtual());
-            await DB.Database.UpdateAsync(instance);
+            await Connection.Database.UpdateAsync(instance);
         }
 
-        private static bool IsVirtual()
+        public async Task CreateOrReplaceInstance()
+        {
+            var instance = await Connection.Database.Table<InstanceInfo>().FirstOrDefaultAsync();
+            if (instance == null)
+                instance = new InstanceInfo(GetDeviceType(), "Android", IsVirtual());
+
+            await Connection.Database.InsertOrReplaceAsync(instance);
+        }
+
+        private bool IsVirtual()
         {
             return DeviceInfo.Current.DeviceType == DeviceType.Virtual;
         }
 
-        private static string GetDeviceType()
+        private string GetDeviceType()
         {
             if (DeviceInfo.Current.Idiom == DeviceIdiom.Desktop)
                return "Desktop";
@@ -42,9 +55,9 @@ namespace LazyFit.Services
                 return "";
         }
 
-        public static async Task<InstanceInfo> GetInstance()
+        public async Task<InstanceInfo> GetInstance()
         {
-            return await DB.Database.Table<InstanceInfo>().FirstAsync();
+            return await Connection.Database.Table<InstanceInfo>().FirstAsync();
         }
     }
 }
