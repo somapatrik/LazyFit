@@ -16,9 +16,7 @@ namespace LazyFit.ViewModels.MoodViewModels
 
         public MoodChartResultViewModel()
         {
-            MoodService = new MoodService();
         }
-
 
         protected async override void LoadResults()
         {
@@ -97,6 +95,11 @@ namespace LazyFit.ViewModels.MoodViewModels
                 GraphPosition = GraphPosition.AutoFill
                 //LineSize = 6
             };
+        }
+
+        protected override void Inicialization()
+        {
+            MoodService = new MoodService();
         }
     }
 }

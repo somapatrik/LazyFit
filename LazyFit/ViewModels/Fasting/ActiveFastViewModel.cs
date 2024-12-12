@@ -36,6 +36,7 @@ namespace LazyFit.ViewModels.Fasting
         public ActiveFastViewModel() 
         {
             FastService = new FastService();
+
             _Timer = new System.Threading.Timer(TimerRefresh, null, Timeout.Infinite,Timeout.Infinite);
 
             LoadData();

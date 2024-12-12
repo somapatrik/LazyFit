@@ -26,7 +26,7 @@ namespace LazyFit.ViewModels.WeightViewModels
         WeightService WeightService;
         public WeightChartResultViewModel()
         {
-            WeightService = new WeightService();
+            
         }
 
         protected override async void LoadResults()
@@ -70,5 +70,9 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         }
 
+        protected override void Inicialization()
+        {
+            WeightService = new WeightService();
+        }
     }
 }

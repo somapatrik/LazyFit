@@ -26,7 +26,7 @@ namespace LazyFit.ViewModels.Fasting
         FastService FastService;
         public FastChartViewModel()
         {
-            FastService = new FastService();
+            
         }
 
         protected override async void LoadResults()
@@ -85,7 +85,9 @@ namespace LazyFit.ViewModels.Fasting
 
         }
 
-        
-
+        protected override void Inicialization()
+        {
+            FastService = new FastService();
+        }
     }
 }

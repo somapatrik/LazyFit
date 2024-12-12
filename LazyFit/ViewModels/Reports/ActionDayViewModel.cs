@@ -21,6 +21,7 @@ namespace LazyFit.ViewModels.Reports
         [ObservableProperty]
         private ObservableCollection<ActionSquare> _Actions = new ObservableCollection<ActionSquare>();
 
+        DatabaseService DatabaseService;
         MoodService MoodService;
         DrinkService DrinkService;
         FoodService FoodService;
@@ -29,7 +30,8 @@ namespace LazyFit.ViewModels.Reports
         {
             MoodService = new MoodService();
             DrinkService = new DrinkService();
-            FoodService = new FoodService();    
+            FoodService = new FoodService();   
+            DatabaseService = new DatabaseService();
 
             FillData(actionSquare);
         }
@@ -73,7 +75,7 @@ namespace LazyFit.ViewModels.Reports
                 }
                 else 
                 { 
-                    //await DB.Database.DeleteAsync(selectedAction.ActionObject);
+                    await DatabaseService.Database.DeleteAsync(selectedAction.ActionObject);
                     WeakReferenceMessenger.Default.Send(new ActionsReloadMessages(selectedAction.ActionObject));
                     
                 }

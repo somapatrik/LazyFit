@@ -16,7 +16,7 @@ namespace LazyFit.ViewModels.DrinkViewModels
 
         public DrinkChartResultViewModel() 
         {
-            DrinkService = new DrinkService();
+            
         }
         protected override async void LoadResults()
         {
@@ -82,6 +82,11 @@ namespace LazyFit.ViewModels.DrinkViewModels
                 LabelTextSize = 40,
                 //LineSize = 6
             };
+        }
+
+        protected override void Inicialization()
+        {
+            DrinkService = new DrinkService();
         }
     }
 }

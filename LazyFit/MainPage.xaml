@@ -148,7 +148,7 @@
                 <MoodViews:MoodQuickView Margin="10,0"/>
                 <WeightViews:WeightQuickView Margin="10,0"/>
                 <!--<psViews:PressureCardLineView Margin="10,0"/>-->
-                <!--<Views:LatestActionsView/>-->
+                <Views:LatestActionsView/>
 
             </StackLayout>
 

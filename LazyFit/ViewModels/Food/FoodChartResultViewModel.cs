@@ -15,7 +15,7 @@ namespace LazyFit.ViewModels.FoodViewModels
         FoodService FoodService;
         public FoodChartResultViewModel()
         {
-            FoodService = new FoodService();    
+                
         }
         protected override async void LoadResults()
         {
@@ -75,6 +75,11 @@ namespace LazyFit.ViewModels.FoodViewModels
                  
               
             };
+        }
+
+        protected override void Inicialization()
+        {
+            FoodService = new FoodService();
         }
     }
 }

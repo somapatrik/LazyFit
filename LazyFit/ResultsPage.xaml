@@ -46,11 +46,9 @@
                                  Padding="10,0">
 
                 <mood:MoodResultChartView/>
-                
                 <food:FoodChartResultView />
-                    <drink:DrinkChartResultView />
-
-                    <views:WeightResultChart />
+                <drink:DrinkChartResultView />
+                <views:WeightResultChart />
                 <views:FastChart/>
                 
             </VerticalStackLayout>
