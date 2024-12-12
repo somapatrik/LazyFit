@@ -48,7 +48,7 @@ namespace LazyFit.ViewModels.MoodViewModels
         private async void LoadMoods()
         {
             //Moods = new List<MoodProperty>();
-            Moods = await MoodService.GetAllMoodProperties();
+            Moods = MoodService.GetAllMoodProperties();
             Moods = Moods.OrderByDescending(m => m.MoodID).ToList();
                
         }

@@ -4,11 +4,11 @@ namespace LazyFit.Services
 {
     public  class PressureService
     {
-        DB Connection;
+        DatabaseService Connection;
 
         public PressureService()
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
         }
 
         public async Task InsertPressure(BloodPressure pressure)

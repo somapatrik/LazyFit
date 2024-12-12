@@ -26,7 +26,7 @@ namespace LazyFit.ViewModels.DrinkViewModels
             List<ChartEntry> entries = new List<ChartEntry>();
 
             // Empty chart
-            var properties = await DrinkService.GetDrinkProperties();
+            var properties = DrinkService.GetDrinkProperties();
             properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName, Color = SKColors.Gray }));
 
             if (DataExists)

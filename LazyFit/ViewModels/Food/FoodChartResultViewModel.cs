@@ -23,7 +23,7 @@ namespace LazyFit.ViewModels.FoodViewModels
             DataExists = foods.Any();
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            var properties = await FoodService.GetFoodProperties();
+            var properties = FoodService.GetFoodProperties();
             properties.ForEach(p => entries.Add(new ChartEntry(0) { Label = p.DisplayName }));
 
             if (DataExists) 

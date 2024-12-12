@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.LocalData;
 using LazyFit.Messages;
 using LazyFit.Models.Drinks;
 
@@ -7,11 +8,13 @@ namespace LazyFit.Services
     public class DrinkService
     {
 
-        DB Connection;
+        DatabaseService Connection;
+        LocalDrinkPropertyData DrinkPropertyRepository;
 
         public DrinkService() 
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
+            DrinkPropertyRepository = new LocalDrinkPropertyData();
         }
 
         public async Task UpdateDrinkProperty(DrinkProperty drinkProperty)
@@ -19,9 +22,9 @@ namespace LazyFit.Services
             await Connection.Database.InsertOrReplaceAsync(drinkProperty);
         }
 
-        public async Task<List<DrinkProperty>> GetDrinkProperties()
+        public List<DrinkProperty> GetDrinkProperties()
         {
-            return await Connection.Database.Table<DrinkProperty>().ToListAsync();
+            return DrinkPropertyRepository.DrinkProperties;
         }
 
         public async Task<List<Drink>> GetDrinks(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
@@ -31,7 +34,7 @@ namespace LazyFit.Services
             if (!LoadProperties)
                 return drinks;
 
-            var drinkProperties = await GetDrinkProperties();
+            var drinkProperties = GetDrinkProperties();
 
             drinks.ForEach(f => f.Property = drinkProperties.FirstOrDefault(fp => fp.DrinkID == f.TypeOfDrink));
             return drinks;
@@ -40,7 +43,9 @@ namespace LazyFit.Services
         public async Task<List<Drink>> GetLastDrinks(int numberOfDrinks)
         {
             var drinks = await Connection.Database.Table<Drink>().OrderByDescending(d=>d.Time).Take(numberOfDrinks).ToListAsync();
-            var drinkProperties = await GetDrinkProperties();
+
+            var drinkProperties = GetDrinkProperties();
+            
             drinks.ForEach(f => f.Property = drinkProperties.FirstOrDefault(fp => fp.DrinkID == f.TypeOfDrink));
             return drinks;
         }

@@ -22,8 +22,10 @@ namespace LazyFit.ViewModels.WeightViewModels
 
         public WeightQuickViewModel() 
         {
-            LoadData();
             WeightService = new WeightService();
+            
+            LoadData();
+            
         }
 
         private async void LoadData()

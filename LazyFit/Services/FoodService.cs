@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.LocalData;
 using LazyFit.Messages;
 using LazyFit.Models.Foods;
 
@@ -6,11 +7,12 @@ namespace LazyFit.Services
 {
     public  class FoodService
     {
-        DB Connection;
-
+        DatabaseService Connection;
+        LocalFoodPropertyData LocalFoodPropertyRepository;
         public FoodService() 
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
+            LocalFoodPropertyRepository = new LocalFoodPropertyData();
         }
 
         public  async Task CreateFood(Food food)
@@ -25,19 +27,9 @@ namespace LazyFit.Services
             WeakReferenceMessenger.Default.Send(new FoodDeleteMessage(food));
         }
 
-        public  async Task<List<FoodProperty>> GetFoodProperties()
+        public  List<FoodProperty> GetFoodProperties()
         {
-            return await Connection.Database.Table<FoodProperty>().ToListAsync();
-        }
-
-        public  async Task UpdateDrinkProperty(FoodProperty foodProperty)
-        {
-            await Connection.Database.InsertOrReplaceAsync(foodProperty);
-        }
-
-        public  async Task InsertFood(Food food)
-        {
-            await Connection.Database.InsertAsync(food);
+            return LocalFoodPropertyRepository.FoodProperties;
         }
 
         public  async Task<List<Food>> GetFoods(DateTime fromTime, DateTime toTime, bool LoadProperties = false)
@@ -47,7 +39,7 @@ namespace LazyFit.Services
             if (!LoadProperties)
                 return foods;
 
-            var foodProperties = await GetFoodProperties();
+            var foodProperties = GetFoodProperties();
 
             foods.ForEach(f => f.Property = foodProperties.FirstOrDefault(fp => fp.FoodId == f.TypeOfFood));
             return foods;
@@ -55,16 +47,10 @@ namespace LazyFit.Services
 
         public  async Task<List<Food>> GetLastFoods(int numberOfFoods)
         {
-            var foodProperties = await GetFoodProperties();
+            var foodProperties = GetFoodProperties();
             var foods = await Connection.Database.Table<Food>().OrderByDescending(f => f.Time).Take(numberOfFoods).ToListAsync();
             foods.ForEach(f => f.Property = foodProperties.FirstOrDefault(fp => fp.FoodId == f.TypeOfFood));
             return foods;
-        }
-
-        public  async Task<int> GetGoodFoodRatio(int numberOfFoods)
-        {
-            List<Food> foods = await GetLastFoods(numberOfFoods);
-            return GetFoodRatioFromList(foods);
         }
 
         public  int GetFoodRatioFromList(List<Food> foodList)

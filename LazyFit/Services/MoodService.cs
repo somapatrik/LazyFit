@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LazyFit.LocalData;
 using LazyFit.Messages;
 using LazyFit.Models.Moods;
 
@@ -6,11 +7,12 @@ namespace LazyFit.Services
 {
     public class MoodService
     {
-        DB Connection;
-
+        DatabaseService Connection;
+        LocalMoodPropertyData LocalMoodPropertyRepository;
         public MoodService()
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
+            LocalMoodPropertyRepository = new LocalMoodPropertyData();
         }
 
         public async Task InsertMood(Mood mood)
@@ -46,7 +48,7 @@ namespace LazyFit.Services
             }
             else
             {
-                var properties = await GetAllMoodProperties();
+                var properties = LocalMoodPropertyRepository.MoodProperties;
                 foreach (var mood in moods)
                     mood.Property = properties.FirstOrDefault(x => x.MoodID == mood.TypeOfMood);
 
@@ -66,53 +68,11 @@ namespace LazyFit.Services
             return await GetMoods(from, to, true);
         }
 
-        public async Task<List<MoodProperty>> GetAllMoodProperties()
+        public List<MoodProperty> GetAllMoodProperties()
         {
-            return await Connection.Database.Table<MoodProperty>().ToListAsync();
+            return LocalMoodPropertyRepository.MoodProperties;
         }
 
-        private void CreateDefaultMoodData()
-        {
-            List<MoodProperty> moods = new List<MoodProperty>()
-            {
-                new MoodProperty()
-                {
-                    MoodID = MoodName.VeryGood,
-                    DisplayName = "Very good",
-                    Description = "Everything is great!",
-                    ImageName = "very_happy.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.Good,
-                    DisplayName = "Good",
-                    Description = "This is fine!",
-                    ImageName = "happy.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.Normal,
-                    DisplayName = "Normal",
-                    Description = "Not great, not terrible...",
-                    ImageName = "neutral.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.Bad,
-                    DisplayName = "Bad",
-                    Description = "Could be better",
-                    ImageName = "angry.png"
-                },
-                new MoodProperty()
-                {
-                    MoodID = MoodName.VeryBad,
-                    DisplayName = "Very bad",
-                    Description = "F*ck this!",
-                    ImageName = "cursing.png"
-                },
-            };
 
-            moods.ForEach(async m => await Connection.Database.InsertOrReplaceAsync(m));
-        }
     }
 }

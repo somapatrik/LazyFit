@@ -4,10 +4,11 @@ namespace LazyFit.Services
 {
     public class InstanceInfoService
     {
-        DB Connection;
+        DatabaseService Connection;
+
         public InstanceInfoService() 
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
         }
 
         public async Task<bool> InstanceExists()
@@ -26,6 +27,15 @@ namespace LazyFit.Services
             var instance = await Connection.Database.Table<InstanceInfo>().FirstAsync();
             instance.UpdateInstanceInfo(GetDeviceType(), "Android", IsVirtual());
             await Connection.Database.UpdateAsync(instance);
+        }
+
+        public async Task CreateOrReplaceInstance()
+        {
+            var instance = await Connection.Database.Table<InstanceInfo>().FirstOrDefaultAsync();
+            if (instance == null)
+                instance = new InstanceInfo(GetDeviceType(), "Android", IsVirtual());
+
+            await Connection.Database.InsertOrReplaceAsync(instance);
         }
 
         private bool IsVirtual()

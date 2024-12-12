@@ -6,11 +6,11 @@ namespace LazyFit.Services
 {
     public  class FastService
     {
-        DB Connection;
+        DatabaseService Connection;
 
         public FastService()
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
         }
 
         public async Task<List<Fast>> GetLastFasts(int numberOfFasts)

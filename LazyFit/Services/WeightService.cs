@@ -6,11 +6,11 @@ namespace LazyFit.Services
 {
     public class WeightService
     {
-        DB Connection;
+        DatabaseService Connection;
 
         public WeightService() 
         {
-            Connection = new DB();
+            Connection = new DatabaseService();
         }
 
         public  async Task InsertWeight(Weight weight)
