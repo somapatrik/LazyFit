@@ -34,13 +34,14 @@ namespace LazyFit.ViewModels.DrinkViewModels
             DrinkService = new DrinkService();
 
             MaxDate = DateTime.Today;
-
             SetNow();
             LoadDrinks();
         }
 
         public LogDrinkViewModel(DateTime presetDate)
         {
+            DrinkService = new DrinkService();
+
             MaxDate = presetDate.Date;
             SetDate(presetDate);
             LoadDrinks();
